@@ -6,7 +6,7 @@ const props = defineProps(['items'])
 </script>
 
 <template>
-<ul>
+<ul class="space-y-2">
   <li v-for="item in items">
     <SideBarHeader v-if="item.header" :text="item.header" :href="item.href" :icon="item.icon" :class="item.class" />
     <SideBarItem v-else :text="item.text" :href="item.href" :icon="item.icon" :class="item.class" />

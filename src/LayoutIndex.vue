@@ -17,42 +17,45 @@
 
 //const { Layout } = DefaultTheme
 import { useData } from 'vitepress'
+import { onMounted, onUnmounted, ref } from 'vue'
 import Footer from './components/layout/Footer.vue'
 import SideBar from './components/layout/SideBar.vue'
-import SideBarFooter from './components/layout/SideBarFooter.vue'
 import ToTheTop from './components/layout/ToTheTop.vue'
 import TopBar from './components/layout/TopBar.vue'
 import NotFound from './components/layout/NotFound.vue'
 
 const { page, theme } = useData()
+const windowWidth = ref(window.innerWidth)
+const sidebarRef = ref(null)
+let windowListener
+
+onMounted(() => {
+  windowListener = window.addEventListener('resize', () => {
+    windowWidth.value = window.innerWidth
+  })
+})
+onUnmounted(() => window.removeEventListener('resize', windowListener))
+
+function onSidebarToggle() {
+  sidebarRef.value.toggleSidebar()
+}
 </script>
 
 <template>
 <div class="min-h-screen lg:flex w-full dark:bg-gray-900 text-gray-900 dark:text-gray-200 text-lg">
   <!--  left col-->
-  <div>
-    <div
-      id="app-drawer"
-      class="w-80 lg:w-72 max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit"
-    >
-      <div><SideBar /></div>
-
-      <SideBarFooter class="lg:hidden" />
-
-      <div class="sidebar-gradient max-lg:hidden" aria-hidden="true"><div></div></div>
-    </div>
-    <div id="app-drawer-backdrop" class="hidden"></div>
-  </div>
+  <SideBar ref="sidebarRef" :windowWidth="windowWidth" />
   <!-- right col-->
   <div class="flex-1">
-    <header><TopBar /></header>
+    <header><TopBar @toggle-sidebar="onSidebarToggle" /></header>
 
     <div class="lg:flex justify-center">
 
       <main id="app-page" class="mt-4 px-4 sm:px-8">
-        <!-- <div class="lg:hidden mb-6 text-center text-2xl text-gray-600 dark:text-gray-300"> -->
-          <!-- {$t('chunks.projectFullName')} -->
-        <!-- </div> -->
+
+        <div class="lg:hidden mb-6 text-center text-2xl text-gray-600 dark:text-gray-300">
+          {{theme.siteTitle}}
+        </div>
 
         <div v-if="page.isNotFound"><NotFound /></div>
         <Content v-else />

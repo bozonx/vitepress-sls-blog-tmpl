@@ -1,5 +1,12 @@
 import { trimChar } from 'squidlet-lib/js'
+import moment from 'moment/min/moment-with-locales'
 
+
+export function makeHumanDate(rawDate, lang) {
+  if (!rawDate) return
+
+  return moment(rawDate, "YYYY-MM-DD").locale(lang).format('LL')
+}
 
 export function parsePostItem(rawData) {
   const [ lang, date, fileName ] = trimChar(rawData.url, '/').split('/')

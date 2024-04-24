@@ -16,9 +16,10 @@
 //import DefaultTheme from 'vitepress/theme'
 
 //const { Layout } = DefaultTheme
-import { useData } from 'vitepress'
+import { useData, useRoute } from 'vitepress'
 import { onMounted, onUnmounted, ref } from 'vue'
 import Footer from './components/layout/Footer.vue'
+import PageContent from './components/PageContent.vue'
 import SideBar from './components/layout/SideBar.vue'
 import ToTheTop from './components/layout/ToTheTop.vue'
 import TopBar from './components/layout/TopBar.vue'
@@ -58,7 +59,7 @@ function onSidebarToggle() {
         </div>
 
         <div v-if="page.isNotFound"><NotFound /></div>
-        <Content v-else />
+        <PageContent v-else />
 
         <div v-if="theme.ui.footer" class="mt-24 pb-8"><Footer /></div>
       </main>

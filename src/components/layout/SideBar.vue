@@ -46,13 +46,13 @@ watchEffect(async () => {
           <slot name="sidebar-top" />
 
           <SideBarGroup v-if="theme.ui.sideBar?.topLinks">
-            <SideBarLinks :items="theme.ui.sideBar.topLinks" />
+            <SideBarLinks :items="theme.ui.sideBar.topLinks" :isMobile="isMobile" />
           </SideBarGroup>
           
           <slot name="sidebar-middle" />
 
           <SideBarGroup v-if="theme.ui.sideBar?.bottomLinks" class="mt-2">
-            <SideBarLinks :items="theme.ui.sideBar.bottomLinks" />
+            <SideBarLinks :items="theme.ui.sideBar.bottomLinks" :isMobile="isMobile" />
           </SideBarGroup>
 
           <slot name="sidebar-bottom" />

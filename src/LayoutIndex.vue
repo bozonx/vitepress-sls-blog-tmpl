@@ -18,28 +18,30 @@
 //const { Layout } = DefaultTheme
 import { useData, useRoute } from 'vitepress'
 import { onMounted, onUnmounted, ref } from 'vue'
+import SideBar from './components/layout/SideBar.vue'
 import Footer from './components/layout/Footer.vue'
 import PageContent from './components/PageContent.vue'
-import SideBar from './components/layout/SideBar.vue'
-import ToTheTop from './components/layout/ToTheTop.vue'
 import TopBar from './components/layout/TopBar.vue'
+import ToTheTop from './components/layout/ToTheTop.vue'
 import NotFound from './components/layout/NotFound.vue'
 
 const { page, theme } = useData()
-const windowWidth = ref(window.innerWidth)
-const sidebarRef = ref(null)
+let windowWidth = ref(0)
 let windowListener
+const sidebarRef = ref(null)
+
+function onSidebarToggle() {
+  sidebarRef.value.toggleSidebar()
+}
 
 onMounted(() => {
+  windowWidth.value = window?.innerWidth
+  
   windowListener = window.addEventListener('resize', () => {
     windowWidth.value = window.innerWidth
   })
 })
 onUnmounted(() => window.removeEventListener('resize', windowListener))
-
-function onSidebarToggle() {
-  sidebarRef.value.toggleSidebar()
-}
 </script>
 
 <template>
@@ -61,7 +63,7 @@ function onSidebarToggle() {
         <div v-if="page.isNotFound"><NotFound /></div>
         <PageContent v-else />
 
-        <div v-if="theme.ui.footer" class="mt-24 pb-8"><Footer /></div>
+        <div class="mt-24 pb-8"><Footer /></div>
       </main>
 
     </div>

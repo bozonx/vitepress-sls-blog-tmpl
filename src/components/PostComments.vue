@@ -10,7 +10,7 @@ const { theme, frontmatter } = useData()
 <template>
 <div v-if="frontmatter.commentUrl" :class="props.class">
   <BtnLink :href="frontmatter.commentUrl" target="_blank" icon="fa6-solid:comment-dots">
-    {{theme.ui.commentCall}}
+    {{theme.t.links.commentCall}}
   </BtnLink>
 </div>
 </template>

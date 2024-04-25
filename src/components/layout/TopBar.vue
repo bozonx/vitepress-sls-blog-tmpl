@@ -20,7 +20,7 @@ const { theme, localeIndex } = useData()
 			id="topbar-drawer-switch"
 			icon="fa6-solid:bars"
 			class="lg:hidden"
-			:text="theme.sidebarmenulabel"
+			:text="theme.sidebarMenuLabel"
 		/>
 
 		<!-- <ul class="flex pl-1 pr-1 lg:hidden"> -->

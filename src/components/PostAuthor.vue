@@ -13,7 +13,7 @@ const themeAuthor = (frontmatter.value.authorId)
 
 <template>
 <div v-if="themeAuthor?.name" :class="['flex', props.class]">
-  <span class="text-gray-500 mr-2">{{theme.ui.author}}: </span>
+  <span class="text-gray-500 mr-2">{{theme.t.author}}: </span>
   <BtnLink v-if="themeAuthor?.link" :href="themeAuthor.link">{{themeAuthor.name}}</BtnLink>
   <span v-else>{{authorName}}</span>
 </div>

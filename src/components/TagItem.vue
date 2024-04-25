@@ -1,12 +1,18 @@
 
 <script setup>
 import { useData } from 'vitepress'
+import { resolveI18Href } from '../helpers.js'
 
-const { page, theme } = useData()
+const { page, theme, localeIndex } = useData()
 const props = defineProps(['text'])
 // TODO: transliterate
 const transliterated = props.text
-const href = `${theme.value.ui.tagsBaseUrl}/${transliterated}/1`
+const baseHref = resolveI18Href(
+  theme.value.tagsBaseUrl,
+  localeIndex.value,
+  theme.value.i18nRouting
+)
+const href = `${baseHref}/${transliterated}/1`
 </script>
 
 <template>

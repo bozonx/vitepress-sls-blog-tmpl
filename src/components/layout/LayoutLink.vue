@@ -1,8 +1,12 @@
 <script setup>
 import { Icon } from '@iconify/vue'
+import { useData } from 'vitepress'
+import { isExternalUrl, resolveI18Href } from '../../helpers.js'
 
+const { theme, localeIndex } = useData()
 const props = defineProps(['id', 'class', 'text', 'href', 'icon'])
-const isExternal = props.href && !props.href.startsWith('/')
+const isExternal = isExternalUrl(props.href)
+const resolvedHref = resolveI18Href(props.href, localeIndex.value, theme.value.i18nRouting)
 const target = (isExternal) ? '_blank' : undefined
 //let active = ref(true)
 
@@ -11,14 +15,14 @@ const target = (isExternal) ? '_blank' : undefined
 </script>
 
 <template>
-<a @click.prevent.stop="$emit('clicked')" :target="target" :href="props.href" :class="['flex', props.class]">
+<a @click="$emit('clicked')" :target="target" :href="resolvedHref" :class="['flex cursor-pointer', props.class]">
   <span class="flex items-center">
     <span v-if="props.icon" :class="{'layout-link__icon': props.text}">
       <Icon :icon="props.icon" class="text-gray-500 dark:text-gray-400"/>
     </span>
     <span><slot /></span>
   </span>
-  <span v-if="isExternal && text" class="layout-link__external-wrapper">
+  <span v-if="theme.externalLinkIcon && isExternal && text" class="layout-link__external-wrapper">
     <span class="layout-link__external-inner">
       <Icon icon="fa6-solid:arrow-up-right-from-square" class="text-gray-500" />
     </span>

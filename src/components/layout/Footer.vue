@@ -11,15 +11,15 @@ const { theme, localeIndex } = useData()
   <slot name="footer-before" />
   
   <div
-    v-if="theme.ui.footer.text && theme.ui.footer.copyright"
+    v-if="theme.t.footer?.text || theme.t.footer?.copyright"
     class="flex-1 max-md:mb-5 pr-2"
   >
-    <div>{{theme.ui.footer.text}}</div>
-    <div>{{theme.ui.footer.copyright}}</div>
+    <div>{{theme.t.footer.text}}</div>
+    <div>{{theme.t.footer.copyright}}</div>
   </div>
 
-  <ul v-if="theme.ui.footer?.links" class="flex flex-wrap gap-x-9 items-center">
-    <li v-for="item in theme.ui.footer.links">
+  <ul v-if="theme.ui.footerLinks?.length" class="flex flex-wrap gap-x-9 items-center">
+    <li v-for="item in theme.ui.footerLinks">
       <FooterLink :text="item.text" :href="item.href" />
     </li>
   </ul>

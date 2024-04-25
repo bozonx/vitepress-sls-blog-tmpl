@@ -8,7 +8,7 @@ const className = 'text-center font-medium focus-within:ring-4 focus-within:outl
 
 <template>
 <a :href="frontmatter.youtubeLink" target="_blank" :class="className">
-  <span class="mr-2"><Icon icon="fa6-brands:youtube" /></span> {{theme.ui.postYoutubeButton}}
+  <span class="mr-2"><Icon icon="fa6-brands:youtube" /></span> {{theme.t.links.postYoutubeButton}}
 </a>
 </template>
 

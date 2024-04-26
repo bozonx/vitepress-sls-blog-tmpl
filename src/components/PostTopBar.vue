@@ -5,8 +5,8 @@ import VideoLink from './VideoLink.vue'
 const { frontmatter } = useData()
 </script>
 
-<template v-if="frontmatter.videoLink">
-<div class="flex space-x-3 mt-4">
+<template>
+<div v-if="frontmatter.youtubeLink" class="flex space-x-3 mt-4">
   <VideoLink />
 </div>
 </template>

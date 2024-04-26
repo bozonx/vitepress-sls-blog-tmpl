@@ -19,8 +19,8 @@ Image and title are mandatory.
 ---
 title: some name
 type: article
-previewText: text for list item
-metaDescr: If set it will be used in a meta descr. If not set then previewText will be used
+description: meta descr content
+previewText: text for list item. If not set then `description` will be used
 # ID of author of site team
 authorId: john-smith
 youtubeLink: htts://...
@@ -47,8 +47,8 @@ type: post
 media: 
   - https://....jpg
   - https://somesite.video.mp4
-previewText: text for list item
-metaDescr: If set it will be used in a meta descr. If not set then previewText will be used
+description: meta descr content
+previewtext: text for list item. if not set then `description` will be used
 # ID of author of site team
 authorId: john-smith
 # Url where you can find comments of it post in social media
@@ -68,7 +68,8 @@ title: some name
 type: video
 videoUrl: https://youtube.com/...
 coverUrl: https://some.com/img.jpg
-previewText: text for list item
+description: meta descr content
+previewtext: text for list item. if not set then `description` will be used
 # ID of author of site team
 authorId: john-smith
 metaDescr: If set it will be used in a meta descr. If not set then previewText will be used
@@ -91,10 +92,10 @@ title: some name
 type: audio
 audioUrl: https://some.com/...
 coverUrl: https://some.com/img.jpg
-previewText: text for list item
+description: meta descr content
+previewtext: text for list item. if not set then `description` will be used
 # ID of author of site team
 authorId: john-smith
-metaDescr: If set it will be used in a meta descr. If not set then previewText will be used
 # Url where you can find comments of it post in social media
 commentUrl: https://...
 tags:

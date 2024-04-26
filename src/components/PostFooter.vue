@@ -6,7 +6,7 @@ import PostAuthor from './PostAuthor.vue'
 import PostComments from './PostComments.vue'
 import SimpleLink from './SimpleLink.vue'
 
-const { theme } = useData()
+const { theme, frontmatter } = useData()
 </script>
 
 <template>
@@ -21,8 +21,8 @@ const { theme } = useData()
 <PostSocialShare class="mt-10" />
 <PostTags class="mt-6" />
 
-<div class="mt-6">
-  <SimpleLink :href="theme.tagsBaseUrl">{{theme.t.links.allTagsCall}}</SimpleLink>
+<div v-if="frontmatter.tags?.length" class="mt-6">
+  <SimpleLink :href="theme.tagsBaseUrl + '/1'">{{theme.t.links.allTagsCall}}</SimpleLink>
 </div>
 </template>
 

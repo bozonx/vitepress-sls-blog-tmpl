@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import { makeHumanDate } from '../helpers.js'
+import { makeHumanDate } from '../helpers/helpers.js'
 
 const { page, lang } = useData()
 const rawDate = page.value.filePath.match(/^[\w\-]+\/([\d\-]+)\//)?.[1]

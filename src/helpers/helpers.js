@@ -1,5 +1,5 @@
 import moment from 'moment/min/moment-with-locales.js'
-import fs from 'fs'
+// import fs from 'fs'
 
 
 export function makeHumanDate(rawDate, lang) {
@@ -22,15 +22,38 @@ export function isExternalUrl(url) {
   return url && !url.startsWith('/')
 }
 
-export function mkdirIfNotExist(dirNameAbs) {
-  let stat
+export function makeTagsList(allData) {
+  const tags = {}
 
-  try {
-    stat = fs.statSync(dirNameAbs)
-  }
-  catch(e) {
+  for (const item of allData) {
+    if (!item.tags) continue
+
+    for (const tag of item.tags) {
+      if (typeof tags[tag] === 'undefined') {
+        tags[tag] = 1
+      }
+      else {
+        tags[tag]++
+      }
+    }
   }
 
-  if (!stat) fs.mkdirSync(dirNameAbs)
+  const res = Object.keys(tags).map((tag) => ({ name: tag, count: tags[tag] }))
+
+  res.sort((a, b) => b.count - a.count)
+
+  return res
 }
+
+// export function mkdirIfNotExist(dirNameAbs) {
+//   let stat
+//
+//   try {
+//     stat = fs.statSync(dirNameAbs)
+//   }
+//   catch(e) {
+//   }
+//
+//   if (!stat) fs.mkdirSync(dirNameAbs)
+// }
 

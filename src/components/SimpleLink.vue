@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import { resolveI18Href } from '../helpers.js'
+import { resolveI18Href } from '../helpers/helpers.js'
 
 const { theme, localeIndex } = useData()
 const props = defineProps(['class', 'href', 'target'])

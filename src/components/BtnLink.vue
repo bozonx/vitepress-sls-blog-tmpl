@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import { resolveI18Href } from '../helpers.js'
+import { resolveI18Href } from '../helpers/helpers.js'
 import { Icon } from '@iconify/vue'
 
 const { theme, localeIndex } = useData()

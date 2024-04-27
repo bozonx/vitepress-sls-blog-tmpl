@@ -1,7 +1,7 @@
 <script setup>
 import { Icon } from '@iconify/vue'
 import { useData } from 'vitepress'
-import { isExternalUrl, resolveI18Href } from '../../helpers.js'
+import { isExternalUrl, resolveI18Href } from '../../helpers/helpers.js'
 
 const { theme, localeIndex } = useData()
 const props = defineProps(['id', 'class', 'text', 'href', 'icon'])

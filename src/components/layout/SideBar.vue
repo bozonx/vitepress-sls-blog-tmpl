@@ -43,6 +43,7 @@ watchEffect(async () => {
       <div class="w-auto">
         <div class="!p-0 rounded-none">
 
+          <!-- <template #sidebar-top><slot name="sidebar-top" /></template> -->
           <slot name="sidebar-top" />
 
           <SideBarGroup v-if="theme.ui.sideBar?.topLinks">

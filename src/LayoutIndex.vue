@@ -47,7 +47,11 @@ onUnmounted(() => window.removeEventListener('resize', windowListener))
 <template>
 <div class="min-h-screen lg:flex w-full dark:bg-gray-900 text-gray-900 dark:text-gray-200 text-lg">
   <!--  left col-->
-  <SideBar ref="sidebarRef" :windowWidth="windowWidth" />
+  <SideBar ref="sidebarRef" :windowWidth="windowWidth">
+    <template #sidebar-top><slot name="sidebar-top" /></template>
+    <template #sidebar-middle><slot name="sidebar-middle" /></template>
+    <template #sidebar-bottom><slot name="sidebar-bottom" /></template>
+  </SideBar>
   <!-- right col-->
   <div class="flex-1">
     <header><TopBar @toggle-sidebar="onSidebarToggle" /></header>

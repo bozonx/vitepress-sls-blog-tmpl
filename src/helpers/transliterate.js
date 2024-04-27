@@ -26,3 +26,4 @@ export function transliterate(rawStr, lang) {
 
   return slug(rawStr, { locale: lang })
 }
+

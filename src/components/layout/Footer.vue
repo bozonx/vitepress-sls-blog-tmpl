@@ -8,7 +8,7 @@ const { theme, localeIndex } = useData()
 <template>
 <footer class="md:flex w-full items-start text-sm text-gray-500 dark:text-gray-400">
 
-  <slot name="footer-before" />
+  <!-- <slot name="footer-before" /> -->
   
   <div
     v-if="theme.t.footer?.text || theme.t.footer?.copyright"

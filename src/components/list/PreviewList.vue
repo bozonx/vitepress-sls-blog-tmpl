@@ -35,7 +35,7 @@ const totalPages = Math.ceil(props.allData.length / props.perPage)
           <!-- baseUrl={baseUrl}
           {...pickObj(item, 'name', 'title', 'dateLocal', 'tags', 'descr', 'thumbUrl')} -->
 
-    <div v-if="totalPages > 1" class="mt-14">
+    <div v-if="props.paginationBaseUrl && totalPages > 1" class="mt-14">
       <Pagination
         :curPage="props.curPage"
         :totalPages="totalPages"

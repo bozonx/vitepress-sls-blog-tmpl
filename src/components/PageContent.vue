@@ -10,7 +10,7 @@ const { frontmatter } = useData()
 
 <template>
 <div v-if="frontmatter.type === 'util'">
-  <div class="mt-10 vp-doc"><Content /></div>
+  <div class="mt-10 util-page"><Content /></div>
 </div>
 
 <article v-else>

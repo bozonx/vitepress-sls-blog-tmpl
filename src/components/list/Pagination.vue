@@ -30,13 +30,12 @@ items.push({
 </script>
 
 <template>
-<ul>
+<ul class="flex">
   <li v-for="item of items">
     <a
       :href="(item.disabled) ? null : item.href"
       :disabled="item.disabled"
-      :color="item.active ? 'blue' : 'light'"
-      :class="item.disabled && 'bg-gray-200'"
+      :class="['p-3', item.active ? 'text-blue-500 dark:text-blue-400' : '', item.disabled && 'cursor-default text-gray-400 dark:text-gray-600']"
     >{{item.name}}</a>
   </li>
 </ul>

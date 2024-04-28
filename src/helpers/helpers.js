@@ -45,6 +45,73 @@ export function makeTagsList(allData) {
   return res
 }
 
+export function makeMonthsList(allData, year) {
+  const curYear = Number(year)
+  const months = {}
+
+  for (const item of allData) {
+    const postYear = new Date(item.date).getFullYear()
+
+    if (postYear !== curYear) continue
+
+    const postMonth = new Date(item.date).getUTCMonth() + 1
+
+    if (typeof months[postMonth] === 'undefined') {
+      months[postMonth] = 1
+    }
+    else {
+      months[postMonth]++
+    }
+  }
+
+  const res = Object.keys(months)
+     .map((month) => ({ month: Number(month), count: months[month] }))
+
+  res.sort((a, b) => b.month + a.month)
+  
+  return res 
+}
+
+export function makeYearsList(allData) {
+  const years = {}
+
+  for (const item of allData) {
+    const postYear = new Date(item.date).getFullYear()
+
+    if (typeof years[postYear] === 'undefined') {
+      years[postYear] = 1
+    }
+    else {
+      years[postYear]++
+    }
+  }
+
+  const res = Object.keys(years)
+     .map((year) => ({ year: Number(year), count: years[year] }))
+
+  res.sort((a, b) => b.year + a.year)
+  
+  return res 
+}
+
+export function makePostOfMonthList(allData, year, month) {
+  const res = []
+
+  for (const item of allData) {
+    const postYear = new Date(item.date).getFullYear()
+
+    if (postYear !== year) continue
+
+    const postMonth = new Date(item.date).getUTCMonth() + 1
+
+    if (postMonth !== month) continue
+
+    res.push(item)
+  }
+
+  return res
+}
+
 // export function mkdirIfNotExist(dirNameAbs) {
 //   let stat
 //

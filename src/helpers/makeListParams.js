@@ -24,6 +24,24 @@ export function makeYearsParams(postsDirAbs) {
   return years.map((item) => ({ params: { year: `${item}` } }))
 }
 
+export function makeMonthsParams(postsDirAbs) {
+  const years = loadYears(postsDirAbs)
+  const res = []
+
+  for (const year of years) {
+    for (let i = 0; i < 12; i++) {
+
+      // TODO: нужно только те месяцы по которым есть записи
+
+      res.push({params: {year: `${year}`, month: `${i + 1}`}})
+    }
+  }
+
+  console.log(111, res)
+
+  return res
+}
+
 export function makeTagsParams(postsDirAbs, perPage, lang) {
   const tagsCount = {}
   const dates = loadDatesList(postsDirAbs)

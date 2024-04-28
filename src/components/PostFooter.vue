@@ -22,7 +22,7 @@ const { theme, frontmatter } = useData()
 <PostTags class="mt-6" />
 
 <div v-if="frontmatter.tags?.length" class="mt-6">
-  <SimpleLink :href="theme.tagsBaseUrl + '/1'">{{theme.t.links.allTagsCall}}</SimpleLink>
+  <SimpleLink :href="theme.allTagsUrl">{{theme.t.links.allTagsCall}}</SimpleLink>
 </div>
 </template>
 

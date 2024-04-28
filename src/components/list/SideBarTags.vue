@@ -2,13 +2,13 @@
 import { useData } from 'vitepress'
 import SideBarHeader from '../layout/SideBarHeader.vue'
 
-const { theme } = useData()
+const { theme, localeIndex } = useData()
 </script>
 
 <template>
 <SideBarHeader :text="theme.t.tags" />
 
-<a href="">{{theme.t.links.allTags}}</a>
+<a :href="`/${localeIndex}/tags`">{{theme.t.links.allTags}}</a>
 </template>
 
 <!-- <SidebarDropdownWrapper label={$t('layout.tags')} isOpen={true} class="rounded-none"> -->

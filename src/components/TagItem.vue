@@ -28,6 +28,9 @@ const href = `${baseHref}/${preparedTag}/1`
 <a
   :href="href"
   class="text-center font-medium focus-within:ring-4 focus-within:outline-none inline-flex items-center justify-center text-sm text-white bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus-within:ring-blue-300 dark:focus-within:ring-blue-800 rounded-full py-1 px-4"
-  >{{props.text}} {{props.count}}</a>
+  >
+  <span>{{props.text}}</span>
+  <span v-if="props.count" class="ml-1"> ({{props.count}})</span>
+</a>
 </template>
 

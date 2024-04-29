@@ -1,9 +1,9 @@
 <script setup>
 import { useData } from 'vitepress'
-import PostFooter from './PostFooter.vue'
-import PostHeader from './PostHeader.vue'
-import PostDate from './PostDate.vue'
-import PostTopBar from './PostTopBar.vue'
+import PostFooter from './post/PostFooter.vue'
+import PostHeader from './post/PostHeader.vue'
+import PostDate from './post/PostDate.vue'
+import PostTopBar from './post/PostTopBar.vue'
 
 const { frontmatter } = useData()
 </script>

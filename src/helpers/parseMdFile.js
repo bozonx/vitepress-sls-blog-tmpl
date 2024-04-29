@@ -5,8 +5,8 @@ import grayMatter from 'gray-matter'
 export function parseMdFile(rawContent) {
   const { data, content } = grayMatter(rawContent);
   const onlyMdContentNoHeader = removeTitleFromMd(content)
-  const extractedDescr = extractPreviewFromMd(onlyMdContentNoHeader)
-  const preview = data.previewText || data.description || extractedDescr || ''
+  //const extractedDescr = extractPreviewFromMd(onlyMdContentNoHeader)
+  const preview = data.previewText || data.description || data.extractedPreview || ''
 
   return {
     // frontmatter
@@ -20,7 +20,7 @@ export function parseMdFile(rawContent) {
     // content without h1 header
     onlyMdContentNoHeader,
     // description which is extracted from text
-    extractedDescr,
+    //extractedDescr,
   }
 }
 //
@@ -93,12 +93,12 @@ export function removeTitleFromMd(mdNoFrontmatter) {
 //   return (firstImgMatch) ? firstImgMatch[1] : null
 // }
 
-export function extractPreviewFromMd(onlyMdContentNoHeader) {
-  
-  // TODO: do it - сделать более умную обрезку
-
-  return onlyMdContentNoHeader.substring(0, 150)
-}
+// export function extractPreviewFromMd(onlyMdContentNoHeader) {
+//   
+//   // TODO: do it - сделать более умную обрезку
+//
+//   return onlyMdContentNoHeader.substring(0, 150)
+// }
 
 // export function removeFrontmatter(rawMd) {
 //   const frontmatterRegex = /^---\n([\s\S]*?)\n---/

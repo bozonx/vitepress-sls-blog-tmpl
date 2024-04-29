@@ -1,5 +1,4 @@
 import moment from 'moment/min/moment-with-locales.js'
-// import fs from 'fs'
 
 
 export function makeHumanDate(rawDate, lang) {
@@ -111,16 +110,4 @@ export function makePostOfMonthList(allData, year, month) {
 
   return res
 }
-
-// export function mkdirIfNotExist(dirNameAbs) {
-//   let stat
-//
-//   try {
-//     stat = fs.statSync(dirNameAbs)
-//   }
-//   catch(e) {
-//   }
-//
-//   if (!stat) fs.mkdirSync(dirNameAbs)
-// }
 

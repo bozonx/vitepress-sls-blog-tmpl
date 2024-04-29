@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import TagItem from './TagItem.vue'
+import TagItem from '../TagItem.vue'
 
 const props = defineProps(['class'])
 const { frontmatter } = useData()

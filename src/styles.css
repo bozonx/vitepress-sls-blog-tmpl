@@ -55,6 +55,7 @@ button {
 /******** App Drawer */
 
 #app-drawer {
+	width: 320px;
 	border-right: 1px solid #e2e2e2;
 	box-sizing: content-box;
 	background: #F9FAFBFF;
@@ -99,11 +100,6 @@ button {
 	background: rgb(17,24,39);
 	background: linear-gradient(0deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0) 100%);
 }
-
-/*#sidebar > div {
-	width: 100%;
-}*/
-
 
 /******** Img Modal */
 .img-modal {
@@ -167,6 +163,18 @@ button {
 	color: var(--color-a-dark-visited);
 }
 
+a.active {
+	/* text-gray-500 dark:text-gray-400 */
+}
+
+/******** BTN link */
+.btn-link__external-inner {
+  position: absolute;
+  bottom: 0px;
+  right: -8px;
+  font-size: 11px;
+}
+
 /******** SidebarLogo */
  .sidebar-logo {
 	 padding: 1.25rem 0 1.3rem 2.75rem;
@@ -180,36 +188,3 @@ button {
 	line-height: 1.4rem;
 }
 
-/******** Theme mode */
-.thememode-btn .thememode-moon {
-	display: none;
-}
-.thememode-btn .thememode-sun {
-	display: inline;
-}
-.dark .thememode-btn .thememode-moon {
-	display: inline;
-}
-.dark .thememode-btn .thememode-sun {
-	display: none;
-}
-
-/*
-
-body {
-	background-attachment: fixed;
-	background-color: var(--color-bg-1);
-	background-size: 100vw 100vh;
-	background-image: radial-gradient(
-			50% 50% at 50% 50%,
-			rgba(255, 255, 255, 0.75) 0%,
-			rgba(255, 255, 255, 0) 100%
-		),
-		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
-}
-
-button:focus:not(:focus-visible) {
-	outline: none;
-}
-
-*/

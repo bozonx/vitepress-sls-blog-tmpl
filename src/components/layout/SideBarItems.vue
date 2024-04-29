@@ -1,12 +1,12 @@
 <script setup>
 import SideBarHeader from './SideBarHeader.vue'
-import SideBarItem from './SideBarItem.vue'
+import SideBarLink from './SideBarLink.vue'
 
 const props = defineProps(['items', 'isMobile'])
 </script>
 
-<template v-if="props.items?.length">
-<ul class="space-y-2">
+<template>
+<ul v-if="props.items?.length" class="space-y-2">
   <template v-for="item in items">
     <li :class="{hidden: (item.mobile) ? !isMobile : false}">
       <SideBarHeader
@@ -16,7 +16,7 @@ const props = defineProps(['items', 'isMobile'])
         :icon="item.icon"
         :class="item.class"
       />
-      <SideBarItem
+      <SideBarLink
         v-else
         :text="item.text"
         :href="item.href"

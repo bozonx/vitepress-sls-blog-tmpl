@@ -1,21 +1,32 @@
 <script setup>
 import { useData } from 'vitepress'
-import { resolveI18Href } from '../helpers/helpers.js'
 import { Icon } from '@iconify/vue'
+import { isExternalUrl } from '../helpers/helpers.js'
+import BaseLink from './BaseLink.vue'
 
-const { theme, localeIndex } = useData()
-const props = defineProps(['class', 'href', 'target', 'icon'])
-const resolvedHref = resolveI18Href(props.href, localeIndex.value, theme.value.i18nRouting)
+const { theme } = useData()
+const props = defineProps(['id', 'class', 'href', 'target', 'icon', 'text'])
+const isExternal = isExternalUrl(props.href)
 </script>
 
 <template>
-<a
-  :class="['flex items-center underline hover:text-gray-700 dark:hover:text-white', props.class]"
-  :href="resolvedHref"
-  :target="target"
+<BaseLink
+  :id="props.id"
+  :class="['flex cursor-pointer items-center hover:text-gray-700 dark:hover:text-white', props.class]"
+  :href="props.href"
+  :target="props.target"
 >
-  <span v-if="props.icon" class="mr-2"><Icon :icon="props.icon" /></span>
-  <span><slot /></span>
-</a>
+  <span class="flex items-center gap-x-2">
+    <span v-if="props.icon">
+      <Icon :icon="props.icon" class="text-gray-500 dark:text-gray-400" />
+    </span>
+    <span>{{props.text}}</span>
+  </span>
+  <span v-if="theme.externalLinkIcon && isExternal && text" class="relative">
+    <span class="btn-link__external-inner">
+      <Icon icon="fa6-solid:arrow-up-right-from-square" class="text-gray-500 dark:text-gray-400" />
+    </span>
+  </span>
+</BaseLink>
 </template>
 

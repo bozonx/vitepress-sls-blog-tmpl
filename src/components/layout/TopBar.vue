@@ -1,38 +1,23 @@
 <script setup>
 import VPSwitchAppearance from 'vitepress/dist/client/theme-default/components/VPSwitchAppearance.vue'
-import { Icon } from '@iconify/vue'
 import { useData } from 'vitepress'
 import TopBarLink from './TopBarLink.vue'
 import SwitchLang from './SwitchLang.vue'
 
-const { theme, localeIndex } = useData()
+const { theme } = useData()
 </script>
 
 <template>
-<!-- <div class="lg:hidden py-2 px-7"> -->
-<!-- 	<span>{{theme.siteTitle}}</span> -->
-<!-- </div> -->
 <div class="flex w-full py-2 px-2">
 	<div class="flex-1 flex">
 		<!-- for mobile -->
 		<TopBarLink
-			@clicked="$emit('toggleSidebar')"
+			@click="$emit('toggleSidebar')"
 			id="topbar-drawer-switch"
 			icon="fa6-solid:bars"
 			class="lg:hidden"
 			:text="theme.sidebarMenuLabel"
 		/>
-
-		<!-- <ul class="flex pl-1 pr-1 lg:hidden"> -->
-		<!-- 	<li> -->
-		<!-- 		<TopBarLink -->
-		<!-- 		  @clicked="$emit('toggleSidebar')" -->
-		<!-- 		  :text="theme.ui.sidebarmenulabel" -->
-		<!-- 		  id="topbar-drawer-switch" -->
-		<!-- 		  icon="fa6-solid:bars" -->
-		<!-- 		/> -->
-		<!-- 	</li> -->
-		<!-- </ul> -->
 	</div>
 
   <!-- for mobile -->
@@ -40,9 +25,6 @@ const { theme, localeIndex } = useData()
 	<ul v-if="theme.ui.topBar.mobileLinks" class="flex lg:hidden">
 		<li v-for="item in theme.ui.topBar.mobileLinks">
 			<TopBarLink :href="item.href" :icon="item.icon" :text="item.text" />
-		</li>
-		<li>
-			<TopBarLink icon="fa6-solid:arrow-up" :text="theme.returnToTopLabel" aria-hidden="true" />
 		</li>
 	</ul>
 

@@ -1,22 +1,5 @@
-<!-- <script setup>
-  import { useData } from 'vitepress'
-  const { page, frontmatter } = useData()
-  </script>
-
-  <template>
-    <h1>Custom Layout!</h1>
-
-    <div v-if="page.isNotFound">
-      Custom 404 page!
-    </div>
-    <Content v-else />
-  </template> -->
-
 <script setup>
-//import DefaultTheme from 'vitepress/theme'
-
-//const { Layout } = DefaultTheme
-import { useData, useRoute } from 'vitepress'
+import { useData } from 'vitepress'
 import { onMounted, onUnmounted, ref } from 'vue'
 import SideBar from './components/layout/SideBar.vue'
 import Footer from './components/layout/Footer.vue'
@@ -35,7 +18,7 @@ function onSidebarToggle() {
 }
 
 onMounted(() => {
-  windowWidth.value = window?.innerWidth
+  windowWidth.value = window.innerWidth
   
   windowListener = window.addEventListener('resize', () => {
     windowWidth.value = window.innerWidth
@@ -56,9 +39,9 @@ onUnmounted(() => window.removeEventListener('resize', windowListener))
   <div class="flex-1">
     <header><TopBar @toggle-sidebar="onSidebarToggle" /></header>
 
-    <div class="lg:flex justify-center">
+    <div class="flex">
 
-      <main id="app-page" class="mt-4 px-4 sm:px-8">
+      <main id="app-page" class="lg:ml-4 xl:ml-24 mt-4 px-4 sm:px-8">
 
         <div class="lg:hidden mb-6 text-center text-2xl text-gray-600 dark:text-gray-300">
           {{theme.siteTitle}}
@@ -67,9 +50,16 @@ onUnmounted(() => window.removeEventListener('resize', windowListener))
         <div v-if="page.isNotFound"><NotFound /></div>
         <PageContent v-else />
 
-        <div class="mt-24 pb-8"><Footer /></div>
+        <div class="mt-40 pb-12">
+          <Footer>
+            <template #footer-before><slot name="footer-before" /></template>
+          </Footer>
+        </div>
       </main>
 
+      <aside class="max-xl:hidden">
+        advert
+      </aside>
     </div>
   </div>
 

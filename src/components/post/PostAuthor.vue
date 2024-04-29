@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import BtnLink from './BtnLink.vue'
+import BtnLink from '../BtnLink.vue'
 
 const props = defineProps(['class'])
 const { frontmatter, theme } = useData()

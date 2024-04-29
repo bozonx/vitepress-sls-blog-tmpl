@@ -4,7 +4,7 @@ import PostTags from './PostTags.vue'
 import PostSocialShare from './PostSocialShare.vue'
 import PostAuthor from './PostAuthor.vue'
 import PostComments from './PostComments.vue'
-import SimpleLink from './SimpleLink.vue'
+import SimpleLink from '../SimpleLink.vue'
 
 const { theme, frontmatter } = useData()
 </script>

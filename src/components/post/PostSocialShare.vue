@@ -2,7 +2,7 @@
 import { useData } from 'vitepress'
 
 const props = defineProps(['class'])
-const { theme, localeIndex } = useData()
+const { theme, frontmatter, localeIndex } = useData()
 // see https://yandex.ru/dev/share/doc/ru/
 const allowedLocales = [
   'az',
@@ -22,7 +22,10 @@ const resolvedLocale = (allowedLocales.includes(localeIndex.value)) ? localeInde
 </script>
 
 <template>
-<div :class="['flex gap-y-3 max-sm:flex-col sm:items-center', props.class]">
+<div
+  v-if="frontmatter.type"
+  :class="['flex gap-y-3 max-sm:flex-col sm:items-center', props.class]"
+>
   <div class="mr-2">{{theme.t.shareSocialMedia}}: </div>
   <div>
     <div

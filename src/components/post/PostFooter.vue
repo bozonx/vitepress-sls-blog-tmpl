@@ -12,17 +12,13 @@ const { theme, frontmatter } = useData()
 <template>
 <PostAuthor class="mt-10" />
 
-<div v-if="theme.t.donateCall" class="mt-6">
+<div v-if="theme.ui.donateLink" class="mt-6">
   <span class="mr-2">{{theme.t.donateCall}}</span>
   <SimpleLink :href="theme.ui.donateLink">{{theme.t.links.donate}}</SimpleLink>
 </div>
 
 <PostComments class="mt-24" />
 <PostSocialShare class="mt-10" />
-<PostTags class="mt-6" />
-
-<div v-if="frontmatter.tags?.length" class="mt-6">
-  <SimpleLink :href="theme.allTagsUrl">{{theme.t.links.allTagsCall}}</SimpleLink>
-</div>
+<PostTags class="mt-10" />
 </template>
 

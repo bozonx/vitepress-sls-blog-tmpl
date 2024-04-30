@@ -1,11 +1,11 @@
 import moment from 'moment/min/moment-with-locales.js'
 
 
-export function makeHumanDate(rawDate, lang) {
-  if (!rawDate) return
-
-  return moment(rawDate, "YYYY-MM-DD").locale(lang).format('LL')
-}
+// export function makeHumanDate(rawDate, lang) {
+//   if (!rawDate) return
+//
+//   return moment(rawDate, "YYYY-MM-DD").locale(lang).format('LL')
+// }
 
 export function resolveI18Href(rawHref, localeIndex, i18nRouting) {
   if (!rawHref) return rawHref

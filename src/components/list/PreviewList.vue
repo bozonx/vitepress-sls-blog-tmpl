@@ -1,5 +1,4 @@
 <script setup>
-//import { defineProps } from 'vue'
 import PreviewListItem from './PreviewListItem.vue'
 import Pagination from './Pagination.vue'
 

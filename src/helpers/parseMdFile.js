@@ -1,4 +1,4 @@
-import { trimChar } from 'squidlet-lib/js'
+//import { trimChar } from 'squidlet-lib/js'
 import grayMatter from 'gray-matter'
 
 
@@ -23,6 +23,18 @@ export function parseMdFile(rawContent) {
     //extractedDescr,
   }
 }
+
+export function extractTitleFromMd(mdNoFrontmatter) {
+  const firstTitleMatch = mdNoFrontmatter.match(/^\#\s+(.+)$/m)
+
+  return (firstTitleMatch) ? firstTitleMatch[1].trim() : ''
+}
+
+export function removeTitleFromMd(mdNoFrontmatter) {
+  return mdNoFrontmatter.trim().replace(/^\#\s+.+/, '')
+}
+
+
 //
 // export function parsePostItem(rawData) {
 //   const [ lang, date, fileName ] = trimChar(rawData.url, '/').split('/')
@@ -77,16 +89,6 @@ export function parseMdFile(rawContent) {
 //   }
 // }
 //
-export function extractTitleFromMd(mdNoFrontmatter) {
-  const firstTitleMatch = mdNoFrontmatter.match(/^\#\s+(.+)$/m)
-
-  return (firstTitleMatch) ? firstTitleMatch[1].trim() : ''
-}
-
-export function removeTitleFromMd(mdNoFrontmatter) {
-  return mdNoFrontmatter.trim().replace(/^\#\s+.+/, '')
-}
-
 // export function extractImageFromMd(rawData) {
 //   const firstImgMatch = removeFrontmatter(rawData.src).match(/\!\[[^\]]*\]\(([^\)]+)\)/)
 //

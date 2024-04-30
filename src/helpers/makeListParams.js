@@ -10,9 +10,9 @@ export function makeRecentParams(postsDirAbs, perPage) {
   const res = []
 
   for (let i = 0; i < dates.length; i += perPage) {
-    const curPageNum = (i === 0) ? i  + 1: i - perPage + 2
+    const page = (i === 0) ? i + 1: i - perPage + 2
 
-    res.push({ params: { page: `${curPageNum}` }})
+    res.push({ params: { page }})
   }
 
   return res
@@ -21,23 +21,33 @@ export function makeRecentParams(postsDirAbs, perPage) {
 export function makeYearsParams(postsDirAbs) {
   const years = loadYears(postsDirAbs)
 
-  return years.map((item) => ({ params: { year: `${item}` } }))
+  return years.map((year) => ({ params: { year } }))
 }
 
 export function makeMonthsParams(postsDirAbs) {
-  const years = loadYears(postsDirAbs)
-  const res = []
+  const monthCount = {}
+  const dates = loadDatesList(postsDirAbs)
 
-  for (const year of years) {
-    for (let i = 0; i < 12; i++) {
-
-      // TODO: нужно только те месяцы по которым есть записи
-
-      res.push({params: {year: `${year}`, month: `${i + 1}`}})
+  for (const date of dates) {
+    const year = new Date(date).getUTCFullYear()
+    const month = new Date(date).getUTCMonth() + 1
+    const yearMonth = `${year}-${month}`
+   
+    if (typeof monthCount[yearMonth] === 'undefined') {
+      monthCount[yearMonth] = 1
+    }
+    else {
+      monthCount[yearMonth]++
     }
   }
 
-  console.log(111, res)
+  const res = Object.keys(monthCount).map((item) => {
+    const splat = item.split('-')
+    const year = Number(splat[0])
+    const month = Number(splat[1])
+
+    return { params: { year, month } }
+  })
 
   return res
 }
@@ -72,11 +82,11 @@ export function makeTagsParams(postsDirAbs, perPage, lang) {
 
   const res = []
 
-  for (const tag of Object.keys(tagsCount)) {
-    const preparedTag = transliterate(tag, lang)
+  for (const name of Object.keys(tagsCount)) {
+    const slug = transliterate(name, lang)
 
-    for (let i = 0; i < Math.ceil(tagsCount[tag] / perPage); i++) {
-      res.push({ params: { name: preparedTag, tag, page: i + 1 }})
+    for (let i = 0; i < Math.ceil(tagsCount[name] / perPage); i++) {
+      res.push({ params: { slug, name, page: i + 1 }})
     }
   }
 
@@ -101,10 +111,13 @@ export function loadYears(postsDirAbs) {
   const dates = loadDatesList(postsDirAbs)
 
   return dates.reduce((acc, date) => {
-    const year = new Date(date).getFullYear()
+    const year = new Date(date).getUTCFullYear()
+
     if (!acc.includes(year)) {
       acc.push(year)
     }
+
     return acc
   }, [])
 }
+

@@ -13,7 +13,6 @@
   "dependencies": {
     "autoprefixer": "^10.4.19",
     "gray-matter": "^4.0.3",
-    "moment": "^2.30.1",
     "postcss": "^8.4.38",
     "slug": "^9.0.0",
     "squidlet-lib": "^0.1.9",
@@ -22,4 +21,3 @@
     "vue": "^3.4.21"
   }
 }
-

@@ -6,7 +6,7 @@ const props = defineProps(['items', 'isMobile'])
 </script>
 
 <template>
-<ul v-if="props.items?.length" class="space-y-2">
+<ul v-if="props.items?.length" class="space-y-1">
   <template v-for="item in items">
     <li :class="{hidden: (item.mobile) ? !isMobile : false}">
       <SideBarHeader

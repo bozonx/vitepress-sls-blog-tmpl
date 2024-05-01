@@ -7,9 +7,9 @@ const tagList = makeTagsList(props.allPosts)
 </script>
 
 <template>
-<ul v-if="tagList.length" :class="['sm:grid grid-cols-4 gap-2 max-sm:space-x-1 max-sm:space-y-2 ', props.class]">
+<ul v-if="tagList.length" :class="['flex flex-wrap gap-x-2 gap-y-6', props.class]">
   <li v-for="item in tagList">
-    <TagItem :text="item.name" :count="item.count" />
+    <TagItem :text="item.name" :count="item.count" :sizeXl="true" />
   </li>
 </ul>
 </template>

@@ -11,7 +11,7 @@ const { theme, frontmatter } = useData()
 <div v-if="frontmatter.tags?.length" :class="[props.class]">
   <h4 class="mb-3 font-bold text-base text-gray-500">{{theme.t.tags}}:</h4>
 
-  <ul class="flex flex-wrap gap-x-1 gap-y-1">
+  <ul class="flex flex-wrap gap-x-2 gap-y-2">
     <li v-for="tag in frontmatter.tags"><TagItem :text="tag" /></li>
   </ul>
 

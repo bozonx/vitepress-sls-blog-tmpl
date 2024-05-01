@@ -101,6 +101,8 @@ button {
 	background: linear-gradient(0deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0) 100%);
 }
 
+
+
 /******** Img Modal */
 .img-modal {
 	position: fixed;
@@ -188,3 +190,26 @@ a.active {
 	line-height: 1.4rem;
 }
 
+/*************/
+
+.tag-item.active {
+	background: #6d00ff;
+}
+
+/******** UTIL page */
+
+.util-page {
+  margin-top: 1rem;
+} 
+
+.util-page h1 {
+  font-weight: bold;
+  font-size: 1.15rem;
+  line-height: 1.5rem;
+  margin-bottom: 2rem;
+  color: #6a6a6a;
+}
+
+.dark .util-page h1 {
+  color: #a2abbe;
+}

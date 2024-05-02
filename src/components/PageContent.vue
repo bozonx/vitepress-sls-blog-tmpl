@@ -10,8 +10,6 @@ const articlePreviewText = frontmatter.value.previewText || frontmatter.value.de
 const showArticlePreview = frontmatter.value.type === POST_TYPES.article
   && articlePreviewText
   && theme.value.showArticlePreview
-
-console.log(111,  useData())
 </script>
 
 <template>

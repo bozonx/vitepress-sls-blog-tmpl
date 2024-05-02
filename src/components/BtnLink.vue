@@ -5,7 +5,7 @@ import { isExternalUrl } from '../helpers/helpers.js'
 import BaseLink from './BaseLink.vue'
 
 const { theme } = useData()
-const props = defineProps(['id', 'class', 'href', 'target', 'icon', 'text'])
+const props = defineProps(['id', 'class', 'href', 'title', 'target', 'icon', 'text'])
 const isExternal = isExternalUrl(props.href)
 </script>
 
@@ -15,6 +15,7 @@ const isExternal = isExternalUrl(props.href)
   :class="['flex cursor-pointer items-center hover:text-gray-700 dark:hover:text-white', props.class]"
   :href="props.href"
   :target="props.target"
+  :title="props.title"
 >
   <span class="flex items-center gap-x-2">
     <span v-if="props.icon">

@@ -1,15 +1,15 @@
 <script setup>
-import { useData } from 'vitepress'
-import SideBarHeader from '../layout/SideBarHeader.vue'
+import TagItem from '../TagItem.vue'
+import { makeTagsList } from '../../helpers/listHelpers.js'
 
-const { theme, localeIndex } = useData()
+const props = defineProps(['allPosts', 'class'])
+const tagList = makeTagsList(props.allPosts)
 </script>
 
 <template>
-<SideBarHeader :text="theme.t.tags" />
-
-<a :href="`/${localeIndex}/tags`">{{theme.t.links.allTags}}</a>
+<!-- <TagsList :tags="tagList" :sizeXl="true" /> -->
 </template>
+
 
 <!-- <SidebarDropdownWrapper label={$t('layout.tags')} isOpen={true} class="rounded-none"> -->
       <!--   <svelte:fragment slot="icon"> -->

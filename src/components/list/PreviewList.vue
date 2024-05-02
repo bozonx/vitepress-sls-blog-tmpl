@@ -17,22 +17,11 @@ const totalPages = Math.ceil(props.allData.length / props.perPage)
 
 <template>
   <div :class="props.class">
-    <!-- <PageHeader><slot /></PageHeader> -->
-
-    <!-- <Alert v-if="res.page === 1 && !res.result.length" color="dark">{$t('messages.emptyList')}</Alert>
-    <Alert v-else-if="res.page <= 0 || res.page > res.totalPages" color="red">
-      <span>{$t('messages.wrongPage')}</span>
-      <a href={paginationBaseUrl} class="underline">{$t('chunks.listBeginning')}</a>
-    </Alert> -->
-    <!-- <ul v-else> -->
     <ul>
       <li v-for="item in items">
         <PreviewListItem :item="item" />
       </li>
     </ul>
-
-          <!-- baseUrl={baseUrl}
-          {...pickObj(item, 'name', 'title', 'dateLocal', 'tags', 'descr', 'thumbUrl')} -->
 
     <div v-if="props.paginationBaseUrl && totalPages > 1" class="mt-14">
       <Pagination

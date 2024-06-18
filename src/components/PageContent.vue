@@ -6,7 +6,9 @@ import PostDate from './post/PostDate.vue'
 import PostTopBar from './post/PostTopBar.vue'
 
 const { theme, page, frontmatter } = useData()
-const articlePreviewText = frontmatter.value.previewText || frontmatter.value.description
+const articlePreviewText = (theme.value.useDescriptionForArticlePreview)
+  ? frontmatter.value.previewText || frontmatter.value.description
+  : frontmatter.value.previewText
 const showArticlePreview = frontmatter.value.type === POST_TYPES.article
   && articlePreviewText
   && theme.value.showArticlePreview

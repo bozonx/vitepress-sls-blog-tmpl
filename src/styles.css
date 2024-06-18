@@ -13,16 +13,11 @@
   --dark-bg-btn-hover: #232a3a;
   --dark-text-a-disabled: #63708a;
 
-
-
-
-
-
-
-	--font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-	Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	--font-mono: 'Fira Mono', monospace;
-	font-family: var(--font-body);
+	--drawer-bg: #F9FAFBFF;
+	--drawer-border-color: #e2e2e2;
+	--dark-drawer-border-color: #000;
+	--dark-drawer-bg: rgb(31 41 55);
+	--backdrop-bg: rgba(0, 0, 0, 0.85);
 
 	--color-text: rgba(0, 0, 0, 0.7);
 	--color-a-light-link: #1d50c4;
@@ -30,17 +25,17 @@
 	--color-a-dark-link: #85aaff;
 	--color-a-dark-visited: #ca64e6;
 
+	--tag-item-active: #6d00ff;
+
+  --util-page-header-color: #6a6a6a;
+  --dark-util-page-header-color: #a2abbe;
+
+	--font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+	Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+	font-family: var(--font-body);
 	color: var(--color-text);
 
-	/*
-	--color-bg-0: rgb(202, 216, 228);
-	--color-bg-1: hsl(209, 36%, 86%);
-	--color-bg-2: hsl(224, 44%, 95%);
-	--color-theme-1: #ff3e00;
-	--color-theme-2: #4075a6;
-	--column-width: 42rem;
-	--column-margin-top: 4rem;
-	*/
 }
 
 body {
@@ -58,68 +53,55 @@ svg {
 	outline: 0;
 }
 
-button {
-	outline: 0;
+/* button { */
+/* 	outline: 0; */
+/* } */
+
+/******* Doc page */
+.vp-doc {
+  font-weight: 400;
+  line-height: 1.25;
+  font-size: 1.25rem;
+}
+
+.vp-doc h2 {
+	border: 0;
+	padding-top: 0;
+}
+
+.vp-doc h3 {
+	border: 0;
+	padding-top: 0;
+}
+
+.vp-doc h4 {
+	border: 0;
+	padding-top: 0;
 }
 
 /******* UTIL page */
 
 .util-page {
+  margin-top: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  font-size: 1.25rem;
+} 
 
+.util-page h1 {
+  font-weight: bold;
+  font-size: 1.15rem;
+  line-height: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--util-page-header-color);
 }
 
-/******** App Drawer */
-
-#app-drawer {
-	width: 320px;
-	border-right: 1px solid #e2e2e2;
-	box-sizing: content-box;
-	background: #F9FAFBFF;
-	z-index: 10;
-	top: 0;
-	bottom: 0;
+.dark .util-page h1 {
+  color: var(--dark-util-page-header-color);
 }
-
-.dark #app-drawer {
-	background: rgb(31 41 55);
-	border-right-color: #000;
-}
-
-.dark #app-drawer {
-	border-right: 1px solid black;
-}
-
-#app-drawer-backdrop {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: rgba(0, 0, 0, 0.85);
-	z-index: 9;
-	cursor: pointer;
-}
-
-.sidebar-gradient {
-	width: 100%;
-	position: relative;
-	height: 200px;
-}
-.sidebar-gradient div {
-	width: calc(100% + 1px);
-	height: 200px;
-	position: absolute;
-	background: rgb(255,255,255);
-	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-}
-.dark .sidebar-gradient div {
-	background: rgb(17,24,39);
-	background: linear-gradient(0deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0) 100%);
-}
-
-
 
 /******** Img Modal */
+/*
 .img-modal {
 	position: fixed;
 	top: 0;
@@ -151,50 +133,11 @@ button {
 .img-modal > div span:hover {
 	color: #fff;
 }
-
-/******** PagePreviewListItem */
-.page-list-item:hover {
-	filter: brightness(99%);
-}
-.dark .page-list-item:hover {
-	filter: brightness(110%);
-}
-.page-list-item:visited h4 {
-	color: var(--color-a-light-visited);
-}
-
-/******** SimpleLink */
-.simple-link {
-	text-decoration: underline;
-	color: var(--color-a-light-link);
-}
-.simple-link:hover {
-	filter: brightness(130%);
-}
-.simple-link:visited {
-	color: var(--color-a-light-visited);
-}
-.dark .simple-link {
-	color: var(--color-a-dark-link);
-}
-.dark .simple-link:visited {
-	color: var(--color-a-dark-visited);
-}
-
-a.active {
-	/* text-gray-500 dark:text-gray-400 */
-}
-
-/******** BTN link */
-.btn-link__external-inner {
-  position: absolute;
-  bottom: 0px;
-  right: -8px;
-  font-size: 11px;
-}
+*/
 
 /******** SidebarLogo */
- .sidebar-logo {
+/* 
+.sidebar-logo {
 	 padding: 1.25rem 0 1.3rem 2.75rem;
 	 background-color: rgb(249 250 251);
  }
@@ -205,29 +148,4 @@ a.active {
 	margin-left: 1.15rem;
 	line-height: 1.4rem;
 }
-
-/******** Pagination */
-
-/*************/
-
-.tag-item.active {
-	background: #6d00ff;
-}
-
-/******** UTIL page */
-
-.util-page {
-  margin-top: 1rem;
-} 
-
-.util-page h1 {
-  font-weight: bold;
-  font-size: 1.15rem;
-  line-height: 1.5rem;
-  margin-bottom: 2rem;
-  color: #6a6a6a;
-}
-
-.dark .util-page h1 {
-  color: #a2abbe;
-}
+*/

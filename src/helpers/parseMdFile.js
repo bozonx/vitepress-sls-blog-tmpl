@@ -1,33 +1,35 @@
-import fs from 'fs'
-import path from 'path'
-import grayMatter from 'gray-matter'
-import { DEFAULT_ENCODE } from '../constants.js'
-
+import fs from "fs";
+import path from "path";
+import grayMatter from "gray-matter";
+import { DEFAULT_ENCODE } from "../constants.js";
 
 export function makePreviewItem(filePath) {
-  const date = path.basename(path.dirname(filePath))
+  // const date = path.basename(path.dirname(filePath))
   const relativePath = path.relative(
-    path.resolve(filePath, '../../../../'),
-    filePath
-  )
-  const url = '/' + relativePath.replace(/\.md$/, '')
-  const rawContent = fs.readFileSync(filePath, DEFAULT_ENCODE)
-  const {meta, title, preview} = parseMdFile(rawContent) 
+    path.resolve(filePath, "../../../"),
+    filePath,
+  );
+
+  const url = "/" + relativePath.replace(/\.md$/, "");
+  const rawContent = fs.readFileSync(filePath, DEFAULT_ENCODE);
+  const { meta, title, preview } = parseMdFile(rawContent);
 
   return {
     url,
-    date,
+    pubDate: meta.pubDate,
     title,
     preview,
     tags: meta.tags,
-  }
+  };
 }
 
 export function parseMdFile(rawContent) {
   const { data, content } = grayMatter(rawContent);
-  const mdContentNoHeader = removeTitleFromMd(content)
-  const extractedDescr = extractPreviewFromMd(mdContentNoHeader)
-  const preview = data.previewText || data.description || data.extractedPreview || ''
+  const mdContentNoHeader = removeTitleFromMd(content);
+  const extractedDescr = extractPreviewFromMd(mdContentNoHeader);
+  // TODO: нафиг нужен previewText
+  const preview =
+    data.previewText || data.description || data.extractedPreview || "";
 
   return {
     // frontmatter
@@ -42,24 +44,23 @@ export function parseMdFile(rawContent) {
     mdContentNoHeader,
     // description which is extracted from text
     extractedDescr,
-  }
+  };
 }
 
 export function extractTitleFromMd(mdNoFrontmatter) {
-  const firstTitleMatch = mdNoFrontmatter.match(/^\#\s+(.+)$/m)
+  const firstTitleMatch = mdNoFrontmatter.match(/^\#\s+(.+)$/m);
 
-  return (firstTitleMatch) ? firstTitleMatch[1].trim() : ''
+  return firstTitleMatch ? firstTitleMatch[1].trim() : "";
 }
 
 export function removeTitleFromMd(mdNoFrontmatter) {
-  return mdNoFrontmatter.trim().replace(/^\#\s+.+/, '')
+  return mdNoFrontmatter.trim().replace(/^\#\s+.+/, "");
 }
 
 export function extractPreviewFromMd(onlyMdContentNoHeader) {
-  
   // TODO: do it - сделать более умную обрезку
 
-  return onlyMdContentNoHeader.substring(0, 150)
+  return onlyMdContentNoHeader.substring(0, 150);
 }
 
 // export function extractImageFromMd(rawData) {
@@ -73,4 +74,3 @@ export function extractPreviewFromMd(onlyMdContentNoHeader) {
 //
 //   return rawMd.replace(frontmatterRegex, '')
 // }
-

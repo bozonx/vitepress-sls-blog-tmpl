@@ -31,3 +31,12 @@ const isExternal = isExternalUrl(props.href)
 </BaseLink>
 </template>
 
+<style>
+.btn-link__external-inner {
+  position: absolute;
+  bottom: 0px;
+  right: -8px;
+  font-size: 11px;
+}
+</style>
+

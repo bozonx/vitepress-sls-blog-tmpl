@@ -56,3 +56,14 @@ const localeDate = makeHumanDate(props.item.date, lang.value)
   </a>
 </template>
 
+<style>
+.page-list-item:hover {
+	filter: brightness(99%);
+}
+.dark .page-list-item:hover {
+	filter: brightness(110%);
+}
+.page-list-item:visited h4 {
+	color: var(--color-a-light-visited);
+}
+</style>

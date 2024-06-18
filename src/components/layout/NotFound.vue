@@ -1,13 +1,15 @@
 <script setup>
-import { useData } from 'vitepress'
-import SimpleLink from '../SimpleLink.vue'
+import { useData } from "vitepress";
+import SimpleLink from "../SimpleLink.vue";
 
-const { theme } = useData()
+const { theme } = useData();
 </script>
 
 <template>
-<div>
-  {{theme.t.notFound}} <SimpleLink>{{theme.t.returnToHome}}</SimpleLink>
-</div>
+  <div class="mt-32">
+    <div class="text-3xl mb-4">{{ theme.t.notFound }}</div>
+    <div>
+      <SimpleLink>{{ theme.t.returnToHome }}</SimpleLink>
+    </div>
+  </div>
 </template>
-

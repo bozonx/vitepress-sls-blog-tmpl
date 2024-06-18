@@ -1,12 +1,7 @@
-
-
-const cachePerLang = {}
-
+const cachePerLang = {};
 
 export function includeAllPostPreview(pageData, ctx) {
-  
-  console.log(444, pageData.filePath)
+  //console.log(444, pageData.filePath)
 
-  pageData.previewItems = []
+  pageData.previewItems = [];
 }
-

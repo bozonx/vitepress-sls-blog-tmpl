@@ -25,3 +25,8 @@ const className = 'text-center font-medium rounded-full text-lg py-1 px-4 '
 </BaseLink>
 </template>
 
+<style>
+.tag-item.active {
+	background: var(--tag-item-active);
+}
+</style>

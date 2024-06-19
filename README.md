@@ -18,6 +18,7 @@ description: content of meta descr and preview text if it allowed
 # If has text - then use this text in a list and in an article
 # It won't shown in a post if media, embeddedVideo, embeddedAudio or cover is set
 previewText: text for list item. If not set then `description` will be used
+pubDate: Publication date in iso format. Better to use time to order posts which are published at the same day
 # ID of author of site team. It it some other author just put his name into the text
 authorId: john-smith
 # Url where you can find comments of it post in social media

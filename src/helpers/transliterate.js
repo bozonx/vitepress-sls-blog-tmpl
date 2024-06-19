@@ -1,29 +1,27 @@
-import slug from 'slug'
-
+import slug from "slug";
 
 export function transliterate(rawStr, lang) {
-  if (lang === 'eo') {
+  if (lang === "eo") {
     const charTable = {
-      'ĉ': 'cy',
-      'Ĉ': 'Cy',
-      'ĝ': 'gy',
-      'Ĝ': 'Gy',
-      'ĥ': 'x',
-      'Ĥ': 'X',
-      'ĵ': 'jy',
-      'Ĵ': 'Jy',
-      'ŝ': 'sy',
-      'Ŝ': 'Sy',
-      'ŭ': 'w',
-      'Ŭ': 'W',
-    }
+      ĉ: "cy",
+      Ĉ: "Cy",
+      ĝ: "gy",
+      Ĝ: "Gy",
+      ĥ: "x",
+      Ĥ: "X",
+      ĵ: "jy",
+      Ĵ: "Jy",
+      ŝ: "sy",
+      Ŝ: "Sy",
+      ŭ: "w",
+      Ŭ: "W",
+    };
 
     return rawStr
-      .split('')
-      .map((el) => (charTable[el]) ? charTable[el] : el)
-      .join('')
+      .split("")
+      .map((el) => (charTable[el] ? charTable[el] : el))
+      .join("");
   }
 
-  return slug(rawStr, { locale: lang })
+  return slug(rawStr, { locale: lang });
 }
-

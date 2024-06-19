@@ -4,13 +4,10 @@ import lodashTemplate from "lodash.template";
  * Fix titles of utility pages which are template strings like {{ theme.t.siteName }}
  */
 export function transformTitle(pageData, ctx) {
+  // skip root index.md
+  if (pageData.filePath.indexOf("/") < 0) return;
+
   const langIndex = pageData.filePath.split("/")[0];
-
-  if (!langIndex) {
-    console.warn(`Can't recognize language`);
-
-    return;
-  }
 
   const options = {
     theme: ctx.siteConfig.site.locales[langIndex].themeConfig,

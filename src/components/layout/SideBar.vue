@@ -32,8 +32,8 @@ watchEffect(async () => {
   <div :class="{ hidden: !drawerOpen }">
     <div id="app-drawer" class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit">
       <div>
-        <div class="flex justify-end w-full absolute lg:hidden py-2 px-1">
-          <div @click.prevent.stop="drawerOpen = false">
+        <div class="sidebar-closebtn-wrapper lg:hidden">
+          <div @click.prevent.stop="drawerOpen = false" class="mr-5 mt-3">
             <Icon icon="fa6-solid:xmark" id="sidebar-drawer-switch"
               class="dark:text-gray-700 dark:hover:text-gray-300" />
           </div>
@@ -93,6 +93,12 @@ watchEffect(async () => {
   background: var(--backdrop-bg: rgba);
   z-index: 9;
   cursor: pointer;
+}
+
+.sidebar-closebtn-wrapper {
+  position: absolute;
+  height: 0;
+  right: 0;
 }
 
 .sidebar-gradient {

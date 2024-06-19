@@ -50,9 +50,9 @@ onUnmounted(() => window.removeEventListener("resize", windowListener));
 
       <div class="flex">
         <main id="app-page" class="lg:ml-4 xl:ml-24 mt-4 px-4 sm:px-8">
-          <div class="lg:hidden mb-6 text-center text-2xl text-gray-600 dark:text-gray-300">
-            {{ theme.siteTitle }}
-          </div>
+          <!-- <div class="lg:hidden mb-6 text-center text-2xl text-gray-600 dark:text-gray-300"> -->
+          <!--   {{ theme.siteTitle }} -->
+          <!-- </div> -->
 
           <div v-if="page.isNotFound">
             <NotFound />

@@ -1,7 +1,7 @@
 import path from "path";
-import grayMatter from "gray-matter";
 import fs from "fs";
 import { transliterate } from "./transliterate.js";
+import { parseMdFile } from "./helpers.js";
 import { DEFAULT_ENCODE } from "../constants.js";
 
 export function makeRecentParams(postsDirAbs, perPage) {
@@ -59,8 +59,8 @@ export function makeTagsParams(postsDirAbs, perPage, lang) {
   for (const item of allFiles) {
     const itemPath = path.join(postsDirAbs, item);
     const rawContent = fs.readFileSync(itemPath, DEFAULT_ENCODE);
-    const { data } = grayMatter(rawContent);
-    const tags = data.tags;
+    const { frontmatter } = parseMdFile(rawContent);
+    const tags = frontmatter.tags;
 
     if (!tags?.length) continue;
 
@@ -119,9 +119,9 @@ export function loadDatesList(postsDirAbs) {
     .map((item) => {
       const itemPath = path.join(postsDirAbs, item);
       const rawContent = fs.readFileSync(itemPath, DEFAULT_ENCODE);
-      const { data } = grayMatter(rawContent);
+      const { frontmatter } = parseMdFile(rawContent);
 
-      return data.pubDate;
+      return frontmatter.pubDate;
     });
 
   // return dates.filter((item) => {

@@ -12,7 +12,7 @@ const props = defineProps([
   "class",
 ]);
 const curPage = Number(props.curPage);
-const sorted = props.allData.sort(
+const sorted = [...(props.allData || [])].sort(
   (a, b) => new Date(b.date) - new Date(a.date),
 );
 

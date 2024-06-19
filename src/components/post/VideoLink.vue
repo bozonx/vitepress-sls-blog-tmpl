@@ -18,6 +18,6 @@ const btnClassName =
   <!--   {{ theme.t.links.postYoutubeButton }} -->
   <!-- </a> -->
 
-  <BtnLink :href="frontmatter.youtubeLink" :text="theme.t.links.postYoutubeButton" icon="fa6-brands:youtube"
-    target="_blank" :class="btnClassName" />
+  <BtnLink :href="frontmatter.videoLink" :text="theme.t.links.postVideoButton" icon="fa6-brands:youtube" target="_blank"
+    :class="btnClassName" />
 </template>

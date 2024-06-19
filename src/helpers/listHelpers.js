@@ -1,4 +1,4 @@
-export function makeTagsList(allData) {
+export function makeTagsList(allData = []) {
   const tags = {};
 
   for (const item of allData) {
@@ -20,7 +20,7 @@ export function makeTagsList(allData) {
   return res;
 }
 
-export function makeYearsList(allData) {
+export function makeYearsList(allData = []) {
   const years = {};
 
   for (const item of allData) {
@@ -43,7 +43,7 @@ export function makeYearsList(allData) {
   return res;
 }
 
-export function makeMonthsList(allData, year) {
+export function makeMonthsList(allData = [], year) {
   const curYear = Number(year);
   const months = {};
 
@@ -71,7 +71,7 @@ export function makeMonthsList(allData, year) {
   return res;
 }
 
-export function makePostOfMonthList(allData, year, month) {
+export function makePostOfMonthList(allData = [], year, month) {
   const curYear = Number(year);
   const curMonth = Number(month);
 

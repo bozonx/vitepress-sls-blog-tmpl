@@ -1,5 +1,23 @@
+import grayMatter from "gray-matter";
+
 //import moment from 'moment/min/moment-with-locales.js'
 // return moment(rawDate, "YYYY-MM-DD").locale(lang).format('LL')
+
+export function parseMdFile(rawContent) {
+  const { data, content } = grayMatter(rawContent);
+
+  return {
+    frontmatter: data,
+    content,
+  };
+}
+
+/**
+ * Is it post or util page
+ */
+export function isPost(frontmatter) {
+  return Boolean(frontmatter.pubDate);
+}
 
 export function makeHumanDate(rawDate, lang) {
   if (!rawDate) return;

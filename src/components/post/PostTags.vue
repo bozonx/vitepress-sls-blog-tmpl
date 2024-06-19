@@ -5,7 +5,8 @@ import SimpleLink from "../SimpleLink.vue";
 
 const props = defineProps(["class"]);
 const { theme, frontmatter } = useData();
-const tags = frontmatter.value.tags?.sort().map((name) => ({ name })) || [];
+const tags =
+  [...(frontmatter.value.tags || [])].sort().map((name) => ({ name })) || [];
 </script>
 
 <template>

@@ -1,4 +1,3 @@
-/* @import '@fontsource/fira-mono'; */
 /* @import './html-block.css'; */
 
 :root {
@@ -23,6 +22,14 @@
   --btn-dark-bg-hover: #232a3a;
   --btn--disabled: #b8b8b8;
   --btn-dark-disabled: #63708a;
+
+  /**** SideBarLink */
+  --sidebar-link-bg-hover: #e2e2e2;
+  --sidebar-link-bg-active: #dadada;
+  --sidebar-link-bg-active-hover: #cdcdcd;
+  --sidebar-link-dark-bg-hover: #293546;
+  --sidebar-link-dark-bg-active: #2f3b4c;
+  --sidebar-link-dark-bg-active-hover: #334053;
 
   /**** Sidebar */
   --sidebar-width: 320px;

@@ -17,16 +17,12 @@ const props = defineProps([
   "iconClass",
 ]);
 const isExternal = isExternalUrl(props.href);
-
-// props.text ? 'px-5 py-2' : 'px-3 py-3',
-// hover:bg-gray-200 dark:hover:bg-gray-800
-//  hover:text-gray-700 dark:hover:text-white
 </script>
 
 <template>
   <BaseLink :id="props.id" :class="[
     'flex cursor-pointer items-center rounded-lg btn-base',
-    props.text ? 'px-5 py-2' : 'px-3 py-3',
+    !props.text && 'icon-only',
     props.disabled && 'disabled',
     props.class,
   ]" :href="props.href" :target="props.target" :title="props.title">
@@ -46,6 +42,14 @@ const isExternal = isExternalUrl(props.href);
 .btn-base__external {
   padding-left: 0.25rem;
   font-size: 13px;
+}
+
+.btn-base {
+  padding: 0.5rem 1.25rem 0.5rem 1.25rem;
+}
+
+.btn-base.icon-only {
+  padding: 0.75rem;
 }
 
 .btn-base:hover {

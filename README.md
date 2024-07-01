@@ -53,3 +53,9 @@ media:
 
 If the post doesn't have any media, embeddedVideo or embeddedAudio then the first image will be used as main image to show in lists.
 ```
+
+## Publish
+
+```
+yarn publish
+```

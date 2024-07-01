@@ -1,5 +1,5 @@
 <script setup>
-import BtnLink from "../BtnLink.vue";
+import Btn from "../Btn.vue";
 
 const props = defineProps([
   "id",
@@ -13,34 +13,34 @@ const props = defineProps([
 </script>
 
 <template>
-  <BtnLink v-bind="props" :class="[
-    'pr-2 pl-3 py-3 font-normal text-gray-700 dark:text-gray-200 sidebar-link',
+  <Btn v-bind="props" :class="[
+    'pr-2 pl-3 py-3 font-normal rounded-none sidebar-link',
     props.class,
   ]" iconClass="text-gray-500 dark:text-gray-400" />
 </template>
 
 <style>
 .sidebar-link:hover {
-  background: #e2e2e2;
+  background: var(--sidebar-link-bg-hover);
 }
 
 .sidebar-link.active {
-  background: #dadada;
+  background: var(--sidebar-link-bg-active);
 }
 
 .sidebar-link.active:hover {
-  background: #cdcdcd;
+  background: var(--sidebar-link-bg-active-hover);
 }
 
 .dark .sidebar-link:hover {
-  background: #293546;
+  background: var(--sidebar-link-dark-bg-hover);
 }
 
 .dark .sidebar-link.active {
-  background: #2f3b4c;
+  background: var(--sidebar-link-dark-bg-active);
 }
 
 .dark .sidebar-link.active:hover {
-  background: #334053;
+  background: var(--sidebar-link-dark-bg-active-hover);
 }
 </style>

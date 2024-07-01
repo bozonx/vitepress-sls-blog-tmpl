@@ -5,7 +5,6 @@ import BaseLink from "../BaseLink.vue";
 
 const props = defineProps(["class"]);
 const { page, theme, lang } = useData();
-//const rawDate = extractDateFromPostPath(page.value.filePath);
 const rawDate = page.value.frontmatter.pubDate;
 const rawDateSplit = rawDate.split("-");
 const year = Number(rawDateSplit[0]);

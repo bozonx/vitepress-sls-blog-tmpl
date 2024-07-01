@@ -70,10 +70,10 @@ watchEffect(async () => {
 
 <style>
 #app-drawer {
-  width: 320px;
+  width: var(--sidebar-width);
   border-right: 1px solid var(--drawer-border-color);
-  box-sizing: content-box;
   background: var(--drawer-bg);
+  box-sizing: content-box;
   z-index: 10;
   top: 0;
   bottom: 0;
@@ -90,7 +90,7 @@ watchEffect(async () => {
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--backdrop-bg: rgba);
+  background: var(--backdrop-bg);
   z-index: 9;
   cursor: pointer;
 }

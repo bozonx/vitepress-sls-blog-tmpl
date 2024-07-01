@@ -2,28 +2,7 @@
 /* @import './html-block.css'; */
 
 :root {
-  --bg-btn-active: #d5d5d5;
-  --bg-btn-active-hover: #bdbdbd;
-  --bg-btn-hover: #ececec;
-  --text-a-disabled: #b8b8b8;
-  --dark-bg-btn-active: #2d3544;
-  --dark-bg-btn-active-hover: #333d52;
-  --dark-bg-btn-hover: #232a3a;
-  --dark-text-a-disabled: #63708a;
-
-  --drawer-bg: #f9fafbff;
-  --drawer-border-color: #e2e2e2;
-  --dark-drawer-border-color: #000;
-  --dark-drawer-bg: rgb(31 41 55);
-  --backdrop-bg: rgba(0, 0, 0, 0.85);
-
   --color-text: rgba(0, 0, 0, 0.7);
-  --color-a-light-link: #1d50c4;
-  --color-a-light-visited: #9c20be;
-  --color-a-dark-link: #85aaff;
-  --color-a-dark-visited: #ca64e6;
-
-  --tag-item-active: #6d00ff;
 
   --util-page-header-color: #6a6a6a;
   --dark-util-page-header-color: #a2abbe;
@@ -33,6 +12,39 @@
   --font-mono: "Fira Mono", monospace;
   font-family: var(--font-body);
   color: var(--color-text);
+
+  /**** Buttons */
+  --btn-text-hover: #374151;
+  --btn-bg-active: #d5d5d5;
+  --btn-bg-active-hover: #bdbdbd;
+  --btn-bg-hover: #ececec;
+  --btn-dark-bg-active: #2d3544;
+  --btn-dark-bg-active-hover: #333d52;
+  --btn-dark-bg-hover: #232a3a;
+  --btn--disabled: #b8b8b8;
+  --btn-dark-disabled: #63708a;
+
+  /**** Sidebar */
+  --sidebar-width: 320px;
+  --drawer-bg: #f9fafbff;
+  --drawer-border-color: #e2e2e2;
+  --dark-drawer-border-color: #000;
+  --dark-drawer-bg: rgb(31 41 55);
+  --backdrop-bg: rgba(0, 0, 0, 0.85);
+
+  /**** SimpleLink */
+  --color-a-light-link: #1d50c4;
+  --color-a-light-visited: #9c20be;
+  --color-a-dark-link: #85aaff;
+  --color-a-dark-visited: #ca64e6;
+
+  /**** TagItem */
+  --tag-item-bg: #2563eb;
+  --tag-item-bg-hover: #1d4ed8;
+  --tag-item-bg-active: #6d00ff;
+
+  /**** Badge */
+  --badge-bg: #3b82f6;
 }
 
 body {
@@ -46,38 +58,12 @@ body {
   }
 }
 
-svg {
+svg,
+button {
   outline: 0;
 }
 
-/* button { */
-/* 	outline: 0; */
-/* } */
-
-/******* Doc page */
-.vp-doc {
-  font-weight: 400;
-  line-height: 1.25;
-  font-size: 1.25rem;
-}
-
-.vp-doc h2 {
-  border: 0;
-  padding-top: 0;
-}
-
-.vp-doc h3 {
-  border: 0;
-  padding-top: 0;
-}
-
-.vp-doc h4 {
-  border: 0;
-  padding-top: 0;
-}
-
 /******* UTIL page */
-
 .simple-page {
   margin-top: 1rem;
   font-weight: 400;
@@ -146,3 +132,23 @@ svg {
 	line-height: 1.4rem;
 }
 */
+
+/******* Doc page */
+.vp-doc {
+  font-weight: 400;
+  line-height: 1.25;
+  font-size: 1.25rem;
+}
+
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4 {
+  border: 0;
+  padding-top: 0;
+}
+
+.vp-doc h2 .header-anchor,
+.vp-doc h3 .header-anchor,
+.vp-doc h4 .header-anchor {
+  top: 0;
+}

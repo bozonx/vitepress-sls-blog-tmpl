@@ -44,9 +44,9 @@ const localeDate = makeHumanDate(props.item.date, lang.value);
     <div v-if="!props.item.thumbUrl" class="flex items-end mt-4">
       <TagsList :tags="tags" class="flex-1 mr-2" :sizeSm="true" />
 
-      <div v-if="props.item.date" class="text-sm text-gray-500 dark:text-gray-400">
+      <time :datetime="props.item.date" v-if="props.item.date" class="text-sm text-gray-500 dark:text-gray-400">
         {{ localeDate }}
-      </div>
+      </time>
     </div>
   </a>
 </template>

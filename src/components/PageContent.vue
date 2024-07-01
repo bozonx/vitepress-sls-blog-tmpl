@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from "vitepress";
-import { resolveArticlePreview } from "../helpers/makePreviewItem.js";
+import { resolveArticlePreview } from "../helpers/helpers.js";
 import PostFooter from "./post/PostFooter.vue";
 import PostDate from "./post/PostDate.vue";
 import PostTopBar from "./post/PostTopBar.vue";

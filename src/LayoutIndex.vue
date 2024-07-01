@@ -10,7 +10,9 @@ import NotFound from "./components/layout/NotFound.vue";
 
 const { page, theme, frontmatter } = useData();
 let windowWidth = ref(0);
-let windowListener;
+let scrollY = ref(0);
+let resizeListener;
+let scrollListener;
 const sidebarRef = ref(null);
 
 function onSidebarToggle() {
@@ -20,15 +22,25 @@ function onSidebarToggle() {
 onMounted(() => {
   windowWidth.value = window.innerWidth;
 
-  windowListener = window.addEventListener("resize", () => {
+  resizeListener = window.addEventListener("resize", () => {
     windowWidth.value = window.innerWidth;
   });
+
+  scrollListener = window.addEventListener("scroll", () => {
+    scrollY.value = window.scrollY;
+  });
 });
-onUnmounted(() => window.removeEventListener("resize", windowListener));
+onUnmounted(() => {
+  window.removeEventListener("resize", resizeListener);
+  window.removeEventListener("resize", scrollListener);
+});
 </script>
 
 <template>
-  <Content v-if="frontmatter.layout === false" />
+  <div v-if="page.isNotFound">
+    <NotFound />
+  </div>
+  <Content v-else-if="frontmatter.layout === false" />
   <div v-else class="min-h-screen lg:flex w-full dark:bg-gray-900 text-gray-900 dark:text-gray-200 text-lg">
     <!--  left col-->
     <SideBar ref="sidebarRef" :windowWidth="windowWidth">
@@ -50,14 +62,7 @@ onUnmounted(() => window.removeEventListener("resize", windowListener));
 
       <div class="flex">
         <main id="app-page" class="lg:ml-4 xl:ml-24 mt-4 px-4 sm:px-8">
-          <!-- <div class="lg:hidden mb-6 text-center text-2xl text-gray-600 dark:text-gray-300"> -->
-          <!--   {{ theme.siteTitle }} -->
-          <!-- </div> -->
-
-          <div v-if="page.isNotFound">
-            <NotFound />
-          </div>
-          <PageContent v-else />
+          <PageContent />
 
           <div class="mt-40 pb-12">
             <Footer>
@@ -68,14 +73,12 @@ onUnmounted(() => window.removeEventListener("resize", windowListener));
           </div>
         </main>
 
-        <aside class="max-xl:hidden">advert</aside>
+        <aside v-if="theme.aside" class="max-xl:hidden">
+          <slot name="aside" />
+        </aside>
       </div>
     </div>
 
-    <div id="to-the-top" class="bottom-0 fixed mb-8 ml-4 max-lg:hidden hidden" aria-hidden="true">
-      <span aria-hidden="true">
-        <ToTheTop />
-      </span>
-    </div>
+    <ToTheTop :scrollY="scrollY" />
   </div>
 </template>

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { DEFAULT_ENCODE } from "../constants.js";
-import { parseMdFile } from "./helpers.js";
+import { parseMdFile } from "./parseMdFile.js";
 
 export function makePreviewItem(filePath) {
   const relativePath = path.relative(
@@ -20,26 +20,6 @@ export function makePreviewItem(filePath) {
     preview: resolvePreview(frontmatter, content),
     tags: frontmatter.tags,
   };
-}
-
-/**
- * Resolve article preview text inside article. Or return undefine
- */
-export function resolveArticlePreview(frontmatter) {
-  const { previewText, description } = frontmatter;
-
-  if (
-    frontmatter.embeddedVideo ||
-    frontmatter.embeddedAudio ||
-    frontmatter.cover ||
-    frontmatter.media?.length
-  ) {
-    return;
-  } else if (previewText === true || String(previewText)?.trim() === "true") {
-    return description;
-  } else if (previewText) {
-    return previewText;
-  }
 }
 
 function extractPreviewFromMd(mdContent) {

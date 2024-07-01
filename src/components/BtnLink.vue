@@ -29,19 +29,15 @@ const isExternal = isExternalUrl(props.href);
       </span>
       <span v-if="props.text">{{ props.text }}</span>
     </span>
-    <span v-if="theme.externalLinkIcon && isExternal && text" class="relative">
-      <span class="btn-link__external-inner">
-        <Icon icon="mdi:arrow-top-right" class="text-gray-400 dark:text-gray-600" />
-      </span>
+    <span v-if="theme.externalLinkIcon && isExternal && text" class="btn-link__external">
+      <Icon icon="mdi:arrow-top-right" class="text-gray-400 dark:text-gray-600" />
     </span>
   </BaseLink>
 </template>
 
 <style>
-.btn-link__external-inner {
-  position: absolute;
-  bottom: -8px;
-  right: -17px;
+.btn-link__external {
+  padding-left: 0.25rem;
   font-size: 13px;
 }
 </style>

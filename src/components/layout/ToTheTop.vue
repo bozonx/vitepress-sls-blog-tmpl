@@ -19,7 +19,7 @@ const handleClick = () => {
   <div :class="wrapperClassName" :style="{ opacity: props.scrollY > DESKTOP_BREAKPOINT ? 1 : 0 }" aria-hidden="true">
     <span :class="className" @click.prevent.stop="handleClick">
       <Icon icon="fa6-solid:arrow-up" />
-      {{ theme.returnToTopLabel }}
+      {{ theme.t.returnToTopLabel }}
     </span>
   </div>
 </template>

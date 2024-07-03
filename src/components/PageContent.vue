@@ -11,7 +11,11 @@ const articlePreviewText = resolveArticlePreview(frontmatter.value);
 
 <template>
   <div v-if="frontmatter.layout === 'page'">
-    <!-- <h1 v-if="page.title">{{page.title}}</h1> -->
+    <div class="simple-page vp-doc">
+      <Content />
+    </div>
+  </div>
+  <div v-else-if="frontmatter.layout === 'util'">
     <div class="simple-page">
       <Content />
     </div>
@@ -35,3 +39,24 @@ const articlePreviewText = resolveArticlePreview(frontmatter.value);
     <PostFooter />
   </article>
 </template>
+
+<style>
+.simple-page {
+  margin-top: 1rem;
+  font-weight: 400;
+  line-height: var(--simple-page-line-height);
+  font-size: var(--simple-page-font-size);
+}
+
+.simple-page h1 {
+  font-weight: bold;
+  font-size: 1.15rem;
+  line-height: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--util-page-header-color);
+}
+
+.dark .simple-page h1 {
+  color: var(--util-page-dark-header-color);
+}
+</style>

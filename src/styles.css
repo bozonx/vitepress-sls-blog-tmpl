@@ -2,26 +2,31 @@
 
 :root {
   --color-text: rgba(0, 0, 0, 0.7);
-
-  --util-page-header-color: #6a6a6a;
-  --dark-util-page-header-color: #a2abbe;
-
   --font-body: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --font-mono: "Fira Mono", monospace;
   font-family: var(--font-body);
   color: var(--color-text);
 
+  /**** Util and simple page */
+  --util-page-header-color: #6a6a6a;
+  --util-page-dark-header-color: #a2abbe;
+  --simple-page-font-size: 1.25rem;
+  --simple-page-line-height: 1.75;
+
   /**** Buttons */
   --btn-text-hover: #374151;
   --btn-bg-active: #d5d5d5;
   --btn-bg-active-hover: #bdbdbd;
   --btn-bg-hover: #ececec;
+  --btn-dark-text-hover: white;
   --btn-dark-bg-active: #2d3544;
   --btn-dark-bg-active-hover: #333d52;
   --btn-dark-bg-hover: #232a3a;
   --btn--disabled: #b8b8b8;
   --btn-dark-disabled: #63708a;
+  --btn-link-text-active: #495164;
+  --btn-link-dark-text-active: #abacb0;
 
   /**** SideBarLink */
   --sidebar-link-bg-hover: #e2e2e2;
@@ -68,26 +73,6 @@ body {
 svg,
 button {
   outline: 0;
-}
-
-/******* UTIL page */
-.simple-page {
-  margin-top: 1rem;
-  font-weight: 400;
-  line-height: 1.75;
-  font-size: 1.25rem;
-}
-
-.simple-page h1 {
-  font-weight: bold;
-  font-size: 1.15rem;
-  line-height: 1.5rem;
-  margin-bottom: 2rem;
-  color: var(--util-page-header-color);
-}
-
-.dark .simple-page h1 {
-  color: var(--dark-util-page-header-color);
 }
 
 /******** Img Modal */

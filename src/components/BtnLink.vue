@@ -22,4 +22,20 @@ const props = defineProps([
   padding: 0;
   background: transparent !important;
 }
+
+.btn-link.active {
+  color: var(--btn-link-text-active);
+}
+
+.btn-link.active:hover {
+  color: black;
+}
+
+.dark .btn-link.active {
+  color: var(--btn-link-dark-text-active);
+}
+
+.dark .btn-link.active:hover {
+  color: var(--btn-dark-text-hover);
+}
 </style>

@@ -26,9 +26,9 @@ const localeDate = makeHumanDate(props.item.date, lang.value);
         <!-- /> -->
         <!-- </a> -->
 
-        <div v-if="props.item.date" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        <time v-if="props.item.date" :datetime="props.item.date" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
           {{ localeDate }}
-        </div>
+        </time>
 
         <TagsList :tags="tags" class="mt-2" :sizeSm="true" />
       </div>
@@ -44,7 +44,7 @@ const localeDate = makeHumanDate(props.item.date, lang.value);
     <div v-if="!props.item.thumbUrl" class="flex items-end mt-4">
       <TagsList :tags="tags" class="flex-1 mr-2" :sizeSm="true" />
 
-      <time :datetime="props.item.date" v-if="props.item.date" class="text-sm text-gray-500 dark:text-gray-400">
+      <time v-if="props.item.date" :datetime="props.item.date" class="text-sm text-gray-500 dark:text-gray-400">
         {{ localeDate }}
       </time>
     </div>

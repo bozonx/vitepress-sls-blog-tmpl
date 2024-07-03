@@ -11,6 +11,7 @@
     "@iconify/vue": "^4.1.2",
     "autoprefixer": "^10.4.19",
     "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0",
     "lodash.template": "^4.5.0",
     "postcss": "^8.4.39",
     "slug": "^9.1.0",

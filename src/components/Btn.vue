@@ -73,7 +73,7 @@ const isExternal = isExternalUrl(props.href);
 
 .dark .btn-base:hover {
   background: var(--btn-dark-bg-hover);
-  color: white;
+  color: var(--btn-dark-text-hover);
 }
 
 .dark .btn-base.active {

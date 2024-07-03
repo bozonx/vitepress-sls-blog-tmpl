@@ -12,12 +12,12 @@ const { theme } = useData();
 		<div class="flex-1 flex">
 			<!-- for mobile -->
 			<Btn @click="$emit('toggleSidebar')" id="topbar-drawer-switch" icon="fa6-solid:bars" class="lg:hidden"
-				:text="theme.sidebarMenuLabel" />
+				:text="theme.t.sidebarMenuLabel" />
 		</div>
 
 		<!-- for mobile -->
 
-		<ul v-if="theme.ui.topBar.mobileLinks" class="flex lg:hidden">
+		<ul v-if="theme.ui.topBar.mobileLinks" class="flex lg:hidden space-x-1">
 			<li v-for="item in theme.ui.topBar.mobileLinks">
 				<Btn :href="item.href" :icon="item.icon" :text="item.text" />
 			</li>
@@ -25,7 +25,7 @@ const { theme } = useData();
 
 		<!-- for desktop -->
 
-		<ul v-if="theme.ui.topBar.links" class="flex max-lg:hidden">
+		<ul v-if="theme.ui.topBar.links" class="flex max-lg:hidden space-x-1">
 			<li v-for="item in theme.ui.topBar.links">
 				<Btn :href="item.href" :icon="item.icon" :text="item.text" />
 			</li>
@@ -39,7 +39,7 @@ const { theme } = useData();
 			<VPSwitchAppearance />
 		</div>
 
-		<ul v-if="theme.ui.topBar.socialLinks" class="flex max-lg:hidden">
+		<ul v-if="theme.ui.topBar.socialLinks" class="flex max-lg:hidden space-x-1">
 			<li v-for="item in theme.ui.topBar.socialLinks">
 				<Btn :href="item.href" :icon="item.icon" />
 			</li>

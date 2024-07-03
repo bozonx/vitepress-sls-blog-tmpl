@@ -1,4 +1,5 @@
 import Layout from "./LayoutIndex.vue";
+// import "./tailwind.css";
 
 // TODO: remove
 import "vitepress/dist/client/theme-default/styles/components/vp-doc.css";

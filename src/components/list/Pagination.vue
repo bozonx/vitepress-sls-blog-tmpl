@@ -15,21 +15,12 @@ const items = [];
 const curPage = props.curPage;
 const maxItems = props.maxItems;
 const totalPages = props.totalPages;
-/*
-const curPage = 3
-const maxItems = 7
-const totalPages = 6
-*/
-if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
-  items.push({
-    name: "<<",
-    //href: `${props.baseUrl}/${props.curPage - 1}`,
-    //active: false,
-    href: `${props.baseUrl}/1`,
-    disabled: curPage <= 1,
-    title: theme.value.t.paginationToStart,
-  });
 
+// const curPage = 5;
+// const maxItems = 7;
+// const totalPages = 9;
+
+if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   const halfPages = (maxItems - 1) / 2;
   let minusPages = halfPages;
   let plusPages = halfPages;
@@ -50,35 +41,35 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
     endPage = totalPages;
   }
 
+  if (startPage !== 1) {
+    items.push({
+      name: "<<",
+      href: `${props.baseUrl}/1`,
+      title: theme.value.t.paginationToStart,
+    });
+  }
+
   for (let i = startPage; i <= endPage; i++) {
     items.push({
       name: i,
       href: `${props.baseUrl}/${i}`,
-      disabled: false,
     });
   }
 
-  items.push({
-    name: ">>",
-    //href: `${props.baseUrl}/${props.curPage + 1}`,
-    href: `${props.baseUrl}/${totalPages}`,
-    disabled: curPage === totalPages,
-    title: theme.value.t.paginationToEnd,
-  });
+  if (totalPages - endPage > 0) {
+    items.push({
+      name: ">>",
+      href: `${props.baseUrl}/${totalPages}`,
+      title: theme.value.t.paginationToEnd,
+    });
+  }
 }
 </script>
 
 <template>
   <ul v-if="items.length" class="flex gap-x-1">
     <li v-for="item of items">
-      <Btn :href="item.disabled ? null : item.href" :disabled="item.disabled" :title="item.title"
-        class="pagination-item" :text="item.name" />
+      <Btn :href="item.href" :title="item.title" :text="item.name" class="px-3" />
     </li>
   </ul>
 </template>
-
-<style>
-.pagination-item {
-  padding: 0.5rem 0.8rem;
-}
-</style>

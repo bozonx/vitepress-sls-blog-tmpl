@@ -87,3 +87,28 @@ export function makePostOfMonthList(allData = [], year, month) {
     return true;
   });
 }
+
+export function makeAuthorsList(allData = [], allAuthors = []) {
+  const authorPosts = {};
+
+  for (const item of allAuthors) {
+    authorPosts[item.id] = 0;
+  }
+
+  for (const item of allData) {
+    if (typeof authorPosts[item.authorId] === "number") {
+      authorPosts[item.authorId]++;
+    }
+  }
+
+  const res = Object.keys(authorPosts).map((id) => ({
+    id,
+    name: allAuthors.find((item) => item.id === id)?.name,
+    count: authorPosts[id],
+  }));
+
+  // sort by name
+  res.sort((a, b) => b.name - a.name);
+
+  return res;
+}

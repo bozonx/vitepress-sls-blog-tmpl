@@ -47,5 +47,7 @@ export const base = {
     ourYoutubeChannel: "Our Youtube Channel", // Наш Youtube канал: Our Youtube Channel
     ourTelegramChannel: "Our Telegram Channel", // Наш Telegram канал: Our Telegram Channel
     ourTelegramChat: "Our Telegram Chat", // Наш чат в Telegram: Our Telegram Chat
+    authors: "Authors",
+    allPostsOfAuthor: "All the posts of the author",
   },
 };

@@ -111,6 +111,40 @@ export function makeTagsParams(postsDirAbs, perPage, lang) {
   return res;
 }
 
+export function makeAuthorsParams(postsDirAbs, perPage) {
+  const allFiles = fs.readdirSync(postsDirAbs, DEFAULT_ENCODE);
+  const authorIds = allFiles
+    .filter((item) => item.match(/\.md$/))
+    .map((item) => {
+      const itemPath = path.join(postsDirAbs, item);
+      const rawContent = fs.readFileSync(itemPath, DEFAULT_ENCODE);
+      const { frontmatter } = parseMdFile(rawContent);
+
+      return frontmatter.authorId;
+    })
+    .filter((item) => Boolean(item));
+  const authorPostCount = {};
+  const res = [];
+
+  for (const id of authorIds) {
+    if (authorPostCount[id]) {
+      authorPostCount[id]++;
+    } else {
+      authorPostCount[id] = 1;
+    }
+  }
+
+  for (const id of Object.keys(authorPostCount)) {
+    for (let i = 0; i < authorPostCount[id]; i += perPage) {
+      const page = i === 0 ? i + 1 : i - perPage + 2;
+
+      res.push({ params: { id, page } });
+    }
+  }
+
+  return res;
+}
+
 export function loadDatesList(postsDirAbs) {
   const allFiles = fs.readdirSync(postsDirAbs, DEFAULT_ENCODE);
 

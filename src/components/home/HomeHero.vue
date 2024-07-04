@@ -1,6 +1,4 @@
 <script setup>
-// import TagsList from "../TagsList.vue";
-
 const props = defineProps(["firstLine", "secondLine"]);
 </script>
 

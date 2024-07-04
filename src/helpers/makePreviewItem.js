@@ -1,5 +1,7 @@
 import fs from "fs";
 import path from "path";
+import { remark } from "remark";
+import strip from "strip-markdown";
 import { DEFAULT_ENCODE } from "../constants.js";
 import { parseMdFile } from "./parseMdFile.js";
 
@@ -16,6 +18,7 @@ export function makePreviewItem(filePath) {
   return {
     url,
     pubDate: frontmatter.pubDate,
+    authorId: frontmatter.authorId,
     title: extractTitleFromMd(content),
     preview: resolvePreview(frontmatter, content),
     tags: frontmatter.tags,
@@ -24,9 +27,11 @@ export function makePreviewItem(filePath) {
 
 function extractPreviewFromMd(mdContent) {
   const mdContentNoHeader = removeTitleFromMd(mdContent);
-  // TODO: do it - сделать более умную обрезку. очистить md
+  const striped = remark().use(strip).processSync(mdContentNoHeader).toString();
 
-  return mdContentNoHeader.substring(0, 150);
+  // TODO: do it - сделать более умную обрезку.
+
+  return striped.substring(0, 150);
 }
 
 function extractTitleFromMd(mdNoFrontmatter) {

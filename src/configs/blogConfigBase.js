@@ -21,6 +21,7 @@ export default {
     allTagsUrl: "/tags",
     archiveBaseUrl: "/archive",
     recentBaseUrl: "/recent",
+    authorBaseUrl: "/author",
   },
   transformPageData(pageData, ctx) {
     transformTitle(pageData, ctx);

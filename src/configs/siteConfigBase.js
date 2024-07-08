@@ -1,5 +1,17 @@
 export const common = {
-  //head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  head: [
+    ["link", { rel: "icon", sizes: "16x16", href: "/img/favicon-16x16.png" }],
+    ["link", { rel: "icon", sizes: "32x32", href: "/img/favicon-32x32.png" }],
+    [
+      "link",
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/img/apple-touch-icon.png",
+      },
+    ],
+    ["link", { rel: "manifest", href: "/site.webmanifest" }],
+  ],
   outDir: "../docs",
   cacheDir: "../.cache",
   srcExclude: ["/site"],
@@ -12,7 +24,7 @@ export const common = {
   },
 
   themeConfig: {
-    //logo: '/logo.svg',
+    logo: "/img/logo.svg",
     externalLinkIcon: true,
     search: {
       provider: "local",

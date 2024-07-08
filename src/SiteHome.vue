@@ -7,14 +7,14 @@ const props = defineProps(["hero", "features"]);
 </script>
 
 <template>
-  <div class="VPHome">
+  <div class="VPHome" style="margin-top: 2.5rem">
     <template v-if="props.hero">
       <VPHero v-bind="props.hero" />
     </template>
     <template v-if="props.features">
       <VPFeatures :features="props.features" />
     </template>
-    <VPHomeContent style="margin-top: 2rem; margin-bottom: 4rem">
+    <VPHomeContent style="margin-top: 2.5rem; margin-bottom: 4rem">
       <slot />
     </VPHomeContent>
   </div>

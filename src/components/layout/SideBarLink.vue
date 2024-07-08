@@ -29,7 +29,7 @@ const props = defineProps([
 }
 
 .sidebar-link.active:hover {
-  background: var(--sidebar-link-bg-active-hover);
+  filter: brightness(110%);
 }
 
 .dark .sidebar-link:hover {
@@ -41,6 +41,6 @@ const props = defineProps([
 }
 
 .dark .sidebar-link.active:hover {
-  background: var(--sidebar-link-dark-bg-active-hover);
+  filter: brightness(110%);
 }
 </style>

@@ -2,6 +2,7 @@
 import { useData } from "vitepress";
 import PreviewList from "../list/PreviewList.vue";
 import SimpleLink from "../SimpleLink.vue";
+import UtilPageHeader from "../UtilPageHeader.vue";
 
 const { theme } = useData();
 const props = defineProps(["allData", "perPage", "header", "class"]);
@@ -11,7 +12,7 @@ const sorted = [...(props.allData || [])].sort(
 </script>
 
 <template>
-  <h2 class="font-bold mb-2">{{ props.header }}</h2>
+  <UtilPageHeader>{{ props.header }}</UtilPageHeader>
   <PreviewList :allData="sorted" :curPage="1" :perPage="props.perPage" />
 
   <div class="mt-6">

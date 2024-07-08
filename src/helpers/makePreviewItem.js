@@ -1,9 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { remark } from "remark";
-import strip from "strip-markdown";
 import { DEFAULT_ENCODE } from "../constants.js";
-import { parseMdFile } from "./parseMdFile.js";
+import { parseMdFile, stripMd } from "./parseMdFile.js";
 
 export function makePreviewItem(filePath) {
   const relativePath = path.relative(
@@ -27,11 +25,9 @@ export function makePreviewItem(filePath) {
 
 function extractPreviewFromMd(mdContent) {
   const mdContentNoHeader = removeTitleFromMd(mdContent);
-  const striped = remark().use(strip).processSync(mdContentNoHeader).toString();
+  const striped = stripMd(mdContentNoHeader);
 
-  // TODO: do it - сделать более умную обрезку.
-
-  return striped.substring(0, 150);
+  return striped.substring(0, 300);
 }
 
 function extractTitleFromMd(mdNoFrontmatter) {
@@ -44,14 +40,13 @@ function removeTitleFromMd(mdNoFrontmatter) {
   return mdNoFrontmatter.trim().replace(/^\#\s+.+/, "");
 }
 
-function resolvePreview({ previewText, description }, mdContent) {
-  if (previewText === false || String(previewText)?.trim() === "false") {
-    return extractPreviewFromMd(mdContent);
-  } else if (previewText === true || String(previewText)?.trim() === "true") {
-    return description || extractPreviewFromMd(mdContent);
-  } else if (previewText) {
+function resolvePreview(
+  { previewText, descrAsPreview, description },
+  mdContent,
+) {
+  if (previewText) {
     return previewText;
-  } else if (description) {
+  } else if (descrAsPreview && description) {
     return description;
   }
 

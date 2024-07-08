@@ -1,7 +1,8 @@
-export default {
+export const common = {
   //head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   outDir: "../docs",
   cacheDir: "../.cache",
+  srcExclude: ["/site"],
   metaChunk: true,
   lastUpdated: true,
   cleanUrls: true,
@@ -26,3 +27,20 @@ export default {
     },
   },
 };
+
+export default function({ hostname, repo }, en) {
+  return {
+    ...common,
+    title: en.title,
+    description: en.description,
+
+    sitemap: {
+      hostname,
+    },
+
+    themeConfig: {
+      ...common.themeConfig,
+      socialLinks: repo && [{ icon: "github", link: repo }],
+    },
+  };
+}

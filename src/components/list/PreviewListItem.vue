@@ -34,10 +34,8 @@ const localeDate = makeHumanDate(props.item.date, lang.value);
       </div>
 
       <span class="max-md:mt-5 flex-1 block font-normal text-gray-700 dark:text-gray-400 leading-tight">
-        <p>
-          {{ props.item.preview }}
-        </p>
-        <p>...</p>
+        <p>{{ String(props.item?.preview).trim().replace(/\.$/, "") }} ...</p>
+        <!-- <p>...</p> -->
       </span>
     </div>
 

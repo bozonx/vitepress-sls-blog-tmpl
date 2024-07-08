@@ -62,7 +62,7 @@ const isExternal = isExternalUrl(props.href);
 }
 
 .btn-base.active:hover {
-  background: var(--btn-bg-active-hover);
+  filter: brightness(110%);
 }
 
 .btn-base.disabled {
@@ -81,7 +81,7 @@ const isExternal = isExternalUrl(props.href);
 }
 
 .dark .btn-base.active:hover {
-  background: var(--btn-dark-bg-active-hover);
+  filter: brightness(110%);
 }
 
 .dark .btn-base.disabled {

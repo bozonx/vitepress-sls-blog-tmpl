@@ -17,11 +17,9 @@
   /**** Buttons */
   --btn-text-hover: #374151;
   --btn-bg-active: #d5d5d5;
-  --btn-bg-active-hover: #bdbdbd;
   --btn-bg-hover: #ececec;
   --btn-dark-text-hover: white;
   --btn-dark-bg-active: #2d3544;
-  --btn-dark-bg-active-hover: #333d52;
   --btn-dark-bg-hover: #232a3a;
   --btn--disabled: #b8b8b8;
   --btn-dark-disabled: #63708a;
@@ -31,10 +29,8 @@
   /**** SideBarLink */
   --sidebar-link-bg-hover: #e2e2e2;
   --sidebar-link-bg-active: #dadada;
-  --sidebar-link-bg-active-hover: #cdcdcd;
   --sidebar-link-dark-bg-hover: #293546;
   --sidebar-link-dark-bg-active: #2f3b4c;
-  --sidebar-link-dark-bg-active-hover: #334053;
 
   /**** Sidebar */
   --sidebar-width: 320px;
@@ -52,7 +48,6 @@
 
   /**** TagItem */
   --tag-item-bg: #2563eb;
-  --tag-item-bg-hover: #1d4ed8;
   --tag-item-bg-active: #6d00ff;
 
   /**** Badge */
@@ -143,4 +138,24 @@ button {
 .vp-doc h3 .header-anchor,
 .vp-doc h4 .header-anchor {
   top: 0;
+}
+
+.vp-doc a {
+  color: var(--color-a-light-link);
+}
+
+.vp-doc a:visited {
+  color: var(--color-a-light-visited);
+}
+
+.dark .vp-doc a {
+  color: var(--color-a-dark-link);
+}
+
+.dark .vp-doc a:visited {
+  color: var(--color-a-dark-visited);
+}
+
+.vp-doc a:hover {
+  filter: brightness(130%);
 }

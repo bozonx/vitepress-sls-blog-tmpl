@@ -1,8 +1,4 @@
-import siteConfigBase from "../siteConfigBase.js";
-
-export const LANG = "ru";
-
-export const base = {
+export default {
   label: "Русский",
   themeConfig: {
     returnToTopLabel: "Наверх",
@@ -18,7 +14,6 @@ export const base = {
       label: "На этой странице",
     },
     lastUpdated: {
-      ...siteConfigBase.themeConfig.lastUpdated,
       text: "Последнее обновление",
     },
     editLink: {

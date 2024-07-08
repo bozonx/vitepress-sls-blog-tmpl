@@ -40,7 +40,7 @@ export function isExternalUrl(url) {
  * Resolve article preview text inside article. Or return undefine
  */
 export function resolveArticlePreview(frontmatter) {
-  const { previewText, description } = frontmatter;
+  const { previewText, descrAsPreview, description } = frontmatter;
 
   if (
     frontmatter.embeddedVideo ||
@@ -49,10 +49,10 @@ export function resolveArticlePreview(frontmatter) {
     frontmatter.media?.length
   ) {
     return;
-  } else if (previewText === true || String(previewText)?.trim() === "true") {
-    return description;
   } else if (previewText) {
     return previewText;
+  } else if (descrAsPreview && description) {
+    return description;
   }
 }
 

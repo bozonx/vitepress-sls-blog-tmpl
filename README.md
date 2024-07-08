@@ -2,6 +2,10 @@
 
 Vitepress blog template for freedom sites by Ivan K.
 
+## Install
+
+See `example` dir
+
 ## Post meta data
 
 You can publish all types of posts - article, post, video and audio. They are the same.
@@ -13,11 +17,12 @@ You can publish all types of posts - article, post, video and audio. They are th
 title?: Use it only if you want to replace title which is got from H1 tag
 description: content of meta descr and preview text if it allowed
 # If true - then use description or first part of the post in a list and article
-# If false - then use first part of the post in a list and don't use in article
-# If not set - then use description or first part of the post in a list and don't use in article
+# If false | undefined - then use first part of the post in a list and don't use in article
+descrAsPreview: true | false
 # If has text - then use this text in a list and in an article
+# If not set - then depend of descrAsPreview
 # It won't shown in a post if media, embeddedVideo, embeddedAudio or cover is set
-previewText: text for list item. If not set then `description` will be used
+previewText: text for list item and article preview
 pubDate: Publication date in iso format. Better to use time to order posts which are published at the same day
 # ID of author of site team. It it some other author just put his name into the text
 authorId: john-smith

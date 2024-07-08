@@ -29,11 +29,11 @@ const className =
   background: var(--tag-item-bg);
 }
 
-.tag-item:hover {
-  background: var(--tag-item-bg-hover);
-}
-
 .tag-item.active {
   background: var(--tag-item-bg-active);
+}
+
+.tag-item:hover {
+  filter: brightness(130%);
 }
 </style>

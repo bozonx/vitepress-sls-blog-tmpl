@@ -1,13 +1,34 @@
 <script setup>
 import { useData } from "vitepress";
-import SimpleLink from "../SimpleLink.vue";
 </script>
 
 <template>
-  <div class="mt-32">
-    <div class="text-3xl mb-4">404 not found</div>
+  <div class="notfound-page">
     <div>
-      <SimpleLink>return to home</SimpleLink>
+      <h1 class="notfound-page-message">404 not found</h1>
+      <div class="notfound-page-link">
+        <a class="simple-link" href="/">return to home</a>
+      </div>
     </div>
   </div>
 </template>
+
+<style>
+.notfound-page {
+  height: 100vh;
+  background: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notfound-page-message {
+  color: white;
+  font-size: 2.5rem;
+}
+
+.notfound-page-link {
+  font-size: 1.25rem;
+  margin-top: 0.25rem;
+}
+</style>

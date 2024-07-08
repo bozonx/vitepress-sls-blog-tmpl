@@ -5,30 +5,28 @@ import lodashTemplate from "lodash.template";
 import { DEFAULT_ENCODE } from "../constants.js";
 import { isExternalUrl } from "./helpers.js";
 import { common } from "../configs/siteConfigBase.js";
-import en from "../configs/siteLocalesBase/en.js";
-import ru from "../configs/siteLocalesBase/ru.js";
+import siteEn from "../configs/siteLocalesBase/en.js";
+import siteRu from "../configs/siteLocalesBase/ru.js";
 
-const baseLocales = {
-  en,
-  ru,
+const siteBaseLocales = {
+  en: siteEn,
+  ru: siteRu,
 };
 const SITE_DIR_REL_PATH = "../site";
 
-export function loadLocale(lang, configFilePath, PROPS) {
+export function loadSiteLocale(lang, configFilePath, PROPS) {
   const site = parseLocaleSite(configFilePath, PROPS, lang);
   const sidebar = parseLocaleSidebar(configFilePath, lang);
-  const baseLocale = baseLocales[lang];
+  const baseLocale = siteBaseLocales[lang];
+  const { title, description, ...themeConfig } = site;
 
   return {
     ...baseLocale,
-    title: site.title,
-    description: site.description,
+    title,
+    description,
     themeConfig: {
       ...baseLocale.themeConfig,
-      // TODO: better to use omit function
-      siteTitle: site.siteTitle,
-      nav: site.nav,
-      footer: site.footer,
+      ...themeConfig,
       editLink: {
         pattern: PROPS.editLinkPattern,
         ...baseLocale.themeConfig.editLink,

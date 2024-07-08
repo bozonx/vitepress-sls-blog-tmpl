@@ -18,7 +18,6 @@ export const common = {
       provider: "local",
     },
 
-    // for locale files use
     lastUpdated: {
       formatOptions: {
         dateStyle: "medium",

@@ -22,13 +22,20 @@ export function makeHumanDate(rawDate, lang) {
 }
 
 export function resolveI18Href(rawHref, localeIndex, i18nRouting) {
-  if (!rawHref) return rawHref;
+  const trimmed = String(rawHref).trim();
 
-  const isExternal = isExternalUrl(rawHref);
+  if (!rawHref || !trimmed) return rawHref;
+  else if (trimmed === "/") return "/" + localeIndex;
 
-  if (isExternal || !i18nRouting) return rawHref;
+  const isExternal = isExternalUrl(trimmed);
 
-  return `/${localeIndex}${rawHref}`;
+  if (isExternal || !i18nRouting) return trimmed;
+
+  // including language
+  if (trimmed.indexOf("/") === 0) return trimmed;
+
+  // add language
+  return `/${localeIndex}/${trimmed}`;
 }
 
 export function isExternalUrl(url) {

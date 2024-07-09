@@ -17,11 +17,11 @@ export default {
     //logo: '/logo.svg',
     i18nRouting: true,
     externalLinkIcon: true,
-    tagsBaseUrl: "/tag",
-    allTagsUrl: "/tags",
-    archiveBaseUrl: "/archive",
-    recentBaseUrl: "/recent",
-    authorBaseUrl: "/author",
+    tagsBaseUrl: "tag",
+    allTagsUrl: "tags",
+    archiveBaseUrl: "archive",
+    recentBaseUrl: "recent",
+    authorBaseUrl: "author",
   },
   transformPageData(pageData, ctx) {
     transformTitle(pageData, ctx);

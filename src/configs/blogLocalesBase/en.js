@@ -6,6 +6,7 @@ export const base = {
   sidebarMenuLabel: "Menu", // Меню: Menu
   darkModeSwitchTitle: "Switch to Dark Mode", // Переключиться на тёмную тему: Switch to Dark Mode
   lightModeSwitchTitle: "Switch to Light Mode", // Переключиться на светлую тему: Switch to Light Mode
+  langMenuLabel: "Change language",
   author: "Author", // Автор: Author
   donateCall: "If you like our project, please support it financially.", // Поддержать проект: If you like our project, please support it financially.
   shareSocialMedia: "Share on Social Media", // Поделиться в соц сетях: Share on Social Media
@@ -16,6 +17,21 @@ export const base = {
   showMorePosts: "Load More", // Загрузить больше: Load More
   paginationToStart: "First Page", // На первую страницу: First Page
   paginationToEnd: "Last Page", // На последнюю страницу: Last Page
+  listenPodcast: "Listen to podcast",
+  podcasts: {
+    site: "Listen on the release page",
+    castbox: "Castbox",
+    soundstream: "Sound stream",
+    spotify: "Spotify",
+    vk: "VK",
+    yandexmusic: "Yandex Music",
+    deezer: "Deezer",
+    pocketcasts: "Pocket casts",
+    applepodcasts: "Apple podcasts",
+    overcast: "Overcast",
+    zvuk: "Zvuk",
+    podcastaddiction: "Podcast addiction",
+  },
   months: [
     "January",
     "February",

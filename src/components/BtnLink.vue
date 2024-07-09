@@ -5,6 +5,7 @@ const props = defineProps([
   "id",
   "class",
   "href",
+  "label",
   "title",
   "target",
   "icon",
@@ -14,7 +15,9 @@ const props = defineProps([
 </script>
 
 <template>
-  <Btn v-bind="props" :class="['btn-link', props.class]" />
+  <Btn v-bind="props" :class="['btn-link', props.class]">
+    <slot />
+  </Btn>
 </template>
 
 <style>

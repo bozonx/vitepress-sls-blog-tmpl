@@ -6,6 +6,7 @@ export const base = {
   sidebarMenuLabel: "Меню",
   darkModeSwitchTitle: "Переключиться на тёмную тему",
   lightModeSwitchTitle: "Переключиться на светлую тему",
+  langMenuLabel: "Сменить язык",
   author: "Автор",
   donateCall:
     "Если вам нравится наш проект поддержите его пожалуйста финансово.",
@@ -17,6 +18,7 @@ export const base = {
   showMorePosts: "Ещё",
   paginationToStart: "На первую страницу",
   paginationToEnd: "На последнюю страницу",
+  listenPodcast: "Слушать подкаст",
   months: [
     "Январь",
     "Февраль",
@@ -31,6 +33,20 @@ export const base = {
     "Ноябрь",
     "Декабрь",
   ],
+  podcasts: {
+    site: "На сайте",
+    castbox: "Castbox",
+    soundstream: "Sound stream",
+    spotify: "Spotify",
+    vk: "VK",
+    yandexmusic: "Яндекс Музыка",
+    deezer: "Deezer",
+    pocketcasts: "Pocket casts",
+    applepodcasts: "Apple podcasts",
+    overcast: "Overcast",
+    zvuk: "Звук",
+    podcastaddiction: "Podcast addiction",
+  },
   links: {
     home: "Главная",
     commentCall: "Комментировать в Telegram канале",

@@ -6,19 +6,24 @@ import Btn from "./Btn.vue";
 
 const props = defineProps(["dropUp", "label"]);
 const animationTimeMs = 400;
-let listOpen = ref(false);
-let opacity = ref(0);
+const listOpen = ref(false);
+const opacity = ref(0);
+const mouseOverWholeEl = ref(false);
 let animationTimeout = null;
+let leaveTimeout = null;
 const toggleList = () => {
   if (listOpen.value) {
-    //close
     closeList();
   } else {
-    // open
-    listOpen.value = !listOpen.value;
-
-    setTimeout(() => (opacity.value = Number(listOpen.value)));
+    openList();
   }
+};
+const openList = () => {
+  if (listOpen.value) return;
+  // open
+  listOpen.value = true;
+
+  setTimeout(() => (opacity.value = Number(listOpen.value)));
 };
 const closeList = () => {
   if (!listOpen.value) return;
@@ -33,10 +38,34 @@ const closeList = () => {
     animationTimeout = null;
   }, animationTimeMs);
 };
+const handleWholeMouseEnter = () => {
+  mouseOverWholeEl.value = true;
+
+  clearTimeout(leaveTimeout);
+
+  leaveTimeout = null;
+
+  setTimeout(openList);
+};
+const handleWholeMouseLeave = () => {
+  mouseOverWholeEl.value = false;
+
+  clearTimeout(leaveTimeout);
+
+  leaveTimeout = setTimeout(() => {
+    if (!mouseOverWholeEl.value) closeList();
+
+    leaveTimeout = null;
+  }, 1000);
+};
 </script>
 
 <template>
-  <div class="dropdown-btn">
+  <div
+    class="dropdown-btn"
+    @mouseenter="handleWholeMouseEnter"
+    @mouseleave="handleWholeMouseLeave"
+  >
     <Btn @click.prevent.stop="toggleList" :label="props.label">
       <span class="flex">
         <slot name="btn-text" />

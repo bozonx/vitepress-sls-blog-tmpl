@@ -10,7 +10,7 @@ const { frontmatter, theme } = useData();
 </script>
 
 <template>
-  <DropdownButton v-if="frontmatter.podcasts">
+  <DropdownButton v-if="frontmatter.podcasts" class="podcasts-btn">
     <template #btn-text>
       <span class="mr-1">
         <Icon icon="material-symbols:headphones-outline" width="1.6rem" height="1.6rem" />
@@ -27,3 +27,14 @@ const { frontmatter, theme } = useData();
     </Btn>
   </DropdownButton>
 </template>
+
+<style>
+.podcasts-btn>.btn-base {
+  background: var(--podcast-btn-bg);
+  color: white;
+}
+
+.podcasts-btn>.btn-base:hover {
+  background: var(--podcast-btn-bg-hover);
+}
+</style>

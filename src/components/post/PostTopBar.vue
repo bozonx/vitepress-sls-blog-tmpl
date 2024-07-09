@@ -8,7 +8,10 @@ const props = defineProps(["class"]);
 </script>
 
 <template>
-  <div v-if="frontmatter.videoLink" :class="['flex max-sm:flex-col sm:space-x-3 space-y-7', props.class]">
+  <div
+    v-if="frontmatter.videoLink"
+    :class="['flex max-sm:flex-col sm:space-x-3 max-sm:space-y-7', props.class]"
+  >
     <VideoLink />
     <PodcastDropdown />
   </div>

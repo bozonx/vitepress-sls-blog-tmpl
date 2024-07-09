@@ -17,6 +17,8 @@
   --simple-page-line-height: 1.75;
 
   /**** TopBar */
+  --topbar-mobile-bg: #f5f5f5;
+  --topbar-mobile-border: #d6d6d6;
   --topbar-mobile-dark-bg: #0d1423;
   --topbar-mobile-dark-border: #060911;
 
@@ -26,7 +28,7 @@
   --btn-bg-hover: #ececec;
   --btn-dark-text-hover: white;
   --btn-dark-bg-active: #2d3544;
-  --btn-dark-bg-hover: #232a3a;
+  --btn-dark-bg-hover: #242e44;
   --btn-text-disabled: #b8b8b8;
   --btn-dark-text-disabled: #787b81;
   --btn-link-text-active: #495164;
@@ -37,6 +39,10 @@
   --dropdown-list-border-color: #e3e3e3;
   --dropdown-list-dark-bg: #26303d;
   --dropdown-list-dark-border-color: #0a0e19;
+
+  /**** Podcast btn */
+  --podcast-btn-bg: #421cb1;
+  --podcast-btn-bg-hover: #381a8f;
 
   /**** SideBarLink */
   --sidebar-link-bg-hover: #e2e2e2;

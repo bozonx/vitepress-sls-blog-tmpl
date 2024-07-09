@@ -81,11 +81,15 @@ watchEffect(async () => {
   display: flex;
   position: fixed;
   z-index: 1;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.07);
+  background: var(--topbar-mobile-bg);
+  border-bottom: 1px solid var(--topbar-mobile-border);
 }
 
 .dark .topbar--mobile {
   background: var(--topbar-mobile-dark-bg);
-  border-bottom: 1px solid var(--topbar-mobile-dark-border);
+  border-color: var(--topbar-mobile-dark-border);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .topbar-item {

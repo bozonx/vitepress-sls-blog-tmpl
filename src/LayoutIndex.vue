@@ -79,6 +79,6 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <ToTheTop :scrollY="scrollY" />
+    <ToTheTop :scrollY="scrollY" :windowWidth="windowWidth" />
   </div>
 </template>

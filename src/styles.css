@@ -8,6 +8,8 @@
   font-family: var(--font-body);
   color: var(--color-text);
 
+  --primary-btn-bg: #2563eb;
+
   /**** Util and simple page */
   --util-page-header-color: #6a6a6a;
   --util-page-dark-header-color: #a2abbe;
@@ -39,7 +41,6 @@
   --sidebar-link-dark-bg-active: #2f3b4c;
 
   /**** Sidebar */
-  --sidebar-width: 320px;
   --drawer-bg: #f9fafbff;
   --drawer-border-color: #e2e2e2;
   --dark-drawer-border-color: #000;
@@ -53,7 +54,7 @@
   --color-a-dark-visited: #ca64e6;
 
   /**** TagItem */
-  --tag-item-bg: #2563eb;
+  --tag-item-bg: var(--badge-bg);
   --tag-item-bg-active: #6d00ff;
 
   /**** Badge */

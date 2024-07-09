@@ -4,11 +4,11 @@ import { vOnClickOutside } from "@vueuse/components";
 import { Icon } from "@iconify/vue";
 import Btn from "./Btn.vue";
 
-const props = defineProps(["label"]);
+const props = defineProps(["dropUp", "label"]);
 const animationTimeMs = 400;
 let listOpen = ref(false);
 let opacity = ref(0);
-let closingTimeout = null;
+let animationTimeout = null;
 const toggleList = () => {
   if (listOpen.value) {
     //close
@@ -25,12 +25,12 @@ const closeList = () => {
 
   opacity.value = 0;
 
-  clearTimeout(closingTimeout);
+  clearTimeout(animationTimeout);
 
-  closingTimeout = setTimeout(() => {
+  animationTimeout = setTimeout(() => {
     listOpen.value = false;
 
-    closingTimeout = null;
+    animationTimeout = null;
   }, animationTimeMs);
 };
 </script>
@@ -47,9 +47,13 @@ const closeList = () => {
       </span>
     </Btn>
     <div @click="closeList" v-on-click-outside="closeList" :style="{
-      opacity: opacity,
-      display: listOpen ? 'block' : 'none',
-    }" :class="`dropdown-list space-y-1 transition-opacity duration-${animationTimeMs}`">
+      opacity,
+      'transition-duration': `${animationTimeMs}ms`,
+    }" :class="[
+        `dropdown-list space-y-1 transition-opacity`,
+        props.dropUp && 'dropdown--drop-up',
+        !listOpen && 'hidden',
+      ]">
       <slot />
     </div>
   </div>
@@ -59,7 +63,6 @@ const closeList = () => {
 .dropdown-btn {
   display: inline-block;
   position: relative;
-  z-index: 100;
 }
 
 .dropdown-caret {
@@ -69,15 +72,21 @@ const closeList = () => {
 
 .dropdown-list {
   position: absolute;
+  z-index: 100;
   /* min-width: 150px; */
   padding: 0.4rem 0;
   border-radius: 0.5rem;
   background: var(--dropdown-list-bg);
   border: 1px solid var(--dropdown-list-border-color);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
 }
 
 .dark .dropdown-list {
   background: var(--dropdown-list-dark-bg);
   border: 1px solid var(--dropdown-list-dark-border-color);
+}
+
+.dropdown--drop-up {
+  bottom: 100%;
 }
 </style>

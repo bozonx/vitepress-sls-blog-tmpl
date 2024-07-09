@@ -15,7 +15,7 @@ const { theme } = useData();
     props.class,
   ]">
     <div class="px-4">
-      <SwitchLang @click.stop />
+      <SwitchLang @click.stop dropUp="true" />
     </div>
 
     <div class="px-4 py-2">

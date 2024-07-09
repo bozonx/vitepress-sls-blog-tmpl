@@ -5,20 +5,45 @@ import { Icon } from "@iconify/vue";
 import SideBarGroup from "./SideBarGroup.vue";
 import SideBarItems from "./SideBarItems.vue";
 import SideBarFooter from "./SideBarFooter.vue";
-import { MOBILE_BREAKPOINT } from "../../constants.js";
+import { MOBILE_BREAKPOINT, SIDEBAR_WIDTH } from "../../constants.js";
 
 const { theme } = useData();
 const props = defineProps(["windowWidth"]);
 const isMobile = ref(props.windowWidth <= MOBILE_BREAKPOINT);
 const drawerOpen = ref(!isMobile.value);
+const positionX = ref(0);
+const backdropOpacity = ref(0);
+let animationTimeout = null;
+const animationTimeMs = 400;
 
+const openDrawer = () => {
+  if (!isMobile.value || drawerOpen.value) return;
+
+  drawerOpen.value = true;
+
+  setTimeout(() => {
+    positionX.value = 0;
+    backdropOpacity.value = 1;
+  });
+};
 const closeDrawer = () => {
-  if (isMobile.value) drawerOpen.value = false;
+  if (!isMobile.value || !drawerOpen.value) return;
+
+  positionX.value = -SIDEBAR_WIDTH;
+  backdropOpacity.value = 0;
+
+  clearTimeout(animationTimeout);
+
+  animationTimeout = setTimeout(() => {
+    drawerOpen.value = false;
+
+    animationTimeout = null;
+  }, animationTimeMs);
 };
 
 defineExpose({
   toggleSidebar() {
-    drawerOpen.value = !drawerOpen.value;
+    openDrawer();
   },
 });
 
@@ -30,10 +55,14 @@ watchEffect(async () => {
 
 <template>
   <div :class="{ hidden: !drawerOpen }">
-    <div id="app-drawer" class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit">
+    <div id="app-drawer" :style="{
+      left: `${positionX}px`,
+      'transition-duration': `${animationTimeMs}ms`,
+      width: `${SIDEBAR_WIDTH}px`,
+    }" class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left">
       <div>
         <div class="sidebar-closebtn-wrapper lg:hidden">
-          <div @click.prevent.stop="drawerOpen = false" class="mr-5 mt-3">
+          <div @click.prevent.stop="closeDrawer" class="mr-5 mt-3">
             <Icon icon="fa6-solid:xmark" id="sidebar-drawer-switch"
               class="dark:text-gray-700 dark:hover:text-gray-300" />
           </div>
@@ -64,13 +93,15 @@ watchEffect(async () => {
         <div></div>
       </div>
     </div>
-    <div @click="closeDrawer" id="app-drawer-backdrop" class="lg:hidden"></div>
+    <div @click="closeDrawer" id="app-drawer-backdrop" :style="{
+      opacity: backdropOpacity,
+      'transition-duration': `${animationTimeMs}ms`,
+    }" class="transition-opacity lg:hidden"></div>
   </div>
 </template>
 
 <style>
 #app-drawer {
-  width: var(--sidebar-width);
   border-right: 1px solid var(--drawer-border-color);
   background: var(--drawer-bg);
   box-sizing: content-box;

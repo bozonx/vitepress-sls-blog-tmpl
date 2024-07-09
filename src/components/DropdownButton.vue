@@ -40,20 +40,24 @@ const closeList = () => {
     <Btn @click.prevent.stop="toggleList" :label="props.label">
       <span class="flex">
         <slot name="btn-text" />
-        <span class="dropdown-caret">
-          <Icon :class="[listOpen && 'hidden']" icon="ci:caret-down-md" width="1.7rem" height="1.7rem" />
-          <Icon :class="[!listOpen && 'hidden']" icon="ci:caret-up-md" width="1.7rem" height="1.7rem" />
+        <span :class="['dropdown-caret', listOpen && 'dropdown-caret--open']">
+          <Icon icon="ci:caret-down-md" width="1.7rem" height="1.7rem" />
         </span>
       </span>
     </Btn>
-    <div @click="closeList" v-on-click-outside="closeList" :style="{
-      opacity,
-      'transition-duration': `${animationTimeMs}ms`,
-    }" :class="[
+    <div
+      @click="closeList"
+      v-on-click-outside="closeList"
+      :style="{
+        opacity,
+        'transition-duration': `${animationTimeMs}ms`,
+      }"
+      :class="[
         `dropdown-list space-y-1 transition-opacity`,
         props.dropUp && 'dropdown--drop-up',
         !listOpen && 'hidden',
-      ]">
+      ]"
+    >
       <slot />
     </div>
   </div>
@@ -68,6 +72,8 @@ const closeList = () => {
 .dropdown-caret {
   margin-left: 0.25rem;
   margin-right: -10px;
+  transition: transform 400ms;
+  transform: rotate(0deg);
 }
 
 .dropdown-list {
@@ -88,5 +94,18 @@ const closeList = () => {
 
 .dropdown--drop-up {
   bottom: 100%;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown-caret--open {
+  transform: rotate(180deg);
 }
 </style>

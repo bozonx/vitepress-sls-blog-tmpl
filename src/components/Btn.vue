@@ -49,6 +49,7 @@ const hasText = props.text || slots.default;
 .btn-base__external {
   padding-left: 0.25rem;
   font-size: 13px;
+  margin-right: -0.3rem;
 }
 
 .btn-base {

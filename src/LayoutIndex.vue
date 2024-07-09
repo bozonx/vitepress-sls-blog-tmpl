@@ -7,10 +7,12 @@ import PageContent from "./components/PageContent.vue";
 import TopBar from "./components/layout/TopBar.vue";
 import ToTheTop from "./components/layout/ToTheTop.vue";
 import NotFound from "./components/layout/NotFound.vue";
+import { MOBILE_BREAKPOINT } from "./constants.js";
 
 const { page, theme, frontmatter } = useData();
-let windowWidth = ref(0);
-let scrollY = ref(0);
+const windowWidth = ref(0);
+const isMobile = ref(true);
+const scrollY = ref(0);
 let resizeListener;
 let scrollListener;
 const sidebarRef = ref(null);
@@ -21,9 +23,11 @@ function onSidebarToggle() {
 
 onMounted(() => {
   windowWidth.value = window.innerWidth;
+  isMobile.value = windowWidth.value <= MOBILE_BREAKPOINT;
 
   resizeListener = window.addEventListener("resize", () => {
     windowWidth.value = window.innerWidth;
+    isMobile.value = windowWidth.value <= MOBILE_BREAKPOINT;
   });
 
   scrollListener = window.addEventListener("scroll", () => {
@@ -41,9 +45,12 @@ onUnmounted(() => {
     <NotFound />
   </div>
   <Content v-else-if="frontmatter.layout === false" />
-  <div v-else class="min-h-screen lg:flex w-full dark:bg-gray-900 text-gray-900 dark:text-gray-200 text-lg">
+  <div
+    v-else
+    class="min-h-screen lg:flex w-full dark:bg-gray-900 text-gray-900 dark:text-gray-200 text-lg"
+  >
     <!--  left col-->
-    <SideBar ref="sidebarRef" :windowWidth="windowWidth">
+    <SideBar ref="sidebarRef" :isMobile="isMobile">
       <template #sidebar-top>
         <slot name="sidebar-top" />
       </template>
@@ -57,11 +64,15 @@ onUnmounted(() => {
     <!-- right col-->
     <div class="flex-1">
       <header>
-        <TopBar @toggle-sidebar="onSidebarToggle" />
+        <TopBar
+          @toggle-sidebar="onSidebarToggle"
+          :scrollY="scrollY"
+          :isMobile="isMobile"
+        />
       </header>
 
-      <div class="flex">
-        <main id="app-page" class="lg:ml-4 xl:ml-24 mt-4 px-4 sm:px-8">
+      <div :class="['flex']">
+        <main id="app-page" class="lg:ml-4 xl:ml-24 mt-24 lg:mt-4 px-4 sm:px-8">
           <PageContent />
 
           <div class="mt-40 pb-12">
@@ -79,6 +90,6 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <ToTheTop :scrollY="scrollY" :windowWidth="windowWidth" />
+    <ToTheTop :scrollY="scrollY" :isMobile="isMobile" />
   </div>
 </template>

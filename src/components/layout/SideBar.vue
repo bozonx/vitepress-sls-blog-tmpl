@@ -5,19 +5,18 @@ import { Icon } from "@iconify/vue";
 import SideBarGroup from "./SideBarGroup.vue";
 import SideBarItems from "./SideBarItems.vue";
 import SideBarFooter from "./SideBarFooter.vue";
-import { MOBILE_BREAKPOINT, SIDEBAR_WIDTH } from "../../constants.js";
+import { SIDEBAR_WIDTH } from "../../constants.js";
 
 const { theme } = useData();
-const props = defineProps(["windowWidth"]);
-const isMobile = ref(props.windowWidth <= MOBILE_BREAKPOINT);
-const drawerOpen = ref(!isMobile.value);
+const props = defineProps(["isMobile"]);
+const drawerOpen = ref(!props.isMobile);
 const positionX = ref(0);
 const backdropOpacity = ref(0);
 let animationTimeout = null;
 const animationTimeMs = 400;
 
 const openDrawer = () => {
-  if (!isMobile.value || drawerOpen.value) return;
+  if (!props.isMobile || drawerOpen.value) return;
 
   drawerOpen.value = true;
 
@@ -27,7 +26,7 @@ const openDrawer = () => {
   });
 };
 const closeDrawer = () => {
-  if (!isMobile.value || !drawerOpen.value) return;
+  if (!props.isMobile || !drawerOpen.value) return;
 
   positionX.value = -SIDEBAR_WIDTH;
   backdropOpacity.value = 0;
@@ -36,7 +35,6 @@ const closeDrawer = () => {
 
   animationTimeout = setTimeout(() => {
     drawerOpen.value = false;
-
     animationTimeout = null;
   }, animationTimeMs);
 };
@@ -48,8 +46,7 @@ defineExpose({
 });
 
 watchEffect(async () => {
-  isMobile.value = props.windowWidth <= MOBILE_BREAKPOINT;
-  drawerOpen.value = !isMobile.value;
+  drawerOpen.value = !props.isMobile;
 });
 </script>
 

@@ -51,9 +51,16 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div :class="['bottom-0 right-0 fixed transition-opacity', !showed && 'hidden']"
-    :style="{ opacity, 'transition-duration': `${animationTimeMs}ms` }" aria-hidden="true">
-    <a class="to-the-top-mobile" @click.prevent.stop="handleClick" :label="theme.t.returnToTopLabel">
+  <div
+    :class="['bottom-0 right-0 fixed transition-opacity', !showed && 'hidden']"
+    :style="{ opacity, 'transition-duration': `${animationTimeMs}ms` }"
+    aria-hidden="true"
+  >
+    <a
+      class="to-the-top-mobile"
+      @click.prevent.stop="handleClick"
+      :label="theme.t.returnToTopLabel"
+    >
       <Icon icon="fa6-solid:arrow-up" />
     </a>
   </div>
@@ -69,7 +76,7 @@ watchEffect(async () => {
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  margin: 0 3rem 4rem 0;
+  margin: 0 3rem 3rem 0;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
   color: white;
 }

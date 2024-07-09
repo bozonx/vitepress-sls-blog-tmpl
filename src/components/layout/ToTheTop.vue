@@ -1,12 +1,11 @@
 <script setup>
 import ToTheTopDesktop from "./ToTheTopDesktop.vue";
 import ToTheTopMobile from "./ToTheTopMobile.vue";
-import { MOBILE_BREAKPOINT } from "../../constants.js";
 
-const props = defineProps(["scrollY", "windowWidth"]);
+const props = defineProps(["scrollY", "isMobile"]);
 </script>
 
 <template>
-  <ToTheTopDesktop v-if="props.windowWidth >= MOBILE_BREAKPOINT" :scrollY="scrollY" />
-  <ToTheTopMobile v-else :scrollY="scrollY" />
+  <ToTheTopMobile v-if="props.isMobile" :scrollY="scrollY" />
+  <ToTheTopDesktop v-else :scrollY="scrollY" />
 </template>

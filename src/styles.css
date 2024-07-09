@@ -16,6 +16,10 @@
   --simple-page-font-size: 1.25rem;
   --simple-page-line-height: 1.75;
 
+  /**** TopBar */
+  --topbar-mobile-dark-bg: #0d1423;
+  --topbar-mobile-dark-border: #060911;
+
   /**** Buttons */
   --btn-text-hover: #374151;
   --btn-bg-active: #d5d5d5;

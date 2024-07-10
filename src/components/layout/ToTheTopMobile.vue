@@ -11,6 +11,7 @@ let showed = ref(false);
 let opacity = ref(0);
 let animationTimeout = null;
 let prevScroll = 0;
+
 const show = () => {
   if (showed.value) return;
 
@@ -18,6 +19,7 @@ const show = () => {
 
   setTimeout(() => (opacity.value = 1));
 };
+
 const hide = () => {
   if (!showed.value) return;
 
@@ -71,11 +73,10 @@ watchEffect(async () => {
   background: var(--primary-btn-bg);
   border-radius: 3rem;
   display: flex;
-  width: 3.5rem;
-  height: 3.5rem;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
   margin: 0 3rem 3rem 0;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
   color: white;

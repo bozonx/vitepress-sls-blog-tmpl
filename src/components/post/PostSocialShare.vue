@@ -28,20 +28,32 @@ const resolvedLocale = allowedLocales.includes(
 const shareOnFacebook = () => {
   const url =
     "https://www.facebook.com/sharer/sharer.php?u=" +
-    // encodeURIComponent(document.URL);
-    encodeURIComponent("https://github.com/nicolasbeauvais/vue-social-sharing");
+    encodeURIComponent(document.URL);
   window.open(url, "_blank");
 };
 </script>
 
 <template>
-  <div v-if="typeof frontmatter.layout === 'undefined'"
-    :class="['flex gap-y-3 max-sm:flex-col sm:items-center', props.class]">
+  <div
+    v-if="typeof frontmatter.layout === 'undefined'"
+    :class="['flex gap-y-3 max-sm:flex-col sm:items-center', props.class]"
+  >
     <div class="mr-2">{{ theme.t.shareSocialMedia }}:</div>
     <div class="flex">
-      <div class="ya-share2" data-size="l" :data-lang="resolvedLocale" data-curtain data-shape="round" data-copy="last"
-        :data-services="theme.t.socialMediaShares"></div>
-      <button @click="shareOnFacebook" class="social-additional-icon" title="Facebook">
+      <div
+        class="ya-share2"
+        data-size="l"
+        :data-lang="resolvedLocale"
+        data-curtain
+        data-shape="round"
+        data-copy="last"
+        :data-services="theme.t.socialMediaShares"
+      ></div>
+      <button
+        @click="shareOnFacebook"
+        class="social-additional-icon"
+        title="Facebook"
+      >
         <Icon icon="logos:facebook" />
       </button>
     </div>

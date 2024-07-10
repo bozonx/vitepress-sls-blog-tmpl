@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watchEffect } from "vue";
-import VPSwitchAppearance from "vitepress/dist/client/theme-default/components/VPSwitchAppearance.vue";
 import { useData } from "vitepress";
+import VPSwitchAppearance from "vitepress/dist/client/theme-default/components/VPSwitchAppearance.vue";
 import Btn from "../Btn.vue";
 import SwitchLang from "./SwitchLang.vue";
 
@@ -20,7 +20,6 @@ const props = defineProps(["isMobile"]);
       <!-- for mobile -->
       <Btn
         @click="$emit('toggleSidebar')"
-        id="topbar-drawer-switch"
         icon="fa6-solid:bars"
         class="lg:hidden topbar-item"
         :text="theme.t.sidebarMenuLabel"

@@ -13,9 +13,9 @@ const { page, theme, frontmatter } = useData();
 const windowWidth = ref(0);
 const isMobile = ref(true);
 const scrollY = ref(0);
+const sidebarRef = ref(null);
 let resizeListener;
 let scrollListener;
-const sidebarRef = ref(null);
 
 function onSidebarToggle() {
   sidebarRef.value.toggleSidebar();
@@ -23,11 +23,11 @@ function onSidebarToggle() {
 
 onMounted(() => {
   windowWidth.value = window.innerWidth;
-  isMobile.value = windowWidth.value <= MOBILE_BREAKPOINT;
+  isMobile.value = windowWidth.value < MOBILE_BREAKPOINT;
 
   resizeListener = window.addEventListener("resize", () => {
     windowWidth.value = window.innerWidth;
-    isMobile.value = windowWidth.value <= MOBILE_BREAKPOINT;
+    isMobile.value = windowWidth.value < MOBILE_BREAKPOINT;
   });
 
   scrollListener = window.addEventListener("scroll", () => {
@@ -36,7 +36,7 @@ onMounted(() => {
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resizeListener);
-  window.removeEventListener("resize", scrollListener);
+  window.removeEventListener("scroll", scrollListener);
 });
 </script>
 

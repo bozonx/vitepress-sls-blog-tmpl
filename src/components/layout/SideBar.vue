@@ -9,11 +9,11 @@ import { SIDEBAR_WIDTH } from "../../constants.js";
 
 const { theme } = useData();
 const props = defineProps(["isMobile"]);
+const animationTimeMs = 400;
 const drawerOpen = ref(!props.isMobile);
-const positionX = ref(0);
+const animationLeftPx = ref(-SIDEBAR_WIDTH);
 const backdropOpacity = ref(0);
 let animationTimeout = null;
-const animationTimeMs = 400;
 
 const openDrawer = () => {
   if (!props.isMobile || drawerOpen.value) return;
@@ -21,14 +21,15 @@ const openDrawer = () => {
   drawerOpen.value = true;
 
   setTimeout(() => {
-    positionX.value = 0;
+    animationLeftPx.value = 0;
     backdropOpacity.value = 1;
   });
 };
+
 const closeDrawer = () => {
   if (!props.isMobile || !drawerOpen.value) return;
 
-  positionX.value = -SIDEBAR_WIDTH;
+  animationLeftPx.value = -SIDEBAR_WIDTH;
   backdropOpacity.value = 0;
 
   clearTimeout(animationTimeout);
@@ -53,13 +54,12 @@ watchEffect(async () => {
 <template>
   <div :class="{ hidden: !drawerOpen }">
     <div
-      id="app-drawer"
       :style="{
-        left: `${positionX}px`,
+        left: props.isMobile ? `${animationLeftPx}px` : '0',
         'transition-duration': `${animationTimeMs}ms`,
         width: `${SIDEBAR_WIDTH}px`,
       }"
-      class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left"
+      class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer"
     >
       <div>
         <div class="sidebar-closebtn-wrapper lg:hidden">
@@ -72,6 +72,7 @@ watchEffect(async () => {
         </div>
 
         <!-- <SidebarLogo class="dark:mb-4" /> -->
+        <!-- <slot name="sidebar-logo" /> -->
 
         <div>
           <slot name="sidebar-top" />
@@ -80,7 +81,7 @@ watchEffect(async () => {
             <SideBarItems
               @click="closeDrawer"
               :items="theme.ui.sideBar.topLinks"
-              :isMobile="isMobile"
+              :isMobile="props.isMobile"
             />
           </SideBarGroup>
 
@@ -90,7 +91,7 @@ watchEffect(async () => {
             <SideBarItems
               @click="closeDrawer"
               :items="theme.ui.sideBar.bottomLinks"
-              :isMobile="isMobile"
+              :isMobile="props.isMobile"
             />
           </SideBarGroup>
 
@@ -106,18 +107,17 @@ watchEffect(async () => {
     </div>
     <div
       @click="closeDrawer"
-      id="app-drawer-backdrop"
       :style="{
         opacity: backdropOpacity,
         'transition-duration': `${animationTimeMs}ms`,
       }"
-      class="transition-opacity lg:hidden"
+      class="transition-opacity lg:hidden app-drawer-backdrop"
     ></div>
   </div>
 </template>
 
 <style>
-#app-drawer {
+.app-drawer {
   border-right: 1px solid var(--drawer-border-color);
   background: var(--drawer-bg);
   box-sizing: content-box;
@@ -126,12 +126,12 @@ watchEffect(async () => {
   bottom: 0;
 }
 
-.dark #app-drawer {
+.dark .app-drawer {
   background: var(--drawer-dark-bg);
   border-right-color: var(--drawer-dark-border-color);
 }
 
-#app-drawer-backdrop {
+.app-drawer-backdrop {
   position: fixed;
   top: 0;
   bottom: 0;

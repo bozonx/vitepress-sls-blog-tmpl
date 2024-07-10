@@ -28,15 +28,15 @@
   --btn-bg-hover: #ececec;
   --btn-dark-text-hover: white;
   --btn-dark-bg-active: #2d3544;
-  --btn-dark-bg-hover: #242e44;
+  --btn-dark-bg-hover: #273042;
   --btn-text-disabled: #b8b8b8;
   --btn-dark-text-disabled: #787b81;
   --btn-link-text-active: #495164;
   --btn-link-dark-text-active: #abacb0;
 
   /**** Podcast btn */
-  --podcast-btn-bg: #421cb1;
-  --podcast-btn-bg-hover: #381a8f;
+  --podcast-btn-bg: #5e1cb1;
+  --podcast-btn-bg-hover: #44157e;
 
   /**** SideBarLink */
   --sidebar-link-bg-hover: #e2e2e2;

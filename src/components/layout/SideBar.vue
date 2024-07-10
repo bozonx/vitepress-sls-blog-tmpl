@@ -63,13 +63,12 @@ watchEffect(async () => {
     >
       <div>
         <div class="sidebar-closebtn-wrapper lg:hidden">
-          <div @click.prevent.stop="closeDrawer" class="mr-5 mt-3">
-            <Icon
-              icon="fa6-solid:xmark"
-              id="sidebar-drawer-switch"
-              class="dark:text-gray-700 dark:hover:text-gray-300"
-            />
-          </div>
+          <button
+            @click.prevent.stop="closeDrawer"
+            class="py-4 px-5 dark:text-gray-700 dark:hover:text-gray-300"
+          >
+            <Icon icon="fa6-solid:xmark" />
+          </button>
         </div>
 
         <!-- <SidebarLogo class="dark:mb-4" /> -->

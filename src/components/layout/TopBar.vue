@@ -4,16 +4,9 @@ import VPSwitchAppearance from "vitepress/dist/client/theme-default/components/V
 import { useData } from "vitepress";
 import Btn from "../Btn.vue";
 import SwitchLang from "./SwitchLang.vue";
-import { MOBILE_BREAKPOINT } from "../../constants.js";
 
 const { theme } = useData();
-const props = defineProps(["scrollY", "isMobile"]);
-// const isMobile = ref(props.windowWidth <= MOBILE_BREAKPOINT);
-
-watchEffect(async () => {
-  // isMobile.value = props.windowWidth <= MOBILE_BREAKPOINT;
-  // drawerOpen.value = !isMobile.value;
-});
+const props = defineProps(["isMobile"]);
 </script>
 
 <template>

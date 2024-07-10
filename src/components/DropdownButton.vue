@@ -66,7 +66,7 @@ const handleWholeMouseLeave = () => {
     @mouseenter="handleWholeMouseEnter"
     @mouseleave="handleWholeMouseLeave"
   >
-    <Btn @click.prevent.stop="toggleList" :label="props.label">
+    <Btn @click.prevent.stop="toggleList" :label="props.label" class="w-full">
       <span class="flex">
         <slot name="btn-text" />
         <span :class="['dropdown-caret', listOpen && 'dropdown-caret--open']">
@@ -129,6 +129,7 @@ const handleWholeMouseLeave = () => {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(180deg);
   }

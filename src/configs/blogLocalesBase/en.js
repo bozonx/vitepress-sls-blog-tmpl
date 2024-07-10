@@ -18,20 +18,6 @@ export const base = {
   paginationToStart: "First Page", // На первую страницу: First Page
   paginationToEnd: "Last Page", // На последнюю страницу: Last Page
   listenPodcast: "Listen to podcast",
-  podcasts: {
-    site: "Listen on the release page",
-    castbox: "Castbox",
-    soundstream: "Sound stream",
-    spotify: "Spotify",
-    vk: "VK",
-    yandexmusic: "Yandex Music",
-    deezer: "Deezer",
-    pocketcasts: "Pocket casts",
-    applepodcasts: "Apple podcasts",
-    overcast: "Overcast",
-    zvuk: "Zvuk",
-    podcastaddiction: "Podcast addiction",
-  },
   months: [
     "January",
     "February",
@@ -46,12 +32,26 @@ export const base = {
     "November",
     "December",
   ],
+  podcasts: {
+    site: "Release's page",
+    castbox: "Castbox",
+    soundstream: "Sound stream",
+    spotify: "Spotify",
+    vk: "VK",
+    yandexmusic: "Yandex Music",
+    deezer: "Deezer",
+    pocketcasts: "Pocket casts",
+    applepodcasts: "Apple podcasts",
+    overcast: "Overcast",
+    zvuk: "Zvuk",
+    podcastaddiction: "Podcast addiction",
+  },
   links: {
     home: "Home", // Главная: Home
     commentCall: "Comment on Telegram Channel", // Комментировать в Telegram канале: Comment on Telegram Channel
     allTagsCall: "View All Tags", // Смотреть все тэги: View All Tags
     allTags: "All Tags", // Все тэги: All Tags
-    postYoutubeButton: "Watch Video", // Смотреть видео: Watch Video
+    postVideoButton: "Watch Video", // Смотреть видео: Watch Video
     aboutUs: "About Us", // О нас: About Us
     aboutBlog: "About This Blog", // Об этом блоге: About This Blog
     donate: "Donate", // Донат: Donate

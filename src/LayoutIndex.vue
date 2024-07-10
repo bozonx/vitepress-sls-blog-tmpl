@@ -64,11 +64,7 @@ onUnmounted(() => {
     <!-- right col-->
     <div class="flex-1">
       <header>
-        <TopBar
-          @toggle-sidebar="onSidebarToggle"
-          :scrollY="scrollY"
-          :isMobile="isMobile"
-        />
+        <TopBar @toggle-sidebar="onSidebarToggle" :isMobile="isMobile" />
       </header>
 
       <div :class="['flex']">

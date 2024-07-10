@@ -34,7 +34,7 @@ export const base = {
     "Декабрь",
   ],
   podcasts: {
-    site: "На сайте",
+    site: "Страница выпуска",
     castbox: "Castbox",
     soundstream: "Sound stream",
     spotify: "Spotify",

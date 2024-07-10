@@ -112,13 +112,13 @@ const handleWholeMouseLeave = () => {
   padding: 0.4rem 0;
   border-radius: 0.5rem;
   background: var(--dropdown-list-bg);
-  border: 1px solid var(--dropdown-list-border-color);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
+  margin-top: 1px;
 }
 
 .dark .dropdown-list {
   background: var(--dropdown-list-dark-bg);
-  border: 1px solid var(--dropdown-list-dark-border-color);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
 }
 
 .dropdown--drop-up {

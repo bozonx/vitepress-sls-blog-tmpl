@@ -34,12 +34,6 @@
   --btn-link-text-active: #495164;
   --btn-link-dark-text-active: #abacb0;
 
-  /**** DropdownButton */
-  --dropdown-list-bg: #f5f5f5;
-  --dropdown-list-border-color: #e3e3e3;
-  --dropdown-list-dark-bg: #26303d;
-  --dropdown-list-dark-border-color: #0a0e19;
-
   /**** Podcast btn */
   --podcast-btn-bg: #421cb1;
   --podcast-btn-bg-hover: #381a8f;
@@ -53,9 +47,13 @@
   /**** Sidebar */
   --drawer-bg: #f9fafbff;
   --drawer-border-color: #e2e2e2;
-  --dark-drawer-border-color: #000;
-  --dark-drawer-bg: rgb(31 41 55);
+  --drawer-dark-border-color: #000;
+  --drawer-dark-bg: rgb(31 41 55);
   --backdrop-bg: rgba(0, 0, 0, 0.85);
+
+  /**** DropdownButton */
+  --dropdown-list-bg: var(--drawer-bg);
+  --dropdown-list-dark-bg: var(--drawer-dark-bg);
 
   /**** SimpleLink */
   --color-a-light-link: #1d50c4;

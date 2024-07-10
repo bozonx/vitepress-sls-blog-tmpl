@@ -24,16 +24,15 @@ export function makeHumanDate(rawDate, lang) {
 export function resolveI18Href(rawHref, localeIndex, i18nRouting) {
   const trimmed = String(rawHref).trim();
 
-  if (!rawHref || !trimmed) return rawHref;
+  if (typeof rawHref !== "string" || !trimmed) return rawHref;
+  // main page
   else if (trimmed === "/") return "/" + localeIndex;
 
   const isExternal = isExternalUrl(trimmed);
 
   if (isExternal || !i18nRouting) return trimmed;
-
-  // including language
+  // already included language
   if (trimmed.indexOf("/") === 0) return trimmed;
-
   // add language
   return `/${localeIndex}/${trimmed}`;
 }

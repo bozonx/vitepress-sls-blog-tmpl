@@ -9,7 +9,7 @@ const props = defineProps(["firstLine", "secondLine"]);
         <div class="text-6xl font-bold mb-4">{{ props.firstLine }}</div>
         <div class="text-4xl">{{ props.secondLine }}</div>
       </div>
-      <div></div>
+      <div>img</div>
     </div>
   </div>
 </template>

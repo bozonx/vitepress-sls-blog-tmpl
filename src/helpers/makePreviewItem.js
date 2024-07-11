@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { DEFAULT_ENCODE } from "../constants.js";
-import { parseMdFile, stripMd } from "./parseMdFile.js";
+import { parseMdFile } from "./parseMdFile.js";
+import { stripMd } from "./convertMd.js";
 
 export function makePreviewItem(filePath) {
   const relativePath = path.relative(

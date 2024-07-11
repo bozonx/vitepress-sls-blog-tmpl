@@ -14,33 +14,7 @@ const props = defineProps([
 
 <template>
   <Btn v-bind="props" :class="[
-    'pr-2 pl-3 py-3 font-normal rounded-none sidebar-link',
+    'pr-2 pl-3 py-3 font-normal rounded-none btn-lighter',
     props.class,
   ]" iconClass="text-gray-500 dark:text-gray-400" />
 </template>
-
-<style>
-.sidebar-link:hover {
-  background: var(--sidebar-link-bg-hover);
-}
-
-.sidebar-link.active {
-  background: var(--sidebar-link-bg-active);
-}
-
-.sidebar-link.active:hover {
-  filter: brightness(110%);
-}
-
-.dark .sidebar-link:hover {
-  background: var(--sidebar-link-dark-bg-hover);
-}
-
-.dark .sidebar-link.active {
-  background: var(--sidebar-link-dark-bg-active);
-}
-
-.dark .sidebar-link.active:hover {
-  filter: brightness(110%);
-}
-</style>

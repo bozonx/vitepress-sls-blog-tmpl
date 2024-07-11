@@ -8,7 +8,9 @@
   font-family: var(--font-body);
   color: var(--color-text);
 
-  --primary-btn-bg: #2563eb;
+  --primary-hue: 219;
+  --visited-hue: 287;
+  --primary-btn-bg: hsl(var(--primary-hue), 80%, 50%);
 
   /**** Util and simple page */
   --util-page-header-color: #6a6a6a;
@@ -35,8 +37,8 @@
   --btn-link-dark-text-active: #abacb0;
 
   /**** Podcast btn */
-  --podcast-btn-bg: #5e1cb1;
-  --podcast-btn-bg-hover: #44157e;
+  --podcast-btn-bg: hsl(263, 73%, 40%);
+  --podcast-btn-bg-hover: hsl(263, 65%, 32%);
 
   /**** SideBarLink */
   --sidebar-link-bg-hover: #e2e2e2;
@@ -59,14 +61,15 @@
   --color-a-light-link: #1d50c4;
   --color-a-light-visited: #9c20be;
   --color-a-dark-link: #85aaff;
-  --color-a-dark-visited: #ca64e6;
-
+  /* hsl(219 100% 76% / 1) */
+  /* --color-a-dark-visited: #ca64e6; */
+  --color-a-dark-visited: hsl(var(--visited-hue) 72% 65%);
   /**** TagItem */
-  --tag-item-bg: var(--badge-bg);
-  --tag-item-bg-active: #6d00ff;
+  --tag-item-bg: var(--primary-btn-bg);
+  --tag-item-bg-active: hsl(var(--primary-hue), 75%, 40%);
 
   /**** Badge */
-  --badge-bg: #3b82f6;
+  --badge-bg: hsl(var(--primary-hue), 100%, 61%);
 }
 
 body {
@@ -134,6 +137,31 @@ button {
 	line-height: 1.4rem;
 }
 */
+
+/**** Lighter Btn for use on lighter background */
+.btn-lighter:hover {
+  background: var(--sidebar-link-bg-hover);
+}
+
+.btn-lighter.active {
+  background: var(--sidebar-link-bg-active);
+}
+
+.btn-lighter.active:hover {
+  filter: brightness(110%);
+}
+
+.dark .btn-lighter:hover {
+  background: var(--sidebar-link-dark-bg-hover);
+}
+
+.dark .btn-lighter.active {
+  background: var(--sidebar-link-dark-bg-active);
+}
+
+.dark .btn-lighter.active:hover {
+  filter: brightness(110%);
+}
 
 /******* Doc page */
 .vp-doc {

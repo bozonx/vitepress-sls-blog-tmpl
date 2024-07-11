@@ -1,10 +1,10 @@
 <script setup>
-const props = defineProps(["count"]);
+const props = defineProps(["count", "title"]);
 const className = "rounded-full text-sm text-white badge-item";
 </script>
 
 <template>
-  <span :class="className">{{ props.count }}</span>
+  <span :class="className" :title="props.title">{{ props.count }}</span>
 </template>
 
 <style>

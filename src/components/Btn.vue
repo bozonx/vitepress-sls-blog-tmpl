@@ -11,7 +11,6 @@ const props = defineProps([
   "id",
   "class",
   "href",
-  "label",
   "title",
   "target",
   "icon",
@@ -25,36 +24,22 @@ const hasText = props.text || slots.default;
 </script>
 
 <template>
-  <BaseLink
-    :id="props.id"
-    :class="[
-      'flex cursor-pointer items-center rounded-lg btn-base',
-      !hasText && 'icon-only',
-      props.disabled && 'disabled',
-      props.class,
-    ]"
-    :disabled="props.disabled"
-    :href="props.href"
-    :target="props.target"
-    :title="props.title"
-    :label="props.label"
-  >
+  <BaseLink :id="props.id" :class="[
+    'flex cursor-pointer items-center rounded-lg btn-base',
+    !hasText && 'icon-only',
+    props.disabled && 'disabled',
+    props.class,
+  ]" :disabled="!props.href && props.disabled" :href="props.href" :target="props.target" :title="props.title">
     <span class="flex items-center gap-x-2">
-      <span v-if="props.icon">
+      <span v-if="props.icon" aria-hidden="true">
         <Icon :icon="props.icon" :class="props.iconClass" />
       </span>
       <span v-if="hasText">
         <slot>{{ props.text }}</slot>
       </span>
     </span>
-    <span
-      v-if="theme.externalLinkIcon && isExternal && hasText"
-      class="btn-base__external"
-    >
-      <Icon
-        icon="mdi:arrow-top-right"
-        class="text-gray-400 dark:text-gray-600"
-      />
+    <span v-if="theme.externalLinkIcon && isExternal && hasText" class="btn-base__external" aria-hidden="true">
+      <Icon icon="mdi:arrow-top-right" class="text-gray-400 dark:text-gray-600" />
     </span>
   </BaseLink>
 </template>

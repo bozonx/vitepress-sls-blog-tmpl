@@ -10,32 +10,21 @@ const props = defineProps(["isMobile"]);
 </script>
 
 <template>
-  <nav
-    :class="[
-      'flex w-full py-2 px-2 space-x-1',
-      props.isMobile && 'topbar--mobile',
-    ]"
-  >
+  <nav :class="[
+    'flex w-full py-2 px-2 space-x-1',
+    props.isMobile && 'topbar--mobile',
+  ]">
     <div class="flex-1 flex">
       <!-- for mobile -->
-      <Btn
-        @click="$emit('toggleSidebar')"
-        icon="fa6-solid:bars"
-        class="lg:hidden topbar-item"
-        :text="theme.t.sidebarMenuLabel"
-      />
+      <Btn @click="$emit('toggleSidebar')" icon="fa6-solid:bars" class="lg:hidden topbar-item"
+        :text="theme.t.sidebarMenuLabel" />
     </div>
 
     <!-- for mobile -->
 
     <ul v-if="theme.ui.topBar.mobileLinks" class="flex lg:hidden space-x-1">
       <li v-for="item in theme.ui.topBar.mobileLinks">
-        <Btn
-          :href="item.href"
-          :icon="item.icon"
-          :text="item.text"
-          class="topbar-item"
-        />
+        <Btn v-bind="item" class="topbar-item" />
       </li>
     </ul>
 
@@ -43,12 +32,7 @@ const props = defineProps(["isMobile"]);
 
     <ul v-if="theme.ui.topBar.links" class="flex max-lg:hidden space-x-1">
       <li v-for="item in theme.ui.topBar.links">
-        <Btn
-          :href="item.href"
-          :icon="item.icon"
-          :text="item.text"
-          class="topbar-item"
-        />
+        <Btn v-bind="item" class="topbar-item" />
       </li>
     </ul>
 
@@ -56,13 +40,13 @@ const props = defineProps(["isMobile"]);
       <SwitchLang />
     </div>
 
-    <div class="px-4 py-2 max-lg:hidden">
+    <div class="px-4 py-2 max-lg:hidden" aria-hidden="true">
       <VPSwitchAppearance />
     </div>
 
     <ul v-if="theme.ui.topBar.socialLinks" class="flex max-lg:hidden space-x-1">
       <li v-for="item in theme.ui.topBar.socialLinks">
-        <Btn :href="item.href" :icon="item.icon" />
+        <Btn v-bind="item" />
       </li>
     </ul>
   </nav>

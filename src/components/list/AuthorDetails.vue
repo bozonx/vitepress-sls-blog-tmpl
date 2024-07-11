@@ -2,7 +2,7 @@
 import { useData } from "vitepress";
 import PreviewList from "./PreviewList.vue";
 import UtilPageHeader from "../UtilPageHeader.vue";
-import { mdToHtml } from "../../helpers/parseMdFile.js";
+import { mdToHtml } from "../../helpers/convertMd.js";
 
 const { theme } = useData();
 const props = defineProps([
@@ -19,7 +19,7 @@ const sorted = [...(items || [])].sort(
   (a, b) => new Date(b.date) - new Date(a.date),
 );
 const author = theme.value.authors.find((item) => item.id === props.authorId);
-const descr = author && mdToHtml(author.descr);
+const descr = author && author.descr && mdToHtml(author.descr);
 </script>
 
 <template>

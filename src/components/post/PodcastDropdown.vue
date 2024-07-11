@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/vue";
 import { useData } from "vitepress";
 import DropdownButton from "../DropdownButton.vue";
-import Btn from "../Btn.vue";
+import DropdownItem from "../DropdownItem.vue";
 import PodcastIcon from "./PodcastIcon.vue";
 
 const { frontmatter, theme } = useData();
@@ -14,20 +14,20 @@ const btnText =
 <template>
   <DropdownButton v-if="frontmatter.podcasts" class="podcasts-btn">
     <template #btn-text>
-      <span class="mr-1">
+      <span class="mr-1" aria-hidden="true">
         <Icon icon="material-symbols:headphones-outline" width="1.6rem" height="1.6rem" />
       </span>
       {{ btnText }}
     </template>
 
-    <Btn v-for="(link, name) in frontmatter.podcasts" :href="link" class="rounded-none" hideExternalIcon="true">
+    <DropdownItem v-for="(link, name) in frontmatter.podcasts" :href="link" hideExternalIcon="true">
       <span class="flex">
         <span class="mr-2">
           <PodcastIcon :name="name" :alt="name + ' podcast service icon'" />
         </span>
         {{ theme.t.podcasts[name] }}
       </span>
-    </Btn>
+    </DropdownItem>
   </DropdownButton>
 </template>
 

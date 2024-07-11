@@ -7,6 +7,7 @@ export const base = {
   darkModeSwitchTitle: "Переключиться на тёмную тему",
   lightModeSwitchTitle: "Переключиться на светлую тему",
   langMenuLabel: "Сменить язык",
+  currentLang: "Текущий язык",
   author: "Автор",
   donateCall:
     "Если вам нравится наш проект поддержите его пожалуйста финансово.",
@@ -19,6 +20,8 @@ export const base = {
   paginationToStart: "На первую страницу",
   paginationToEnd: "На последнюю страницу",
   listenPodcast: "Слушать подкаст",
+  thisSiteOnGithub: "Этот сайт на Github",
+  tagBadgeCount: "Количество постов по этому тэгу",
   months: [
     "Январь",
     "Февраль",

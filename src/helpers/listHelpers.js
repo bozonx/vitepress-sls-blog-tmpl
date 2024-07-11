@@ -88,14 +88,14 @@ export function makePostOfMonthList(allData = [], year, month) {
   });
 }
 
-export function makeAuthorsList(allData = [], allAuthors = []) {
+export function makeAuthorsList(allPosts = [], allAuthors = []) {
   const authorPosts = {};
 
   for (const item of allAuthors) {
     authorPosts[item.id] = 0;
   }
 
-  for (const item of allData) {
+  for (const item of allPosts) {
     if (typeof authorPosts[item.authorId] === "number") {
       authorPosts[item.authorId]++;
     }

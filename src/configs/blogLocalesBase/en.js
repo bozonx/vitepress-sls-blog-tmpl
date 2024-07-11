@@ -7,6 +7,7 @@ export const base = {
   darkModeSwitchTitle: "Switch to Dark Mode", // Переключиться на тёмную тему: Switch to Dark Mode
   lightModeSwitchTitle: "Switch to Light Mode", // Переключиться на светлую тему: Switch to Light Mode
   langMenuLabel: "Change language",
+  currentLang: "Current language",
   author: "Author", // Автор: Author
   donateCall: "If you like our project, please support it financially.", // Поддержать проект: If you like our project, please support it financially.
   shareSocialMedia: "Share on Social Media", // Поделиться в соц сетях: Share on Social Media
@@ -18,6 +19,8 @@ export const base = {
   paginationToStart: "First Page", // На первую страницу: First Page
   paginationToEnd: "Last Page", // На последнюю страницу: Last Page
   listenPodcast: "Listen to podcast",
+  thisSiteOnGithub: "This site on Github",
+  tagBadgeCount: "The number of posts on this tag",
   months: [
     "January",
     "February",

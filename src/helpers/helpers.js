@@ -70,7 +70,7 @@ export function resolveArticlePreview(frontmatter) {
  * If can't resolve then return 'en'.
  * */
 export function resolveNavigatorLang(supportedLocales = [], navLang = "") {
-  const navLangLow = navLang.trim().toLowerCase();
+  const navLangLow = String(navLang).trim().toLowerCase();
   const locales = supportedLocales.map((item) =>
     String(item).trim().toLowerCase(),
   );
@@ -84,6 +84,7 @@ export function resolveNavigatorLang(supportedLocales = [], navLang = "") {
   }
 
   if (navLangLow.indexOf("-") > 1) {
+    // means lang code and country like en-us
     const foundExact = locales.find((item) => item === navLangLow);
 
     if (foundExact) return navLangLow;
@@ -95,7 +96,7 @@ export function resolveNavigatorLang(supportedLocales = [], navLang = "") {
   const found = localesSlice.find((item) => item === navLangSlice);
 
   if (found) return found;
-
+  // return default language
   return "en";
 }
 

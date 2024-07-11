@@ -20,7 +20,7 @@ const className =
 <template>
   <BaseLink :href="href" :class="className">
     <span>{{ props.text }}</span>
-    <Badge v-if="props.count" :count="props.count" />
+    <Badge v-if="props.count" :count="props.count" :title="theme.t.tagBadgeCount" />
   </BaseLink>
 </template>
 

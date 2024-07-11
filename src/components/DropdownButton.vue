@@ -4,7 +4,7 @@ import { vOnClickOutside } from "@vueuse/components";
 import { Icon } from "@iconify/vue";
 import Btn from "./Btn.vue";
 
-const props = defineProps(["dropUp", "label"]);
+const props = defineProps(["dropUp", "title"]);
 const animationTimeMs = 400;
 const mouseLeaveDelayMs = 400;
 const listOpen = ref(false);
@@ -68,7 +68,7 @@ const handleWholeMouseLeave = () => {
 <template>
   <div class="dropdown-btn" @mouseenter="handleWholeMouseEnter" @mouseleave="handleWholeMouseLeave"
     v-on-click-outside="closeList">
-    <Btn @click.prevent.stop="toggleList" :label="props.label" class="w-full">
+    <Btn @click.prevent.stop="toggleList" :title="props.title" class="w-full">
       <span class="flex">
         <slot name="btn-text" />
         <span class="dropdown-caret" aria-hidden="true">

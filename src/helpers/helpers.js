@@ -48,14 +48,7 @@ export function isExternalUrl(url) {
 export function resolveArticlePreview(frontmatter) {
   const { previewText, descrAsPreview, description } = frontmatter;
 
-  if (
-    frontmatter.embeddedVideo ||
-    frontmatter.embeddedAudio ||
-    frontmatter.cover ||
-    frontmatter.media?.length
-  ) {
-    return;
-  } else if (previewText) {
+  if (previewText) {
     return previewText;
   } else if (descrAsPreview && description) {
     return description;

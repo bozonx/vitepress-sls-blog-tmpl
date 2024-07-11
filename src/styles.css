@@ -10,6 +10,7 @@
 
   --primary-hue: 219;
   --visited-hue: 287;
+  --layout-hue: 215;
   --primary-btn-bg: hsl(var(--primary-hue), 80%, 50%);
 
   /**** Util and simple page */
@@ -36,21 +37,21 @@
   --btn-link-text-active: #495164;
   --btn-link-dark-text-active: #abacb0;
 
-  /**** Podcast btn */
-  --podcast-btn-bg: hsl(263, 73%, 40%);
-  --podcast-btn-bg-hover: hsl(263, 65%, 32%);
-
   /**** SideBarLink */
   --sidebar-link-bg-hover: #e2e2e2;
   --sidebar-link-bg-active: #dadada;
   --sidebar-link-dark-bg-hover: #293546;
   --sidebar-link-dark-bg-active: #2f3b4c;
 
+  /**** Podcast btn */
+  --podcast-btn-bg: hsl(263, 73%, 40%);
+  --podcast-btn-bg-hover: hsl(263, 65%, 32%);
+
   /**** Sidebar */
-  --drawer-bg: #f9fafbff;
-  --drawer-border-color: #e2e2e2;
+  --drawer-bg: hsl(var(--layout-hue), 40%, 98%);
+  --drawer-border-color: hsl(var(--layout-hue), 30%, 87%);
   --drawer-dark-border-color: #000;
-  --drawer-dark-bg: rgb(31 41 55);
+  --drawer-dark-bg: hsl(var(--layout-hue), 28%, 17%);
   --backdrop-bg: rgba(0, 0, 0, 0.85);
 
   /**** DropdownButton */
@@ -58,12 +59,11 @@
   --dropdown-list-dark-bg: var(--drawer-dark-bg);
 
   /**** SimpleLink */
-  --color-a-light-link: #1d50c4;
-  --color-a-light-visited: #9c20be;
-  --color-a-dark-link: #85aaff;
-  /* hsl(219 100% 76% / 1) */
-  /* --color-a-dark-visited: #ca64e6; */
+  --color-a-light-link: hsl(var(--primary-hue), 74%, 44%);
+  --color-a-light-visited: hsl(var(--visited-hue) 71% 44%);
+  --color-a-dark-link: hsl(var(--primary-hue), 100%, 76%);
   --color-a-dark-visited: hsl(var(--visited-hue) 72% 65%);
+
   /**** TagItem */
   --tag-item-bg: var(--primary-btn-bg);
   --tag-item-bg-active: hsl(var(--primary-hue), 75%, 40%);

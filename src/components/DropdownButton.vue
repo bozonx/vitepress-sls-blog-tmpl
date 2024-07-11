@@ -26,7 +26,7 @@ const openList = () => {
 
   listOpen.value = true;
   // run on the next tick
-  setTimeout(() => (opacity.value = Number(listOpen.value)));
+  setTimeout(() => (opacity.value = Number(listOpen.value)), 50);
 };
 
 const closeList = () => {
@@ -66,39 +66,29 @@ const handleWholeMouseLeave = () => {
 </script>
 
 <template>
-  <div
-    class="dropdown-btn"
-    @mouseenter="handleWholeMouseEnter"
-    @mouseleave="handleWholeMouseLeave"
-    v-on-click-outside="closeList"
-  >
+  <div class="dropdown-btn" @mouseenter="handleWholeMouseEnter" @mouseleave="handleWholeMouseLeave"
+    v-on-click-outside="closeList">
     <Btn @click.prevent.stop="toggleList" :label="props.label" class="w-full">
       <span class="flex">
         <slot name="btn-text" />
         <span class="dropdown-caret" aria-hidden="true">
-          <span
-            :class="[
-              'dropdown-caret-rotate',
-              listOpen && 'dropdown-caret--open',
-            ]"
-          >
+          <span :class="[
+            'dropdown-caret-rotate',
+            listOpen && 'dropdown-caret--open',
+          ]">
             <Icon icon="ci:caret-down-md" width="1.7rem" height="1.7rem" />
           </span>
         </span>
       </span>
     </Btn>
-    <div
-      @click="closeList"
-      :style="{
-        opacity,
-        'transition-duration': `${animationTimeMs}ms`,
-      }"
-      :class="[
+    <div @click="closeList" :style="{
+      opacity,
+      'transition-duration': `${animationTimeMs}ms`,
+    }" :class="[
         `dropdown-list space-y-1 transition-opacity`,
         props.dropUp && 'dropdown--drop-up',
         !listOpen && 'hidden',
-      ]"
-    >
+      ]">
       <slot />
     </div>
   </div>

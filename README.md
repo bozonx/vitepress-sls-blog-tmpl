@@ -44,6 +44,25 @@ tags:
 
 # Link to a video on youtube or another platform. It is used in a watch video button
 videoLink: htts://...
+# Language of video link if it doesn't equal the language of the page
+videoLinkLang: en | ru | ...
+# Links to poscast of this post
+podcasts:
+  # means special page of this podcast e.g on https://mave.digital
+  site: "https://..",
+  castbox: "https://..",
+  soundstream: "https://..",
+  spotify: "https://..",
+  vk: "https://..",
+  yandexmusic: "https://..",
+  deezer: "https://..",
+  pocketcasts: "https://..",
+  applepodcasts: "https://..",
+  overcast: "https://..",
+  zvuk: "https://..",
+  podcastaddiction: "https://..",
+# Language of podcast if it doesn't equal the language of the page
+podcastLang: en | ru | ...
 # URL of a video which is embedded to the post. URL or local path
 embeddedVideo: https://...
 # URL of an audio which is embedded to the post. URL or local path

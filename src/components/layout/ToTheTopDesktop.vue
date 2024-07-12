@@ -51,7 +51,7 @@ watchEffect(async () => {
     <a class="mb-9 ml-4 flex gap-x-2 px-2 py-2 cursor-pointer text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white"
       @click.prevent.stop="handleClick">
       <Icon icon="fa6-solid:arrow-up" width="1.3rem" height="1.3rem" />
-      {{ theme.t.returnToTopLabel }}
+      {{ theme.returnToTopLabel }}
     </a>
   </div>
 </template>

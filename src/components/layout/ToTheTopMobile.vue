@@ -55,7 +55,7 @@ watchEffect(async () => {
 <template>
   <div :class="['bottom-0 right-0 fixed transition-opacity', !showed && 'hidden']"
     :style="{ opacity, 'transition-duration': `${animationTimeMs}ms` }" aria-hidden="true">
-    <a class="to-the-top-mobile" @click.prevent.stop="handleClick" :title="theme.t.returnToTopLabel">
+    <a class="to-the-top-mobile" @click.prevent.stop="handleClick" :title="theme.returnToTopLabel">
       <Icon icon="fa6-solid:arrow-up" />
     </a>
   </div>

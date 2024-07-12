@@ -26,6 +26,8 @@ export const common = {
   themeConfig: {
     logo: "/img/logo.svg",
     externalLinkIcon: true,
+    // i18nRouting: true,
+
     search: {
       provider: "local",
     },

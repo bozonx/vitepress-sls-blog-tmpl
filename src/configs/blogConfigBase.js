@@ -14,6 +14,8 @@ export const common = {
       },
     ],
     ["link", { rel: "manifest", href: "/site.webmanifest" }],
+    // yandex social shares
+    ["script", { src: "https://yastatic.net/share2/share.js" }],
   ],
   outDir: "../docs",
   cacheDir: "../.cache",
@@ -47,7 +49,7 @@ export const common = {
   },
 };
 
-export default function({ hostname }, en) {
+export default function({ hostname, repo }, en) {
   return {
     ...common,
     title: en.title,
@@ -56,5 +58,7 @@ export default function({ hostname }, en) {
     sitemap: {
       hostname,
     },
+
+    socialLinks: repo && [{ icon: "github", link: repo }],
   };
 }

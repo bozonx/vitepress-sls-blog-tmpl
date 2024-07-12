@@ -1,6 +1,4 @@
-<script setup>
-import { useData } from "vitepress";
-</script>
+<script setup></script>
 
 <template>
   <div class="notfound-page">

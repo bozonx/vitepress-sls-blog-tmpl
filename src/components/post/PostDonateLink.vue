@@ -6,10 +6,10 @@ const { theme } = useData();
 </script>
 
 <template>
-  <div v-if="theme.ui.donateLink">
+  <div v-if="theme.t.donateLink">
     <span class="mr-2">{{ theme.t.donateCall }}</span>
-    <SimpleLink :href="theme.ui.donateLink">{{
+    <SimpleLink :href="theme.t.donateLink">{{
       theme.t.links.donate
-    }}</SimpleLink>
+      }}</SimpleLink>
   </div>
 </template>

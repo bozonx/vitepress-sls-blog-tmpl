@@ -5,17 +5,17 @@ import lodashTemplate from "lodash.template";
 import { DEFAULT_ENCODE } from "../constants.js";
 import { isExternalUrl } from "./helpers.js";
 import { common } from "../configs/siteConfigBase.js";
-import siteEn from "../configs/siteLocalesBase/en.js";
-import siteRu from "../configs/siteLocalesBase/ru.js";
+import en from "../configs/siteLocalesBase/en.js";
+import ru from "../configs/siteLocalesBase/ru.js";
 
 const siteBaseLocales = {
-  en: siteEn,
-  ru: siteRu,
+  en,
+  ru,
 };
 const SITE_DIR_REL_PATH = "../site";
 
 export function loadSiteLocale(lang, configFilePath, PROPS) {
-  const site = parseLocaleSite(configFilePath, PROPS, lang);
+  const site = parseLocaleSite(lang, configFilePath, PROPS);
   const sidebar = parseLocaleSidebar(configFilePath, lang);
   const baseLocale = siteBaseLocales[lang];
   const { title, description, ...themeConfig } = site;
@@ -76,7 +76,7 @@ export function parseLocaleSidebar(configFilePath, lang) {
   return newSidebar;
 }
 
-export function parseLocaleSite(configFilePath, rawProps, lang) {
+export function parseLocaleSite(lang, configFilePath, rawProps) {
   const PROPS = {
     ...rawProps,
     lang,

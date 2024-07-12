@@ -73,14 +73,14 @@ watchEffect(async () => {
         <div>
           <slot name="sidebar-top" />
 
-          <SideBarGroup v-if="theme.ui.sideBar?.topLinks">
-            <SideBarItems @click="closeDrawer" :items="theme.ui.sideBar.topLinks" :isMobile="props.isMobile" />
+          <SideBarGroup v-if="theme.sideBar?.topLinks">
+            <SideBarItems @click="closeDrawer" :items="theme.sideBar.topLinks" :isMobile="props.isMobile" />
           </SideBarGroup>
 
           <slot name="sidebar-middle" />
 
-          <SideBarGroup v-if="theme.ui.sideBar?.bottomLinks" class="mt-2">
-            <SideBarItems @click="closeDrawer" :items="theme.ui.sideBar.bottomLinks" :isMobile="props.isMobile" />
+          <SideBarGroup v-if="theme.sideBar?.bottomLinks" class="mt-2">
+            <SideBarItems @click="closeDrawer" :items="theme.sideBar.bottomLinks" :isMobile="props.isMobile" />
           </SideBarGroup>
 
           <slot name="sidebar-bottom" />

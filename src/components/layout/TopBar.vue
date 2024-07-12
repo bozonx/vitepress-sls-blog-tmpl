@@ -22,16 +22,16 @@ const props = defineProps(["isMobile"]);
 
     <!-- for mobile -->
 
-    <ul v-if="theme.ui.topBar.mobileLinks" class="flex lg:hidden space-x-1">
-      <li v-for="item in theme.ui.topBar.mobileLinks">
+    <ul v-if="theme.topBar.mobileLinks" class="flex lg:hidden space-x-1">
+      <li v-for="item in theme.topBar.mobileLinks">
         <Btn v-bind="item" class="topbar-item" />
       </li>
     </ul>
 
     <!-- for desktop -->
 
-    <ul v-if="theme.ui.topBar.links" class="flex max-lg:hidden space-x-1">
-      <li v-for="item in theme.ui.topBar.links">
+    <ul v-if="theme.topBar.links" class="flex max-lg:hidden space-x-1">
+      <li v-for="item in theme.topBar.links">
         <Btn v-bind="item" class="topbar-item" />
       </li>
     </ul>
@@ -44,8 +44,8 @@ const props = defineProps(["isMobile"]);
       <VPSwitchAppearance />
     </div>
 
-    <ul v-if="theme.ui.topBar.socialLinks" class="flex max-lg:hidden space-x-1">
-      <li v-for="item in theme.ui.topBar.socialLinks">
+    <ul v-if="theme.topBar.socialLinks" class="flex max-lg:hidden space-x-1">
+      <li v-for="item in theme.topBar.socialLinks">
         <Btn v-bind="item" />
       </li>
     </ul>

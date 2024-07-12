@@ -22,8 +22,8 @@ const { theme } = useData();
       <VPSwitchAppearance @click.stop />
     </div>
 
-    <ul v-if="theme.ui.topBar.socialLinks" class="flex space-x-1">
-      <li v-for="item in theme.ui.topBar.socialLinks">
+    <ul v-if="theme.topBar?.socialLinks" class="flex space-x-1">
+      <li v-for="item in theme.topBar.socialLinks">
         <Btn v-bind="item" />
       </li>
     </ul>

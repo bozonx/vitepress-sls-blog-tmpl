@@ -44,8 +44,8 @@ const props = defineProps(["isMobile"]);
       <VPSwitchAppearance />
     </div>
 
-    <ul v-if="theme.topBar.socialLinks" class="flex max-lg:hidden space-x-1">
-      <li v-for="item in theme.topBar.socialLinks">
+    <ul v-if="theme.socialLinks" class="flex max-lg:hidden space-x-1">
+      <li v-for="item in theme.socialLinks">
         <Btn v-bind="item" />
       </li>
     </ul>

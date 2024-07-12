@@ -6,6 +6,13 @@ Vitepress blog template for freedom sites by Ivan K.
 
 See `example` dir
 
+## Config
+
+```
+// show author name on the posts list items
+showAuthorInPostList: true
+```
+
 ## Post meta data
 
 You can publish all types of posts - article, post, video and audio. They are the same.

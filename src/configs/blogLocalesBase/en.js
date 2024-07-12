@@ -25,7 +25,6 @@ export default {
     allPosts: "All Posts",
     showMorePosts: "Load More",
     listenPodcast: "Listen to podcast",
-    thisSiteOnGithub: "This site on Github",
     links: {
       home: "Home",
       commentCall: "Comment on Telegram Channel",

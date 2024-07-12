@@ -26,7 +26,6 @@ export default {
     allPosts: "Все посты",
     showMorePosts: "Ещё",
     listenPodcast: "Слушать подкаст",
-    thisSiteOnGithub: "Этот сайт на Github",
     links: {
       home: "Главная",
       commentCall: "Комментировать в Telegram канале",

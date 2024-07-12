@@ -1,11 +1,17 @@
 import { remark } from "remark";
 import strip from "strip-markdown";
-import remarkHtml from "remark-html";
+import remarkRehype from "remark-rehype";
+import rehypeExternalLinks from "rehype-external-links";
+import html from "rehype-stringify";
 
 export function stripMd(mdContent) {
   return remark().use(strip).processSync(mdContent).toString();
 }
 
 export function mdToHtml(mdContent) {
-  return remark().use(remarkHtml).processSync(mdContent).toString();
+  return remark()
+    .use(remarkRehype)
+    .use(rehypeExternalLinks, { target: "_blank", rel: [] })
+    .use(html)
+    .processSync(mdContent);
 }

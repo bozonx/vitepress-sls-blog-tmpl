@@ -8,14 +8,14 @@ export function isPost(frontmatter) {
   return Boolean(frontmatter.pubDate);
 }
 
-export function makeHumanDate(rawDate, lang) {
+export function makeHumanDate(rawDate, lang, toTimeZone = "UTC") {
   if (!rawDate) return;
 
   const options = {
     year: "numeric",
     month: "long",
     day: "numeric",
-    timeZone: "UTC",
+    timeZone: toTimeZone,
   };
 
   return new Date(rawDate).toLocaleDateString(lang, options);

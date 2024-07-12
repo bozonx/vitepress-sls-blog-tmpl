@@ -6,9 +6,11 @@ import BaseLink from "../BaseLink.vue";
 const props = defineProps(["class"]);
 const { page, theme, lang } = useData();
 const rawDate = page.value.frontmatter.pubDate;
-const rawDateSplit = rawDate.split("-");
-const year = Number(rawDateSplit[0]);
-const month = Number(rawDateSplit[1]);
+// const rawDateSplit = rawDate.split("-");
+// const year = Number(rawDateSplit[0]);
+const year = new Date(rawDate)?.getUTCFullYear();
+// const month = Number(rawDateSplit[1]);
+const month = new Date(rawDate)?.getUTCMonth() + 1;
 const localeDate = makeHumanDate(rawDate, lang.value);
 const linkClass = "underline hover:text-gray-500 hover:dark:text-gray-400";
 </script>

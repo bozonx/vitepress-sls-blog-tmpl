@@ -3,10 +3,13 @@ import { useData } from "vitepress";
 import TagsList from "../TagsList.vue";
 import { makeHumanDate } from "../../helpers/helpers.js";
 
-const { lang } = useData();
+const { lang, theme } = useData();
 const props = defineProps(["item"]);
 const tags = (props.item.tags || []).map((item) => ({ name: item }));
-const localeDate = makeHumanDate(props.item.date, lang.value);
+const localeDate = makeHumanDate(props.item.pubDate, lang.value);
+const authorName =
+  theme.value.showAuthorInPostList &&
+  theme.value.authors.find((item) => item.id === props.item.authorId)?.name;
 </script>
 
 <template>
@@ -26,9 +29,12 @@ const localeDate = makeHumanDate(props.item.date, lang.value);
         <!-- /> -->
         <!-- </a> -->
 
-        <time v-if="props.item.date" :datetime="props.item.date" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          {{ localeDate }}
-        </time>
+        <div class="mt-2 text-sm text-gray-500 dark:text-gray-400 space-x-2">
+          <span v-if="authorName">{{ authorName }}.</span>
+          <time v-if="props.item.pubDate" :datetime="props.item.pubDate">
+            {{ localeDate }}
+          </time>
+        </div>
 
         <TagsList :tags="tags" class="mt-2" :sizeSm="true" />
       </div>
@@ -42,9 +48,12 @@ const localeDate = makeHumanDate(props.item.date, lang.value);
     <div v-if="!props.item.thumbUrl" class="flex items-end mt-4">
       <TagsList :tags="tags" class="flex-1 mr-2" :sizeSm="true" />
 
-      <time v-if="props.item.date" :datetime="props.item.date" class="text-sm text-gray-500 dark:text-gray-400">
-        {{ localeDate }}
-      </time>
+      <div class="text-sm text-gray-500 dark:text-gray-400 space-x-2">
+        <span v-if="authorName">{{ authorName }}.</span>
+        <time v-if="props.item.pubDate" :datetime="props.item.pubDate">
+          {{ localeDate }}
+        </time>
+      </div>
     </div>
   </a>
 </template>

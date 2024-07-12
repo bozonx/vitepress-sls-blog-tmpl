@@ -33,6 +33,7 @@ export const common = {
     externalLinkIcon: true,
     i18nRouting: true,
 
+    showAuthorInPostList: true,
     tagsBaseUrl: "tag",
     allTagsUrl: "tags",
     archiveBaseUrl: "archive",
@@ -59,6 +60,11 @@ export default function({ hostname, repo }, en) {
       hostname,
     },
 
-    socialLinks: repo && [{ icon: "github", link: repo }],
+    themeConfig: {
+      ...common.themeConfig,
+      socialLinks: repo && [
+        { icon: "fa6-brands:github-alt", link: repo, title: "Github" },
+      ],
+    },
   };
 }

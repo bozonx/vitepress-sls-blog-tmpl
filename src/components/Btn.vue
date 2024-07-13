@@ -19,23 +19,35 @@ const props = defineProps([
   "iconClass",
   "hideExternalIcon",
 ]);
-const isExternal = !props.hideExternalIcon && isExternalUrl(props.href);
-const hasText = props.text || slots.default;
+const { icon, text, iconClass, hideExternalIcon, ...btnProps } = props;
+const isExternal = !hideExternalIcon && isExternalUrl(props.href);
+const hasText = text || slots.default;
+
+if (btnProps.href) {
+  // means just link
+  btnProps.tag = "a";
+  delete btnProps.disabled;
+} else {
+  // means Button
+  btnProps.tag = "button";
+  delete btnProps.href;
+  delete btnProps.target;
+}
 </script>
 
 <template>
-  <BaseLink :id="props.id" :class="[
+  <BaseLink v-bind="btnProps" :class="[
     'flex cursor-pointer items-center rounded-lg btn-base',
     !hasText && 'icon-only',
-    props.disabled && 'disabled',
+    btnProps.disabled && 'disabled',
     props.class,
-  ]" :disabled="!props.href && props.disabled" :href="props.href" :target="props.target" :title="props.title">
+  ]">
     <span class="flex items-center gap-x-2">
-      <span v-if="props.icon" aria-hidden="true">
-        <Icon :icon="props.icon" :class="props.iconClass" />
+      <span v-if="icon" aria-hidden="true">
+        <Icon :icon="icon" :class="iconClass" />
       </span>
       <span v-if="hasText">
-        <slot>{{ props.text }}</slot>
+        <slot>{{ text }}</slot>
       </span>
     </span>
     <span v-if="theme.externalLinkIcon && isExternal && hasText" class="btn-base__external" aria-hidden="true">
@@ -44,7 +56,7 @@ const hasText = props.text || slots.default;
   </BaseLink>
 </template>
 
-<style>
+<style scoped>
 .btn-base__external {
   padding-left: 0.25rem;
   font-size: 13px;

@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .notfound-page {
   height: 100vh;
   background: #111827;

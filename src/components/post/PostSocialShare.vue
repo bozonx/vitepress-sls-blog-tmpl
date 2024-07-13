@@ -47,7 +47,7 @@ const shareOnFacebook = () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .ya-share2 {
   margin-right: 4px;
 }

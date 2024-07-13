@@ -1,0 +1,71 @@
+title: site
+body: |
+  title: ""
+  description: ""
+
+  t:
+    donateLink: "${PROPS.siteUrl}/${PROPS.lang}/donate"
+
+  siteTitle: ""
+  authors:
+    - id: "ivan-k"
+      name: "Ivan K"
+      descr: ".\n\n[подробней](https://t.me/ivan_k_8/16)"
+  footer:
+    message: "Copying allowed only with a link to the source."
+    copyright: "${PROPS.footerCopyright}"
+    links: [{ text: "${PROPS.t.links.aboutBlog}", href: "page/about-blog" }]
+  topBar:
+    links:
+      - text: "${PROPS.t.links.donate}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/page/donate"
+        icon: "${PROPS.donateIcon}"
+      - text: "${PROPS.t.links.projectSite}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/"
+    mobileLinks:
+      - text: "${PROPS.t.links.donate}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/donate"
+        icon: "${PROPS.donateIcon}"
+  topBar:
+    links:
+      - text: "${PROPS.t.links.donate}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/page/donate"
+        icon: "${PROPS.donateIcon}"
+        mobileToo: true
+      - text: "${PROPS.t.links.projectSite}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/"
+  sideBar:
+    links:
+      - { text: "${PROPS.t.links.home}", href: "/", icon: "fa6-solid:house" }
+      - text: "${PROPS.t.links.recent}"
+        href: "recent/1"
+        icon: "fa6-solid:newspaper"
+      - text: "${PROPS.t.tags}"
+        href: "tags"
+        icon: "fa6-solid:tag"
+      - text: "${PROPS.t.links.byDate}"
+        href: "archive"
+        icon: "fa6-solid:calendar-days"
+      - text: "${PROPS.t.links.authors}"
+        href: "authors"
+        icon: "mdi:users"
+    bottomLinks:
+      - text: "${PROPS.t.links.donate}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/page/donate"
+        icon: "${PROPS.donateIcon}"
+        mobile: true
+      - text: "${PROPS.t.links.projectSite}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/"
+        mobile: true
+      - { header: "${PROPS.t.links.links}" }
+      - text: "${PROPS.t.links.ourYoutubeChannel}"
+        href: "https://www.youtube.com/@prjedem"
+        icon: "fa6-brands:youtube"
+      - text: "${PROPS.t.links.ourTelegramChannel}"
+        href: "https://t.me/prjedem"
+        icon: "fa6-brands:telegram"
+      - text: "${PROPS.t.links.ourTelegramChat}"
+        href: "https://t.me/prjedem_chat"
+        icon: "fa6-solid:message"
+      - text: "${PROPS.t.links.weInSocialMedia}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/page/links"

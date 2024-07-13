@@ -22,5 +22,3 @@ const props = defineProps([
     <slot>{{ props.text }}</slot>
   </Btn>
 </template>
-
-<style></style>

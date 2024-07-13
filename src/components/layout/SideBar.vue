@@ -73,8 +73,8 @@ watchEffect(async () => {
         <div>
           <slot name="sidebar-top" />
 
-          <SideBarGroup v-if="theme.sideBar?.topLinks">
-            <SideBarItems @click="closeDrawer" :items="theme.sideBar.topLinks" :isMobile="props.isMobile" />
+          <SideBarGroup v-if="theme.sideBar?.links">
+            <SideBarItems @click="closeDrawer" :items="theme.sideBar.links" :isMobile="props.isMobile" />
           </SideBarGroup>
 
           <slot name="sidebar-middle" />
@@ -100,7 +100,7 @@ watchEffect(async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .app-drawer {
   border-right: 1px solid var(--drawer-border-color);
   background: var(--drawer-bg);

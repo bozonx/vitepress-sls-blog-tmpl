@@ -28,7 +28,7 @@ const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
   </DropdownButton>
 </template>
 
-<style>
+<style scoped>
 .switch-lang-btn {
   padding-left: 0;
   padding-right: 0;

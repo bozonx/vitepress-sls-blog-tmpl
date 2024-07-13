@@ -13,6 +13,21 @@ See `example` dir
 showAuthorInPostList: true
 ```
 
+## Site config
+
+```
+  topBar:
+    links:
+      - text: "${PROPS.t.links.donate}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/page/donate"
+        icon: "${PROPS.donateIcon}"
+        # show on desktop and on mobile
+        mobileToo: true
+        # show only on mobile and don't show on desktop
+        mobileOnly: true
+
+```
+
 ## Post meta data
 
 You can publish all types of posts - article, post, video and audio. They are the same.

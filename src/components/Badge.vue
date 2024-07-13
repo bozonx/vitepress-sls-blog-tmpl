@@ -7,7 +7,7 @@ const className = "rounded-full text-sm text-white badge-item";
   <span :class="className" :title="props.title">{{ props.count }}</span>
 </template>
 
-<style>
+<style scoped>
 .badge-item {
   padding: 0.5rem;
   line-height: 0.5rem !important;

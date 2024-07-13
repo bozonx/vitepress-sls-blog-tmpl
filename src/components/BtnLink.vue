@@ -5,12 +5,13 @@ const props = defineProps([
   "id",
   "class",
   "href",
-  "label",
   "title",
   "target",
   "icon",
   "text",
+  "disabled",
   "iconClass",
+  "hideExternalIcon",
 ]);
 </script>
 
@@ -20,7 +21,7 @@ const props = defineProps([
   </Btn>
 </template>
 
-<style>
+<style scoped>
 .btn-link {
   padding: 0;
   background: transparent !important;

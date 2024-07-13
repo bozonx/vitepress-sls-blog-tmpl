@@ -58,7 +58,7 @@ const authorName =
   </a>
 </template>
 
-<style>
+<style scoped>
 .page-list-item:hover {
   filter: brightness(99%);
 }

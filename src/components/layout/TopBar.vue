@@ -1,37 +1,42 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import { useData } from "vitepress";
-import VPSwitchAppearance from "vitepress/dist/client/theme-default/components/VPSwitchAppearance.vue";
 import Btn from "../Btn.vue";
 import SwitchLang from "./SwitchLang.vue";
+import SwitchAppearance from "./SwitchAppearance.vue";
 
 const { theme } = useData();
 const props = defineProps(["isMobile"]);
+const resolveItemShowClass = (item) => {
+  if (item.mobileToo) return "";
+  else if (item.mobileOnly) return "lg:hidden";
+  // desktop only
+  return "max-lg:hidden";
+};
 </script>
 
 <template>
-  <nav :class="[
-    'flex w-full py-2 px-2 space-x-1',
-    props.isMobile && 'topbar--mobile',
-  ]">
+  <nav
+    :class="[
+      'flex w-full py-2 px-2 space-x-1',
+      props.isMobile && 'topbar--mobile',
+    ]"
+  >
     <div class="flex-1 flex">
       <!-- for mobile -->
-      <Btn @click="$emit('toggleSidebar')" icon="fa6-solid:bars" class="lg:hidden topbar-item"
-        :text="theme.t.sidebarMenuLabel" />
+      <Btn
+        @click="$emit('toggleSidebar')"
+        icon="fa6-solid:bars"
+        class="lg:hidden topbar-item"
+        :text="theme.t.sidebarMenuLabel"
+      />
     </div>
 
-    <!-- for mobile -->
-
-    <ul v-if="theme.topBar.mobileLinks" class="flex lg:hidden space-x-1">
-      <li v-for="item in theme.topBar.mobileLinks">
-        <Btn v-bind="item" class="topbar-item" />
-      </li>
-    </ul>
-
-    <!-- for desktop -->
-
-    <ul v-if="theme.topBar.links" class="flex max-lg:hidden space-x-1">
-      <li v-for="item in theme.topBar.links">
+    <ul v-if="theme.topBar.links" class="flex space-x-1">
+      <li
+        v-for="item in theme.topBar.links"
+        :class="resolveItemShowClass(item)"
+      >
         <Btn v-bind="item" class="topbar-item" />
       </li>
     </ul>
@@ -40,8 +45,8 @@ const props = defineProps(["isMobile"]);
       <SwitchLang />
     </div>
 
-    <div class="px-4 py-2 max-lg:hidden" aria-hidden="true">
-      <VPSwitchAppearance />
+    <div class="max-lg:hidden" aria-hidden="true">
+      <SwitchAppearance />
     </div>
 
     <ul v-if="theme.socialLinks" class="flex max-lg:hidden space-x-1">
@@ -52,7 +57,7 @@ const props = defineProps(["isMobile"]);
   </nav>
 </template>
 
-<style>
+<style scoped>
 .topbar--mobile {
   display: flex;
   position: fixed;

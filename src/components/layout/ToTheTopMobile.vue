@@ -61,7 +61,7 @@ watchEffect(async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .to-the-top-mobile {
   background: var(--primary-btn-bg);
   border-radius: 3rem;

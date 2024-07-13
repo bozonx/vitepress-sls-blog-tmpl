@@ -94,7 +94,7 @@ const handleWholeMouseLeave = () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .dropdown-btn {
   display: inline-block;
   position: relative;

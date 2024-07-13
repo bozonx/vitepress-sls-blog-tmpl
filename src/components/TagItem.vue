@@ -24,7 +24,7 @@ const className =
   </BaseLink>
 </template>
 
-<style>
+<style scoped>
 .tag-item {
   background: var(--tag-item-bg);
 }

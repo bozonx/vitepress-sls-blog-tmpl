@@ -31,7 +31,7 @@ const btnText =
   </DropdownButton>
 </template>
 
-<style>
+<style scoped>
 .podcasts-btn>.btn-base {
   background: var(--podcast-btn-bg);
   color: white;

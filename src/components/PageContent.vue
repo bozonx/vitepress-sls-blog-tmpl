@@ -40,7 +40,7 @@ const articlePreviewText = resolveArticlePreview(frontmatter.value);
   </article>
 </template>
 
-<style>
+<style scoped>
 .simple-page {
   margin-top: 1rem;
   font-weight: 400;

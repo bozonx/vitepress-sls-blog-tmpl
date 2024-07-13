@@ -16,7 +16,7 @@ const text =
     class="bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 video-link" hideExternalIcon="true" />
 </template>
 
-<style>
+<style scoped>
 .video-link {
   color: white !important;
 }

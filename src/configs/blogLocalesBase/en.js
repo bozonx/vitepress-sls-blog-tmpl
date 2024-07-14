@@ -6,12 +6,12 @@ export default {
     darkModeSwitchLabel: "Appearance",
     darkModeSwitchTitle: "Switch to Dark Mode",
     lightModeSwitchTitle: "Switch to Light Mode",
+    langMenuLabel: "Change language",
   },
   t: {
     // you can overwrite it in site config
     socialMediaShares: "telegram,vkontakte,twitter,whatsapp,messenger",
     shareSocialMedia: "Share on Social Media",
-    langMenuLabel: "Change language",
     currentLang: "Current language",
     tagBadgeCount: "The number of posts on this tag",
     tagPageHeader: "All Posts by Tag",

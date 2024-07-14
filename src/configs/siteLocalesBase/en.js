@@ -6,6 +6,7 @@ export default {
     darkModeSwitchLabel: "Appearance",
     darkModeSwitchTitle: "Switch to dark theme",
     lightModeSwitchTitle: "Switch to light theme",
+    langMenuLabel: "Change language",
     docFooter: {
       prev: "Previous page",
       next: "Next page",

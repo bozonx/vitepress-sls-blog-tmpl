@@ -1,0 +1,20 @@
+title: site
+body: |
+  title: ""
+  description: ""
+
+  siteTitle: ""
+  footer:
+    message: "Copying is allowed only with a link to the source."
+    copyright: "${PROPS.footerCopyright}"
+  nav:
+    - text: "❤️ Donate"
+      link: "/${PROPS.lang}/${PROPS.donateUrl}"
+    - text: "📖 Wiki"
+      link: "${PROPS.lang}/${PROPS.docUrl}"
+    - text: "TG channel"
+      link: "${PROPS.blogUrl}"
+    #- text: "Our social media"
+    #  link: "/${PROPS.lang}/${PROPS.linksUrl}"
+    - text: "About us"
+      link: "/${PROPS.lang}/${PROPS.aboutUrl}"

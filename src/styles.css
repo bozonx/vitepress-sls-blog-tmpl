@@ -1,31 +1,29 @@
 /* @import './html-block.css'; */
 
 :root {
-  --color-text: rgba(0, 0, 0, 0.7);
-  /* --vp-font-family-base: 'Inter', ui-sans-serif, system-ui, sans-serif, */
-  /*       'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; */
-  --font-body: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  --font-mono: "Fira Mono", monospace;
-  font-family: var(--font-body);
-  color: var(--color-text);
-
+  --font-body: Arial, "Helvetica Neue", Helvetica, sans-serif;
   --primary-hue: 219;
+  --layout-hue: 219;
   --visited-hue: 287;
-  --layout-hue: 215;
   --primary-btn-bg: hsl(var(--primary-hue), 80%, 50%);
 
+  /**** Layout */
+  --body-font-size: 1.125rem;
+  --body-line-height: 1.75rem;
+  --body-bg: #fff;
+  --body-text-color: hsl(var(--layout-hue), 39%, 11%);
+  --body-dark-bg: hsl(var(--layout-hue), 39%, 11%);
+  --body-dark-text-color: hsl(var(--layout-hue), 13%, 91%);
+
   /**** Util and simple page */
-  --util-page-header-color: #6a6a6a;
-  --util-page-dark-header-color: #a2abbe;
-  --simple-page-font-size: 1.25rem;
-  --simple-page-line-height: 1.75;
+  --util-page-header-color: hsl(var(--primary-hue), 10%, 46%);
+  --util-page-dark-header-color: hsl(var(--primary-hue), 10%, 69%);
 
   /**** TopBar */
-  --topbar-mobile-bg: #f5f5f5;
-  --topbar-mobile-border: #d6d6d6;
-  --topbar-mobile-dark-bg: #0d1423;
-  --topbar-mobile-dark-border: #060911;
+  --topbar-mobile-bg: hsl(var(--primary-hue), 10%, 96%);
+  --topbar-mobile-border: hsl(var(--primary-hue), 10%, 84%);
+  --topbar-mobile-dark-bg: hsl(var(--primary-hue), 46%, 10%);
+  --topbar-mobile-dark-border: hsl(var(--primary-hue), 48%, 5%);
 
   /**** Buttons */
   --btn-text-hover: #374151;
@@ -44,7 +42,7 @@
   --sidebar-link-bg-active: #dadada;
   --sidebar-link-dark-bg-hover: #293546;
   --sidebar-link-dark-bg-active: #2f3b4c;
-
+  hsl(223.64deg 47.83% 4.51%)
   /**** Podcast btn */
   --podcast-btn-bg: hsl(263, 73%, 40%);
   --podcast-btn-bg-hover: hsl(263, 65%, 32%);
@@ -89,6 +87,16 @@
 body {
   min-height: 100vh;
   margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+  color: var(--body-text-color);
+  background: var(--body-bg);
+}
+
+.dark body {
+  color: var(--body-dark-text-color);
+  background: var(--body-dark-bg);
 }
 
 @media (min-width: 1200px) {
@@ -151,6 +159,23 @@ button {
 	line-height: 1.4rem;
 }
 */
+
+/**** Simple page */
+.simple-page {
+  margin-top: 1rem;
+}
+
+.simple-page h1 {
+  font-weight: bold;
+  font-size: 1.15rem;
+  line-height: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--util-page-header-color);
+}
+
+.dark .simple-page h1 {
+  color: var(--util-page-dark-header-color);
+}
 
 /**** Lighter Btn for use on lighter background */
 .btn-lighter:hover {

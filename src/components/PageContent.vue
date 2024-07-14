@@ -39,24 +39,3 @@ const articlePreviewText = resolveArticlePreview(frontmatter.value);
     <PostFooter />
   </article>
 </template>
-
-<style scoped>
-.simple-page {
-  margin-top: 1rem;
-  font-weight: 400;
-  line-height: var(--simple-page-line-height);
-  font-size: var(--simple-page-font-size);
-}
-
-.simple-page h1 {
-  font-weight: bold;
-  font-size: 1.15rem;
-  line-height: 1.5rem;
-  margin-bottom: 2rem;
-  color: var(--util-page-header-color);
-}
-
-.dark .simple-page h1 {
-  color: var(--util-page-dark-header-color);
-}
-</style>

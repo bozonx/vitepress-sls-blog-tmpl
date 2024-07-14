@@ -6,12 +6,12 @@ export default {
     darkModeSwitchLabel: "Тема",
     darkModeSwitchTitle: "Переключиться на тёмную тему",
     lightModeSwitchTitle: "Переключиться на светлую тему",
+    langMenuLabel: "Сменить язык",
   },
   t: {
     // you can overwrite it in site config
     socialMediaShares: "telegram,vkontakte,twitter,whatsapp,messenger",
     shareSocialMedia: "Поделиться в соц сетях",
-    langMenuLabel: "Сменить язык",
     currentLang: "Текущий язык",
     tagBadgeCount: "Количество постов по этому тэгу",
     tagPageHeader: "Все посты по тэгу",

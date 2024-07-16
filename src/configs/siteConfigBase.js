@@ -39,6 +39,11 @@ export const common = {
       },
     },
   },
+  markdown: {
+    image: {
+      lazyLoading: true,
+    },
+  },
 };
 
 export default function({ hostname, repo }, en) {

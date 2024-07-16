@@ -21,6 +21,8 @@ export function makePreviewItem(filePath) {
     title: extractTitleFromMd(content),
     preview: resolvePreview(frontmatter, content),
     tags: frontmatter.tags,
+    // TODO: make real thumbnail
+    thumbnail: frontmatter.cover,
   };
 }
 

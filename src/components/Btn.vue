@@ -17,9 +17,12 @@ const props = defineProps([
   "text",
   "disabled",
   "iconClass",
+  "noBg",
+  "primary",
   "hideExternalIcon",
 ]);
-const { icon, text, iconClass, hideExternalIcon, ...btnProps } = props;
+const { icon, text, iconClass, noBg, primary, hideExternalIcon, ...btnProps } =
+  props;
 const isExternal = !hideExternalIcon && isExternalUrl(props.href);
 const hasText = text || slots.default;
 
@@ -36,12 +39,17 @@ if (btnProps.href) {
 </script>
 
 <template>
-  <BaseLink v-bind="btnProps" :class="[
-    'flex cursor-pointer items-center rounded-lg btn-base',
-    !hasText && 'icon-only',
-    btnProps.disabled && 'disabled',
-    props.class,
-  ]">
+  <BaseLink
+    v-bind="btnProps"
+    :class="[
+      'flex cursor-pointer items-center rounded-lg btn-base',
+      !hasText && 'icon-only',
+      !noBg && 'btn--bg',
+      primary && 'btn--primary',
+      btnProps.disabled && 'disabled',
+      props.class,
+    ]"
+  >
     <span class="flex items-center gap-x-2">
       <span v-if="icon" aria-hidden="true">
         <Icon :icon="icon" :class="iconClass" />
@@ -50,8 +58,15 @@ if (btnProps.href) {
         <slot>{{ text }}</slot>
       </span>
     </span>
-    <span v-if="theme.externalLinkIcon && isExternal && hasText" class="btn-base__external" aria-hidden="true">
-      <Icon icon="mdi:arrow-top-right" class="text-gray-400 dark:text-gray-600" />
+    <span
+      v-if="theme.externalLinkIcon && isExternal && hasText"
+      class="btn-base__external"
+      aria-hidden="true"
+    >
+      <Icon
+        icon="mdi:arrow-top-right"
+        class="text-gray-400 dark:text-gray-600"
+      />
     </span>
   </BaseLink>
 </template>
@@ -71,9 +86,22 @@ if (btnProps.href) {
   padding: 0.75rem;
 }
 
+.btn--bg {
+  background: var(--btn-bg);
+}
+
+.dark .btn--bg {
+  background: var(--btn-bg-dark);
+}
+
 .btn-base:hover {
   background: var(--btn-bg-hover);
   color: var(--btn-text-hover);
+}
+
+.btn--primary,
+.dark .btn--primary {
+  background: var(--primary-btn-bg);
 }
 
 .btn-base.active {
@@ -105,5 +133,10 @@ if (btnProps.href) {
 
 .dark .btn-base.disabled {
   color: var(--btn-dark-text-disabled);
+}
+
+.btn--primary:hover,
+.dark .btn--primary:hover {
+  background: var(--primary-btn-hover);
 }
 </style>

@@ -6,6 +6,7 @@
   --layout-hue: 219;
   --visited-hue: 287;
   --primary-btn-bg: hsl(var(--primary-hue), 80%, 50%);
+  --primary-btn-hover: hsl(var(--primary-hue), 80%, 53%);
 
   /**** Layout */
   --body-font-size: 1.125rem;
@@ -14,10 +15,10 @@
   --body-text-color: hsl(var(--layout-hue), 39%, 11%);
   --body-dark-bg: hsl(var(--layout-hue), 39%, 11%);
   --body-dark-text-color: hsl(var(--layout-hue), 13%, 91%);
-
-  /**** Util and simple page */
+  --list-item-thumb-width: 280px;
   --util-page-header-color: hsl(var(--primary-hue), 10%, 46%);
   --util-page-dark-header-color: hsl(var(--primary-hue), 10%, 69%);
+  --content-page-figcaption-color: hsl(var(--primary-hue), 12%, 50%);
 
   /**** TopBar */
   --topbar-mobile-bg: hsl(var(--primary-hue), 10%, 96%);
@@ -27,11 +28,13 @@
 
   /**** Buttons */
   --btn-text-hover: #374151;
-  --btn-bg-active: #d5d5d5;
-  --btn-bg-hover: #ececec;
+  --btn-bg: hsl(var(--primary-hue), 0%, 93%);
+  --btn-bg-active: hsl(var(--primary-hue), 0%, 84%);
+  --btn-bg-hover: hsl(var(--primary-hue), 0%, 93%);
   --btn-dark-text-hover: white;
-  --btn-dark-bg-active: #2d3544;
-  --btn-dark-bg-hover: #273042;
+  --btn-bg-dark: hsl(var(--primary-hue), 24%, 18%);
+  --btn-dark-bg-active: hsl(var(--primary-hue), 20%, 22%);
+  --btn-dark-bg-hover: hsl(var(--primary-hue), 26%, 21%);
   --btn-text-disabled: #b8b8b8;
   --btn-dark-text-disabled: #787b81;
   --btn-link-text-active: #495164;
@@ -42,7 +45,7 @@
   --sidebar-link-bg-active: #dadada;
   --sidebar-link-dark-bg-hover: #293546;
   --sidebar-link-dark-bg-active: #2f3b4c;
-  hsl(223.64deg 47.83% 4.51%)
+  /* hsl(223.64deg 47.83% 4.51%) */
   /**** Podcast btn */
   --podcast-btn-bg: hsl(263, 73%, 40%);
   --podcast-btn-bg-hover: hsl(263, 65%, 32%);
@@ -159,6 +162,39 @@ button {
 	line-height: 1.4rem;
 }
 */
+
+/**** Content page (article or simple page) */
+.content-page figure {
+  margin-top: 1.5rem;
+  margin-bottom: 1.7rem;
+}
+
+.content-page figure figcaption {
+  margin-top: 0.3rem;
+  font-size: 1rem;
+  color: var(--content-page-figcaption-color);
+}
+
+/**** Preview item */
+.preview-text {
+  line-height: 1.4;
+  font-weight: 400;
+  color: hsl(var(--primary-hue), 19%, 32%);
+}
+
+.dark .preview-text {
+  color: hsl(var(--primary-hue), 11%, 65%);
+}
+
+.preview-author-date {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: hsl(220deg 8.94% 46.08%);
+}
+
+.dark .preview-author-date {
+  color: hsl(217.89deg 10.61% 64.9%);
+}
 
 /**** Simple page */
 .simple-page {

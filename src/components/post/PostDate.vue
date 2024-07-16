@@ -22,8 +22,9 @@ const localeDate = makeHumanDate(rawDate, lang.value);
           class="underline hover: text-gray-500 hover: dark: text-gray-400">
           {{ item }}
         </BaseLink>
-        <BaseLink :href="`${theme.archiveBaseUrl}/${year}/${month}`" v-else-if="item.match(/^[^\d\.\-\,]{2,}$/)"
-          :class="linkClass">{{ item }}</BaseLink>
+        <BaseLink :href="`${theme.archiveBaseUrl}/${year}/${month}`" v-else-if="item.match(/^[^\d\.\-\,]{2,}$/)">
+          {{ item }}
+        </BaseLink>
         <span v-else>{{ item }}</span>
       </template>
     </time>

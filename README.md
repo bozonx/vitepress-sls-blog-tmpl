@@ -47,7 +47,8 @@ descrAsPreview: true | false
 previewText: text for list item and article preview
 pubDate: Publication date in iso format. Better to use time to order posts which are published at the same day
 # The main image of article. Optional
-cover: https://some.com/img.jpg
+cover: /media/img.jpg
+coverDescr: description of cover image in MD format
 # ID of author of site team. It it some other author just put his name into the text
 authorId: john-smith
 # Url where you can find comments of it post in social media

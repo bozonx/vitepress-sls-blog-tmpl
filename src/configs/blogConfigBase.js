@@ -1,3 +1,4 @@
+import { figure } from "@mdit/plugin-figure";
 import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from "../helpers/transformTitle.js";
 
@@ -44,8 +45,12 @@ export const common = {
     transformTitle(pageData, ctx);
   },
   markdown: {
+    image: {
+      lazyLoading: true,
+    },
     config: (md) => {
       md.use(removeH1Plugin);
+      md.use(figure);
     },
   },
 };

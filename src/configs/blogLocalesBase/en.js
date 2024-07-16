@@ -18,7 +18,7 @@ export default {
     tags: "Tags",
     paginationToStart: "First Page",
     paginationToEnd: "Last Page",
-    homeRecentHeader: "Most recent",
+    // homeRecentHeader: "Most recent",
     author: "Author",
     donateCall: "If you like our project, please support it financially.",
     year: "Year",

@@ -18,7 +18,7 @@ export default {
     tags: "Тэги",
     paginationToStart: "На первую страницу",
     paginationToEnd: "На последнюю страницу",
-    homeRecentHeader: "Свежие посты",
+    // homeRecentHeader: "Свежие посты",
     author: "Автор",
     donateCall:
       "Если вам нравится наш проект поддержите его пожалуйста финансово.",

@@ -45,6 +45,11 @@ onUnmounted(() => {
     <NotFound />
   </div>
   <Content v-else-if="frontmatter.layout === false" />
+  <div v-else-if="frontmatter.layout === 'home'" class="home-layout">
+    <div class="home-layout-page">
+      <Content />
+    </div>
+  </div>
   <div v-else class="min-h-screen lg:flex w-full">
     <!--  left col-->
     <SideBar ref="sidebarRef" :isMobile="isMobile">
@@ -86,3 +91,19 @@ onUnmounted(() => {
     <ToTheTop :scrollY="scrollY" :isMobile="isMobile" />
   </div>
 </template>
+
+<style scoped>
+.home-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-layout-page {
+  max-width: 640px;
+  margin: 3rem 1rem;
+  /* padding-top: 15rem; */
+}
+</style>

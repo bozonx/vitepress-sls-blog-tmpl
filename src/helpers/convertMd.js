@@ -13,5 +13,6 @@ export function mdToHtml(mdContent) {
     .use(remarkRehype)
     .use(rehypeExternalLinks, { target: "_blank", rel: [] })
     .use(html)
-    .processSync(mdContent);
+    .processSync(mdContent)
+    .toString();
 }

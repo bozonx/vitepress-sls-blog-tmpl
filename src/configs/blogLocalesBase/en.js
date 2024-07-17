@@ -26,7 +26,6 @@ export default {
     allPosts: "All Posts",
     showMorePosts: "Load More",
     listenPodcast: "Listen to podcast",
-    logotypeOfSite: "Logotype of this site",
     links: {
       home: "Home",
       commentCall: "Comment on Telegram Channel",

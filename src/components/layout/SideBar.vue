@@ -62,6 +62,7 @@ watchEffect(async () => {
       class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer"
     >
       <div>
+        <!--
         <div class="sidebar-closebtn-wrapper lg:hidden">
           <button
             @click.prevent.stop="closeDrawer"
@@ -70,6 +71,7 @@ watchEffect(async () => {
             <Icon icon="fa6-solid:xmark" aria-hidden="true" />
           </button>
         </div>
+        -->
 
         <a
           :href="`/${localeIndex}/`"

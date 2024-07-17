@@ -1,4 +1,5 @@
 import { parseLocaleSite } from "./parseSiteFileTranslations.js";
+import { common } from "../configs/blogConfigBase.js";
 import en from "../configs/blogLocalesBase/en.js";
 import ru from "../configs/blogLocalesBase/ru.js";
 
@@ -11,6 +12,7 @@ export function loadBlogLocale(lang, configFilePath, PROPS) {
   const baseLocale = baseLocales[lang];
   const site = parseLocaleSite(lang, configFilePath, {
     ...PROPS,
+    theme: common.themeConfig,
     t: baseLocale.t,
   });
   const { title, description, t, ...themeConfig } = site;

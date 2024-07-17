@@ -1,5 +1,5 @@
 import { figure } from "@mdit/plugin-figure";
-import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
+// import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from "../helpers/transformTitle.js";
 
 export const common = {
@@ -39,19 +39,12 @@ export const common = {
     allTagsUrl: "tags",
     archiveBaseUrl: "archive",
     recentBaseUrl: "recent",
+    allAuthorBaseUrl: "authors",
     authorBaseUrl: "author",
-  },
-  transformPageData(pageData, ctx) {
-    transformTitle(pageData, ctx);
-  },
-  markdown: {
-    image: {
-      lazyLoading: true,
-    },
-    config: (md) => {
-      md.use(removeH1Plugin);
-      md.use(figure);
-    },
+    donateUrl: "page/donate",
+    aboutUrl: "page/about",
+    linksUrl: "page/links",
+    donateIcon: "fa6-solid:heart",
   },
 };
 
@@ -70,6 +63,18 @@ export default function({ hostname, repo }, en) {
       socialLinks: repo && [
         { icon: "fa6-brands:github-alt", link: repo, title: "Github" },
       ],
+    },
+    transformPageData(pageData, ctx) {
+      transformTitle(pageData, ctx);
+    },
+    markdown: {
+      image: {
+        lazyLoading: true,
+      },
+      config: (md) => {
+        // md.use(removeH1Plugin);
+        md.use(figure);
+      },
     },
   };
 }

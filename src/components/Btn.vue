@@ -64,10 +64,7 @@ if (btnProps.href) {
       class="btn-base__external"
       aria-hidden="true"
     >
-      <Icon
-        icon="mdi:arrow-top-right"
-        class="text-gray-400 dark:text-gray-600"
-      />
+      <Icon icon="mdi:arrow-top-right" />
     </span>
   </BaseLink>
 </template>
@@ -77,6 +74,11 @@ if (btnProps.href) {
   padding-left: 0.25rem;
   font-size: 13px;
   margin-right: -0.3rem;
+  color: var(--gray-500);
+}
+
+.dark .btn-base__external {
+  color: var(--gray-600);
 }
 
 .btn-base {

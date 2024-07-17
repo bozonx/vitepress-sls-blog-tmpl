@@ -18,29 +18,20 @@ export function makePreviewItem(filePath) {
     url,
     pubDate: frontmatter.pubDate,
     authorId: frontmatter.authorId,
-    title: extractTitleFromMd(content),
-    preview: resolvePreview(frontmatter, content),
+    // title: extractTitleFromMd(content),
+    title: frontmatter.title,
     tags: frontmatter.tags,
+    preview: resolvePreview(frontmatter, content),
     // TODO: make real thumbnail
     thumbnail: frontmatter.cover,
   };
 }
 
 function extractPreviewFromMd(mdContent) {
-  const mdContentNoHeader = removeTitleFromMd(mdContent);
-  const striped = stripMd(mdContentNoHeader);
+  // const mdContentNoHeader = removeTitleFromMd(mdContent);
+  const striped = stripMd(mdContent);
 
   return striped.substring(0, 300);
-}
-
-function extractTitleFromMd(mdNoFrontmatter) {
-  const firstTitleMatch = mdNoFrontmatter.match(/^\#\s+(.+)$/m);
-
-  return firstTitleMatch ? firstTitleMatch[1].trim() : "";
-}
-
-function removeTitleFromMd(mdNoFrontmatter) {
-  return mdNoFrontmatter.trim().replace(/^\#\s+.+/, "");
 }
 
 function resolvePreview(
@@ -55,6 +46,16 @@ function resolvePreview(
 
   return extractPreviewFromMd(mdContent);
 }
+
+// function extractTitleFromMd(mdNoFrontmatter) {
+//   const firstTitleMatch = mdNoFrontmatter.match(/^\#\s+(.+)$/m);
+//
+//   return firstTitleMatch ? firstTitleMatch[1].trim() : "";
+// }
+
+// function removeTitleFromMd(mdNoFrontmatter) {
+//   return mdNoFrontmatter.trim().replace(/^\#\s+.+/, "");
+// }
 
 // export function extractImageFromMd(rawData) {
 //   const firstImgMatch = removeFrontmatter(rawData.src).match(/\!\[[^\]]*\]\(([^\)]+)\)/)

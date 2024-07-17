@@ -11,6 +11,12 @@ See `example` dir
 ```
 // show author name on the posts list items
 showAuthorInPostList: true
+authors:
+  - id: john-smith
+    name: John Smith
+    descr: Some MD descr
+    link?: If defined then this link will be used. If not then will be use link to author page
+
 ```
 
 ## Site config

@@ -27,7 +27,6 @@ export default {
     allPosts: "Все посты",
     showMorePosts: "Ещё",
     listenPodcast: "Слушать подкаст",
-    logotypeOfSite: "Логотип этого сайта",
     links: {
       // TODO: remove
       home: "Главная",

@@ -7,6 +7,16 @@
   --visited-hue: 287;
   --primary-btn-bg: hsl(var(--primary-hue), 80%, 50%);
   --primary-btn-hover: hsl(var(--primary-hue), 80%, 53%);
+  --gray-100: hsl(var(--layout-hue), 14.29%, 95.88%);
+  --gray-150: hsl(var(--layout-hue), 14%, 93%);
+  --gray-200: hsl(var(--layout-hue), 13.04%, 90.98%);
+  --gray-300: hsl(var(--layout-hue), 12.2%, 83.92%);
+  --gray-400: hsl(var(--layout-hue), 10.61%, 64.9%);
+  --gray-500: hsl(var(--layout-hue), 8.94%, 46.08%);
+  --gray-600: hsl(var(--layout-hue), 13.79%, 34.12%);
+  --gray-700: hsl(var(--layout-hue), 19.12%, 26.67%);
+  --gray-800: hsl(var(--layout-hue), 27.91%, 16.86%);
+  --gray-900: hsl(var(--layout-hue), 39.29%, 10.98%);
 
   /**** Layout */
   --list-item-thumb-width: 280px;
@@ -28,7 +38,8 @@
 
   /**** Buttons */
   --btn-text-hover: #374151;
-  --btn-bg: hsl(var(--primary-hue), 0%, 93%);
+  /* TODO: должно использовать в пагинации */
+  /* --btn-bg: hsl(var(--primary-hue), 0%, 93%); */
   --btn-bg-active: hsl(var(--primary-hue), 0%, 84%);
   --btn-bg-hover: hsl(var(--primary-hue), 0%, 93%);
   --btn-dark-text-hover: white;
@@ -39,6 +50,7 @@
   --btn-dark-text-disabled: #787b81;
   --btn-link-text-active: #495164;
   --btn-link-dark-text-active: #abacb0;
+  --home-btn-bg: hsl(var(--primary-hue), 24%, 30%);
 
   /**** SideBarLink */
   --sidebar-link-bg-hover: hsl(var(--layout-hue), 26%, 94%);

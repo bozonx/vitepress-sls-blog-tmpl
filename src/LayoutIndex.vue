@@ -7,6 +7,7 @@ import PageContent from "./components/PageContent.vue";
 import TopBar from "./components/layout/TopBar.vue";
 import ToTheTop from "./components/layout/ToTheTop.vue";
 import NotFound from "./components/layout/NotFound.vue";
+import SwitchLang from "./components/layout/SwitchLang.vue";
 import { MOBILE_BREAKPOINT } from "./constants.js";
 
 const { page, theme, frontmatter } = useData();
@@ -46,6 +47,9 @@ onUnmounted(() => {
   </div>
   <Content v-else-if="frontmatter.layout === false" />
   <div v-else-if="frontmatter.layout === 'home'" class="home-layout">
+    <div class="home-layout-topbar">
+      <SwitchLang dropLeft="true" />
+    </div>
     <div class="home-layout-page">
       <Content />
     </div>
@@ -53,6 +57,9 @@ onUnmounted(() => {
   <div v-else class="min-h-screen lg:flex w-full">
     <!--  left col-->
     <SideBar ref="sidebarRef" :isMobile="isMobile">
+      <template #sidebar-logo>
+        <slot name="sidebar-logo" />
+      </template>
       <template #sidebar-top>
         <slot name="sidebar-top" />
       </template>
@@ -92,18 +99,34 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style>
 .home-layout {
   display: flex;
+  flex-flow: column;
   width: 100%;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+}
+
+.home-layout-topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1rem 1.5rem 0 0;
+}
+
+.home-layout-topbar .switch-lang-btn > button {
+  background: transparent !important;
 }
 
 .home-layout-page {
   max-width: 640px;
-  margin: 3rem 1rem;
+  margin: 5rem 1rem;
   /* padding-top: 15rem; */
 }
 </style>

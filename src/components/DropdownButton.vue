@@ -4,7 +4,7 @@ import { vOnClickOutside } from "@vueuse/components";
 import { Icon } from "@iconify/vue";
 import Btn from "./Btn.vue";
 
-const props = defineProps(["dropUp", "title"]);
+const props = defineProps(["dropUp", "dropLeft", "title", "noBg"]);
 const animationTimeMs = 400;
 const mouseLeaveDelayMs = 400;
 const listOpen = ref(false);
@@ -66,29 +66,45 @@ const handleWholeMouseLeave = () => {
 </script>
 
 <template>
-  <div class="dropdown-btn" @mouseenter="handleWholeMouseEnter" @mouseleave="handleWholeMouseLeave"
-    v-on-click-outside="closeList">
-    <Btn @click.prevent.stop="toggleList" :title="props.title" class="w-full">
+  <div
+    class="dropdown-btn"
+    @mouseenter="handleWholeMouseEnter"
+    @mouseleave="handleWholeMouseLeave"
+    v-on-click-outside="closeList"
+  >
+    <Btn
+      @click.prevent.stop="toggleList"
+      :noBg="props.noBg"
+      :title="props.title"
+      class="w-full"
+    >
       <span class="flex">
         <slot name="btn-text" />
         <span class="dropdown-caret" aria-hidden="true">
-          <span :class="[
-            'dropdown-caret-rotate',
-            listOpen && 'dropdown-caret--open',
-          ]">
+          <span
+            :class="[
+              'dropdown-caret-rotate',
+              listOpen && 'dropdown-caret--open',
+            ]"
+          >
             <Icon icon="ci:caret-down-md" width="1.7rem" height="1.7rem" />
           </span>
         </span>
       </span>
     </Btn>
-    <div @click="closeList" :style="{
-      opacity,
-      'transition-duration': `${animationTimeMs}ms`,
-    }" :class="[
+    <div
+      @click="closeList"
+      :style="{
+        opacity,
+        'transition-duration': `${animationTimeMs}ms`,
+      }"
+      :class="[
         `dropdown-list space-y-1 transition-opacity`,
         props.dropUp && 'dropdown--drop-up',
+        props.dropLeft && 'dropdown--drop-left',
         !listOpen && 'hidden',
-      ]">
+      ]"
+    >
       <slot />
     </div>
   </div>
@@ -123,6 +139,10 @@ const handleWholeMouseLeave = () => {
 
 .dropdown--drop-up {
   bottom: 100%;
+}
+
+.dropdown--drop-left {
+  right: 0;
 }
 
 @keyframes rotate {

@@ -19,6 +19,7 @@ export default {
     paginationToStart: "На первую страницу",
     paginationToEnd: "На последнюю страницу",
     // homeRecentHeader: "Свежие посты",
+    toHome: "На главную",
     author: "Автор",
     donateCall:
       "Если вам нравится наш проект поддержите его пожалуйста финансово.",
@@ -26,7 +27,9 @@ export default {
     allPosts: "Все посты",
     showMorePosts: "Ещё",
     listenPodcast: "Слушать подкаст",
+    logotypeOfSite: "Логотип этого сайта",
     links: {
+      // TODO: remove
       home: "Главная",
       commentCall: "Комментировать в Telegram канале",
       allTagsCall: "Смотреть все тэги",

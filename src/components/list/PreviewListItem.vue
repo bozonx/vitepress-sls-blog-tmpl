@@ -9,8 +9,8 @@ const { lang, theme } = useData();
 const props = defineProps(["item"]);
 const params = {
   pubDate: props.item.pubDate,
-  tags: (props.item.tags || []).map((item) => ({ name: item })),
   localeDate: makeHumanDate(props.item.pubDate, lang.value),
+  tags: (props.item.tags || []).map((item) => ({ name: item })),
   preview: String(props.item?.preview).trim().replace(/\.$/, "") + " ...",
   authorName:
     theme.value.showAuthorInPostList &&

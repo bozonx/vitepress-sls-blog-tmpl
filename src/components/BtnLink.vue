@@ -21,7 +21,7 @@ const props = defineProps([
   </Btn>
 </template>
 
-<style scoped>
+<style>
 .btn-link {
   padding: 0;
   background: transparent !important;

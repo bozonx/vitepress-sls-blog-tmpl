@@ -18,7 +18,11 @@ const props = defineProps([
 </script>
 
 <template>
-  <Btn v-bind="props" :class="['rounded-none btn-lighter', props.class]">
+  <Btn
+    v-bind="props"
+    noBg="true"
+    :class="['rounded-none btn-lighter', props.class]"
+  >
     <slot>{{ props.text }}</slot>
   </Btn>
 </template>

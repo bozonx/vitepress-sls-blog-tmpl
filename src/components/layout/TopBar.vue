@@ -27,6 +27,7 @@ const resolveItemShowClass = (item) => {
       <Btn
         @click="$emit('toggleSidebar')"
         icon="fa6-solid:bars"
+        noBg="true"
         class="lg:hidden topbar-item"
         :text="theme.t.sidebarMenuLabel"
       />
@@ -37,7 +38,7 @@ const resolveItemShowClass = (item) => {
         v-for="item in theme.topBar.links"
         :class="resolveItemShowClass(item)"
       >
-        <Btn v-bind="item" class="topbar-item" />
+        <Btn v-bind="item" noBg="true" class="topbar-item" />
       </li>
     </ul>
 
@@ -51,7 +52,7 @@ const resolveItemShowClass = (item) => {
 
     <ul v-if="theme.socialLinks" class="flex max-lg:hidden space-x-1">
       <li v-for="item in theme.socialLinks">
-        <Btn v-bind="item" />
+        <Btn noBg="true" v-bind="item" />
       </li>
     </ul>
   </nav>

@@ -42,11 +42,12 @@ if (btnProps.href) {
   <BaseLink
     v-bind="btnProps"
     :class="[
-      'flex cursor-pointer items-center rounded-lg btn-base',
+      'flex cursor-pointer items-center rounded-lg',
       !hasText && 'icon-only',
       !noBg && 'btn--bg',
       primary && 'btn--primary',
       btnProps.disabled && 'disabled',
+      'btn-base',
       props.class,
     ]"
   >
@@ -71,7 +72,7 @@ if (btnProps.href) {
   </BaseLink>
 </template>
 
-<style scoped>
+<style>
 .btn-base__external {
   padding-left: 0.25rem;
   font-size: 13px;

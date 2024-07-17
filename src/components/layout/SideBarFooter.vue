@@ -23,7 +23,7 @@ const { theme } = useData();
 
     <ul v-if="theme.socialLinks" class="flex space-x-1">
       <li v-for="item in theme.socialLinks">
-        <Btn v-bind="item" />
+        <Btn noBg="true" v-bind="item" />
       </li>
     </ul>
   </div>

@@ -12,12 +12,23 @@ const text =
 </script>
 
 <template>
-  <Btn :href="frontmatter.videoLink" :text="text" icon="fa6-brands:youtube" target="_blank"
-    class="bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 video-link" hideExternalIcon="true" />
+  <Btn
+    :href="frontmatter.videoLink"
+    :text="text"
+    icon="fa6-brands:youtube"
+    target="_blank"
+    class="video-link"
+    hideExternalIcon="true"
+  />
 </template>
 
 <style scoped>
 .video-link {
   color: white !important;
+  background: var(--video-link-bg) !important;
+}
+
+.video-link:hover {
+  filter: brightness(110%);
 }
 </style>

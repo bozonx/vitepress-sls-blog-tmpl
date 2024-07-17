@@ -9,13 +9,13 @@
   --primary-btn-hover: hsl(var(--primary-hue), 80%, 53%);
 
   /**** Layout */
+  --list-item-thumb-width: 280px;
   --body-font-size: 1.125rem;
   --body-line-height: 1.75rem;
   --body-bg: #fff;
   --body-text-color: hsl(var(--layout-hue), 39%, 11%);
   --body-dark-bg: hsl(var(--layout-hue), 39%, 11%);
   --body-dark-text-color: hsl(var(--layout-hue), 13%, 91%);
-  --list-item-thumb-width: 280px;
   --util-page-header-color: hsl(var(--primary-hue), 10%, 46%);
   --util-page-dark-header-color: hsl(var(--primary-hue), 10%, 69%);
   --content-page-figcaption-color: hsl(var(--primary-hue), 12%, 50%);
@@ -41,14 +41,16 @@
   --btn-link-dark-text-active: #abacb0;
 
   /**** SideBarLink */
-  --sidebar-link-bg-hover: #e2e2e2;
-  --sidebar-link-bg-active: #dadada;
-  --sidebar-link-dark-bg-hover: #293546;
-  --sidebar-link-dark-bg-active: #2f3b4c;
-  /* hsl(223.64deg 47.83% 4.51%) */
+  --sidebar-link-bg-hover: hsl(var(--layout-hue), 26%, 94%);
+  --sidebar-link-bg-active: hsl(var(--layout-hue), 26%, 90%);
+  --sidebar-link-dark-bg-hover: hsl(var(--layout-hue), 26%, 22%);
+  --sidebar-link-dark-bg-active: hsl(var(--layout-hue), 24%, 24%);
+
   /**** Podcast btn */
   --podcast-btn-bg: hsl(263, 73%, 40%);
-  --podcast-btn-bg-hover: hsl(263, 65%, 32%);
+
+  /**** VideoLink */
+  --video-link-bg: hsl(0deg 87% 45%);
 
   /**** Sidebar */
   --drawer-bg: hsl(var(--layout-hue), 40%, 98%);
@@ -223,7 +225,7 @@ button {
 }
 
 .btn-lighter.active:hover {
-  filter: brightness(110%);
+  filter: brightness(103%);
 }
 
 .dark .btn-lighter:hover {

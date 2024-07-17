@@ -15,12 +15,20 @@ const btnText =
   <DropdownButton v-if="frontmatter.podcasts" class="podcasts-btn">
     <template #btn-text>
       <span class="mr-1" aria-hidden="true">
-        <Icon icon="material-symbols:headphones-outline" width="1.6rem" height="1.6rem" />
+        <Icon
+          icon="material-symbols:headphones-outline"
+          width="1.6rem"
+          height="1.6rem"
+        />
       </span>
       {{ btnText }}
     </template>
 
-    <DropdownItem v-for="(link, name) in frontmatter.podcasts" :href="link" hideExternalIcon="true">
+    <DropdownItem
+      v-for="(link, name) in frontmatter.podcasts"
+      :href="link"
+      hideExternalIcon="true"
+    >
       <span class="flex">
         <span class="mr-2">
           <PodcastIcon :name="name" :alt="name + ' podcast service icon'" />
@@ -31,13 +39,13 @@ const btnText =
   </DropdownButton>
 </template>
 
-<style scoped>
-.podcasts-btn>.btn-base {
-  background: var(--podcast-btn-bg);
+<style>
+.podcasts-btn > .btn-base {
+  background: var(--podcast-btn-bg) !important;
   color: white;
 }
 
-.podcasts-btn>.btn-base:hover {
-  background: var(--podcast-btn-bg-hover);
+.podcasts-btn > .btn-base:hover {
+  filter: brightness(110%);
 }
 </style>

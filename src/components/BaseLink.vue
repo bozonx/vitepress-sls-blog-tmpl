@@ -25,7 +25,13 @@ const { tag = "a", ...bindProps } = props;
 </script>
 
 <template>
-  <component :is="tag" v-bind="bindProps" :href="resolvedHref" :class="[active && 'active', props.class]">
+  <component
+    :is="tag"
+    v-bind="bindProps"
+    :target="target"
+    :href="resolvedHref"
+    :class="[active && 'active', props.class]"
+  >
     <slot />
   </component>
 </template>

@@ -11,13 +11,13 @@ const tags =
 
 <template>
   <div v-if="frontmatter.tags?.length" :class="[props.class]">
-    <h4 class="mb-3 font-bold text-base text-gray-500">{{ theme.t.tags }}:</h4>
+    <h4 class="mb-3 font-bold text-base muted">{{ theme.t.tags }}:</h4>
 
     <TagsList :tags="tags" />
 
     <div class="mt-4">
       <SimpleLink :href="theme.allTagsUrl">{{
-        theme.t.links.allTagsCall
+        theme.t.allTagsCall
         }}</SimpleLink>
     </div>
   </div>

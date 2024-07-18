@@ -8,8 +8,6 @@ import PostImage from "./post/PostImage.vue";
 
 const { page, frontmatter } = useData();
 const articlePreviewText = resolveArticlePreview(frontmatter.value);
-
-console.log(page.value, frontmatter.value);
 </script>
 
 <template>
@@ -18,7 +16,7 @@ console.log(page.value, frontmatter.value);
       <Content />
     </div>
   </div>
-  <div v-else-if="frontmatter.layout === 'util'">
+  <div v-else-if="frontmatter.layout === 'util'" class="content-page">
     <div class="simple-page">
       <Content />
     </div>
@@ -35,11 +33,7 @@ console.log(page.value, frontmatter.value);
       {{ articlePreviewText }}
     </div>
 
-    <PostImage
-      :src="frontmatter.cover"
-      :descr="frontmatter.coverDescr"
-      :alt="frontmatter.coverAlt"
-    />
+    <PostImage :src="frontmatter.cover" :descr="frontmatter.coverDescr" :alt="frontmatter.coverAlt" />
 
     <div class="mt-10 vp-doc">
       <Content />

@@ -19,13 +19,13 @@ const sorted = [...(items || [])].sort(
   (a, b) => new Date(b.date) - new Date(a.date),
 );
 const author = theme.value.authors.find((item) => item.id === props.authorId);
-const descr = author && author.descr && mdToHtml(author.descr);
+const descr = author?.descr && mdToHtml(author.descr);
 </script>
 
 <template>
   <div class="mb-12 vp-doc" v-html="descr"></div>
 
-  <UtilPageHeader>{{ theme.t.links.allPostsOfAuthor }}</UtilPageHeader>
+  <UtilPageHeader>{{ theme.t.allPostsOfAuthor }}</UtilPageHeader>
 
   <PreviewList :allData="sorted" :curPage="curPage" :perPage="props.perPage"
     :paginationMaxItems="props.paginationMaxItems" :paginationBaseUrl="theme.authorBaseUrl" />

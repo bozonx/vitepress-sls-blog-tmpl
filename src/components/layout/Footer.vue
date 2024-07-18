@@ -6,11 +6,11 @@ const { theme, localeIndex } = useData();
 </script>
 
 <template>
-  <footer v-if="theme.footer" class="md:flex w-full items-start text-sm text-gray-500 dark:text-gray-400">
+  <footer v-if="theme.footer" class="flex max-md:flex-col-reverse gap-x-2 w-full items-start text-sm muted">
     <slot name="footer-before" />
 
-    <div v-if="theme.footer?.text || theme.footer?.copyright" class="flex-1 max-md:mb-5 pr-2">
-      <div>{{ theme.footer.text }}</div>
+    <div v-if="theme.footer?.message || theme.footer?.copyright" class="flex-1 max-md:mt-5">
+      <div>{{ theme.footer.message }}</div>
       <div>{{ theme.footer.copyright }}</div>
     </div>
 

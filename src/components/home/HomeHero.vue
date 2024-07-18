@@ -18,7 +18,7 @@ const props = defineProps(["firstLine", "secondLine", "buttons"]);
       class="sm:flex sm:space-x-3 max-sm:space-y-10 mt-24"
     >
       <li v-for="item in props.buttons">
-        <Btn v-bind="item" class="!rounded-full !px-7 w-fit home-button" />
+        <Btn v-bind="item" class="!rounded-full !px-7 home-button" />
       </li>
     </ul>
   </div>
@@ -30,6 +30,7 @@ const props = defineProps(["firstLine", "secondLine", "buttons"]);
 }
 
 .home-button {
+  width: fit-content;
   color: white !important;
   background-color: var(--home-btn-bg) !important;
 }

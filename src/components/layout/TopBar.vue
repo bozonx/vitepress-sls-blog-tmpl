@@ -16,29 +16,19 @@ const resolveItemShowClass = (item) => {
 </script>
 
 <template>
-  <nav
-    :class="[
-      'flex w-full py-2 px-2 space-x-1',
-      props.isMobile && 'topbar--mobile',
-    ]"
-  >
+  <nav :class="[
+    'flex w-full py-2 px-2 gap-x-1 top-bar',
+    props.isMobile && 'topbar--mobile',
+  ]">
     <div class="flex-1 flex">
       <!-- for mobile -->
-      <Btn
-        @click="$emit('toggleSidebar')"
-        icon="fa6-solid:bars"
-        noBg="true"
-        class="lg:hidden topbar-item"
-        :text="theme.t.sidebarMenuLabel"
-      />
+      <Btn @click="$emit('toggleSidebar')" icon="fa6-solid:bars" noBg="true" class="lg:hidden topbar-item"
+        iconClass="muted" :text="theme.sidebarMenuLabel" />
     </div>
 
     <ul v-if="theme.topBar.links" class="flex space-x-1">
-      <li
-        v-for="item in theme.topBar.links"
-        :class="resolveItemShowClass(item)"
-      >
-        <Btn v-bind="item" noBg="true" class="topbar-item" />
+      <li v-for="item in theme.topBar.links" :class="resolveItemShowClass(item)">
+        <Btn v-bind="item" noBg="true" class="topbar-item" iconClass="muted" />
       </li>
     </ul>
 

@@ -120,8 +120,9 @@ onUnmounted(() => {
   padding: 1rem 1.5rem 0 0;
 }
 
-.home-layout-topbar .switch-lang-btn > button {
+.home-layout-topbar .switch-lang-btn>button {
   background: transparent !important;
+  /* color: white !important; */
 }
 
 .home-layout-page {

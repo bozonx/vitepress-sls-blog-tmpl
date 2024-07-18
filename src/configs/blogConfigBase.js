@@ -30,7 +30,6 @@ export const common = {
   },
 
   themeConfig: {
-    logo: "/img/logo.svg",
     externalLinkIcon: true,
     i18nRouting: true,
 
@@ -45,6 +44,15 @@ export const common = {
     aboutUrl: "page/about",
     linksUrl: "page/links",
     donateIcon: "fa6-solid:heart",
+    docIcon: "iconoir:book-solid",
+    socialLinksIcon: "heroicons:megaphone-16-solid",
+    recentIcon: "fa6-solid:newspaper",
+    tagsIcon: "fa6-solid:tag",
+    byDateIcon: "fa6-solid:calendar-days",
+    authorsIcon: "mdi:users",
+    youtubeIcon: "fa6-brands:youtube",
+    telegramIcon: "fa6-brands:telegram",
+    chatIcon: "fa6-solid:message",
   },
 };
 

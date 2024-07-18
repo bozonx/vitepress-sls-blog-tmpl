@@ -14,10 +14,7 @@ const authorUrl = themeAuthor?.link
 
 <template>
   <div v-if="themeAuthor?.name" :class="['flex gap-x-1', props.class]">
-    <span class="text-gray-500">{{ theme.t.author }}: </span>
-    <SimpleLink v-if="themeAuthor" :href="authorUrl">
-      {{ themeAuthor.name }}
-    </SimpleLink>
-    <span v-else>{{ authorName }}</span>
+    <span class="muted">{{ theme.t.author }}: </span>
+    <SimpleLink :href="authorUrl">{{ themeAuthor.name }}</SimpleLink>
   </div>
 </template>

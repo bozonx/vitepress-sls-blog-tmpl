@@ -2,18 +2,18 @@
 import TagsList from "../TagsList.vue";
 
 const props = defineProps([
-  "authorName",
+  "pubDate",
   "localeDate",
   "tags",
   "preview",
-  "pubDate",
+  "authorName",
 ]);
 </script>
 
 <template>
   <p class="preview-text">{{ props.preview }}</p>
 
-  <div class="flex items-end mt-4">
+  <div class="flex items-end mt-4 gap-x-1">
     <TagsList :tags="props.tags" class="flex-1 mr-2" :sizeSm="true" />
 
     <div class="space-x-2 preview-author-date">

@@ -83,6 +83,7 @@ if (btnProps.href) {
 
 .btn-base {
   padding: 0.5rem 1.25rem 0.5rem 1.25rem;
+  line-height: 1.5rem;
 }
 
 .btn-base.icon-only {

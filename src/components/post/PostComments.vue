@@ -8,7 +8,7 @@ const { theme, frontmatter } = useData();
 
 <template>
   <div v-if="frontmatter.commentUrl" :class="props.class">
-    <BtnLink :href="frontmatter.commentUrl" :text="theme.t.links.commentCall" target="_blank"
-      icon="fa6-solid:comment-dots" class="underline" />
+    <BtnLink :href="frontmatter.commentUrl" :text="theme.t.commentCall" target="_blank" icon="fa6-solid:comment-dots"
+      class="underline" />
   </div>
 </template>

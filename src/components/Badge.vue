@@ -1,14 +1,16 @@
 <script setup>
 const props = defineProps(["count", "title"]);
-const className = "rounded-full text-sm text-white badge-item";
 </script>
 
 <template>
-  <span :class="className" :title="props.title">{{ props.count }}</span>
+  <span class="rounded-full text-sm badge-item" :title="props.title">
+    {{ props.count }}
+  </span>
 </template>
 
 <style scoped>
 .badge-item {
+  color: white;
   padding: 0.5rem;
   line-height: 0.5rem !important;
   height: 1.5rem;

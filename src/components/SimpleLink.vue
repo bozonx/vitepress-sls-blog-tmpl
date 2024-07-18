@@ -5,30 +5,30 @@ const props = defineProps(["id", "class", "title", "href", "target"]);
 </script>
 
 <template>
-	<BaseLink v-bind="props" :class="['simple-link', props.class]">
-		<slot />
-	</BaseLink>
+  <BaseLink v-bind="props" :class="['simple-link', props.class]">
+    <slot />
+  </BaseLink>
 </template>
 
-<style scoped>
+<style>
 .simple-link {
-	text-decoration: underline;
-	color: var(--color-a-light-link);
+  text-decoration: underline;
+  color: var(--color-a-light-link);
 }
 
 .simple-link:visited {
-	color: var(--color-a-light-visited);
+  color: var(--color-a-light-visited);
 }
 
 .dark .simple-link {
-	color: var(--color-a-dark-link);
+  color: var(--color-a-dark-link);
 }
 
 .dark .simple-link:visited {
-	color: var(--color-a-dark-visited);
+  color: var(--color-a-dark-visited);
 }
 
 .simple-link:hover {
-	filter: brightness(130%);
+  filter: brightness(130%);
 }
 </style>

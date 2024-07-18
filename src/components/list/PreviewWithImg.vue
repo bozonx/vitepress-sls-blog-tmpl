@@ -2,11 +2,11 @@
 import TagsList from "../TagsList.vue";
 
 const props = defineProps([
-  "authorName",
+  "pubDate",
   "localeDate",
   "tags",
   "preview",
-  "pubDate",
+  "authorName",
   "thumbnail",
 ]);
 </script>
@@ -14,7 +14,12 @@ const props = defineProps([
 <template>
   <div class="md:flex w-full">
     <div v-if="props.thumbnail" class="md:mr-4 preview-img-col max-md:!w-full">
-      <img :src="props.thumbnail" loading="lazy" aria-hidden="true" class="w-full" />
+      <img
+        :src="props.thumbnail"
+        loading="lazy"
+        aria-hidden="true"
+        class="w-full"
+      />
 
       <div class="mt-2 space-x-2 preview-author-date">
         <span v-if="props.authorName">{{ props.authorName }}.</span>

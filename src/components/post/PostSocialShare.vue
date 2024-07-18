@@ -36,7 +36,7 @@ const shareOnFacebook = () => {
 <template>
   <div v-if="typeof frontmatter.layout === 'undefined'"
     :class="['flex gap-y-3 max-sm:flex-col sm:items-center', props.class]">
-    <div class="mr-2">{{ theme.t.shareSocialMedia }}:</div>
+    <div class="mr-2 muted">{{ theme.t.shareSocialMedia }}:</div>
     <div class="flex">
       <div class="ya-share2" data-size="l" :data-lang="resolvedLocale" data-curtain data-shape="round" data-copy="last"
         :data-services="theme.t.socialMediaShares"></div>

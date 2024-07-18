@@ -5,21 +5,15 @@ import Btn from "../Btn.vue";
 
 const { frontmatter, theme } = useData();
 const text =
-  theme.value.t.links.postVideoButton +
+  theme.value.t.postVideoButton +
   (frontmatter.value.videoLinkLang
     ? ` (${frontmatter.value.videoLinkLang})`
     : "");
 </script>
 
 <template>
-  <Btn
-    :href="frontmatter.videoLink"
-    :text="text"
-    icon="fa6-brands:youtube"
-    target="_blank"
-    class="video-link"
-    hideExternalIcon="true"
-  />
+  <Btn :href="frontmatter.videoLink" :text="text" :icon="theme.youtubeIcon" target="_blank" class="video-link"
+    hideExternalIcon="true" />
 </template>
 
 <style scoped>

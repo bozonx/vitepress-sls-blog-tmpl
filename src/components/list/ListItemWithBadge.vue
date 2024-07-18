@@ -8,7 +8,7 @@ const props = defineProps(["href", "text", "count"]);
 </script>
 
 <template>
-  <SimpleLink :href="props.href" class="no-underline text-2xl my-5 inline-flex space-x-2">
+  <SimpleLink :href="props.href" class="no-underline text-2xl my-5 inline-flex gap-x-2">
     <span>{{ props.text }}</span>
     <Badge :count="props.count" />
   </SimpleLink>

@@ -19,11 +19,8 @@ const params = {
 </script>
 
 <template>
-  <a :href="props.item.url"
-    class="block mb-6 px-5 py-5 cursor-pointer bg-white dark:bg-gray-800 border rounded-lg border-gray-200 dark:border-gray-700 preview">
-    <h4 class="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-      {{ props.item.title }}
-    </h4>
+  <a :href="props.item.url" class="mb-6 px-5 py-5 preview">
+    <h4 class="mb-3 text-2xl tracking-tight">{{ props.item.title }}</h4>
 
     <PreviewWithImg v-if="item.thumbnail" v-bind="params" :thumbnail="props.item.thumbnail" />
     <PreviewNoImg v-else v-bind="params" />
@@ -31,12 +28,38 @@ const params = {
 </template>
 
 <style scoped>
+.preview {
+  display: block;
+  cursor: pointer;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.6rem;
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--gray-600);
+}
+
+.dark .preview {
+  background: var(--gray-800);
+  border-color: var(--gray-700);
+  color: var(--gray-400);
+}
+
 .preview:hover {
   filter: brightness(99%);
 }
 
 .dark .preview:hover {
   filter: brightness(110%);
+}
+
+.preview h4 {
+  font-weight: bold;
+  color: var(--gray-900);
+}
+
+.dark .preview h4 {
+  color: white;
 }
 
 .preview:visited h4 {

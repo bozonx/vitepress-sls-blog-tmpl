@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watchEffect } from "vue";
+import { useSlots } from "vue";
 import { useData } from "vitepress";
 import { Icon } from "@iconify/vue";
 import SideBarGroup from "./SideBarGroup.vue";
@@ -8,6 +9,7 @@ import SideBarFooter from "./SideBarFooter.vue";
 import { SIDEBAR_WIDTH } from "../../constants.js";
 
 const { theme, localeIndex } = useData();
+const slots = useSlots();
 const props = defineProps(["isMobile"]);
 const animationTimeMs = 400;
 const drawerOpen = ref(!props.isMobile);
@@ -74,6 +76,7 @@ watchEffect(async () => {
         -->
 
         <a
+          v-if="slots['sidebar-logo']"
           :href="`/${localeIndex}/`"
           class="sidebar-logo"
           :title="theme.t.toHome"
@@ -183,7 +186,7 @@ watchEffect(async () => {
 }
 
 .sidebar-menu {
-  margin-top: 0.25rem;
+  padding-top: 0.25rem;
 }
 
 .sidebar-logo {

@@ -15,11 +15,10 @@ const localeDate = makeHumanDate(rawDate, lang.value);
 </script>
 
 <template>
-  <div v-if="rawDate" :class="['text-base text-gray-400 dark:text-gray-500', props.class]">
+  <div v-if="rawDate" :class="['text-base muted post-date', props.class]">
     <time :datetime="rawDate" class="space-x-1">
       <template v-for="item in localeDate.split(' ')">
-        <BaseLink :href="`${theme.archiveBaseUrl}/${item}`" v-if="item.match(/^\d{4,4}$/)"
-          class="underline hover: text-gray-500 hover: dark: text-gray-400">
+        <BaseLink :href="`${theme.archiveBaseUrl}/${item}`" v-if="item.match(/^\d{4,4}$/)">
           {{ item }}
         </BaseLink>
         <BaseLink :href="`${theme.archiveBaseUrl}/${year}/${month}`" v-else-if="item.match(/^[^\d\.\-\,]{2,}$/)">
@@ -30,3 +29,13 @@ const localeDate = makeHumanDate(rawDate, lang.value);
     </time>
   </div>
 </template>
+
+<style scoped>
+.post-date a {
+  text-decoration: underline;
+}
+
+.post-date a:hover {
+  filter: brightness(140%);
+}
+</style>

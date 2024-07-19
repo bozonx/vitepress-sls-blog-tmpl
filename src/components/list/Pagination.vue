@@ -69,7 +69,18 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
 <template>
   <ul v-if="items.length" class="flex gap-x-1">
     <li v-for="item of items">
-      <Btn :href="item.href" :title="item.title" :text="item.name" class="px-3" />
+      <Btn
+        :href="item.href"
+        :title="item.title"
+        :text="item.name"
+        class="px-3 pagination-btn"
+      />
     </li>
   </ul>
 </template>
+
+<style scoped>
+.pagination-btn.active {
+  text-decoration: underline;
+}
+</style>

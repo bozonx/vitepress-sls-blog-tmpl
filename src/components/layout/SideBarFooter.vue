@@ -10,11 +10,9 @@ const { theme } = useData();
 </script>
 
 <template>
-  <div
-    :class="['w-full flex justify-end pt-10 pb-3 pr-2 space-x-1', props.class]"
-  >
+  <div :class="['w-full flex justify-end pt-10 pb-3 pr-2 space-x-1', props.class]">
     <div>
-      <SwitchLang @click.stop dropUp="true" />
+      <SwitchLang @click.stop dropUp="true" noBg="true" />
     </div>
 
     <div aria-hidden="true">

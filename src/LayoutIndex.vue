@@ -48,7 +48,7 @@ onUnmounted(() => {
   <Content v-else-if="frontmatter.layout === false" />
   <div v-else-if="frontmatter.layout === 'home'" class="home-layout">
     <div class="home-layout-topbar">
-      <SwitchLang dropLeft="true" />
+      <SwitchLang dropLeft="true" onlyDark="true" noBg="true" />
     </div>
     <div class="home-layout-page">
       <Content />
@@ -113,6 +113,10 @@ onUnmounted(() => {
   background-position-y: center;
 }
 
+.home-layout {
+  color: white !important;
+}
+
 .home-layout-topbar {
   position: fixed;
   top: 0;
@@ -120,14 +124,8 @@ onUnmounted(() => {
   padding: 1rem 1.5rem 0 0;
 }
 
-.home-layout-topbar .switch-lang-btn>button {
-  background: transparent !important;
-  /* color: white !important; */
-}
-
 .home-layout-page {
   max-width: 640px;
   margin: 5rem 1rem;
-  /* padding-top: 15rem; */
 }
 </style>

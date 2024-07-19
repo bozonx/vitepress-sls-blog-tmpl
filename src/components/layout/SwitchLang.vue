@@ -7,12 +7,14 @@ import DropdownItem from "../DropdownItem.vue";
 
 const { theme } = useData();
 const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
+const props = defineProps(["noBg", "onlyDark"]);
 </script>
 
 <template>
   <DropdownButton
     v-if="localeLinks.length && currentLang.label"
-    noBg="true"
+    :noBg="props.noBg"
+    :onlyDark="props.onlyDark"
     :title="theme.langMenuLabel || 'Change language'"
     class="switch-lang-btn"
   >
@@ -30,11 +32,12 @@ const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
       <DropdownItem
         v-if="!locale.text"
         disabled="true"
+        :onlyDark="props.onlyDark"
         :title="theme.t.currentLang"
       >
         {{ currentLang.label }}
       </DropdownItem>
-      <DropdownItem v-else :href="locale.link">
+      <DropdownItem v-else :href="locale.link" :onlyDark="props.onlyDark">
         {{ locale.text }}
       </DropdownItem>
     </template>

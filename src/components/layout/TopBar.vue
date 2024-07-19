@@ -33,7 +33,7 @@ const resolveItemShowClass = (item) => {
     </ul>
 
     <div class="max-lg:hidden">
-      <SwitchLang />
+      <SwitchLang noBg="true" />
     </div>
 
     <div class="max-lg:hidden" aria-hidden="true">

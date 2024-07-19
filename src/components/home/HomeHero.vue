@@ -15,32 +15,8 @@ const props = defineProps(["firstLine", "secondLine", "buttons"]);
     </div>
     <ul v-if="props.buttons" class="sm:flex sm:space-x-3 max-sm:space-y-10 mt-24">
       <li v-for="item in props.buttons">
-        <Btn v-bind="item" class="!rounded-full !px-7 home-button" />
+        <Btn v-bind="item" onlyDark="true" class="!rounded-full !px-7 w-fit" />
       </li>
     </ul>
   </div>
 </template>
-
-<style>
-.home-hero {
-  color: white !important;
-}
-
-.home-button {
-  width: fit-content;
-  color: white !important;
-  background-color: var(--gray-700) !important;
-}
-
-.home-button.btn--primary {
-  background: var(--primary-btn-bg) !important;
-}
-
-.home-button:hover {
-  filter: brightness(110%);
-}
-
-.home-hero .btn-base__external {
-  color: var(--gray-500) !important;
-}
-</style>

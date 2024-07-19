@@ -18,11 +18,20 @@ const props = defineProps([
   "disabled",
   "iconClass",
   "noBg",
+  "onlyDark",
   "primary",
   "hideExternalIcon",
 ]);
-const { icon, text, iconClass, noBg, primary, hideExternalIcon, ...btnProps } =
-  props;
+const {
+  icon,
+  text,
+  iconClass,
+  noBg,
+  primary,
+  hideExternalIcon,
+  onlyDark,
+  ...btnProps
+} = props;
 const isExternal = !hideExternalIcon && isExternalUrl(props.href);
 const hasText = text || slots.default;
 
@@ -39,15 +48,19 @@ if (btnProps.href) {
 </script>
 
 <template>
-  <BaseLink v-bind="btnProps" :class="[
-    'flex cursor-pointer items-center rounded-lg',
-    !hasText && 'icon-only',
-    primary && 'btn--primary',
-    btnProps.disabled && 'disabled',
-    'btn-base',
-    noBg && 'btn--nobg',
-    props.class,
-  ]">
+  <BaseLink
+    v-bind="btnProps"
+    :class="[
+      'flex cursor-pointer items-center rounded-lg',
+      !hasText && 'icon-only',
+      'btn-base',
+      btnProps.disabled && 'disabled',
+      primary && 'btn--primary',
+      onlyDark && 'btn--only-dark',
+      noBg && 'btn--nobg',
+      props.class,
+    ]"
+  >
     <span class="flex items-center gap-x-2">
       <span v-if="icon" aria-hidden="true">
         <Icon :icon="icon" :class="iconClass" />
@@ -56,7 +69,11 @@ if (btnProps.href) {
         <slot>{{ text }}</slot>
       </span>
     </span>
-    <span v-if="theme.externalLinkIcon && isExternal && hasText" class="btn-base__external" aria-hidden="true">
+    <span
+      v-if="theme.externalLinkIcon && isExternal && hasText"
+      class="btn-base__external"
+      aria-hidden="true"
+    >
       <Icon icon="mdi:arrow-top-right" />
     </span>
   </BaseLink>
@@ -70,7 +87,8 @@ if (btnProps.href) {
   color: var(--gray-500);
 }
 
-.dark .btn-base__external {
+.dark .btn-base__external,
+.btn-base__external.btn--only-dark {
   color: var(--gray-600);
 }
 
@@ -80,16 +98,18 @@ if (btnProps.href) {
   background: var(--btn-bg);
 }
 
-.dark .btn-base {
+.dark .btn-base,
+.btn-base.btn--only-dark {
   background: var(--btn-dark-bg);
+  color: var(--gray-200);
 }
 
 .btn-base.icon-only {
   padding: 0.75rem;
 }
 
-.btn--nobg,
-.dark .btn--nobg {
+.btn-base.btn--nobg,
+.dark .btn-base.btn--nobg {
   background: transparent;
 }
 
@@ -98,7 +118,8 @@ if (btnProps.href) {
   filter: brightness(103%);
 }
 
-.dark .btn-base:hover {
+.dark .btn-base:hover,
+.btn-base.btn--only-dark:hover {
   background: var(--btn-dark-bg);
   filter: brightness(110%);
 }
@@ -109,36 +130,39 @@ if (btnProps.href) {
 
 .btn-base.active:hover {
   background: var(--btn-bg-active);
+  filter: brightness(105%);
+}
+
+.dark .btn-base.active,
+.btn-base.active.btn--only-dark {
+  background: var(--btn-dark-bg-active);
+  color: white;
+}
+
+.dark .btn-base.active:hover,
+.btn-base.active.btn--only-dark:hover {
+  background: var(--btn-dark-bg-active);
   filter: brightness(110%);
 }
 
-.dark .btn-base.active {
-  background: var(--btn-dark-bg-active);
-}
-
-.dark .btn-base.active:hover {
-  background: var(--btn-dark-bg-active);
-  filter: brightness(110%);
-}
-
-.btn--primary,
-.dark .btn--primary {
+.btn-base.btn--primary,
+.dark .btn-base.btn--primary {
   background: var(--primary-btn-bg);
 }
 
-.btn--primary:hover,
-.dark .btn--primary:hover {
+.btn-base.btn--primary:hover,
+.dark .btn-base.btn--primary:hover {
   background: var(--primary-btn-bg);
   filter: brightness(110%);
 }
 
-.btn--primary.active,
-.dark .btn--primary.active {
+.btn-base.btn--primary.active,
+.dark .btn-base.btn--primary.active {
   background: var(--primary-btn-bg-active);
 }
 
-.btn--primary.active:hover,
-.dark .btn--primary.active:hover {
+.btn-base.btn--primary.active:hover,
+.dark .btn-base.btn--primary.active:hover {
   background: var(--primary-btn-bg-active);
   filter: brightness(110%);
 }
@@ -146,10 +170,13 @@ if (btnProps.href) {
 .btn-base.disabled {
   background: none !important;
   cursor: default;
-  color: var(--btn-text-disabled);
+  color: var(--gray-500);
+  filter: brightness(100%) !important;
 }
 
-.dark .btn-base.disabled {
-  color: var(--btn-dark-text-disabled);
+.dark .btn-base.disabled,
+.btn-base.disabled.btn--only-dark {
+  color: var(--gray-400);
+  filter: brightness(100%) !important;
 }
 </style>

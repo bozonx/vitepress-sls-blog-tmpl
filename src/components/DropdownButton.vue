@@ -4,7 +4,7 @@ import { vOnClickOutside } from "@vueuse/components";
 import { Icon } from "@iconify/vue";
 import Btn from "./Btn.vue";
 
-const props = defineProps(["dropUp", "dropLeft", "title", "noBg"]);
+const props = defineProps(["dropUp", "dropLeft", "title", "noBg", "onlyDark"]);
 const animationTimeMs = 400;
 const mouseLeaveDelayMs = 400;
 const listOpen = ref(false);
@@ -75,6 +75,7 @@ const handleWholeMouseLeave = () => {
     <Btn
       @click.prevent.stop="toggleList"
       :noBg="props.noBg"
+      :onlyDark="props.onlyDark"
       :title="props.title"
       class="w-full"
     >
@@ -100,6 +101,7 @@ const handleWholeMouseLeave = () => {
       }"
       :class="[
         `dropdown-list space-y-1 transition-opacity`,
+        props.onlyDark && 'dropdown-only-dark',
         props.dropUp && 'dropdown--drop-up',
         props.dropLeft && 'dropdown--drop-left',
         !listOpen && 'hidden',
@@ -132,7 +134,8 @@ const handleWholeMouseLeave = () => {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
 }
 
-.dark .dropdown-list {
+.dark .dropdown-list,
+.dropdown-list.dropdown-only-dark {
   background: var(--dropdown-list-dark-bg);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
 }

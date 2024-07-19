@@ -13,10 +13,7 @@ const props = defineProps(["firstLine", "secondLine", "buttons"]);
       </div>
       <!-- <div aria-hidden="true">img</div> -->
     </div>
-    <ul
-      v-if="props.buttons"
-      class="sm:flex sm:space-x-3 max-sm:space-y-10 mt-24"
-    >
+    <ul v-if="props.buttons" class="sm:flex sm:space-x-3 max-sm:space-y-10 mt-24">
       <li v-for="item in props.buttons">
         <Btn v-bind="item" class="!rounded-full !px-7 home-button" />
       </li>
@@ -32,7 +29,7 @@ const props = defineProps(["firstLine", "secondLine", "buttons"]);
 .home-button {
   width: fit-content;
   color: white !important;
-  background-color: var(--home-btn-bg) !important;
+  background-color: var(--gray-700) !important;
 }
 
 .home-button.btn--primary {

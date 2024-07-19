@@ -39,18 +39,15 @@ if (btnProps.href) {
 </script>
 
 <template>
-  <BaseLink
-    v-bind="btnProps"
-    :class="[
-      'flex cursor-pointer items-center rounded-lg',
-      !hasText && 'icon-only',
-      !noBg && 'btn--bg',
-      primary && 'btn--primary',
-      btnProps.disabled && 'disabled',
-      'btn-base',
-      props.class,
-    ]"
-  >
+  <BaseLink v-bind="btnProps" :class="[
+    'flex cursor-pointer items-center rounded-lg',
+    !hasText && 'icon-only',
+    primary && 'btn--primary',
+    btnProps.disabled && 'disabled',
+    'btn-base',
+    noBg && 'btn--nobg',
+    props.class,
+  ]">
     <span class="flex items-center gap-x-2">
       <span v-if="icon" aria-hidden="true">
         <Icon :icon="icon" :class="iconClass" />
@@ -59,11 +56,7 @@ if (btnProps.href) {
         <slot>{{ text }}</slot>
       </span>
     </span>
-    <span
-      v-if="theme.externalLinkIcon && isExternal && hasText"
-      class="btn-base__external"
-      aria-hidden="true"
-    >
+    <span v-if="theme.externalLinkIcon && isExternal && hasText" class="btn-base__external" aria-hidden="true">
       <Icon icon="mdi:arrow-top-right" />
     </span>
   </BaseLink>
@@ -84,28 +77,30 @@ if (btnProps.href) {
 .btn-base {
   padding: 0.5rem 1.25rem 0.5rem 1.25rem;
   line-height: 1.5rem;
+  background: var(--btn-bg);
+}
+
+.dark .btn-base {
+  background: var(--btn-dark-bg);
 }
 
 .btn-base.icon-only {
   padding: 0.75rem;
 }
 
-.btn--bg {
-  background: var(--btn-bg);
-}
-
-.dark .btn--bg {
-  background: var(--btn-bg-dark);
+.btn--nobg,
+.dark .btn--nobg {
+  background: transparent;
 }
 
 .btn-base:hover {
-  background: var(--btn-bg-hover);
-  color: var(--btn-text-hover);
+  background: var(--btn-bg);
+  filter: brightness(103%);
 }
 
-.btn--primary,
-.dark .btn--primary {
-  background: var(--primary-btn-bg);
+.dark .btn-base:hover {
+  background: var(--btn-dark-bg);
+  filter: brightness(110%);
 }
 
 .btn-base.active {
@@ -113,6 +108,38 @@ if (btnProps.href) {
 }
 
 .btn-base.active:hover {
+  background: var(--btn-bg-active);
+  filter: brightness(110%);
+}
+
+.dark .btn-base.active {
+  background: var(--btn-dark-bg-active);
+}
+
+.dark .btn-base.active:hover {
+  background: var(--btn-dark-bg-active);
+  filter: brightness(110%);
+}
+
+.btn--primary,
+.dark .btn--primary {
+  background: var(--primary-btn-bg);
+}
+
+.btn--primary:hover,
+.dark .btn--primary:hover {
+  background: var(--primary-btn-bg);
+  filter: brightness(110%);
+}
+
+.btn--primary.active,
+.dark .btn--primary.active {
+  background: var(--primary-btn-bg-active);
+}
+
+.btn--primary.active:hover,
+.dark .btn--primary.active:hover {
+  background: var(--primary-btn-bg-active);
   filter: brightness(110%);
 }
 
@@ -122,25 +149,7 @@ if (btnProps.href) {
   color: var(--btn-text-disabled);
 }
 
-.dark .btn-base:hover {
-  background: var(--btn-dark-bg-hover);
-  color: var(--btn-dark-text-hover);
-}
-
-.dark .btn-base.active {
-  background: var(--btn-dark-bg-active);
-}
-
-.dark .btn-base.active:hover {
-  filter: brightness(110%);
-}
-
 .dark .btn-base.disabled {
   color: var(--btn-dark-text-disabled);
-}
-
-.btn--primary:hover,
-.dark .btn--primary:hover {
-  background: var(--primary-btn-hover);
 }
 </style>

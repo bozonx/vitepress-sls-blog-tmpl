@@ -1,12 +1,12 @@
-/* @import './html-block.css'; */
-
 :root {
   --font-body: Arial, "Helvetica Neue", Helvetica, sans-serif;
   --primary-hue: 219;
   --layout-hue: 219;
+  --link-hue: 232;
   --visited-hue: 287;
   --primary-btn-bg: hsl(var(--primary-hue), 80%, 50%);
-  --primary-btn-hover: hsl(var(--primary-hue), 80%, 53%);
+  --primary-btn-bg-active: hsl(var(--primary-hue), 75%, 40%);
+  --gray-50: hsl(var(--layout-hue), 16%, 98%);
   --gray-100: hsl(var(--layout-hue), 14.29%, 95.88%);
   --gray-150: hsl(var(--layout-hue), 14%, 93%);
   --gray-200: hsl(var(--layout-hue), 13.04%, 90.98%);
@@ -15,8 +15,20 @@
   --gray-500: hsl(var(--layout-hue), 8.94%, 46.08%);
   --gray-600: hsl(var(--layout-hue), 13.79%, 34.12%);
   --gray-700: hsl(var(--layout-hue), 19.12%, 26.67%);
+  --gray-750: hsl(var(--layout-hue), 23%, 21%);
   --gray-800: hsl(var(--layout-hue), 27.91%, 16.86%);
   --gray-900: hsl(var(--layout-hue), 39.29%, 10.98%);
+  --gray-900-trans: hsl(var(--layout-hue), 39.29%, 10.98%, 0%);
+  --gray-950: hsl(var(--layout-hue), 42%, 10%);
+  /**** SimpleLink */
+  --color-a-light-link: hsl(var(--link-hue), 74%, 44%);
+  --color-a-light-visited: hsl(var(--visited-hue) 71% 44%);
+  --color-a-dark-link: hsl(var(--link-hue), 100%, 76%);
+  --color-a-dark-visited: hsl(var(--visited-hue) 72% 65%);
+  /**** Podcast btn */
+  --podcast-btn-bg: hsl(263, 73%, 40%);
+  /**** VideoLink */
+  --video-link-bg: hsl(0deg 87% 45%);
 
   /**** Layout */
   --list-item-thumb-width: 280px;
@@ -28,39 +40,25 @@
   --body-dark-text-color: var(--gray-200);
   --util-page-header-color: var(--gray-500);
   --util-page-dark-header-color: var(--gray-400);
-
   /**** TopBar */
   --topbar-mobile-bg: var(--gray-100);
   --topbar-mobile-border: var(--gray-300);
-  --topbar-mobile-dark-bg: hsl(var(--layout-hue), 42%, 10%);
+  --topbar-mobile-dark-bg: var(--gray-950);
   --topbar-mobile-dark-border: #000;
 
   /**** Buttons */
-  --btn-text-hover: var(--gray-700);
-  /* TODO: должно использовать в пагинации */
-  /* --btn-bg: hsl(var(--primary-hue), 0%, 93%); */
-  --btn-bg-active: var(--gray-300);
-  --btn-bg-hover: var(--gray-150);
-  --btn-dark-text-hover: white;
-  /* TODO: должно использовать в пагинации */
-  /* --btn-bg-dark: hsl(var(--primary-hue), 24%, 18%); */
-  --btn-dark-bg-active: hsl(var(--layout-hue), 20%, 22%);
-  --btn-dark-bg-hover: hsl(var(--layout-hue), 26%, 21%);
+  --btn-bg: var(--gray-150);
+  --btn-bg-active: var(--gray-200);
+  --btn-dark-bg: var(--gray-800);
+  --btn-dark-bg-active: var(--gray-750);
   --btn-text-disabled: var(--gray-400);
   --btn-dark-text-disabled: var(--gray-500);
   --btn-link-text-active: var(--gray-600);
   --btn-link-dark-text-active: var(--gray-400);
-  --home-btn-bg: hsl(var(--layout-hue), 24%, 30%);
-
-  /**** SideBarLink */
-  --sidebar-link-bg-hover: hsl(var(--layout-hue), 14%, 94%);
-  --sidebar-link-bg-active: hsl(var(--layout-hue), 13.5%, 90%);
-  --sidebar-link-dark-bg-hover: hsl(var(--layout-hue), 20%, 22%);
-  --sidebar-link-dark-bg-active: hsl(var(--layout-hue), 24%, 24%);
 
   /**** Sidebar */
-  --drawer-bg: hsl(var(--layout-hue), 40%, 98%);
-  --drawer-border-color: hsl(var(--layout-hue), 30%, 87%);
+  --drawer-bg: var(--gray-50);
+  --drawer-border-color: var(--gray-200);
   --drawer-dark-border-color: #000;
   --drawer-dark-bg: var(--gray-800);
   --backdrop-bg: rgba(0, 0, 0, 0.85);
@@ -69,24 +67,9 @@
   --dropdown-list-bg: var(--drawer-bg);
   --dropdown-list-dark-bg: var(--drawer-dark-bg);
 
-  /**** Podcast btn */
-  --podcast-btn-bg: hsl(263, 73%, 40%);
-
-  /**** VideoLink */
-  --video-link-bg: hsl(0deg 87% 45%);
-
-  /**** SimpleLink */
-  --color-a-light-link: hsl(var(--primary-hue), 74%, 44%);
-  --color-a-light-visited: hsl(var(--visited-hue) 71% 44%);
-  --color-a-dark-link: hsl(var(--primary-hue), 100%, 76%);
-  --color-a-dark-visited: hsl(var(--visited-hue) 72% 65%);
-
   /**** TagItem */
   --tag-item-bg: var(--primary-btn-bg);
-  --tag-item-bg-active: hsl(var(--primary-hue), 75%, 40%);
-
-  /**** Badge */
-  --badge-bg: hsl(var(--primary-hue), 100%, 61%);
+  --tag-item-bg-active: var(--primary-btn-bg-active);
 
   /**** SwitchAppearance */
   --switch-appearance-border-color: #c2c2c4;
@@ -135,55 +118,38 @@ button {
   color: var(--gray-400);
 }
 
-/******** Img Modal */
-/*
-.img-modal {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: rgba(0, 0, 0, 0.85);
-	z-index: 50;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
+/**** Lighter Btn for use on lighter background */
+.btn-lighter:hover {
+  background: var(--btn-bg);
+  filter: brightness(99%);
 }
-@media (min-width: 800px) {
-	.img-modal {
-		padding: 1rem;
-	}
-}
-.img-modal > div {
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 1.5rem 2rem;
-}
-.img-modal > div span {
-	color: #aaa;
-	font-size: 1.35rem;
-}
-.img-modal > div span:hover {
-	color: #fff;
-}
-*/
 
-/******** SidebarLogo */
-/* 
-.sidebar-logo {
-	 padding: 1.25rem 0 1.3rem 2.75rem;
-	 background-color: rgb(249 250 251);
- }
-.dark .sidebar-logo {
-	background-color: #f7f7f7;
+.btn-lighter.active {
+  background: var(--btn-bg-active);
 }
-.sidebar-logo__text {
-	margin-left: 1.15rem;
-	line-height: 1.4rem;
+
+.btn-lighter.active:hover {
+  filter: brightness(103%);
 }
-*/
+
+.dark .btn-lighter:hover {
+  background: var(--btn-dark-bg);
+  filter: brightness(125%);
+}
+
+.dark .btn-lighter.active {
+  background: var(--btn-dark-bg-active);
+}
+
+.dark .btn-lighter.active:hover {
+  filter: brightness(110%);
+}
+
+/**** Preview item */
+.preview-author-date {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
 
 /**** Content page */
 .content-page {
@@ -201,12 +167,6 @@ button {
   color: var(--gray-500);
 }
 
-/**** Preview item */
-.preview-author-date {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
 /**** Simple page */
 .simple-page {
   margin-top: 1rem;
@@ -222,31 +182,6 @@ button {
 
 .dark .simple-page h1 {
   color: var(--util-page-dark-header-color);
-}
-
-/**** Lighter Btn for use on lighter background */
-.btn-lighter:hover {
-  background: var(--sidebar-link-bg-hover);
-}
-
-.btn-lighter.active {
-  background: var(--sidebar-link-bg-active);
-}
-
-.btn-lighter.active:hover {
-  filter: brightness(103%);
-}
-
-.dark .btn-lighter:hover {
-  background: var(--sidebar-link-dark-bg-hover);
-}
-
-.dark .btn-lighter.active {
-  background: var(--sidebar-link-dark-bg-active);
-}
-
-.dark .btn-lighter.active:hover {
-  filter: brightness(110%);
 }
 
 /******* Doc page */

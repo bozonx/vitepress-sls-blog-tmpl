@@ -55,14 +55,11 @@ watchEffect(async () => {
 
 <template>
   <div :class="{ hidden: !drawerOpen }">
-    <div
-      :style="{
-        left: props.isMobile ? `${animationLeftPx}px` : '0',
-        'transition-duration': `${animationTimeMs}ms`,
-        width: `${SIDEBAR_WIDTH}px`,
-      }"
-      class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer"
-    >
+    <div :style="{
+      left: props.isMobile ? `${animationLeftPx}px` : '0',
+      'transition-duration': `${animationTimeMs}ms`,
+      width: `${SIDEBAR_WIDTH}px`,
+    }" class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer">
       <div>
         <!--
         <div class="sidebar-closebtn-wrapper lg:hidden">
@@ -75,12 +72,7 @@ watchEffect(async () => {
         </div>
         -->
 
-        <a
-          v-if="slots['sidebar-logo']"
-          :href="`/${localeIndex}/`"
-          class="sidebar-logo"
-          :title="theme.t.toHome"
-        >
+        <a v-if="slots['sidebar-logo']" :href="`/${localeIndex}/`" class="sidebar-logo" :title="theme.t.toHome">
           <slot name="sidebar-logo" />
         </a>
 
@@ -88,21 +80,13 @@ watchEffect(async () => {
           <slot name="sidebar-top" />
 
           <SideBarGroup v-if="theme.sideBar?.links">
-            <SideBarItems
-              @click="closeDrawer"
-              :items="theme.sideBar.links"
-              :isMobile="props.isMobile"
-            />
+            <SideBarItems @click="closeDrawer" :items="theme.sideBar.links" :isMobile="props.isMobile" />
           </SideBarGroup>
 
           <slot name="sidebar-middle" />
 
           <SideBarGroup v-if="theme.sideBar?.bottomLinks" class="mt-2">
-            <SideBarItems
-              @click="closeDrawer"
-              :items="theme.sideBar.bottomLinks"
-              :isMobile="props.isMobile"
-            />
+            <SideBarItems @click="closeDrawer" :items="theme.sideBar.bottomLinks" :isMobile="props.isMobile" />
           </SideBarGroup>
 
           <slot name="sidebar-bottom" />
@@ -115,14 +99,10 @@ watchEffect(async () => {
         <div></div>
       </div>
     </div>
-    <div
-      @click="closeDrawer"
-      :style="{
-        opacity: backdropOpacity,
-        'transition-duration': `${animationTimeMs}ms`,
-      }"
-      class="transition-opacity lg:hidden app-drawer-backdrop"
-    ></div>
+    <div @click="closeDrawer" :style="{
+      opacity: backdropOpacity,
+      'transition-duration': `${animationTimeMs}ms`,
+    }" class="transition-opacity lg:hidden app-drawer-backdrop"></div>
   </div>
 </template>
 
@@ -169,20 +149,16 @@ watchEffect(async () => {
   height: 200px;
   position: absolute;
   background: rgb(255, 255, 255);
-  background: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%);
 }
 
 .dark .sidebar-gradient div {
   background: rgb(17, 24, 39);
-  background: linear-gradient(
-    0deg,
-    rgba(17, 24, 39, 1) 0%,
-    rgba(17, 24, 39, 0) 100%
-  );
+  background: linear-gradient(0deg,
+      var(--gray-900) 0%,
+      var(--gray-900-trans) 100%);
 }
 
 .sidebar-menu {

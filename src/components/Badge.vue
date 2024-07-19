@@ -14,6 +14,7 @@ const props = defineProps(["count", "title"]);
   padding: 0.5rem;
   line-height: 0.5rem !important;
   height: 1.5rem;
-  background: var(--badge-bg);
+  background: var(--primary-btn-bg);
+  filter: brightness(120%);
 }
 </style>

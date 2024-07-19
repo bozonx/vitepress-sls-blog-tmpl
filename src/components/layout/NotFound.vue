@@ -14,7 +14,7 @@
 <style scoped>
 .notfound-page {
   height: 100vh;
-  background: #111827;
+  background: var(--gray-900);
   display: flex;
   align-items: center;
   justify-content: center;

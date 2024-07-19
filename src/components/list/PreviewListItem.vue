@@ -1,16 +1,15 @@
 <script setup>
 import { useData } from "vitepress";
 import { makeHumanDate } from "../../helpers/helpers.js";
-import TagsList from "../TagsList.vue";
 import PreviewWithImg from "./PreviewWithImg.vue";
 import PreviewNoImg from "./PreviewNoImg.vue";
 
 const { lang, theme } = useData();
 const props = defineProps(["item"]);
 const params = {
+  tags: props.item.tags,
   pubDate: props.item.pubDate,
   localeDate: makeHumanDate(props.item.pubDate, lang.value),
-  tags: (props.item.tags || []).map((item) => ({ name: item })),
   preview: String(props.item?.preview).trim().replace(/\.$/, "") + " ...",
   authorName:
     theme.value.showAuthorInPostList &&

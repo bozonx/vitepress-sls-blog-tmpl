@@ -3,6 +3,7 @@ import path from "path";
 import { DEFAULT_ENCODE } from "../constants.js";
 import { parseMdFile } from "./parseMdFile.js";
 import { stripMd } from "./convertMd.js";
+import { transliterate } from "../helpers/transliterate.js";
 
 export function makePreviewItem(filePath) {
   const relativePath = path.relative(
@@ -20,7 +21,10 @@ export function makePreviewItem(filePath) {
     authorId: frontmatter.authorId,
     // title: extractTitleFromMd(content),
     title: frontmatter.title,
-    tags: frontmatter.tags,
+    tags: [...(frontmatter.tags || [])].map((item) => ({
+      name: item,
+      slug: transliterate(item),
+    })),
     preview: resolvePreview(frontmatter, content),
     // TODO: make real thumbnail
     thumbnail: frontmatter.cover,

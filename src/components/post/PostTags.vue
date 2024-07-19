@@ -4,8 +4,9 @@ import TagsList from "../TagsList.vue";
 import SimpleLink from "../SimpleLink.vue";
 
 const { theme, frontmatter } = useData();
-const tags =
-  [...(frontmatter.value.tags || [])].sort().map((name) => ({ name })) || [];
+const tags = [...(frontmatter.value.tags || [])].sort((a, b) =>
+  String(a.name).localeCompare(b.name),
+);
 </script>
 
 <template>
@@ -17,7 +18,7 @@ const tags =
     <div class="mt-4">
       <SimpleLink :href="theme.allTagsUrl">{{
         theme.t.allTagsCall
-        }}</SimpleLink>
+      }}</SimpleLink>
     </div>
   </div>
 </template>

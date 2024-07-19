@@ -1,3 +1,4 @@
+import { mdToHtml } from "./convertMd.js";
 import { parseLocaleSite } from "./parseSiteFileTranslations.js";
 import { common } from "../configs/blogConfigBase.js";
 import en from "../configs/blogLocalesBase/en.js";
@@ -17,6 +18,15 @@ export function loadBlogLocale(lang, configFilePath, PROPS) {
   });
   const { title, description, t, ...themeConfig } = site;
 
+  const authors = themeConfig.authors.map((item) => {
+    return {
+      ...item,
+      descr: item.descr && mdToHtml(item.descr),
+    };
+  });
+  const postDonateCall =
+    themeConfig.postDonateCall && mdToHtml(themeConfig.postDonateCall);
+
   return {
     ...baseLocale,
     title,
@@ -24,6 +34,8 @@ export function loadBlogLocale(lang, configFilePath, PROPS) {
     themeConfig: {
       ...baseLocale.themeConfig,
       ...themeConfig,
+      authors,
+      postDonateCall,
       t: {
         ...baseLocale.t,
         ...t,

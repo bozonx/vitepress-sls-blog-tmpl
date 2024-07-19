@@ -1,6 +1,7 @@
 import { figure } from "@mdit/plugin-figure";
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from "../helpers/transformTitle.js";
+import { transformPageMeta } from "../helpers/transformPageMeta.js";
 
 export const common = {
   head: [
@@ -74,6 +75,7 @@ export default function({ hostname, repo }, en) {
     },
     transformPageData(pageData, ctx) {
       transformTitle(pageData, ctx);
+      transformPageMeta(pageData, ctx);
     },
     markdown: {
       image: {

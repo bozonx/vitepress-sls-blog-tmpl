@@ -15,7 +15,7 @@ const sizeClass =
 <template>
   <ul v-if="props.tags.length" :class="['flex flex-wrap', sizeClass, props.class]">
     <li v-for="item in props.tags">
-      <TagItem :text="item.name" :count="item.count" :sizeXl="props.sizeXl" :sizeSm="props.sizeSm" />
+      <TagItem v-bind="item" :sizeXl="props.sizeXl" :sizeSm="props.sizeSm" />
     </li>
   </ul>
 </template>

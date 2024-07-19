@@ -2,12 +2,10 @@
 import { useData } from "vitepress";
 import BaseLink from "./BaseLink.vue";
 import Badge from "./Badge.vue";
-import { transliterate } from "../helpers/transliterate.js";
 
 const { theme } = useData();
-const props = defineProps(["text", "count", "sizeXl", "sizeSm"]);
-const preparedTag = transliterate(props.text);
-const href = `${theme.value.tagsBaseUrl}/${preparedTag}/1`;
+const props = defineProps(["name", "count", "slug", "sizeXl", "sizeSm"]);
+const href = `${theme.value.tagsBaseUrl}/${props.slug}/1`;
 const className =
   "text-center font-medium rounded-full text-lg py-1 px-4 " +
   "justify-center inline-flex space-x-2 items-center text-white " +
@@ -19,7 +17,7 @@ const className =
 
 <template>
   <BaseLink :href="href" :class="className">
-    <span>{{ props.text }}</span>
+    <span>{{ props.name }}</span>
     <Badge v-if="props.count" :count="props.count" :title="theme.t.tagBadgeCount" />
   </BaseLink>
 </template>

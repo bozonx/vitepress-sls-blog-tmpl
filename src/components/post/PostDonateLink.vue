@@ -6,5 +6,5 @@ const { theme } = useData();
 </script>
 
 <template>
-  <div v-if="theme.postDonateCall">{{ theme.postDonateCall }}</div>
+  <div v-if="theme.postDonateCall" v-html="theme.postDonateCall" class="vp-doc"></div>
 </template>

@@ -4,17 +4,17 @@ export function makeTagsList(allData = []) {
   for (const item of allData) {
     if (!item.tags?.length) continue;
 
-    for (const tag of item.tags) {
-      if (typeof tags[tag] === "undefined") {
-        tags[tag] = 1;
+    for (const tagItem of item.tags) {
+      if (typeof tags[tagItem.name] === "undefined") {
+        tags[tagItem.name] = { ...tagItem, count: 1 };
       } else {
-        tags[tag]++;
+        tags[tagItem.name].count++;
       }
     }
   }
 
-  const res = Object.keys(tags).map((tag) => ({ name: tag, count: tags[tag] }));
-  // sort by count
+  const res = Object.keys(tags).map((name) => tags[name]);
+
   res.sort((a, b) => b.count - a.count);
 
   return res;

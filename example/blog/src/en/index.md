@@ -1,9 +1,8 @@
 ---
-layout: util
+layout: home
 ---
 
 <script setup>
-import HomePageRecent from 'vitepress-sls-blog-tmpl/src/components/home/HomePageRecent.vue'
 import HomePageTags from 'vitepress-sls-blog-tmpl/src/components/home/HomePageTags.vue'
 import HomeHero from 'vitepress-sls-blog-tmpl/src/components/home/HomeHero.vue'
 import UtilPageContent from 'vitepress-sls-blog-tmpl/src/components/UtilPageContent.vue'
@@ -11,21 +10,33 @@ import { useData } from 'vitepress'
 import { data } from './loadPosts.data.js'
 import { PROPS } from "../.vitepress/props.js";
 
-const { theme } = useData()
+const { theme, localeIndex } = useData()
 
-const translations = {
-  heroFirstLine: "Some text",
-  heroSecondLine: "Some second text",
+const hero = {
+  firstLine: "Some text",
+  secondLine: "Some second text",
+  buttons: [
+    {
+      text: "Go to blog",
+      href: "recent/1",
+      primary: true,
+    },
+    {
+      text: "Project Wiki",
+      href: `${PROPS.siteUrl}/${localeIndex.value}/${PROPS.docUrl}`,
+      icon: theme.value.docIcon,
+    },
+    {
+      text: theme.value.t.links.donate,
+      href: `${PROPS.siteUrl}/${localeIndex.value}/${theme.value.donateUrl}`,
+      icon: theme.value.donateIcon,
+    },
+  ],
 }
 </script>
 
-<HomeHero :firstLine="heroFirstLine" :secondLine="heroSecondLine" />
+<HomeHero v-bind="hero" />
 <HomePageTags :header="theme.t.tags" :allData="data.posts" />
-<HomePageRecent
-  :header="theme.t.homeRecentHeader"
-  :allData="data.posts"
-  :perPage="PROPS.perPage"
-/>
 
 <UtilPageContent>
 

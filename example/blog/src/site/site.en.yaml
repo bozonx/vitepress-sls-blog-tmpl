@@ -6,66 +6,61 @@ body: |
   t:
     donateLink: "${PROPS.siteUrl}/${PROPS.lang}/donate"
 
-  siteTitle: ""
+  siteLogoAlt: ""
+
   authors:
     - id: "ivan-k"
       name: "Ivan K"
-      descr: ".\n\n[подробней](https://t.me/ivan_k_8/16)"
+      descr: ".\n\n[about](https://t.me/ivan_k_8/16)"
   footer:
     message: "Copying allowed only with a link to the source."
+    # --- After this line all text the same for all the languages
     copyright: "${PROPS.footerCopyright}"
-    links: [{ text: "${PROPS.t.links.aboutBlog}", href: "page/about-blog" }]
+    links:
+     - text: "${PROPS.t.links.aboutBlog}"
+       href: "page/about-blog"
   topBar:
     links:
       - text: "${PROPS.t.links.donate}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/page/donate"
-        icon: "${PROPS.donateIcon}"
-      - text: "${PROPS.t.links.projectSite}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/"
-    mobileLinks:
-      - text: "${PROPS.t.links.donate}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/donate"
-        icon: "${PROPS.donateIcon}"
-  topBar:
-    links:
-      - text: "${PROPS.t.links.donate}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/page/donate"
-        icon: "${PROPS.donateIcon}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"
+        icon: "${PROPS.theme.donateIcon}"
         mobileToo: true
       - text: "${PROPS.t.links.projectSite}"
         href: "${PROPS.siteUrl}/${PROPS.lang}/"
+        icon: "${PROPS.theme.docIcon}"
   sideBar:
     links:
-      - { text: "${PROPS.t.links.home}", href: "/", icon: "fa6-solid:house" }
       - text: "${PROPS.t.links.recent}"
-        href: "recent/1"
-        icon: "fa6-solid:newspaper"
+        href: "${PROPS.theme.recentBaseUrl}/1"
+        icon: "${PROPS.theme.recentIcon}"
       - text: "${PROPS.t.tags}"
-        href: "tags"
-        icon: "fa6-solid:tag"
+        href: "${PROPS.theme.allTagsUrl}"
+        icon: "${PROPS.theme.tagsIcon}"
       - text: "${PROPS.t.links.byDate}"
-        href: "archive"
-        icon: "fa6-solid:calendar-days"
+        href: "${PROPS.theme.archiveBaseUrl}"
+        icon: "${PROPS.theme.byDateIcon}"
       - text: "${PROPS.t.links.authors}"
-        href: "authors"
-        icon: "mdi:users"
+        href: "${PROPS.theme.allAuthorBaseUrl}"
+        icon: "${PROPS.theme.authorsIcon}"
     bottomLinks:
       - text: "${PROPS.t.links.donate}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/page/donate"
-        icon: "${PROPS.donateIcon}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"
+        icon: "${PROPS.theme.donateIcon}"
         mobile: true
       - text: "${PROPS.t.links.projectSite}"
         href: "${PROPS.siteUrl}/${PROPS.lang}/"
+        icon: "${PROPS.theme.docIcon}"
         mobile: true
       - { header: "${PROPS.t.links.links}" }
       - text: "${PROPS.t.links.ourYoutubeChannel}"
         href: "https://www.youtube.com/@prjedem"
-        icon: "fa6-brands:youtube"
+        icon: "${PROPS.theme.youtubeIcon}"
       - text: "${PROPS.t.links.ourTelegramChannel}"
         href: "https://t.me/prjedem"
-        icon: "fa6-brands:telegram"
+        icon: "${PROPS.theme.telegramIcon}"
       - text: "${PROPS.t.links.ourTelegramChat}"
         href: "https://t.me/prjedem_chat"
-        icon: "fa6-solid:message"
+        icon: "${PROPS.theme.chatIcon}"
       - text: "${PROPS.t.links.weInSocialMedia}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/page/links"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.linksUrl}"
+        icon: "${PROPS.theme.socialLinksIcon}"

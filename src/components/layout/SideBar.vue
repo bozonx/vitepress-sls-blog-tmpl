@@ -46,6 +46,9 @@ defineExpose({
   toggleSidebar() {
     openDrawer();
   },
+  handleLeftSwipe() {
+    if (props.isMobile) closeDrawer();
+  },
 });
 
 watchEffect(async () => {

@@ -1,0 +1,8 @@
+/* :root { */
+/*   --primary-hue: 115; */
+/*   --layout-hue: 115; */
+/* } */
+
+.home-layout {
+  background-image: url(/img/home-bg.webp);
+}

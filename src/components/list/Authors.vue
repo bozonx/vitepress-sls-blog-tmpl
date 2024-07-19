@@ -9,7 +9,7 @@ const authorsList = makeAuthorsList(props.allPosts, theme.value.authors);
 </script>
 
 <template>
-  <ul v-if="authorsList.length" class="props.class">
+  <ul v-if="authorsList.length" :class="props.class">
     <template v-for="item in authorsList">
       <li v-if="item.count">
         <ListItemWithBadge :href="`${theme.authorBaseUrl}/${item.id}/1`" :text="item.name" :count="item.count" />

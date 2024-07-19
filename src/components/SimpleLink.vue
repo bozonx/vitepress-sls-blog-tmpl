@@ -2,10 +2,11 @@
 import BaseLink from "./BaseLink.vue";
 
 const props = defineProps(["id", "class", "title", "href", "target"]);
+const { class: className, ...bindProps } = props;
 </script>
 
 <template>
-  <BaseLink v-bind="props" :class="['simple-link', props.class]">
+  <BaseLink v-bind="bindProps" :class="['simple-link', className]">
     <slot />
   </BaseLink>
 </template>

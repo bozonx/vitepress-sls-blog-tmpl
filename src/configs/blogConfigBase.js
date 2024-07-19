@@ -21,7 +21,7 @@ export const common = {
   outDir: "../docs",
   cacheDir: "../.cache",
   srcExclude: ["/site"],
-  metaChunk: true,
+  // metaChunk: true,
   lastUpdated: true,
   cleanUrls: true,
   lang: "en-US",

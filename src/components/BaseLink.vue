@@ -21,17 +21,12 @@ const resolvedHref = resolveI18Href(
 const active = route.path === resolvedHref;
 const isExternal = isExternalUrl(props.href);
 const target = isExternal && !props.target ? "_blank" : props.target;
-const { tag = "a", ...bindProps } = props;
+const { tag = "a", class: className, ...bindProps } = props;
 </script>
 
 <template>
-  <component
-    :is="tag"
-    v-bind="bindProps"
-    :target="target"
-    :href="resolvedHref"
-    :class="[active && 'active', props.class]"
-  >
+  <component :is="tag" v-bind="bindProps" :target="target" :href="resolvedHref"
+    :class="[active && 'active', className]">
     <slot />
   </component>
 </template>

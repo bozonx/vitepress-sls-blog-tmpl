@@ -23,6 +23,7 @@ const props = defineProps([
   "hideExternalIcon",
 ]);
 const {
+  class: className,
   icon,
   text,
   iconClass,
@@ -58,7 +59,7 @@ if (btnProps.href) {
       primary && 'btn--primary',
       onlyDark && 'btn--only-dark',
       noBg && 'btn--nobg',
-      props.class,
+      className,
     ]"
   >
     <span class="flex items-center gap-x-2">

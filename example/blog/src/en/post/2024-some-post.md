@@ -17,6 +17,4 @@ tags:
   - some tag 2
 ---
 
-# Some post
-
 Some information.

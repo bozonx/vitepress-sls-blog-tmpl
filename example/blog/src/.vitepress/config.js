@@ -8,10 +8,6 @@ const configBase = blogConfigBase(PROPS, en);
 
 export default {
   ...configBase,
-  head: [
-    ...configBase.head,
-    //head: [['link', {rel: 'stylesheet', href: '/tailwind.css'}]]
-  ],
   locales: {
     ...configBase.locales,
     en: { lang: "en-US", ...en },

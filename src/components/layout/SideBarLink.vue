@@ -10,11 +10,10 @@ const props = defineProps([
   "icon",
   "mobileOnly",
 ]);
+const { class: className, ...bindProps } = props;
 </script>
 
 <template>
-  <Btn v-bind="props" noBg="true" :class="[
-    'pr-2 pl-3 py-3 font-normal rounded-none btn-lighter',
-    props.class,
-  ]" iconClass="muted" />
+  <Btn v-bind="bindProps" noBg="true" :class="['pr-2 pl-3 py-3 font-normal rounded-none btn-lighter', className]"
+    iconClass="muted" />
 </template>

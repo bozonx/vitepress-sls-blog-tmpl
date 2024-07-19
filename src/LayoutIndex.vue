@@ -14,12 +14,49 @@ const { page, theme, frontmatter } = useData();
 const windowWidth = ref(0);
 const isMobile = ref(true);
 const scrollY = ref(0);
+const touchInitialX = ref(null);
+const touchInitialY = ref(null);
 const sidebarRef = ref(null);
 let resizeListener;
 let scrollListener;
+let touchStartListener;
+let touchMoveListener;
 
 function onSidebarToggle() {
   sidebarRef.value.toggleSidebar();
+}
+
+function startTouch(e) {
+  touchInitialX.value = e.touches[0].clientX;
+  touchInitialY.value = e.touches[0].clientY;
+}
+
+function moveTouch(e) {
+  if (touchInitialX.value === null) {
+    return;
+  }
+
+  const currentX = e.touches[0].clientX;
+  const currentY = e.touches[0].clientY;
+
+  if (
+    currentY > touchInitialY.value + 10 ||
+    currentY < touchInitialY.value - 10
+  ) {
+    touchInitialX.value = null;
+    touchInitialY.value = null;
+
+    return;
+  }
+
+  const diffX = touchInitialX.value - currentX;
+
+  if (diffX > 0) {
+    sidebarRef.value.handleLeftSwipe();
+  }
+
+  touchInitialX.value = null;
+  touchInitialY.value = null;
 }
 
 onMounted(() => {
@@ -34,10 +71,15 @@ onMounted(() => {
   scrollListener = window.addEventListener("scroll", () => {
     scrollY.value = window.scrollY;
   });
+
+  touchStartListener = window.addEventListener("touchstart", startTouch, false);
+  touchMoveListener = window.addEventListener("touchmove", moveTouch, false);
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resizeListener);
   window.removeEventListener("scroll", scrollListener);
+  window.removeEventListener("touchstart", touchStartListener);
+  window.removeEventListener("touchmove", touchMoveListener);
 });
 </script>
 

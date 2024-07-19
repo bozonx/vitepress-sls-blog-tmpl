@@ -13,10 +13,12 @@ const props = defineProps([
   "iconClass",
   "hideExternalIcon",
 ]);
+
+const { class: className, ...bindProps } = props;
 </script>
 
 <template>
-  <Btn v-bind="props" :class="['btn-link', props.class]">
+  <Btn v-bind="bindProps" :class="['btn-link', className]">
     <slot />
   </Btn>
 </template>

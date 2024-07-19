@@ -22,7 +22,7 @@ const hero = {
       primary: true,
     },
     {
-      text: "Project Wiki",
+      text: theme.value.t.links.wiki,
       href: `${PROPS.siteUrl}/${localeIndex.value}/${PROPS.docUrl}`,
       icon: theme.value.docIcon,
     },

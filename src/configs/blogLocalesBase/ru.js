@@ -20,8 +20,6 @@ export default {
     paginationToEnd: "На последнюю страницу",
     toHome: "На главную",
     author: "Автор",
-    donateCall:
-      "Если вам нравится наш проект поддержите его пожалуйста финансово.",
     year: "Год",
     allPosts: "Все посты",
     showMorePosts: "Ещё",
@@ -41,7 +39,7 @@ export default {
       authors: "Авторы",
       aboutUs: "О нас",
       weInSocialMedia: "Мы в соц сетях",
-      projectSite: "Сайт проекта",
+      wiki: "Вики",
       ourYoutubeChannel: "Наш Youtube канал",
       ourTelegramChannel: "Наш Telegram канал",
       ourTelegramChat: "Наш чат в Telegram",

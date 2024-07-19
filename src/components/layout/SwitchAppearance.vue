@@ -1,4 +1,6 @@
 <script setup>
+// see https://github.com/vuejs/vitepress/blob/9b1bb4ffc6423ef0f16a213133980fdb6e9bf552/src/client/theme-default/components/VPSwitch.vue
+// and https://github.com/vuejs/vitepress/blob/9b1bb4ffc6423ef0f16a213133980fdb6e9bf552/src/client/theme-default/components/VPSwitchAppearance.vue
 import { Icon } from "@iconify/vue";
 import { inject, ref, watchPostEffect } from "vue";
 import { useData } from "vitepress";

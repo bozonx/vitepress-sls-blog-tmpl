@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// see https://github.com/vuejs/vitepress/blob/9b1bb4ffc6423ef0f16a213133980fdb6e9bf552/src/client/theme-default/components/VPNavScreenTranslations.vue
 import { Icon } from "@iconify/vue";
 import { useData } from "vitepress";
 import { useLangs } from "vitepress/dist/client/theme-default/composables/langs.js";
@@ -11,30 +12,15 @@ const props = defineProps(["noBg", "onlyDark"]);
 </script>
 
 <template>
-  <DropdownButton
-    v-if="localeLinks.length && currentLang.label"
-    :noBg="props.noBg"
-    :onlyDark="props.onlyDark"
-    :title="theme.langMenuLabel || 'Change language'"
-    class="switch-lang-btn"
-  >
+  <DropdownButton v-if="localeLinks.length && currentLang.label" :noBg="props.noBg" :onlyDark="props.onlyDark"
+    :title="theme.langMenuLabel || 'Change language'" class="switch-lang-btn">
     <template #btn-text>
       <span class="pt-1" aria-hidden="true">
-        <Icon
-          alt="Translation icon"
-          icon="material-symbols:translate"
-          width="1.2rem"
-          height="1.2rem"
-        />
+        <Icon alt="Translation icon" icon="material-symbols:translate" width="1.2rem" height="1.2rem" />
       </span>
     </template>
     <template v-for="locale in localeLinks">
-      <DropdownItem
-        v-if="!locale.text"
-        disabled="true"
-        :onlyDark="props.onlyDark"
-        :title="theme.t.currentLang"
-      >
+      <DropdownItem v-if="!locale.text" disabled="true" :onlyDark="props.onlyDark" :title="theme.t.currentLang">
         {{ currentLang.label }}
       </DropdownItem>
       <DropdownItem v-else :href="locale.link" :onlyDark="props.onlyDark">

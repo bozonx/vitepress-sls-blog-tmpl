@@ -8,7 +8,7 @@ import TopBar from "./components/layout/TopBar.vue";
 import ToTheTop from "./components/layout/ToTheTop.vue";
 import NotFound from "./components/layout/NotFound.vue";
 import SwitchLang from "./components/layout/SwitchLang.vue";
-import { MOBILE_BREAKPOINT } from "./constants.js";
+import { MOBILE_BREAKPOINT, SWIPE_OFFSET } from "./constants.js";
 
 const { page, theme, frontmatter } = useData();
 const windowWidth = ref(0);
@@ -38,11 +38,13 @@ function moveTouch(e) {
 
   const currentX = e.touches[0].clientX;
   const currentY = e.touches[0].clientY;
+  const dx = currentX - touchInitialX.value;
+  const dy = currentY - touchInitialY.value;
+  const rad = Math.atan2(dy, dx); // Получаем угол в радианах
+  const deg = rad * (180 / Math.PI); // Преобразуем радианы в градусы
+  const deg360 = deg + 180;
 
-  if (
-    currentY > touchInitialY.value + 10 ||
-    currentY < touchInitialY.value - 10
-  ) {
+  if (!(deg360 < SWIPE_OFFSET || deg360 > 360 - SWIPE_OFFSET)) {
     touchInitialX.value = null;
     touchInitialY.value = null;
 

@@ -64,9 +64,6 @@ export default function({ hostname, repo }, en) {
     themeConfig: {
       ...common.themeConfig,
       socialLinks: repo && [{ icon: "github", link: repo }],
-      editLink: {
-        pattern: `${repo}/edit/main/src/:path`,
-      },
     },
   };
 }

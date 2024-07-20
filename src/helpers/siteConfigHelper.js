@@ -32,7 +32,7 @@ export function loadSiteLocale(lang, configFilePath, rawProps) {
       ...baseLocale.themeConfig,
       ...themeConfig,
       editLink: {
-        pattern: PROPS.editLinkPattern,
+        pattern: `${PROPS.repo}/edit/main/src/:path`,
         ...baseLocale.themeConfig.editLink,
       },
       lastUpdated: {

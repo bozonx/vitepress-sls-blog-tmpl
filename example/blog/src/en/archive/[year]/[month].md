@@ -3,7 +3,7 @@ layout: util
 ---
 
 <script setup>
-import MonthPostsList from 'vitepress-sls-blog-tmpl/src/components/list/MonthPostsList.vue'
+import MonthPostsList from 'vitepress-sls-blog-tmpl/MonthPostsList.vue'
 import { useData } from 'vitepress'
 import { data } from '../../loadPosts.data.js'
 

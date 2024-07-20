@@ -1,5 +1,5 @@
-import blogConfigBase from "vitepress-sls-blog-tmpl/src/configs/blogConfigBase.js";
-import { loadBlogLocale } from "vitepress-sls-blog-tmpl/src/helpers/blogConfigHelper.js";
+import blogConfigBase from "vitepress-sls-blog-tmpl/blogConfigBase.js";
+import { loadBlogLocale } from "vitepress-sls-blog-tmpl/blogConfigHelper.js";
 import { PROPS } from "./props.js";
 
 const ru = loadBlogLocale("ru", __filename, PROPS);

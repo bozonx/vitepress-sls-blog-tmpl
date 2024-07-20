@@ -1,5 +1,5 @@
-import { makePreviewItem } from "vitepress-sls-blog-tmpl/src/helpers/makePreviewItem.js";
-import { POSTS_DIR } from "vitepress-sls-blog-tmpl/src/constants.js";
+import { makePreviewItem } from "vitepress-sls-blog-tmpl/makePreviewItem.js";
+import { POSTS_DIR } from "vitepress-sls-blog-tmpl/constants.js";
 
 export default {
   watch: [`./${POSTS_DIR}/*.md`],

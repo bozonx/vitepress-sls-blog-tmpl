@@ -3,7 +3,7 @@ layout: util
 ---
 
 <script setup>
-import AuthorDetails from 'vitepress-sls-blog-tmpl/src/components/list/AuthorDetails.vue'
+import AuthorDetails from 'vitepress-sls-blog-tmpl/AuthorDetails.vue'
 import { useData } from 'vitepress'
 import { data } from '../../loadPosts.data.js'
 import { PROPS } from "../../../.vitepress/props.js";

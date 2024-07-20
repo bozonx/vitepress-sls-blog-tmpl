@@ -11,11 +11,9 @@ export function transformPageMeta(pageData, ctx) {
   // skip not posts
   if (!pageData.filePath.match(regex)) return;
 
-  pageData.frontmatter.coverDescr =
-    pageData.frontmatter.coverDescr &&
-    mdToHtml(pageData.frontmatter.coverDescr)
-      .replace(/^\<p\>/, "")
-      .replace(/\<\/p\>$/, "");
+  pageData.frontmatter.coverDescr = mdToHtml(pageData.frontmatter.coverDescr)
+    .replace(/^\<p\>/, "")
+    .replace(/\<\/p\>$/, "");
 
   pageData.frontmatter.tags = pageData.frontmatter.tags?.map((item) => ({
     name: item,

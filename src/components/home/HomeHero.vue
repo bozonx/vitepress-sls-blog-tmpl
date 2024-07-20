@@ -7,11 +7,11 @@ const props = defineProps(["firstLine", "secondLine", "buttons", "img"]);
 <template>
   <div class="mb-24 home-hero">
     <div class="flex max-md:flex-col-reverse">
-      <div class="flex-1 md:mr-4">
+      <div class="flex-1">
         <div class="text-6xl font-bold mb-4" v-html="props.firstLine"></div>
         <div class="text-4xl" v-html="props.secondLine"></div>
       </div>
-      <div v-if="props.img" aria-hidden="true" class="home-logo max-md:mb-14">
+      <div v-if="props.img" aria-hidden="true" class="home-logo md:ml-4 max-md:mb-14">
         <img :src="props.img" />
       </div>
     </div>

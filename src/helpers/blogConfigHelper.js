@@ -21,11 +21,10 @@ export function loadBlogLocale(lang, configFilePath, PROPS) {
   const authors = themeConfig.authors.map((item) => {
     return {
       ...item,
-      descr: item.descr && mdToHtml(item.descr),
+      descr: mdToHtml(item.descr),
     };
   });
-  const postDonateCall =
-    themeConfig.postDonateCall && mdToHtml(themeConfig.postDonateCall);
+  const postDonateCall = mdToHtml(themeConfig.postDonateCall);
 
   return {
     ...baseLocale,

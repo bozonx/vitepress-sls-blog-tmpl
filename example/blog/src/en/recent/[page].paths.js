@@ -1,6 +1,6 @@
 import path from "path";
-import { POSTS_DIR } from "vitepress-sls-blog-tmpl/src/constants.js";
-import { makeRecentParams } from "vitepress-sls-blog-tmpl/src/helpers/makeListParams.js";
+import { POSTS_DIR } from "vitepress-sls-blog-tmpl/constants.js";
+import { makeRecentParams } from "vitepress-sls-blog-tmpl/makeListParams.js";
 import { PROPS } from "../../.vitepress/props.js";
 
 const postsDirAbs = path.resolve(path.dirname(__filename), "../", POSTS_DIR);

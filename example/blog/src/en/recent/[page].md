@@ -3,7 +3,7 @@ layout: util
 ---
 
 <script setup>
-import RecentList from 'vitepress-sls-blog-tmpl/src/components/list/RecentList.vue'
+import RecentList from 'vitepress-sls-blog-tmpl/RecentList.vue'
 import { useData } from 'vitepress'
 import { data } from '../loadPosts.data.js'
 import { PROPS } from "../../.vitepress/props.js";

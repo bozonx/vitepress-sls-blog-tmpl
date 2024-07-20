@@ -3,7 +3,7 @@ layout: util
 ---
 
 <script setup>
-import TagPostsList from 'vitepress-sls-blog-tmpl/src/components/list/TagPostsList.vue'
+import TagPostsList from 'vitepress-sls-blog-tmpl/TagPostsList.vue'
 import { useData } from 'vitepress'
 import { data } from '../../loadPosts.data.js'
 import { PROPS } from "../../../.vitepress/props.js";

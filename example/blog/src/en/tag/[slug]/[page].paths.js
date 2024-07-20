@@ -1,6 +1,6 @@
 import path from "path";
-import { POSTS_DIR } from "vitepress-sls-blog-tmpl/src/constants.js";
-import { makeTagsParams } from "vitepress-sls-blog-tmpl/src/helpers/makeListParams.js";
+import { POSTS_DIR } from "vitepress-sls-blog-tmpl/constants.js";
+import { makeTagsParams } from "vitepress-sls-blog-tmpl/makeListParams.js";
 import { PROPS } from "../../../.vitepress/props.js";
 
 const langDir = path.resolve(path.dirname(__filename), "../../");

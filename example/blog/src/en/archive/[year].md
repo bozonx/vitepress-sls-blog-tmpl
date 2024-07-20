@@ -4,7 +4,7 @@ layout: util
 
 <script setup>
 import { useData } from 'vitepress'
-import MonthsOfYear from 'vitepress-sls-blog-tmpl/src/components/list/MonthsOfYear.vue'
+import MonthsOfYear from 'vitepress-sls-blog-tmpl/MonthsOfYear.vue'
 import { data } from '../loadPosts.data.js'
 
 const { theme, params } = useData()

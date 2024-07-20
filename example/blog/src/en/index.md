@@ -3,9 +3,9 @@ layout: home
 ---
 
 <script setup>
-import HomePageTags from 'vitepress-sls-blog-tmpl/src/components/home/HomePageTags.vue'
-import HomeHero from 'vitepress-sls-blog-tmpl/src/components/home/HomeHero.vue'
-import UtilPageContent from 'vitepress-sls-blog-tmpl/src/components/UtilPageContent.vue'
+import HomePageTags from 'vitepress-sls-blog-tmpl/HomePageTags.vue'
+import HomeHero from 'vitepress-sls-blog-tmpl/HomeHero.vue'
+import UtilPageContent from 'vitepress-sls-blog-tmpl/UtilPageContent.vue'
 import { useData } from 'vitepress'
 import { data } from './loadPosts.data.js'
 import { PROPS } from "../.vitepress/props.js";

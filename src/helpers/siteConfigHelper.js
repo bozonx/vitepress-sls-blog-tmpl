@@ -13,7 +13,12 @@ const baseLocales = {
   ru,
 };
 
-export function loadSiteLocale(lang, configFilePath, PROPS) {
+export function loadSiteLocale(lang, configFilePath, rawProps) {
+  const PROPS = {
+    ...rawProps,
+    theme: common.themeConfig,
+  };
+
   const site = parseLocaleSite(lang, configFilePath, PROPS);
   const sidebar = parseLocaleSidebar(configFilePath, lang, PROPS);
   const baseLocale = baseLocales[lang];

@@ -12,7 +12,7 @@ export function transformPageMeta(pageData, ctx) {
   if (!pageData.filePath.match(regex)) return;
 
   pageData.frontmatter.coverDescr = mdToHtml(pageData.frontmatter.coverDescr)
-    .replace(/^\<p\>/, "")
+    ?.replace(/^\<p\>/, "")
     .replace(/\<\/p\>$/, "");
 
   pageData.frontmatter.tags = pageData.frontmatter.tags?.map((item) => ({

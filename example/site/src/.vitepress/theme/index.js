@@ -1,4 +1,4 @@
 import DefaultTheme from "vitepress/theme";
-import "./custom.css";
+import "vitepress-sls-blog-tmpl/site-tmpl-fix.css";
 
 export default DefaultTheme;

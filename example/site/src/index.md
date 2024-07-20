@@ -5,7 +5,7 @@ layout: false
 <script setup>
 import { useData, inBrowser } from 'vitepress'
 import { watchEffect } from 'vue'
-import {resolveNavigatorLang} from 'vitepress-sls-blog-tmpl/src/helpers/helpers.js'
+import {resolveNavigatorLang} from 'vitepress-sls-blog-tmpl/helpers.js'
 
 const { site } = useData()
 const supportedLocales = Object.keys(site.value.locales)

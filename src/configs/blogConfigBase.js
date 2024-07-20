@@ -86,5 +86,10 @@ export default function({ hostname, repo }, en) {
         md.use(figure);
       },
     },
+    vite: {
+      ssr: {
+        noExternal: ["vitepress-sls-blog-tmpl"],
+      },
+    },
   };
 }

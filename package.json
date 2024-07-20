@@ -1,6 +1,6 @@
 {
   "name": "vitepress-sls-blog-tmpl",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Vitepress custom theme for blog SLS and others",
   "type": "module",
   "main": "src/index.js",

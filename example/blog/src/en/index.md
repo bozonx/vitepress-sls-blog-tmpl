@@ -15,6 +15,7 @@ const { theme, localeIndex } = useData()
 const hero = {
   firstLine: "Some text",
   secondLine: "Some second text",
+  img: "/img/home-logo.webp",
   buttons: [
     {
       text: "Go to blog",

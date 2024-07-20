@@ -169,7 +169,7 @@ onUnmounted(() => {
 }
 
 .home-layout-page {
-  max-width: 640px;
+  max-width: 800px;
   margin: 5rem 1rem;
 }
 </style>

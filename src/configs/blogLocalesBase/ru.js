@@ -19,6 +19,7 @@ export default {
     paginationToStart: "На первую страницу",
     paginationToEnd: "На последнюю страницу",
     toHome: "На главную",
+    toBlog: "Перейти к блогу",
     author: "Автор",
     year: "Год",
     allPosts: "Все посты",

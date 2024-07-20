@@ -42,7 +42,7 @@ export const common = {
     aboutUrl: "page/about",
     linksUrl: "page/links",
     docUrl: "doc",
-    mainHeroImg: "/img/site-big-logo.webp",
+    mainHeroImg: "/img/home-logo.webp",
   },
   markdown: {
     image: {

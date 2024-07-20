@@ -15,16 +15,16 @@ const { theme, localeIndex } = useData()
 const hero = {
   firstLine: "Some text",
   secondLine: "Some second text",
-  img: "/img/home-logo.webp",
+  img: theme.value.mainHeroImg,
   buttons: [
     {
-      text: "Go to blog",
-      href: "recent/1",
+      text: theme.value.t.toBlog,
+      href: `${theme.value.recentBaseUrl}/1`,
       primary: true,
     },
     {
       text: theme.value.t.links.wiki,
-      href: `${PROPS.siteUrl}/${localeIndex.value}/${PROPS.docUrl}`,
+      href: `${PROPS.siteUrl}/${localeIndex.value}/${theme.value.docUrl}`,
       icon: theme.value.docIcon,
     },
     {

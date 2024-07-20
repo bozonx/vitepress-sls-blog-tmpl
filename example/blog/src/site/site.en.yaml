@@ -45,7 +45,7 @@ body: |
         icon: "${PROPS.theme.donateIcon}"
         mobile: true
       - text: "${PROPS.t.links.wiki}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.docUrl}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.docUrl}"
         icon: "${PROPS.theme.docIcon}"
         mobile: true
       - { header: "${PROPS.t.links.links}" }

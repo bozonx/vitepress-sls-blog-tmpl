@@ -19,6 +19,7 @@ export default {
     paginationToStart: "First Page",
     paginationToEnd: "Last Page",
     toHome: "Go to the home page",
+    toBlog: "Go to blog",
     author: "Author",
     year: "Year",
     allPosts: "All Posts",

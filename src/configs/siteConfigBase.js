@@ -37,6 +37,12 @@ export const common = {
         forceLocale: true,
       },
     },
+
+    donateUrl: "page/donate",
+    aboutUrl: "page/about",
+    linksUrl: "page/links",
+    docUrl: "doc",
+    mainHeroImg: "/img/site-big-logo.webp",
   },
   markdown: {
     image: {
@@ -58,6 +64,9 @@ export default function({ hostname, repo }, en) {
     themeConfig: {
       ...common.themeConfig,
       socialLinks: repo && [{ icon: "github", link: repo }],
+      editLink: {
+        pattern: `${repo}/edit/main/src/:path`,
+      },
     },
   };
 }

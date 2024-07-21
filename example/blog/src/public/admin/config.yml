@@ -82,7 +82,7 @@ collections:
         # public_folder: /media/{{slug}}
         # choose_url: true
         required: false
-        i18n: duplicate
+        i18n: true
       - label: "Description of cover image"
         name: "coverDescr"
         widget: "string"
@@ -225,11 +225,6 @@ collections:
         preview_path: "{{locale}}/page/{{slug}}"
         i18n: true
         fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            preview: false
-            i18n: true
           - label: "Description"
             name: "description"
             widget: "text"

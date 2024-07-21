@@ -39,7 +39,6 @@ export const common = {
     },
 
     donateUrl: "page/donate",
-    aboutUrl: "page/about",
     linksUrl: "page/links",
     docUrl: "doc",
     mainHeroImg: "/img/home-logo.webp",

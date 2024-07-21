@@ -14,17 +14,19 @@ const baseLocales = {
 };
 
 export function loadSiteLocale(lang, configFilePath, rawProps) {
+  const baseLocale = baseLocales[lang];
   const PROPS = {
     ...rawProps,
     theme: common.themeConfig,
+    t: baseLocale.t,
   };
 
   const site = parseLocaleSite(lang, configFilePath, PROPS);
   const sidebar = parseLocaleSidebar(configFilePath, lang, PROPS);
-  const baseLocale = baseLocales[lang];
   const { title, description, ...themeConfig } = site;
 
   return {
+    // TODO: exclude t
     ...baseLocale,
     title,
     description,
@@ -40,6 +42,7 @@ export function loadSiteLocale(lang, configFilePath, rawProps) {
         ...baseLocale.themeConfig.lastUpdated,
       },
       sidebar,
+      t: baseLocale.t,
     },
   };
 }

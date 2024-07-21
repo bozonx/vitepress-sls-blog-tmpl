@@ -21,6 +21,11 @@ export default {
       text: "Edit this page on GitHub",
     },
   },
+  t: {
+    donate: "Donate",
+    wiki: "Wiki",
+    socialMedia: "Social media",
+  },
   search: {
     options: {
       locales: {

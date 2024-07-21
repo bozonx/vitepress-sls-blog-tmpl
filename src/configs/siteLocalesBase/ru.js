@@ -21,6 +21,11 @@ export default {
       text: "Редактировать эту страницу на GitHub",
     },
   },
+  t: {
+    donate: "Донат",
+    wiki: "Вики",
+    socialMedia: "Соц сети",
+  },
   search: {
     options: {
       locales: {

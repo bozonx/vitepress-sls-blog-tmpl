@@ -173,7 +173,7 @@ onUnmounted(() => {
 }
 
 .home-layout-topbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   padding: 1rem 1.5rem 0 0;

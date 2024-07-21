@@ -7,11 +7,10 @@ export default {
     darkModeSwitchTitle: "Switch to Dark Mode",
     lightModeSwitchTitle: "Switch to Light Mode",
     langMenuLabel: "Change language",
+    // you can overwrite it in site config
+    socialMediaShares: "telegram,whatsapp,vk,x,facebook",
   },
   t: {
-    // you can overwrite it in site config
-    // socialMediaShares: "telegram,vkontakte,twitter,whatsapp,messenger",
-    socialMediaShares: "telegram,whatsapp,vk,x,facebook",
     shareSocialMedia: "Share on Social Media",
     currentLang: "Current language",
     tagBadgeCount: "The number of posts on this tag",

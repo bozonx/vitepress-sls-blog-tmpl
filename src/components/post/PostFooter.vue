@@ -8,8 +8,8 @@ import PostDonateLink from "./PostDonateLink.vue";
 
 <template>
   <PostAuthor class="mt-10" />
-  <PostDonateLink class="mt-6" />
-  <PostComments class="mt-24" />
+  <PostDonateLink class="mt-10" />
+  <PostComments class="mt-20" />
   <PostSocialShare class="mt-10" />
   <PostTags class="mt-10" />
 </template>

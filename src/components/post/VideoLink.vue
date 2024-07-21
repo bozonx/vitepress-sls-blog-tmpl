@@ -18,8 +18,11 @@ const text =
 
 <style scoped>
 .video-link {
+  width: fit-content;
   color: white !important;
   background: var(--video-link-bg) !important;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
 .video-link:hover {

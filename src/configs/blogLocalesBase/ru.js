@@ -7,10 +7,10 @@ export default {
     darkModeSwitchTitle: "Переключиться на тёмную тему",
     lightModeSwitchTitle: "Переключиться на светлую тему",
     langMenuLabel: "Сменить язык",
-  },
-  t: {
     // you can overwrite it in site config
     socialMediaShares: "telegram,whatsapp,vk,x,facebook",
+  },
+  t: {
     shareSocialMedia: "Поделиться в соц сетях",
     currentLang: "Текущий язык",
     tagBadgeCount: "Количество постов по этому тэгу",

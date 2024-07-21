@@ -26,8 +26,8 @@ const articlePreviewText = resolveArticlePreview(frontmatter.value);
       {{ page.title }}
     </h1>
 
-    <PostDate class="mt-6" />
-    <PostTopBar class="mt-6" />
+    <PostDate class="mt-4" />
+    <PostTopBar class="mt-10" />
 
     <div v-if="articlePreviewText" class="mt-10 italic">
       {{ articlePreviewText }}

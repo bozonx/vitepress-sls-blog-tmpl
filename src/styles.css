@@ -23,9 +23,9 @@
   --gray-950: hsl(var(--layout-hue), 42%, 10%);
   /**** SimpleLink */
   --color-a-light-link: hsl(var(--link-hue), 74%, 44%);
-  --color-a-light-visited: hsl(var(--visited-hue) 71% 44%);
+  --color-a-light-visited: hsl(var(--visited-hue) 50% 44%);
   --color-a-dark-link: hsl(var(--link-hue), 100%, 76%);
-  --color-a-dark-visited: hsl(var(--visited-hue) 72% 65%);
+  --color-a-dark-visited: hsl(var(--visited-hue) 50% 65%);
   /**** Podcast btn */
   --podcast-btn-bg: hsl(263, 73%, 40%);
   /**** VideoLink */

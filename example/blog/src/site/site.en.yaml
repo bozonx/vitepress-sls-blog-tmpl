@@ -8,7 +8,7 @@ body: |
     - id: "ivan-k"
       name: "Ivan K"
       descr: ".\n\n[about](https://t.me/ivan_k_8/16)"
-  postDonateCall: "If you like our project, please support it financially. [Donate](${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl})"
+  postDonateCall: "If you like this project, please support it financially. [Donate](${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl})"
   footer:
     message: "Copying allowed only with a link to the source."
     # --- After this line all text the same for all the languages

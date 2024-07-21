@@ -23,7 +23,7 @@ body: |
         icon: "${PROPS.theme.donateIcon}"
         mobileToo: true
       - text: "${PROPS.t.links.wiki}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.docUrl}"
+        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.docUrl}"
         icon: "${PROPS.theme.docIcon}"
   sideBar:
     links:
@@ -50,13 +50,13 @@ body: |
         mobile: true
       - { header: "${PROPS.t.links.links}" }
       - text: "${PROPS.t.links.ourYoutubeChannel}"
-        href: "https://www.youtube.com/@prjedem"
+        href: "https://www.youtube.com/@p"
         icon: "${PROPS.theme.youtubeIcon}"
       - text: "${PROPS.t.links.ourTelegramChannel}"
-        href: "https://t.me/prjedem"
+        href: "https://t.me/"
         icon: "${PROPS.theme.telegramIcon}"
       - text: "${PROPS.t.links.ourTelegramChat}"
-        href: "https://t.me/prjedem_chat"
+        href: "https://t.me/"
         icon: "${PROPS.theme.chatIcon}"
       - text: "${PROPS.t.links.weInSocialMedia}"
         href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.linksUrl}"

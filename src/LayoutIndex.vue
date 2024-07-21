@@ -121,7 +121,7 @@ onUnmounted(() => {
       </header>
 
       <div :class="['flex']">
-        <main id="app-page" class="lg:ml-4 xl:ml-24 mt-24 lg:mt-4 px-4 sm:px-8">
+        <main class="lg:ml-4 xl:ml-24 mt-20 lg:mt-4 px-4 sm:px-8 app-page">
           <PageContent />
 
           <div class="mt-40 pb-12">
@@ -144,6 +144,17 @@ onUnmounted(() => {
 </template>
 
 <style>
+.app-page {
+  width: 100%;
+  max-width: var(--page-max-width);
+}
+
+/* @media (min-width: 1200px) { */
+/*   .app-page { */
+/*     width: 840px; */
+/*   } */
+/* } */
+
 .home-layout {
   display: flex;
   flex-flow: column;

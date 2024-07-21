@@ -32,9 +32,12 @@
   --video-link-bg: hsl(0deg 87% 45%);
 
   /**** Layout */
+  --page-max-width: 840px;
   --list-item-thumb-width: 280px;
   --body-font-size: 1.125rem;
   --body-line-height: 1.75rem;
+  --font-size-mobile: 1.125rem;
+  --line-height-mobile: 1.5rem;
   --body-bg: #fff;
   --body-text-color: var(--gray-900);
   --body-dark-bg: var(--gray-900);
@@ -96,12 +99,6 @@ body {
 .dark body {
   color: var(--body-dark-text-color);
   background: var(--body-dark-bg);
-}
-
-@media (min-width: 1200px) {
-  #app-page {
-    width: 840px;
-  }
 }
 
 svg,
@@ -224,4 +221,12 @@ button {
 
 .vp-doc a:hover {
   filter: brightness(130%);
+}
+
+/* MOBILE text */
+@media (max-width: 1023px) {
+  .mobile-smaller-text {
+    font-size: var(--font-size-mobile);
+    line-height: var(--line-height-mobile);
+  }
 }

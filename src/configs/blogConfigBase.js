@@ -17,7 +17,7 @@ export const common = {
     ],
     ["link", { rel: "manifest", href: "/site.webmanifest" }],
     // yandex social shares
-    ["script", { src: "https://yastatic.net/share2/share.js" }],
+    // ["script", { src: "https://yastatic.net/share2/share.js" }],
   ],
   outDir: "../docs",
   cacheDir: "../.cache",

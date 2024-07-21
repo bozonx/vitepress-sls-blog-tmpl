@@ -10,7 +10,7 @@ export default {
   },
   t: {
     // you can overwrite it in site config
-    socialMediaShares: "telegram,vkontakte,twitter,whatsapp,messenger",
+    socialMediaShares: "telegram,whatsapp,vk,x,facebook",
     shareSocialMedia: "Поделиться в соц сетях",
     currentLang: "Текущий язык",
     tagBadgeCount: "Количество постов по этому тэгу",

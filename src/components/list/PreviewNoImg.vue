@@ -13,10 +13,10 @@ const props = defineProps([
 <template>
   <p class="preview-text">{{ props.preview }}</p>
 
-  <div class="flex items-end mt-4 gap-x-1">
-    <TagsList :tags="props.tags" class="flex-1 mr-2" :sizeSm="true" />
+  <div class="flex max-sm:flex-col-reverse sm:items-end sm:mt-4 gap-x-1">
+    <TagsList :tags="props.tags" class="flex-1" :sizeSm="true" />
 
-    <div class="space-x-2 preview-author-date">
+    <div class="space-x-2 max-sm:mt-2 max-sm:mb-4 text-right preview-author-date">
       <span v-if="props.authorName">{{ props.authorName }}.</span>
       <time v-if="props.pubDate" :datetime="props.pubDate">
         {{ props.localeDate }}

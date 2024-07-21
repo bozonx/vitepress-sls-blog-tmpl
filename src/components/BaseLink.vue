@@ -1,5 +1,6 @@
 <script setup>
 import { useData, useRoute } from "vitepress";
+import { ref, watchEffect } from "vue";
 import { resolveI18Href, isExternalUrl } from "../helpers/helpers.js";
 
 const { theme, localeIndex } = useData();
@@ -18,10 +19,27 @@ const resolvedHref = resolveI18Href(
   localeIndex.value,
   theme.value.i18nRouting,
 );
-const active = route.path === resolvedHref;
 const isExternal = isExternalUrl(props.href);
-const target = isExternal && !props.target ? "_blank" : props.target;
 const { tag = "a", class: className, ...bindProps } = props;
+let prevPath = route.path;
+const active = ref(prevPath === resolvedHref);
+let target;
+
+if (tag === "a") {
+  if (typeof props.target === "undefined") {
+    target = isExternal ? "_blank" : props.target;
+  } else {
+    target = props.target;
+  }
+}
+
+watchEffect(async () => {
+  if (route.path !== prevPath) {
+    prevPath = route.path;
+
+    active.value = route.path === resolvedHref;
+  }
+});
 </script>
 
 <template>

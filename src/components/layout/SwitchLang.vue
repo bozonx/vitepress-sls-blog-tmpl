@@ -9,12 +9,6 @@ import DropdownItem from "../DropdownItem.vue";
 const { theme } = useData();
 const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
 const props = defineProps(["noBg", "onlyDark"]);
-
-const onLangClick = () => {
-  setTimeout(() => {
-    location.reload();
-  }, 100);
-};
 </script>
 
 <template>
@@ -29,7 +23,7 @@ const onLangClick = () => {
       <DropdownItem v-if="!locale.text" disabled="true" :onlyDark="props.onlyDark" :title="theme.t.currentLang">
         {{ currentLang.label }}
       </DropdownItem>
-      <DropdownItem v-else @click="onLangClick" :href="locale.link" :onlyDark="props.onlyDark">
+      <DropdownItem v-else target="_self" :href="locale.link" :onlyDark="props.onlyDark">
         {{ locale.text }}
       </DropdownItem>
     </template>

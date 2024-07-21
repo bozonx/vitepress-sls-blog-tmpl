@@ -27,9 +27,9 @@
   --color-a-dark-link: hsl(var(--link-hue), 100%, 76%);
   --color-a-dark-visited: hsl(var(--visited-hue) 50% 65%);
   /**** Podcast btn */
-  --podcast-btn-bg: hsl(263, 73%, 40%);
+  --podcast-btn-bg: hsl(263, 60%, 40%);
   /**** VideoLink */
-  --video-link-bg: hsl(0deg 87% 45%);
+  --video-link-bg: hsl(0deg 70% 45%);
 
   /**** Layout */
   --page-max-width: 840px;

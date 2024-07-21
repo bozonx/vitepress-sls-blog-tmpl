@@ -1,7 +1,7 @@
 :root {
   --font-body: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  --primary-hue: 219;
-  --layout-hue: 219;
+  --primary-hue: 213;
+  --layout-hue: 213;
   --link-hue: 232;
   --visited-hue: 287;
   --primary-btn-bg: hsl(var(--primary-hue), 80%, 50%);
@@ -225,7 +225,7 @@ button {
 
 /* MOBILE text */
 @media (max-width: 1023px) {
-  .mobile-smaller-text {
+  .vp-doc {
     font-size: var(--font-size-mobile);
     line-height: var(--line-height-mobile);
   }

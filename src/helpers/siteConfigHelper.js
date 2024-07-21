@@ -26,8 +26,8 @@ export function loadSiteLocale(lang, configFilePath, rawProps) {
   const { title, description, ...themeConfig } = site;
 
   return {
-    // TODO: exclude t
-    ...baseLocale,
+    label: baseLocale.label,
+    search: baseLocale.search,
     title,
     description,
     themeConfig: {

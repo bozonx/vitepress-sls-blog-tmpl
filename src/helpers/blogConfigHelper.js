@@ -27,7 +27,7 @@ export function loadBlogLocale(lang, configFilePath, PROPS) {
   const postDonateCall = mdToHtml(themeConfig.postDonateCall);
 
   return {
-    ...baseLocale,
+    label: baseLocale.label,
     title,
     description,
     themeConfig: {

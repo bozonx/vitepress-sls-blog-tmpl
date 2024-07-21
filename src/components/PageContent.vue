@@ -1,5 +1,6 @@
 <script setup>
 import { useData } from "vitepress";
+import { ref, watchEffect } from "vue";
 import { resolveArticlePreview } from "../helpers/helpers.js";
 import PostFooter from "./post/PostFooter.vue";
 import PostDate from "./post/PostDate.vue";
@@ -7,7 +8,11 @@ import PostTopBar from "./post/PostTopBar.vue";
 import PostImage from "./post/PostImage.vue";
 
 const { page, frontmatter } = useData();
-const articlePreviewText = resolveArticlePreview(frontmatter.value);
+const articlePreviewText = ref(null);
+
+watchEffect(async () => {
+  articlePreviewText.value = resolveArticlePreview(frontmatter.value);
+});
 </script>
 
 <template>

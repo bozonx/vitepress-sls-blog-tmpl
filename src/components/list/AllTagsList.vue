@@ -1,12 +1,11 @@
 <script setup>
-import TagsList from '../TagsList.vue'
-import { makeTagsList } from '../../helpers/listHelpers.js'
+import TagsList from "../TagsList.vue";
+import { makeTagsList } from "../../helpers/listHelpers.js";
 
-const props = defineProps(['allPosts', 'class'])
-const tagList = makeTagsList(props.allPosts)
+const props = defineProps(["allPosts", "class"]);
+const tagList = makeTagsList(props.allPosts);
 </script>
 
 <template>
-<TagsList :tags="tagList" :sizeXl="true" />
+  <TagsList :tags="tagList" :sizeXl="true" class="flex-col" />
 </template>
-

@@ -39,8 +39,8 @@ const params = {
 }
 
 .dark .preview {
-  background: var(--gray-800);
-  border-color: var(--gray-700);
+  background: var(--gray-850);
+  border-color: var(--gray-800);
   color: var(--gray-400);
 }
 

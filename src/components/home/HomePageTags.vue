@@ -9,6 +9,18 @@ const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name));
 </script>
 
 <template>
-  <UtilPageHeader>{{ props.header }}</UtilPageHeader>
-  <TagsList :tags="sorted" :sizeXl="true" class="mb-14" />
+  <UtilPageHeader class="home-hero-tags-header">{{
+    props.header
+    }}</UtilPageHeader>
+  <TagsList :tags="sorted" :sizeXl="true" class="mb-14 home-hero-tags" />
 </template>
+
+<style scoped>
+.home-hero-tags-header {
+  text-shadow: 4px 4px 18px #000000;
+}
+
+.home-hero-tags {
+  box-shadow: 8px 8px 20px 0px rgba(0, 0, 0, 0.3);
+}
+</style>

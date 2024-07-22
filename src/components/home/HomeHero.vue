@@ -46,7 +46,10 @@ const props = defineProps(["firstLine", "secondLine", "buttons", "img"]);
 }
 
 .home-hero-buttons .btn-base {
-  background-color: var(--gray-700);
   box-shadow: 8px 8px 18px 0px rgba(0, 0, 0, 0.3);
+}
+
+.home-hero-buttons .btn-base:not(.btn--primary) {
+  background-color: var(--gray-700);
 }
 </style>

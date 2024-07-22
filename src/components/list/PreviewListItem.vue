@@ -35,13 +35,11 @@ const params = {
   border-radius: 0.6rem;
   line-height: 1.4;
   font-weight: 400;
-  color: var(--gray-600);
 }
 
 .dark .preview {
   background: var(--gray-850);
   border-color: var(--gray-800);
-  color: var(--gray-400);
 }
 
 .preview:hover {

@@ -20,7 +20,7 @@ const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name));
   text-shadow: 4px 4px 18px #000000;
 }
 
-.home-hero-tags {
+.home-hero-tags .tag-item {
   box-shadow: 8px 8px 20px 0px rgba(0, 0, 0, 0.3);
 }
 </style>

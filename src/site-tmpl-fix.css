@@ -27,3 +27,15 @@ body {
     font-size: 16px;
   }
 }
+
+.VPHome .text {
+  font-size: 2rem !important;
+  line-height: 1.5 !important;
+  margin-top: 2rem !important;
+}
+
+@media only screen and (max-width: 640px) {
+  .VPHome .text {
+    font-size: 1.5rem !important;
+  }
+}

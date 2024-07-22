@@ -27,6 +27,7 @@ const { class: className, ...bindProps } = props;
 .btn-link {
   padding: 0;
   background: transparent !important;
+  color: var(--gray-700);
 }
 
 .btn-link.active {
@@ -35,6 +36,10 @@ const { class: className, ...bindProps } = props;
 
 .btn-link.active:hover {
   color: black;
+}
+
+.dark .btn-link {
+  color: var(--gray-300);
 }
 
 .dark .btn-link.active {

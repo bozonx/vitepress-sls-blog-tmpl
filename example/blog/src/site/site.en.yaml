@@ -2,7 +2,7 @@ title: site
 body: |
   title: ""
   description: ""
-  siteLogoAlt: ""
+  siteTitle: ""
 
   authors:
     - id: "ivan-k"

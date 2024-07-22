@@ -75,9 +75,15 @@ watchEffect(async () => {
         </div>
         -->
 
-        <a v-if="slots['sidebar-logo']" :href="`/${localeIndex}/`" class="sidebar-logo" :title="theme.t.toHome">
+        <a v-if="slots['sidebar-logo']" :href="`/${localeIndex}/`" class="sidebar-logo" :title="theme.t.toHome"
+          aria-hidden="true">
           <slot name="sidebar-logo" />
         </a>
+        <h4 v-if="theme.siteTitle" class="sidebar-site-title text-sm muted">
+          <a :href="`/${localeIndex}/`" :title="theme.t.toHome">
+            {{ theme.siteTitle }}
+          </a>
+        </h4>
 
         <div class="sidebar-menu">
           <slot name="sidebar-top" />
@@ -170,5 +176,10 @@ watchEffect(async () => {
 
 .sidebar-logo {
   display: block;
+}
+
+.sidebar-site-title {
+  font-weight: bold;
+  padding: 0.35rem 0.25rem 0.75rem 0.65rem;
 }
 </style>

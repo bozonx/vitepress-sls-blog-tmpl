@@ -9,7 +9,7 @@ const { Layout } = Theme;
 <template>
   <Layout>
     <template #sidebar-logo>
-      <img src="/img/sidebar-logo.webp" :alt="theme.siteLogoAlt" />
+      <img src="/img/sidebar-logo.webp" />
     </template>
   </Layout>
 </template>

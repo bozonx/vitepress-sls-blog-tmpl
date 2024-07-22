@@ -149,12 +149,6 @@ onUnmounted(() => {
   max-width: var(--page-max-width);
 }
 
-/* @media (min-width: 1200px) { */
-/*   .app-page { */
-/*     width: 840px; */
-/*   } */
-/* } */
-
 .home-layout {
   display: flex;
   flex-flow: column;

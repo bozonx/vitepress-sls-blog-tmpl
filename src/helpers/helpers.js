@@ -5,7 +5,7 @@
  * Is it post or util page
  */
 export function isPost(frontmatter) {
-  return Boolean(frontmatter.pubDate);
+  return Boolean(frontmatter.date);
 }
 
 export function makeHumanDate(rawDate, lang, toTimeZone = "UTC") {

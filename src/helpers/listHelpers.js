@@ -24,7 +24,7 @@ export function makeYearsList(allData = []) {
   const years = {};
 
   for (const item of allData) {
-    const postYear = new Date(item.pubDate).getUTCFullYear();
+    const postYear = new Date(item.date).getUTCFullYear();
 
     if (typeof years[postYear] === "undefined") {
       years[postYear] = 1;
@@ -48,11 +48,11 @@ export function makeMonthsList(allData = [], year) {
   const months = {};
 
   for (const item of allData) {
-    const postYear = new Date(item.pubDate).getUTCFullYear();
+    const postYear = new Date(item.date).getUTCFullYear();
 
     if (postYear !== curYear) continue;
 
-    const postMonth = new Date(item.pubDate).getUTCMonth() + 1;
+    const postMonth = new Date(item.date).getUTCMonth() + 1;
 
     if (typeof months[postMonth] === "undefined") {
       months[postMonth] = 1;
@@ -76,11 +76,11 @@ export function makePostOfMonthList(allData = [], year, month) {
   const curMonth = Number(month);
 
   return allData.filter((item) => {
-    const postYear = new Date(item.pubDate).getUTCFullYear();
+    const postYear = new Date(item.date).getUTCFullYear();
 
     if (postYear !== curYear) return;
 
-    const postMonth = new Date(item.pubDate).getUTCMonth() + 1;
+    const postMonth = new Date(item.date).getUTCMonth() + 1;
 
     if (postMonth !== curMonth) return;
 

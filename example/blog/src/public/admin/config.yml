@@ -51,7 +51,7 @@ collections:
         preview: false
         i18n: true
       - label: Publication date (your locale)
-        name: pubDate
+        name: date
         widget: datetime
         format: "yyyy-MM-DDTHH:mmZ"
         preview: false

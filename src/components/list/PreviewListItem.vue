@@ -8,8 +8,8 @@ const { lang, theme } = useData();
 const props = defineProps(["item"]);
 const params = {
   tags: props.item.tags,
-  pubDate: props.item.pubDate,
-  localeDate: makeHumanDate(props.item.pubDate, lang.value),
+  date: props.item.date,
+  localeDate: makeHumanDate(props.item.date, lang.value),
   preview: String(props.item?.preview).trim().replace(/\.$/, "") + " ...",
   authorName:
     theme.value.showAuthorInPostList &&

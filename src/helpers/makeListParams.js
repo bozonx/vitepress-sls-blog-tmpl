@@ -155,7 +155,7 @@ export function loadDatesList(postsDirAbs) {
       const rawContent = fs.readFileSync(itemPath, DEFAULT_ENCODE);
       const { frontmatter } = parseMdFile(rawContent);
 
-      return frontmatter.pubDate;
+      return frontmatter.date;
     });
 
   // return dates.filter((item) => {

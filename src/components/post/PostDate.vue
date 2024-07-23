@@ -5,7 +5,7 @@ import BaseLink from "../BaseLink.vue";
 
 const props = defineProps(["class"]);
 const { page, theme, lang } = useData();
-const rawDate = page.value.frontmatter.pubDate;
+const rawDate = page.value.frontmatter.date;
 // const rawDateSplit = rawDate.split("-");
 // const year = Number(rawDateSplit[0]);
 const year = new Date(rawDate)?.getUTCFullYear();

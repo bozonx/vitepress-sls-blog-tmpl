@@ -17,7 +17,7 @@ export function makePreviewItem(filePath) {
 
   return {
     url,
-    pubDate: frontmatter.pubDate,
+    date: frontmatter.date,
     authorId: frontmatter.authorId,
     // title: extractTitleFromMd(content),
     title: frontmatter.title,

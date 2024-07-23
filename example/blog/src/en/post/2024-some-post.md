@@ -1,7 +1,7 @@
 ---
 title: Some post
 description: post descr
-pubDate: 2024-07-03T22:00-03:00
+date: 2024-07-03T22:00-03:00
 authorId: some-auth
 title: Some post
 previewText: ""

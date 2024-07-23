@@ -2,7 +2,7 @@
 import TagsList from "../TagsList.vue";
 
 const props = defineProps([
-  "pubDate",
+  "date",
   "localeDate",
   "tags",
   "preview",
@@ -18,7 +18,7 @@ const props = defineProps([
 
       <div class="mt-2 space-x-2 preview-author-date">
         <span v-if="props.authorName">{{ props.authorName }}.</span>
-        <time v-if="props.pubDate" :datetime="props.pubDate">
+        <time v-if="props.date" :datetime="props.date">
           {{ props.localeDate }}
         </time>
       </div>

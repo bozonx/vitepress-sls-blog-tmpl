@@ -6,6 +6,8 @@ Vitepress blog template for freedom sites by Ivan K.
 
 See `example` dir
 
+Run `yarn build` to build css
+
 ## Config
 
 ```

@@ -52,11 +52,6 @@ const params = {
 
 .preview h4 {
   font-weight: bold;
-  color: var(--gray-900);
-}
-
-.dark .preview h4 {
-  color: white;
 }
 
 .preview:visited h4 {

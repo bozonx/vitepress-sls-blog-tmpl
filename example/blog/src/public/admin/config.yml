@@ -234,9 +234,7 @@ collections:
           - label: "Body"
             name: "body"
             widget: "markdown"
-            modes: ["raw", "rich_text"]
             i18n: true
-            # show_raw: true
       - name: index
         label: Index
         file: "src/{{locale}}/index.md"
@@ -246,6 +244,4 @@ collections:
           - label: "Body"
             name: "body"
             widget: "markdown"
-            modes: ["raw", "rich_text"]
             i18n: true
-            show_raw: true

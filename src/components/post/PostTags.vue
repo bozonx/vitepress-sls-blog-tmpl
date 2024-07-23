@@ -11,14 +11,16 @@ const tags = [...(frontmatter.value.tags || [])].sort((a, b) =>
 
 <template>
   <div v-if="frontmatter.tags?.length">
-    <h4 class="mb-3 font-bold text-base muted">{{ theme.t.tags }}:</h4>
+    <div class="md:flex">
+      <p class="md:mt-1 md:mr-2 max-md:mb-3 muted">{{ theme.t.tags }}:</p>
 
-    <TagsList :tags="tags" />
+      <TagsList :tags="tags" />
+    </div>
 
     <div class="mt-4">
       <SimpleLink :href="theme.allTagsUrl">{{
         theme.t.allTagsCall
-      }}</SimpleLink>
+        }}</SimpleLink>
     </div>
   </div>
 </template>

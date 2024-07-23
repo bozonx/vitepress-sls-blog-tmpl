@@ -26,5 +26,5 @@ const author = theme.value.authors.find((item) => item.id === props.authorId);
   <UtilPageHeader>{{ theme.t.allPostsOfAuthor }}</UtilPageHeader>
 
   <PreviewList :allData="sorted" :curPage="curPage" :perPage="props.perPage"
-    :paginationMaxItems="props.paginationMaxItems" :paginationBaseUrl="theme.authorBaseUrl" />
+    :paginationMaxItems="props.paginationMaxItems" :paginationBaseUrl="`${theme.authorBaseUrl}/${props.authorId}`" />
 </template>

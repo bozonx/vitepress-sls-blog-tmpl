@@ -9,7 +9,7 @@ export function makeRecentParams(postsDirAbs, perPage) {
   const res = [];
 
   for (let i = 0; i < dates.length; i += perPage) {
-    const page = i === 0 ? i + 1 : i - perPage + 2;
+    const page = i / perPage + 1;
 
     res.push({ params: { page } });
   }
@@ -136,7 +136,7 @@ export function makeAuthorsParams(postsDirAbs, perPage) {
 
   for (const id of Object.keys(authorPostCount)) {
     for (let i = 0; i < authorPostCount[id]; i += perPage) {
-      const page = i === 0 ? i + 1 : i - perPage + 2;
+      const page = i / perPage + 1;
 
       res.push({ params: { id, page } });
     }

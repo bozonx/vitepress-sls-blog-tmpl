@@ -31,7 +31,7 @@ collections:
     preview_path: "{{locale}}/post/{{slug}}"
     create: true
     summary: "{{title}} | {{commit_date}} | {{commit_author}} | {{filename}}.md"
-    sortable_fields: ["pubDate", "title", "authorId"]
+    sortable_fields: ["date", "title", "authorId"]
     # media_folder: src/public/media/{{slug}}
     # public_folder: /media/{{slug}}
     # view_groups:

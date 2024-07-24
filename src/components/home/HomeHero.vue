@@ -42,7 +42,7 @@ const props = defineProps(["firstLine", "secondLine", "buttons", "img"]);
 
 .home-hero h1,
 .home-hero p {
-  text-shadow: 4px 4px 20px #000000;
+  text-shadow: 4px 4px 14px rgba(0, 0, 0, 0.8);
 }
 
 .home-hero-buttons .btn-base {

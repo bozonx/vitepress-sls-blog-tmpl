@@ -243,5 +243,5 @@ collections:
         fields:
           - label: "Body"
             name: "body"
-            widget: "markdown"
+            widget: "text"
             i18n: true

@@ -15,9 +15,9 @@ const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name));
   <TagsList :tags="sorted" :sizeXl="true" class="mb-14 home-hero-tags" />
 </template>
 
-<style scoped>
+<style>
 .home-hero-tags-header {
-  text-shadow: 4px 4px 18px #000000;
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.8);
 }
 
 .home-hero-tags .tag-item {

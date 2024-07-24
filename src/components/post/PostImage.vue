@@ -4,7 +4,7 @@ const props = defineProps(["src", "descr", "alt"]);
 
 <template>
   <figure v-if="props.src">
-    <img :src="props.src" :alt="props.alt" />
+    <img :src="props.src" :alt="props.alt || undefined" />
     <figcaption v-if="props.descr" v-html="props.descr" class="vp-doc"></figcaption>
   </figure>
 </template>

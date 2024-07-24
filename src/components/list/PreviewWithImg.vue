@@ -16,7 +16,7 @@ const props = defineProps([
     <div v-if="props.thumbnail" class="md:mr-4 preview-img-col max-md:!w-full">
       <img :src="props.thumbnail" loading="lazy" aria-hidden="true" class="w-full" />
 
-      <div class="mt-2 space-x-2 preview-author-date">
+      <div class="mt-2 space-x-2 muted preview-author-date">
         <span v-if="props.authorName">{{ props.authorName }}.</span>
         <time v-if="props.date" :datetime="props.date">
           {{ props.localeDate }}

@@ -224,6 +224,12 @@ button {
   filter: brightness(130%);
 }
 
+.vp-doc .vp-adaptive-theme {
+  display: grid;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
 /* MOBILE text */
 @media (max-width: 1023px) {
   .vp-doc {

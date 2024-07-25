@@ -12,7 +12,7 @@ const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name));
   <UtilPageHeader class="home-hero-tags-header">{{
     props.header
     }}</UtilPageHeader>
-  <TagsList :tags="sorted" :sizeXl="true" class="mb-14 home-hero-tags" />
+  <TagsList :tags="sorted" class="mb-6 home-hero-tags" />
 </template>
 
 <style>

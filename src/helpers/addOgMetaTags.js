@@ -17,16 +17,22 @@ export function addOgMetaTags(pageData, { siteConfig }) {
     pageData.frontmatter.layout === "home"
       ? langConfig.title
       : `${pageData.title} | ${langConfig.title}`;
-  const rawContent = fs.readFileSync(
-    path.join(siteConfig.srcDir, pageData.filePath),
-    DEFAULT_ENCODE,
-  );
-  const { content } = parseMdFile(rawContent);
-  const descr = resolvePreview(pageData.frontmatter, content);
   const author = langConfig.themeConfig.authors?.find(
     (item) => item.id === pageData.frontmatter.authorId,
   )?.name;
   const img = siteConfig.sitemap.hostname + pageData.frontmatter.cover;
+
+  let descr = pageData.frontmatter.description;
+
+  // means article
+  if (pageData.frontmatter.date) {
+    const rawContent = fs.readFileSync(
+      path.join(siteConfig.srcDir, pageData.filePath),
+      DEFAULT_ENCODE,
+    );
+    const { content } = parseMdFile(rawContent);
+    descr = resolvePreview(pageData.frontmatter, content);
+  }
 
   pageData.frontmatter.head ??= [];
 
@@ -38,6 +44,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
     },
   ]);
 
+  // means article
   if (pageData.frontmatter.date) {
     pageData.frontmatter.head.push([
       "meta",

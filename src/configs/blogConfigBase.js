@@ -2,9 +2,11 @@ import { figure } from "@mdit/plugin-figure";
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from "../helpers/transformTitle.js";
 import { transformPageMeta } from "../helpers/transformPageMeta.js";
+import { addOgMetaTags } from "../helpers/addOgMetaTags.js";
 
 export const common = {
   head: [
+    // ["meta", { property: "og:", content: "website" }],
     ["link", { rel: "icon", sizes: "16x16", href: "/img/favicon-16x16.png" }],
     ["link", { rel: "icon", sizes: "32x32", href: "/img/favicon-32x32.png" }],
     [
@@ -78,6 +80,7 @@ export default function({ hostname, repo }, en) {
     transformPageData(pageData, ctx) {
       transformTitle(pageData, ctx);
       transformPageMeta(pageData, ctx);
+      addOgMetaTags(pageData, ctx);
     },
     markdown: {
       image: {

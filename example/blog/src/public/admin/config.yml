@@ -27,7 +27,7 @@ collections:
     i18n: true
     folder: "src"
     path: "post/{{slug}}"
-    slug: "{{year}}-{{slug}}"
+    slug: "{{date | date('YYYY')}}-{{slug}}"
     preview_path: "{{locale}}/post/{{slug}}"
     create: true
     summary: "{{title}} | {{commit_date}} | {{commit_author}} | {{filename}}.md"

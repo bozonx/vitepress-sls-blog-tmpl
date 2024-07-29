@@ -27,12 +27,13 @@ watchEffect(async () => {
     </div>
   </div>
   <article v-else class="content-page">
-    <h1 v-if="page.title" class="text-4xl max-md:text-2xl mb-5 tracking-tight">
-      {{ page.title }}
-    </h1>
-
-    <PostDate class="mt-4" />
-    <PostTopBar class="mt-10" />
+    <header>
+      <h1 v-if="page.title" class="text-4xl max-md:text-2xl mb-5 tracking-tight">
+        {{ page.title }}
+      </h1>
+      <PostDate class="mt-4" />
+      <PostTopBar class="mt-10" />
+    </header>
 
     <div v-if="articlePreviewText" class="mt-10 italic">
       {{ articlePreviewText }}

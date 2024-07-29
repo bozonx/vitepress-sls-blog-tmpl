@@ -1,7 +1,7 @@
 <script setup>
 import BaseLink from "./BaseLink.vue";
 
-const props = defineProps(["id", "class", "title", "href", "target"]);
+const props = defineProps(["id", "class", "title", "href", "target", "rel"]);
 const { class: className, ...bindProps } = props;
 </script>
 

@@ -3,14 +3,14 @@ import lodashTemplate from "lodash.template";
 /**
  * Fix titles of utility pages which are template strings like {{ theme.t.siteName }}
  */
-export function transformTitle(pageData, ctx) {
+export function transformTitle(pageData, { siteConfig }) {
   // skip root index.md
   if (pageData.filePath.indexOf("/") < 0) return;
 
   const langIndex = pageData.filePath.split("/")[0];
 
   const options = {
-    theme: ctx.siteConfig.site.locales[langIndex].themeConfig,
+    theme: siteConfig.site.locales[langIndex].themeConfig,
     params: pageData.params,
   };
 

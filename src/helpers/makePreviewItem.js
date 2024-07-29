@@ -31,14 +31,7 @@ export function makePreviewItem(filePath) {
   };
 }
 
-function extractPreviewFromMd(mdContent) {
-  // const mdContentNoHeader = removeTitleFromMd(mdContent);
-  const striped = stripMd(mdContent);
-
-  return striped.substring(0, 300);
-}
-
-function resolvePreview(
+export function resolvePreview(
   { previewText, descrAsPreview, description },
   mdContent,
 ) {
@@ -49,6 +42,13 @@ function resolvePreview(
   }
 
   return extractPreviewFromMd(mdContent);
+}
+
+function extractPreviewFromMd(mdContent) {
+  // const mdContentNoHeader = removeTitleFromMd(mdContent);
+  const striped = stripMd(mdContent);
+
+  return striped.substring(0, 300);
 }
 
 // function extractTitleFromMd(mdNoFrontmatter) {

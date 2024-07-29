@@ -1,3 +1,9 @@
+import fs from "fs";
+import path from "path";
+import { DEFAULT_ENCODE } from "../constants.js";
+import { parseMdFile } from "./parseMdFile.js";
+import { resolvePreview } from "./makePreviewItem.js";
+
 /**
  * Add OpenGraph metatags to the page
  */
@@ -7,7 +13,20 @@ export function addOgMetaTags(pageData, { siteConfig }) {
 
   const langIndex = pageData.filePath.split("/")[0];
   const langConfig = siteConfig.site.locales[langIndex];
-  console.log(111, pageData, langConfig);
+  const title =
+    pageData.frontmatter.layout === "home"
+      ? langConfig.title
+      : `${pageData.title} | ${langConfig.title}`;
+  const rawContent = fs.readFileSync(
+    path.join(siteConfig.srcDir, pageData.filePath),
+    DEFAULT_ENCODE,
+  );
+  const { content } = parseMdFile(rawContent);
+  const descr = resolvePreview(pageData.frontmatter, content);
+  const author = langConfig.themeConfig.authors?.find(
+    (item) => item.id === pageData.frontmatter.authorId,
+  )?.name;
+  const img = siteConfig.sitemap.hostname + pageData.frontmatter.cover;
 
   pageData.frontmatter.head ??= [];
 
@@ -35,26 +54,74 @@ export function addOgMetaTags(pageData, { siteConfig }) {
         content: pageData.frontmatter.date,
       },
     ]);
+
+    pageData.frontmatter.authorId &&
+      pageData.frontmatter.head.push([
+        "meta",
+        {
+          name: "article:author",
+          content: author,
+        },
+      ]);
   }
+
+  pageData.frontmatter.cover &&
+    pageData.frontmatter.head.push([
+      "meta",
+      {
+        name: "og:image",
+        content: img,
+      },
+    ]);
 
   pageData.frontmatter.head.push([
     "meta",
     {
       name: "og:title",
-      content:
-        pageData.frontmatter.layout === "home"
-          ? langConfig.title
-          : `${pageData.title} | ${langConfig.title}`,
+      content: title,
     },
   ]);
 
-  // TODO: взять кусочек если нет descr
-  pageData.frontmatter.description &&
+  descr &&
     pageData.frontmatter.head.push([
       "meta",
       {
         name: "og:description",
-        content: pageData.frontmatter.description,
+        content: descr,
+      },
+    ]);
+
+  pageData.frontmatter.head.push([
+    "meta",
+    {
+      name: "twitter:card",
+      content: "summary",
+    },
+  ]);
+
+  pageData.frontmatter.head.push([
+    "meta",
+    {
+      name: "twitter:title",
+      content: title,
+    },
+  ]);
+
+  descr &&
+    pageData.frontmatter.head.push([
+      "meta",
+      {
+        name: "twitter:description",
+        content: descr,
+      },
+    ]);
+
+  pageData.frontmatter.cover &&
+    pageData.frontmatter.head.push([
+      "meta",
+      {
+        name: "twitter:image",
+        content: img,
       },
     ]);
 }

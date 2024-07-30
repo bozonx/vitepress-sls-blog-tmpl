@@ -7,7 +7,7 @@ const { theme } = useData();
 const props = defineProps(["name", "count", "slug", "sizeXl", "sizeSm"]);
 const href = `${theme.value.tagsBaseUrl}/${props.slug}/1`;
 const className =
-  "text-center font-medium rounded-full text-lg py-1 px-4 " +
+  "text-center rounded-full text-lg py-1 px-4 " +
   "justify-center inline-flex space-x-2 items-center text-white " +
   (props.sizeXl ? `text-xl ` : "") +
   (props.sizeSm ? `text-sm ` : "") +

@@ -75,17 +75,19 @@ export function makePostOfMonthList(allData = [], year, month) {
   const curYear = Number(year);
   const curMonth = Number(month);
 
-  return allData.filter((item) => {
-    const postYear = new Date(item.date).getUTCFullYear();
+  return allData
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .filter((item) => {
+      const postYear = new Date(item.date).getUTCFullYear();
 
-    if (postYear !== curYear) return;
+      if (postYear !== curYear) return;
 
-    const postMonth = new Date(item.date).getUTCMonth() + 1;
+      const postMonth = new Date(item.date).getUTCMonth() + 1;
 
-    if (postMonth !== curMonth) return;
+      if (postMonth !== curMonth) return;
 
-    return true;
-  });
+      return true;
+    });
 }
 
 export function makeAuthorsList(allPosts = [], allAuthors = []) {

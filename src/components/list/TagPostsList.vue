@@ -1,7 +1,6 @@
 <script setup>
 import { useData } from "vitepress";
 import PreviewList from "./PreviewList.vue";
-import { makePostOfMonthList } from "../../helpers/listHelpers.js";
 
 const { theme } = useData();
 const props = defineProps([

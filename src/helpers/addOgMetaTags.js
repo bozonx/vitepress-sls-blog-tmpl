@@ -13,24 +13,38 @@ export function addOgMetaTags(pageData, { siteConfig }) {
 
   const langIndex = pageData.filePath.split("/")[0];
   const langConfig = siteConfig.site.locales[langIndex];
-  const title =
-    pageData.frontmatter.layout === "home"
-      ? langConfig.title
-      : `${pageData.title} | ${langConfig.title}`;
-  const author = langConfig.themeConfig.authors?.find(
-    (item) => item.id === pageData.frontmatter.authorId,
-  )?.name;
-  const img = siteConfig.sitemap.hostname + pageData.frontmatter.cover;
+  const isHome = pageData.frontmatter.layout === "home";
+  const title = isHome ? langConfig.title : pageData.title;
+  const author =
+    pageData.frontmatter.authorId &&
+    langConfig.themeConfig.authors?.find(
+      (item) => item.id === pageData.frontmatter.authorId,
+    )?.name;
+  const img =
+    pageData.frontmatter.cover &&
+    siteConfig.sitemap.hostname + pageData.frontmatter.cover;
+  // const fileExtension = path.extname(pageData.relativePath); // Возвращает расширение (например, '.txt')
+  // const url =
+  //   siteConfig.sitemap.hostname +
+  //   "/" +
+  //   pageData.relativePath.substring(
+  //     0,
+  //     pageData.relativePath.length - fileExtension.length,
+  //   );
 
   let descr = pageData.frontmatter.description;
 
-  // means article
-  if (pageData.frontmatter.date) {
+  if (isHome) {
+    // for home page get the main description
+    descr = langConfig.description;
+  } else if (pageData.frontmatter.date) {
+    // means article
     const rawContent = fs.readFileSync(
       path.join(siteConfig.srcDir, pageData.filePath),
       DEFAULT_ENCODE,
     );
     const { content } = parseMdFile(rawContent);
+
     descr = resolvePreview(pageData.frontmatter, content);
   }
 
@@ -43,6 +57,14 @@ export function addOgMetaTags(pageData, { siteConfig }) {
       content: langConfig.title,
     },
   ]);
+
+  // pageData.frontmatter.head.push([
+  //   "meta",
+  //   {
+  //     name: "og:url",
+  //     content: url,
+  //   },
+  // ]);
 
   // means article
   if (pageData.frontmatter.date) {
@@ -62,7 +84,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
       },
     ]);
 
-    pageData.frontmatter.authorId &&
+    author &&
       pageData.frontmatter.head.push([
         "meta",
         {
@@ -70,9 +92,19 @@ export function addOgMetaTags(pageData, { siteConfig }) {
           content: author,
         },
       ]);
+
+    (pageData.frontmatter.tags || []).forEach((tag) => {
+      pageData.frontmatter.head.push([
+        "meta",
+        {
+          name: "article:tag",
+          content: tag.name,
+        },
+      ]);
+    });
   }
 
-  pageData.frontmatter.cover &&
+  if (img) {
     pageData.frontmatter.head.push([
       "meta",
       {
@@ -80,6 +112,24 @@ export function addOgMetaTags(pageData, { siteConfig }) {
         content: img,
       },
     ]);
+
+    // TODO: calculate
+    pageData.frontmatter.head.push([
+      "meta",
+      {
+        name: "og:image:type",
+        content: "image/avif",
+      },
+    ]);
+    pageData.frontmatter.coverAlt &&
+      pageData.frontmatter.head.push([
+        "meta",
+        {
+          name: "og:image:alt",
+          content: pageData.frontmatter.coverAlt,
+        },
+      ]);
+  }
 
   pageData.frontmatter.head.push([
     "meta",
@@ -123,7 +173,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
       },
     ]);
 
-  pageData.frontmatter.cover &&
+  img &&
     pageData.frontmatter.head.push([
       "meta",
       {

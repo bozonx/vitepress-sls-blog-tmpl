@@ -184,7 +184,7 @@ button {
   color: var(--util-page-dark-header-color);
 }
 
-/******* Doc page */
+/******* Doc page overwrite */
 .vp-doc {
   font-weight: 400;
   line-height: 1.25;
@@ -222,6 +222,11 @@ button {
 
 .vp-doc a:hover {
   filter: brightness(130%);
+}
+
+.vp-doc blockquote,
+.vp-doc blockquote * {
+  font-size: inherit !important;
 }
 
 .vp-doc .vp-adaptive-theme {

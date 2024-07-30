@@ -113,14 +113,6 @@ export function addOgMetaTags(pageData, { siteConfig }) {
       },
     ]);
 
-    // TODO: calculate
-    pageData.frontmatter.head.push([
-      "meta",
-      {
-        name: "og:image:type",
-        content: "image/avif",
-      },
-    ]);
     pageData.frontmatter.coverAlt &&
       pageData.frontmatter.head.push([
         "meta",

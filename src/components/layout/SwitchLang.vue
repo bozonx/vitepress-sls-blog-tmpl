@@ -20,10 +20,11 @@ const props = defineProps(["noBg", "onlyDark"]);
       </span>
     </template>
     <template v-for="locale in localeLinks">
-      <DropdownItem v-if="!locale.text" disabled="true" :onlyDark="props.onlyDark" :title="theme.t.currentLang">
+      <DropdownItem v-if="!locale.text" :key="locale.link" disabled="true" :onlyDark="props.onlyDark"
+        :title="theme.t.currentLang">
         {{ currentLang.label }}
       </DropdownItem>
-      <DropdownItem v-else target="_self" :href="locale.link" :onlyDark="props.onlyDark">
+      <DropdownItem v-else target="_self" :key="locale.link" :href="locale.link" :onlyDark="props.onlyDark">
         {{ locale.text }}
       </DropdownItem>
     </template>

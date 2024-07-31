@@ -68,6 +68,8 @@ export default function({ hostname, repo }, en) {
     ...common,
     title: en.title,
     description: en.description,
+    // it is used in addOgMetaTags
+    hostname,
 
     sitemap: {
       hostname,

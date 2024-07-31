@@ -11,9 +11,11 @@ export function addOgMetaTags(pageData, { siteConfig }) {
   // skip root index.md
   if (pageData.filePath.indexOf("/") < 0) return;
 
+  const hostname = siteConfig.userConfig.hostname;
   const langIndex = pageData.filePath.split("/")[0];
   const langConfig = siteConfig.site.locales[langIndex];
   const isHome = pageData.frontmatter.layout === "home";
+  const isArticle = Boolean(pageData.frontmatter.date);
   const title = isHome ? langConfig.title : pageData.title;
   const author =
     pageData.frontmatter.authorId &&
@@ -21,8 +23,8 @@ export function addOgMetaTags(pageData, { siteConfig }) {
       (item) => item.id === pageData.frontmatter.authorId,
     )?.name;
   const img =
-    pageData.frontmatter.cover &&
-    siteConfig.sitemap.hostname + pageData.frontmatter.cover;
+    pageData.frontmatter.cover && hostname + pageData.frontmatter.cover;
+
   // const fileExtension = path.extname(pageData.relativePath); // Возвращает расширение (например, '.txt')
   // const url =
   //   siteConfig.sitemap.hostname +
@@ -37,8 +39,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
   if (isHome) {
     // for home page get the main description
     descr = langConfig.description;
-  } else if (pageData.frontmatter.date) {
-    // means article
+  } else if (isArticle) {
     const rawContent = fs.readFileSync(
       path.join(siteConfig.srcDir, pageData.filePath),
       DEFAULT_ENCODE,
@@ -66,8 +67,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
   //   },
   // ]);
 
-  // means article
-  if (pageData.frontmatter.date) {
+  if (isArticle) {
     pageData.frontmatter.head.push([
       "meta",
       {

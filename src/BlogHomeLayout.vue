@@ -1,5 +1,5 @@
 <script setup>
-import { useData } from "vitepress";
+import { useData, inBrowser } from "vitepress";
 import { ref, watchEffect } from "vue";
 import SwitchLang from "./components/layout/SwitchLang.vue";
 
@@ -10,6 +10,8 @@ const wrapperRef = ref(null);
 const BG_HEIGHT_OFFSET = theme.value.homeBgParalaxOffset || 150;
 
 watchEffect(async () => {
+  if (!inBrowser) return;
+
   const totalHeight = wrapperRef.value?.scrollHeight || 0;
   const windowHeight = window.innerHeight;
   const totalScroll = totalHeight - windowHeight;
@@ -21,11 +23,8 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div
-    ref="wrapperRef"
-    class="home-layout"
-    :style="`background-position-y: ${valueY}px; background-size: auto calc(100vh + ${BG_HEIGHT_OFFSET}px);`"
-  >
+  <div ref="wrapperRef" class="home-layout"
+    :style="`background-position-y: ${valueY}px; background-size: auto calc(100vh + ${BG_HEIGHT_OFFSET}px);`">
     <div class="home-layout-topbar">
       <SwitchLang dropLeft="true" onlyDark="true" noBg="true" />
     </div>

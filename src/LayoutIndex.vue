@@ -1,5 +1,5 @@
 <script setup>
-import { useData } from "vitepress";
+import { useData, inBrowser } from "vitepress";
 import { onMounted, onUnmounted, ref } from "vue";
 import BlogHomeLayout from "./BlogHomeLayout.vue";
 import SideBar from "./components/layout/SideBar.vue";
@@ -62,6 +62,8 @@ function moveTouch(e) {
 }
 
 onMounted(() => {
+  if (!inBrowser) return;
+
   windowWidth.value = window.innerWidth;
   isMobile.value = windowWidth.value < MOBILE_BREAKPOINT;
 
@@ -78,6 +80,8 @@ onMounted(() => {
   touchMoveListener = window.addEventListener("touchmove", moveTouch, false);
 });
 onUnmounted(() => {
+  if (!inBrowser) return;
+
   window.removeEventListener("resize", resizeListener);
   window.removeEventListener("scroll", scrollListener);
   window.removeEventListener("touchstart", touchStartListener);
@@ -90,10 +94,7 @@ onUnmounted(() => {
     <NotFound />
   </div>
   <Content v-else-if="frontmatter.layout === false" />
-  <BlogHomeLayout
-    v-else-if="frontmatter.layout === 'home'"
-    :scrollY="scrollY"
-  />
+  <BlogHomeLayout v-else-if="frontmatter.layout === 'home'" :scrollY="scrollY" />
   <div v-else class="min-h-screen lg:flex w-full">
     <!--  left col-->
     <SideBar ref="sidebarRef" :isMobile="isMobile">

@@ -18,7 +18,7 @@ authors:
     name: John Smith
     descr: Some MD descr
     link?: If defined then this link will be used. If not then will be use link to author page
-
+homeBgParalaxOffset: 150
 ```
 
 ## Site config

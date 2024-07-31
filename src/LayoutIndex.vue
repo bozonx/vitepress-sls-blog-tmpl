@@ -1,13 +1,13 @@
 <script setup>
 import { useData } from "vitepress";
 import { onMounted, onUnmounted, ref } from "vue";
+import BlogHomeLayout from "./BlogHomeLayout.vue";
 import SideBar from "./components/layout/SideBar.vue";
 import Footer from "./components/layout/Footer.vue";
 import PageContent from "./components/PageContent.vue";
 import TopBar from "./components/layout/TopBar.vue";
 import ToTheTop from "./components/layout/ToTheTop.vue";
 import NotFound from "./components/layout/NotFound.vue";
-import SwitchLang from "./components/layout/SwitchLang.vue";
 import { MOBILE_BREAKPOINT, SWIPE_OFFSET } from "./constants.js";
 
 const { page, theme, frontmatter } = useData();
@@ -90,14 +90,10 @@ onUnmounted(() => {
     <NotFound />
   </div>
   <Content v-else-if="frontmatter.layout === false" />
-  <div v-else-if="frontmatter.layout === 'home'" class="home-layout">
-    <div class="home-layout-topbar">
-      <SwitchLang dropLeft="true" onlyDark="true" noBg="true" />
-    </div>
-    <div class="home-layout-page">
-      <Content />
-    </div>
-  </div>
+  <BlogHomeLayout
+    v-else-if="frontmatter.layout === 'home'"
+    :scrollY="scrollY"
+  />
   <div v-else class="min-h-screen lg:flex w-full">
     <!--  left col-->
     <SideBar ref="sidebarRef" :isMobile="isMobile">
@@ -143,38 +139,9 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .app-page {
   width: 100%;
   max-width: var(--page-max-width);
-}
-
-.home-layout {
-  display: flex;
-  flex-flow: column;
-  width: 100%;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position-x: center;
-  background-position-y: center;
-}
-
-.home-layout {
-  color: white !important;
-}
-
-.home-layout-topbar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1rem 1.5rem 0 0;
-}
-
-.home-layout-page {
-  max-width: 800px;
-  margin: 5rem 1rem;
 }
 </style>

@@ -7,7 +7,7 @@ const props = defineProps(["hero", "features"]);
 </script>
 
 <template>
-  <div class="VPHome" style="margin-top: 2.5rem">
+  <div class="home-page">
     <template v-if="props.hero">
       <VPHero v-bind="props.hero" />
     </template>
@@ -19,3 +19,9 @@ const props = defineProps(["hero", "features"]);
     </VPHomeContent>
   </div>
 </template>
+
+<style>
+.home-page .VPButton {
+  text-decoration: none;
+}
+</style>

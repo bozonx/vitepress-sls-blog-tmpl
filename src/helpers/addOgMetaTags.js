@@ -16,7 +16,8 @@ export function addOgMetaTags(pageData, { siteConfig }) {
   const langConfig = siteConfig.site.locales[langIndex];
   const isHome = pageData.frontmatter.layout === "home";
   const isArticle = Boolean(pageData.frontmatter.date);
-  const title = isHome ? langConfig.title : pageData.title;
+  const siteName = langConfig.title;
+  const title = isHome ? siteName : pageData.title;
   const author =
     pageData.frontmatter.authorId &&
     langConfig.themeConfig.authors?.find(
@@ -55,7 +56,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
     "meta",
     {
       name: "og:site_name",
-      content: langConfig.title,
+      content: siteName,
     },
   ]);
 

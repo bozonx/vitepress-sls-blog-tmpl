@@ -11,14 +11,18 @@ Run `yarn build` to build css
 ## Config
 
 ```
-// show author name on the posts list items
-showAuthorInPostList: true
-authors:
-  - id: john-smith
-    name: John Smith
-    descr: Some MD descr
-    link?: If defined then this link will be used. If not then will be use link to author page
-homeBgParalaxOffset: 150
+export default {
+  themeConfig: {
+    // show author name on the posts list items
+    showAuthorInPostList: true
+    authors:
+      - id: john-smith
+        name: John Smith
+        descr: Some MD descr
+        link?: If defined then this link will be used. If not then will be use link to author page
+    homeBgParalaxOffset: 150
+  },
+};
 ```
 
 ## Site config

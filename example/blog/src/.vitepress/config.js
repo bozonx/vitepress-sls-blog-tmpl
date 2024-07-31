@@ -13,4 +13,9 @@ export default {
     en: { lang: "en-US", ...en },
     ru: { lang: "ru-RU", ...ru },
   },
+  head: [
+    ...configBase.head,
+    // do not recognize telephone numbers on the page
+    ["meta", { name: "format-detection", content: "telephone=no" }],
+  ],
 };

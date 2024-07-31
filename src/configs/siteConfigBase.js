@@ -1,3 +1,5 @@
+import { addOgMetaTags } from "../helpers/addOgMetaTags.js";
+
 export const common = {
   head: [
     // tell IE to use the most modern engine
@@ -66,6 +68,9 @@ export default function({ hostname, repo }, en) {
     themeConfig: {
       ...common.themeConfig,
       socialLinks: repo && [{ icon: "github", link: repo }],
+    },
+    transformPageData(pageData, ctx) {
+      addOgMetaTags(pageData, ctx);
     },
   };
 }

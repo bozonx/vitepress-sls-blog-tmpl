@@ -16,6 +16,23 @@ export function isPage(frontmatter) {
   return typeof frontmatter.layout === "undefined" && !frontmatter.date;
 }
 
+export function removeRootItemFromSiteMap(items) {
+  const edited = items
+    // remove root item
+    .filter((item) => item.url)
+    .map((item) => {
+      if (item.url.indexOf("/") === item.url.length - 1) {
+        return {
+          ...item,
+          // remove empty url which is means the root
+          links: item.links.filter((item) => item.url),
+        };
+      } else return item;
+    });
+
+  return edited;
+}
+
 export function makeHumanDate(rawDate, lang, toTimeZone = "UTC") {
   if (!rawDate) return;
 

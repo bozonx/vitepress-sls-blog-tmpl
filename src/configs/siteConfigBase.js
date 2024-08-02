@@ -1,4 +1,5 @@
 import { addOgMetaTags } from "../helpers/addOgMetaTags.js";
+import { removeRootItemFromSiteMap } from "../helpers/helpers.js";
 
 export const common = {
   head: [
@@ -63,6 +64,10 @@ export default function({ hostname, repo }, en) {
 
     sitemap: {
       hostname,
+      // fix sitemap - remove root from it
+      transformItems: (items) => {
+        return removeRootItemFromSiteMap(items);
+      },
     },
 
     themeConfig: {

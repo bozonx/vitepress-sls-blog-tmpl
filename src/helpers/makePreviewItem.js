@@ -14,6 +14,9 @@ export function makePreviewItem(filePath) {
   const url = "/" + relativePath.replace(/\.md$/, "");
   const rawContent = fs.readFileSync(filePath, DEFAULT_ENCODE);
   const { frontmatter, content } = parseMdFile(rawContent);
+  let preview = resolvePreview(frontmatter, content);
+
+  if (!preview) preview = extractPreviewFromMd(content);
 
   return {
     url,
@@ -25,40 +28,35 @@ export function makePreviewItem(filePath) {
       name: item,
       slug: transliterate(item),
     })),
-    preview: resolvePreview(frontmatter, content),
+    preview,
     // TODO: make real thumbnail
     thumbnail: frontmatter.cover,
   };
 }
 
-export function resolvePreview(
-  { previewText, descrAsPreview, description },
-  mdContent,
-) {
+export function resolvePreview({ previewText, descrAsPreview, description }) {
   if (previewText) {
     return previewText;
   } else if (descrAsPreview && description) {
     return description;
   }
-
-  return extractPreviewFromMd(mdContent);
 }
 
-function extractPreviewFromMd(mdContent) {
-  // const mdContentNoHeader = removeTitleFromMd(mdContent);
-  const striped = stripMd(mdContent);
+export function extractPreviewFromMd(mdContent) {
+  const mdContentNoHeader = removeTitleFromMd(mdContent);
+  const striped = stripMd(mdContentNoHeader);
 
   return striped.substring(0, 300);
+}
+
+function removeTitleFromMd(mdNoFrontmatter) {
+  return mdNoFrontmatter.trim().replace(/^\#\s+.+/, "");
 }
 
 // function extractTitleFromMd(mdNoFrontmatter) {
 //   const firstTitleMatch = mdNoFrontmatter.match(/^\#\s+(.+)$/m);
 //
 //   return firstTitleMatch ? firstTitleMatch[1].trim() : "";
-// }
-
-// function removeTitleFromMd(mdNoFrontmatter) {
-//   return mdNoFrontmatter.trim().replace(/^\#\s+.+/, "");
 // }
 
 // export function extractImageFromMd(rawData) {

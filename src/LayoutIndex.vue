@@ -9,6 +9,7 @@ import TopBar from "./components/layout/TopBar.vue";
 import ToTheTop from "./components/layout/ToTheTop.vue";
 import NotFound from "./components/layout/NotFound.vue";
 import { MOBILE_BREAKPOINT, SWIPE_OFFSET } from "./constants.js";
+import { isHomePage } from "./helpers/helpers.js";
 
 const { page, theme, frontmatter } = useData();
 const windowWidth = ref(0);
@@ -94,7 +95,7 @@ onUnmounted(() => {
     <NotFound />
   </div>
   <Content v-else-if="frontmatter.layout === false" />
-  <BlogHomeLayout v-else-if="frontmatter.layout === 'home'" :scrollY="scrollY" />
+  <BlogHomeLayout v-else-if="isHomePage(frontmatter)" :scrollY="scrollY" />
   <div v-else class="min-h-screen lg:flex w-full">
     <!--  left col-->
     <SideBar ref="sidebarRef" :isMobile="isMobile">

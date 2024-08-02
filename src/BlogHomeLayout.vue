@@ -7,7 +7,7 @@ const props = defineProps(["scrollY"]);
 const { theme } = useData();
 const valueY = ref(0);
 const wrapperRef = ref(null);
-const BG_HEIGHT_OFFSET = theme.value.homeBgParalaxOffset || 150;
+const BG_HEIGHT_OFFSET = theme.value.homeBgParalaxOffset || 0;
 
 watchEffect(async () => {
   if (!inBrowser) return;

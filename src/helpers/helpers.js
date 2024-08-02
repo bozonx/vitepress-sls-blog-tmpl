@@ -8,6 +8,14 @@ export function isPost(frontmatter) {
   return Boolean(frontmatter.date);
 }
 
+export function isHomePage(frontmatter) {
+  return frontmatter.layout === "home";
+}
+
+export function isPage(frontmatter) {
+  return typeof frontmatter.layout === "undefined" && !frontmatter.date;
+}
+
 export function makeHumanDate(rawDate, lang, toTimeZone = "UTC") {
   if (!rawDate) return;
 

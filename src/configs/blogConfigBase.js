@@ -38,6 +38,7 @@ export const common = {
     externalLinkIcon: true,
     i18nRouting: true,
 
+    homeBgParalaxOffset: 300,
     showAuthorInPostList: true,
     tagsBaseUrl: "tag",
     allTagsUrl: "tags",

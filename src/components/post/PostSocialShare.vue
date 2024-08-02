@@ -64,8 +64,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="typeof frontmatter.layout === 'undefined' && theme.socialMediaShares"
-    :class="['flex gap-y-3 max-sm:flex-col sm:items-center', props.class]">
+  <div v-if="theme.socialMediaShares" :class="['flex gap-y-3 max-sm:flex-col sm:items-center', props.class]">
     <div class="mr-2 muted">{{ theme.t.shareSocialMedia }}:</div>
     <div class="flex gap-x-2">
       <template v-for="item in items">

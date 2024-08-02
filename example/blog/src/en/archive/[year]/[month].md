@@ -1,5 +1,9 @@
 ---
 layout: util
+head:
+  - - meta
+    - name: robots
+      content: noindex
 ---
 
 <script setup>

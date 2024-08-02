@@ -1,8 +1,9 @@
 import fs from "fs";
 import path from "path";
 import { DEFAULT_ENCODE } from "../constants.js";
+import { isHomePage, isPost, isPage } from "./helpers.js";
 import { parseMdFile } from "./parseMdFile.js";
-import { resolvePreview } from "./makePreviewItem.js";
+import { resolvePreview, extractPreviewFromMd } from "./makePreviewItem.js";
 
 /**
  * Add OpenGraph metatags to the page
@@ -14,8 +15,8 @@ export function addOgMetaTags(pageData, { siteConfig }) {
   const hostname = siteConfig.userConfig.hostname;
   const langIndex = pageData.filePath.split("/")[0];
   const langConfig = siteConfig.site.locales[langIndex];
-  const isHome = pageData.frontmatter.layout === "home";
-  const isArticle = Boolean(pageData.frontmatter.date);
+  const isHome = isHomePage(pageData.frontmatter);
+  const isArticle = isPost(pageData.frontmatter);
   const siteName = langConfig.title;
   const title = isHome ? siteName : pageData.title;
   const author =
@@ -40,14 +41,19 @@ export function addOgMetaTags(pageData, { siteConfig }) {
   if (isHome) {
     // for home page get the main description
     descr = langConfig.description;
-  } else if (isArticle) {
-    const rawContent = fs.readFileSync(
-      path.join(siteConfig.srcDir, pageData.filePath),
-      DEFAULT_ENCODE,
-    );
-    const { content } = parseMdFile(rawContent);
+  } else if (isArticle || isPage(pageData.frontmatter)) {
+    // means post or page
+    descr = resolvePreview(pageData.frontmatter);
 
-    descr = resolvePreview(pageData.frontmatter, content);
+    if (!descr) {
+      const rawContent = fs.readFileSync(
+        path.join(siteConfig.srcDir, pageData.filePath),
+        DEFAULT_ENCODE,
+      );
+      const { content } = parseMdFile(rawContent);
+
+      descr = extractPreviewFromMd(content);
+    }
   }
 
   pageData.frontmatter.head ??= [];

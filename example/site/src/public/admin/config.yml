@@ -80,38 +80,12 @@ collections:
             widget: "text"
             # default_language: yaml
             i18n: true
-      - name: about
-        label: About
-        file: "src/{{locale}}/page/about.md"
-        preview_path: "{{locale}}/page/{{slug}}"
-        i18n: true
-        fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            preview: false
-            i18n: true
-          - label: "Description"
-            name: "description"
-            widget: "text"
-            required: false
-            preview: false
-            i18n: true
-          - label: "Body"
-            name: "body"
-            widget: "markdown"
-            i18n: true
       - name: donate
         label: Donate
         file: "src/{{locale}}/page/donate.md"
         preview_path: "{{locale}}/page/{{slug}}"
         i18n: true
         fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            preview: false
-            i18n: true
           - label: "Description"
             name: "description"
             widget: "text"
@@ -128,11 +102,6 @@ collections:
         preview_path: "{{locale}}/page/{{slug}}"
         i18n: true
         fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            preview: false
-            i18n: true
           - label: "Description"
             name: "description"
             widget: "text"

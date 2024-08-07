@@ -13,6 +13,10 @@ export default {
     en: { lang: "en-US", ...en },
     ru: { lang: "ru-RU", ...ru },
   },
+  themeConfig: {
+    ...configBase.themeConfig,
+    sidebarLogoSrc: "/img/sidebar-logo.webp",
+  },
   head: [
     ...configBase.head,
     // do not recognize telephone numbers on the page

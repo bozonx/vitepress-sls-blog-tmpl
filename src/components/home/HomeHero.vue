@@ -31,12 +31,14 @@ const props = defineProps(["firstLine", "secondLine", "buttons", "img"]);
 
 .home-logo img {
   width: 320px;
+  height: 320px;
   filter: drop-shadow(5px 5px 20px rgba(0, 0, 0, 0.5));
 }
 
 @media (max-width: 519px) {
   .home-logo img {
     width: 240px;
+    height: 240px;
   }
 }
 

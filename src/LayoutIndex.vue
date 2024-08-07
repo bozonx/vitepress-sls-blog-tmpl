@@ -99,9 +99,6 @@ onUnmounted(() => {
   <div v-else class="min-h-screen lg:flex w-full">
     <!--  left col-->
     <SideBar ref="sidebarRef" :isMobile="isMobile">
-      <template #sidebar-logo>
-        <slot name="sidebar-logo" />
-      </template>
       <template #sidebar-top>
         <slot name="sidebar-top" />
       </template>

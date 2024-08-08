@@ -66,6 +66,7 @@ export async function generateRssFeed(config) {
     fs.writeFileSync(
       path.join(config.outDir, `feed-${localeIndex}.rss`),
       feeds[localeIndex].rss2(),
+      DEFAULT_ENCODE,
     );
   }
 }

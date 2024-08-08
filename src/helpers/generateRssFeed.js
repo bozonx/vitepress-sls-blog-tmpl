@@ -27,37 +27,27 @@ export async function generateRssFeed(config) {
       // image: `${hostname}/img/paul-laros.jpg`,
     });
 
-    // You might need to adjust this if your Markdown files
-    // are located in a subfolder
     const posts = await createContentLoader(
       `${localeIndex}/${POSTS_DIR}/*.md`,
-      {
-        excerpt: true,
-        render: true,
-      },
+      { includeSrc: true },
     ).load();
 
     posts.sort(
       (a, b) => +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date),
     );
 
-    for (const { url, frontmatter } of posts) {
-      const rawContent = fs.readFileSync(
-        path.join(config.srcDir, url + ".md"),
-        DEFAULT_ENCODE,
-      );
-      const { content } = parseMdFile(rawContent);
+    for (const { url, frontmatter, src } of posts) {
+      const { content } = parseMdFile(src);
       const previewFromMd = extractPreviewFromMd(content);
       let descr = resolvePreview(frontmatter) || previewFromMd;
 
       feeds[localeIndex].addItem({
         title: frontmatter.title,
+        description: descr,
         id: `${hostname}${url}`,
         link: `${hostname}${url}`,
         date: frontmatter.date && new Date(frontmatter.date),
-        image: `${hostname}${frontmatter.cover}`,
-        description: descr,
-        // content: `<p>${previewFromMd}</p>`,
+        image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
       });
     }
   }

@@ -61,3 +61,6 @@ body: |
       - text: "${PROPS.t.links.weInSocialMedia}"
         href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.linksUrl}"
         icon: "${PROPS.theme.socialLinksIcon}"
+      - text: "RSS feed"
+        href: "${PROPS.hostname}/feed-${PROPS.lang}.rss"
+        icon: "${PROPS.theme.rssIcon}"

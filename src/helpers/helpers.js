@@ -16,15 +16,15 @@ export function isPage(frontmatter) {
   return typeof frontmatter.layout === "undefined" && !frontmatter.date;
 }
 
-/**
- * Returns [640, 320] from "some-file-name--640x320.avif"
- * or undefined is it doesn't contain dimestions
- */
-export function extractImgDimensionFromFileName(fileName) {
-  const res = String(fileName).match(/\-\-(\d{3,})x(\d{3,})\.[\w\d]+$/);
-
-  if (res) return [Number(res[1]), Number(res[2])];
-}
+// /**
+//  * Returns [640, 320] from "some-file-name--640x320.avif"
+//  * or undefined is it doesn't contain dimestions
+//  */
+// export function extractImgDimensionFromFileName(fileName) {
+//   const res = String(fileName).match(/\-\-(\d{3,})x(\d{3,})\.[\w\d]+$/);
+//
+//   if (res) return [Number(res[1]), Number(res[2])];
+// }
 
 export function removeRootItemFromSiteMap(items) {
   const edited = items

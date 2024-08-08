@@ -9,6 +9,18 @@ import DropdownItem from "../DropdownItem.vue";
 const { theme } = useData();
 const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
 const props = defineProps(["noBg", "onlyDark"]);
+// redirect from specific tag to tags list
+const resolveLink = (link) => {
+  if (!link) return link;
+
+  const splat = link.split("/");
+
+  if (splat[2] === theme.value.tagsBaseUrl) {
+    return `/${splat[1]}/${theme.value.allTagsUrl}`;
+  }
+
+  return link;
+};
 </script>
 
 <template>
@@ -24,7 +36,8 @@ const props = defineProps(["noBg", "onlyDark"]);
         :title="theme.t.currentLang">
         {{ currentLang.label }}
       </DropdownItem>
-      <DropdownItem v-else target="_self" :key="locale.link" :href="locale.link" :onlyDark="props.onlyDark">
+      <DropdownItem v-else target="_self" :key="locale.link" :href="resolveLink(locale.link)"
+        :onlyDark="props.onlyDark">
         {{ locale.text }}
       </DropdownItem>
     </template>

@@ -3,6 +3,7 @@ import { figure } from "@mdit/plugin-figure";
 import { transformTitle } from "../helpers/transformTitle.js";
 import { transformPageMeta } from "../helpers/transformPageMeta.js";
 import { addOgMetaTags } from "../helpers/addOgMetaTags.js";
+import { generateRssFeed } from "../helpers/generateRssFeed.js";
 import { removeRootItemFromSiteMap } from "../helpers/helpers.js";
 
 export const common = {
@@ -62,6 +63,7 @@ export const common = {
     youtubeIcon: "fa6-brands:youtube",
     telegramIcon: "fa6-brands:telegram",
     chatIcon: "fa6-solid:message",
+    rssIcon: "bi:rss-fill",
   },
 };
 
@@ -91,6 +93,9 @@ export default function({ hostname, repo }, en) {
       transformTitle(pageData, ctx);
       transformPageMeta(pageData, ctx);
       addOgMetaTags(pageData, ctx);
+    },
+    buildEnd: async (config) => {
+      await generateRssFeed(config);
     },
     markdown: {
       image: {

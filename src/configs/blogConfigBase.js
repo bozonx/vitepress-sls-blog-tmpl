@@ -5,6 +5,7 @@ import { transformPageMeta } from "../helpers/transformPageMeta.js";
 import { addOgMetaTags } from "../helpers/addOgMetaTags.js";
 import { generateRssFeed } from "../helpers/generateRssFeed.js";
 import { removeRootItemFromSiteMap } from "../helpers/helpers.js";
+import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 
 export const common = {
   head: [
@@ -104,6 +105,7 @@ export default function({ hostname, repo }, en) {
       config: (md) => {
         // md.use(removeH1Plugin);
         md.use(figure);
+        // md.use(makeYoutubeVideo);
       },
     },
     vite: {

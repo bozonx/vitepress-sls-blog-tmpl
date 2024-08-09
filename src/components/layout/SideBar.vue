@@ -75,9 +75,8 @@ watchEffect(async () => {
         </div>
         -->
 
-        <a v-if="theme.sidebarLogoSrc" :href="`/${localeIndex}/`" class="sidebar-logo" :title="theme.t.toHome"
-          aria-hidden="true">
-          <img :src="theme.sidebarLogoSrc" width="320" height="158" />
+        <a v-if="theme.sidebarLogoSrc" :href="`/${localeIndex}/`" class="sidebar-logo" :title="theme.t.toHome">
+          <img :src="theme.sidebarLogoSrc" loading="lazy" width="320" height="158" aria-hidden="true" />
         </a>
         <h4 v-if="theme.siteTitle" class="sidebar-site-title text-sm muted">
           <a :href="`/${localeIndex}/`" :title="theme.t.toHome">

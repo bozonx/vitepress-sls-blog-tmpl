@@ -24,7 +24,7 @@ export async function generateRssFeed(config) {
       id: siteUrl,
       link: siteUrl,
       favicon: `${hostname}/img/favicon-32x32.png`,
-      // image: `${hostname}/img/paul-laros.jpg`,
+      image: `${hostname}${config.userConfig.themeConfig.sidebarLogoSrc}`,
     });
 
     const posts = await createContentLoader(
@@ -48,6 +48,8 @@ export async function generateRssFeed(config) {
         link: `${hostname}${url}`,
         date: frontmatter.date && new Date(frontmatter.date),
         image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
+
+        category: "test",
       });
     }
   }

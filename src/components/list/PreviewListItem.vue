@@ -19,7 +19,7 @@ const params = {
 
 <template>
   <a :href="props.item.url" class="mb-6 px-5 py-5 preview">
-    <h4 class="mb-3 text-2xl tracking-tight">{{ props.item.title }}</h4>
+    <h2 class="mb-3 text-2xl tracking-tight">{{ props.item.title }}</h2>
 
     <PreviewWithImg v-if="item.thumbnail" v-bind="params" :thumbnail="props.item.thumbnail" />
     <PreviewNoImg v-else v-bind="params" />
@@ -50,11 +50,11 @@ const params = {
   filter: brightness(110%);
 }
 
-.preview h4 {
+.preview h2 {
   font-weight: bold;
 }
 
-.preview:visited h4 {
+.preview:visited h2 {
   color: var(--color-a-light-visited);
 }
 </style>

@@ -37,9 +37,14 @@ export async function generateRssFeed(config) {
     );
 
     for (const { url, frontmatter, src } of posts) {
-      const { content } = parseMdFile(src);
-      const previewFromMd = extractPreviewFromMd(content);
-      let descr = resolvePreview(frontmatter) || previewFromMd;
+      let descr = resolvePreview(frontmatter);
+
+      if (!descr) {
+        const { content } = parseMdFile(src);
+        const previewFromMd = extractPreviewFromMd(content);
+
+        descr = previewFromMd;
+      }
 
       feeds[localeIndex].addItem({
         title: frontmatter.title,
@@ -48,8 +53,6 @@ export async function generateRssFeed(config) {
         link: `${hostname}${url}`,
         date: frontmatter.date && new Date(frontmatter.date),
         image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
-
-        category: "test",
       });
     }
   }

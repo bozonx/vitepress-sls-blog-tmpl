@@ -4,6 +4,7 @@ import PostSocialShare from "./PostSocialShare.vue";
 import PostAuthor from "./PostAuthor.vue";
 import PostComments from "./PostComments.vue";
 import PostDonateLink from "./PostDonateLink.vue";
+// import SimilarPostsList from "../list/SimilarPostsList.vue";
 </script>
 
 <template>
@@ -12,4 +13,5 @@ import PostDonateLink from "./PostDonateLink.vue";
   <PostComments class="mt-20" />
   <PostSocialShare class="mt-10" />
   <PostTags class="mt-10" />
+  <!-- <SimilarPostsList class="mt-10" /> -->
 </template>

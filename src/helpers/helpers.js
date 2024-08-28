@@ -128,6 +128,10 @@ export function resolveNavigatorLang(supportedLocales = [], navLang = "") {
   return "en";
 }
 
+export function arraysIntersection(arr1 = [], arr2 = []) {
+  return arr1.filter((x) => arr2.includes(x));
+}
+
 // export function extractDateFromPostPath(postPath = '') {
 //   const pathSplit = postPath.split('/')
 //

@@ -5,7 +5,7 @@ import { transformPageMeta } from "../helpers/transformPageMeta.js";
 import { addOgMetaTags } from "../helpers/addOgMetaTags.js";
 import { generateRssFeed } from "../helpers/generateRssFeed.js";
 import { removeRootItemFromSiteMap } from "../helpers/helpers.js";
-import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
+// import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 
 export const common = {
   head: [
@@ -41,6 +41,7 @@ export const common = {
     externalLinkIcon: true,
     i18nRouting: true,
 
+    similarPostsCount: 5,
     homeBgParalaxOffset: 300,
     showAuthorInPostList: true,
     tagsBaseUrl: "tag",

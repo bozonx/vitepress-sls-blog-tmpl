@@ -16,9 +16,9 @@ const curPage = props.curPage;
 const maxItems = props.maxItems;
 const totalPages = props.totalPages;
 
-// const curPage = 5;
+// const curPage = 4;
 // const maxItems = 7;
-// const totalPages = 9;
+// const totalPages = 4;
 
 if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   const halfPages = (maxItems - 1) / 2;
@@ -33,7 +33,7 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   let startPage = curPage - minusPages;
   let endPage = curPage + plusPages;
 
-  if (startPage < 1) {
+  if (startPage <= 1) {
     startPage = 1;
     endPage = totalPages < maxItems ? totalPages : maxItems;
   } else if (endPage > totalPages) {
@@ -69,12 +69,7 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
 <template>
   <ul v-if="items.length" class="flex gap-x-1">
     <li v-for="item of items">
-      <Btn
-        :href="item.href"
-        :title="item.title"
-        :text="item.name"
-        class="px-3 pagination-btn"
-      />
+      <Btn :href="item.href" :title="item.title" :text="item.name" class="px-3 pagination-btn" />
     </li>
   </ul>
 </template>

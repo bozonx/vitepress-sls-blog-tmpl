@@ -53,22 +53,8 @@ function removeTitleFromMd(mdNoFrontmatter) {
   return mdNoFrontmatter.trim().replace(/^\#\s+.+/, "");
 }
 
-// function extractTitleFromMd(mdNoFrontmatter) {
-//   const firstTitleMatch = mdNoFrontmatter.match(/^\#\s+(.+)$/m);
-//
-//   return firstTitleMatch ? firstTitleMatch[1].trim() : "";
-// }
-
 // export function extractImageFromMd(rawData) {
 //   const firstImgMatch = removeFrontmatter(rawData.src).match(/\!\[[^\]]*\]\(([^\)]+)\)/)
 //
 //   return (firstImgMatch) ? firstImgMatch[1] : null
 // }
-
-// export function removeFrontmatter(rawMd) {
-//   const frontmatterRegex = /^---\n([\s\S]*?)\n---/
-//
-//   return rawMd.replace(frontmatterRegex, '')
-// }
-
-// const date = path.basename(path.dirname(filePath))

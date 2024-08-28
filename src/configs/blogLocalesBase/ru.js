@@ -39,6 +39,7 @@ export default {
       links: "Ссылки",
       authors: "Авторы",
       aboutUs: "О нас",
+      // TODO: may be not need
       weInSocialMedia: "Мы в соц сетях",
       wiki: "Вики",
       ourYoutubeChannel: "Наш Youtube канал",

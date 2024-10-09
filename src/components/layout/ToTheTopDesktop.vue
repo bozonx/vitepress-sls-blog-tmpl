@@ -58,20 +58,20 @@ watchEffect(async () => {
 </template>
 
 <style scoped>
-.to-the-top-desk a {
+.to-the-top-desk div {
   cursor: pointer;
   color: var(--gray-600);
 }
 
-.to-the-top-desk a:hover {
+.to-the-top-desk div:hover {
   color: black;
 }
 
-.dark .to-the-top-desk a {
+.dark .to-the-top-desk div {
   color: var(--gray-300);
 }
 
-.dark .to-the-top-desk a:hover {
+.dark .to-the-top-desk div:hover {
   color: white;
 }
 </style>

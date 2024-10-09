@@ -1,6 +1,6 @@
 {
   "name": "vitepress-sls-blog-tmpl",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "Vitepress custom theme for blog SLS and others",
   "type": "module",
   "author": "(Ivan Kozyrin <ipkozyrin@gmail.com>)",

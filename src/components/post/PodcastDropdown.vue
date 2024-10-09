@@ -20,14 +20,16 @@ const btnText =
       {{ btnText }}
     </template>
 
-    <DropdownItem v-for="(link, name) in frontmatter.podcasts" :href="link" hideExternalIcon="true">
-      <span class="flex">
-        <span class="mr-2">
-          <PodcastIcon :name="name" :alt="name + ' podcast service icon'" />
+    <template v-for="(link, name) in frontmatter.podcasts">
+      <DropdownItem v-if="link" :href="link" hideExternalIcon="true">
+        <span class="flex">
+          <span class="mr-2">
+            <PodcastIcon :name="name" :alt="name + ' podcast service icon'" />
+          </span>
+          {{ theme.t.podcasts[name] }}
         </span>
-        {{ theme.t.podcasts[name] }}
-      </span>
-    </DropdownItem>
+      </DropdownItem>
+    </template>
   </DropdownButton>
 </template>
 

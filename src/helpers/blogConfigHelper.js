@@ -1,30 +1,24 @@
-import { mdToHtml } from "./convertMd.js";
-import { parseLocaleSite } from "./parseSiteFileTranslations.js";
-import { common } from "../configs/blogConfigBase.js";
-import en from "../configs/blogLocalesBase/en.js";
-import ru from "../configs/blogLocalesBase/ru.js";
+import { common } from '../configs/blogConfigBase.js'
+import en from '../configs/blogLocalesBase/en.js'
+import ru from '../configs/blogLocalesBase/ru.js'
+import { mdToHtml } from './convertMd.js'
+import { parseLocaleSite } from './parseSiteFileTranslations.js'
 
-const baseLocales = {
-  en,
-  ru,
-};
+const baseLocales = { en, ru }
 
 export function loadBlogLocale(lang, configFilePath, PROPS) {
-  const baseLocale = baseLocales[lang];
+  const baseLocale = baseLocales[lang]
   const site = parseLocaleSite(lang, configFilePath, {
     ...PROPS,
     theme: common.themeConfig,
     t: baseLocale.t,
-  });
-  const { title, description, t, ...themeConfig } = site;
+  })
+  const { title, description, t, ...themeConfig } = site
 
   const authors = themeConfig.authors.map((item) => {
-    return {
-      ...item,
-      descr: mdToHtml(item.descr),
-    };
-  });
-  const postDonateCall = mdToHtml(themeConfig.postDonateCall);
+    return { ...item, descr: mdToHtml(item.descr) }
+  })
+  const postDonateCall = mdToHtml(themeConfig.postDonateCall)
 
   return {
     label: baseLocale.label,
@@ -35,10 +29,7 @@ export function loadBlogLocale(lang, configFilePath, PROPS) {
       ...themeConfig,
       authors,
       postDonateCall,
-      t: {
-        ...baseLocale.t,
-        ...t,
-      },
+      t: { ...baseLocale.t, ...t },
     },
-  };
+  }
 }

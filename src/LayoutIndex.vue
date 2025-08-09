@@ -1,101 +1,106 @@
 <script setup>
-import { useData, inBrowser } from "vitepress";
-import { onMounted, onUnmounted, ref } from "vue";
-import BlogHomeLayout from "./BlogHomeLayout.vue";
-import SideBar from "./components/layout/SideBar.vue";
-import Footer from "./components/layout/Footer.vue";
-import PageContent from "./components/PageContent.vue";
-import TopBar from "./components/layout/TopBar.vue";
-import ToTheTop from "./components/layout/ToTheTop.vue";
-import NotFound from "./components/layout/NotFound.vue";
-import { MOBILE_BREAKPOINT, SWIPE_OFFSET } from "./constants.js";
-import { isHomePage } from "./helpers/helpers.js";
+import { inBrowser, useData } from 'vitepress'
+import { onMounted, onUnmounted, ref } from 'vue'
 
-const { page, theme, frontmatter } = useData();
-const windowWidth = ref(0);
-const isMobile = ref(true);
-const scrollY = ref(0);
-const touchInitialX = ref(null);
-const touchInitialY = ref(null);
-const sidebarRef = ref(null);
-let resizeListener;
-let scrollListener;
-let touchStartListener;
-let touchMoveListener;
+import BlogHomeLayout from './BlogHomeLayout.vue'
+import PageContent from './components/PageContent.vue'
+import Footer from './components/layout/Footer.vue'
+import NotFound from './components/layout/NotFound.vue'
+import SideBar from './components/layout/SideBar.vue'
+import ToTheTop from './components/layout/ToTheTop.vue'
+import TopBar from './components/layout/TopBar.vue'
+import { MOBILE_BREAKPOINT, SWIPE_OFFSET } from './constants.js'
+import { isHomePage } from './helpers/helpers.js'
+
+const { page, theme, frontmatter } = useData()
+const windowWidth = ref(0)
+const isMobile = ref(true)
+const scrollY = ref(0)
+const touchInitialX = ref(null)
+const touchInitialY = ref(null)
+const sidebarRef = ref(null)
+let resizeListener
+let scrollListener
+let touchStartListener
+let touchMoveListener
 
 function onSidebarToggle() {
-  sidebarRef.value.toggleSidebar();
+  sidebarRef.value.toggleSidebar()
 }
 
 function startTouch(e) {
-  touchInitialX.value = e.touches[0].clientX;
-  touchInitialY.value = e.touches[0].clientY;
+  touchInitialX.value = e.touches[0].clientX
+  touchInitialY.value = e.touches[0].clientY
 }
 
 function moveTouch(e) {
   if (touchInitialX.value === null) {
-    return;
+    return
   }
 
-  const currentX = e.touches[0].clientX;
-  const currentY = e.touches[0].clientY;
-  const dx = currentX - touchInitialX.value;
-  const dy = currentY - touchInitialY.value;
-  const rad = Math.atan2(dy, dx); // Получаем угол в радианах
-  const deg = rad * (180 / Math.PI); // Преобразуем радианы в градусы
-  const deg360 = deg + 180;
+  const currentX = e.touches[0].clientX
+  const currentY = e.touches[0].clientY
+  const dx = currentX - touchInitialX.value
+  const dy = currentY - touchInitialY.value
+  const rad = Math.atan2(dy, dx) // Получаем угол в радианах
+  const deg = rad * (180 / Math.PI) // Преобразуем радианы в градусы
+  const deg360 = deg + 180
 
   if (!(deg360 < SWIPE_OFFSET || deg360 > 360 - SWIPE_OFFSET)) {
-    touchInitialX.value = null;
-    touchInitialY.value = null;
+    touchInitialX.value = null
+    touchInitialY.value = null
 
-    return;
+    return
   }
 
-  const diffX = touchInitialX.value - currentX;
+  const diffX = touchInitialX.value - currentX
 
   if (diffX > 0) {
-    sidebarRef.value.handleLeftSwipe();
+    sidebarRef.value.handleLeftSwipe()
   }
 
-  touchInitialX.value = null;
-  touchInitialY.value = null;
+  touchInitialX.value = null
+  touchInitialY.value = null
 }
 
 onMounted(() => {
-  if (!inBrowser) return;
+  if (!inBrowser) return
 
-  windowWidth.value = window.innerWidth;
-  isMobile.value = windowWidth.value < MOBILE_BREAKPOINT;
+  windowWidth.value = window.innerWidth
+  isMobile.value = windowWidth.value < MOBILE_BREAKPOINT
 
-  resizeListener = window.addEventListener("resize", () => {
-    windowWidth.value = window.innerWidth;
-    isMobile.value = windowWidth.value < MOBILE_BREAKPOINT;
-  });
+  resizeListener = window.addEventListener('resize', () => {
+    windowWidth.value = window.innerWidth
+    isMobile.value = windowWidth.value < MOBILE_BREAKPOINT
+  })
 
-  scrollListener = window.addEventListener("scroll", () => {
-    scrollY.value = window.scrollY;
-  });
+  scrollListener = window.addEventListener('scroll', () => {
+    scrollY.value = window.scrollY
+  })
 
-  touchStartListener = window.addEventListener("touchstart", startTouch, false);
-  touchMoveListener = window.addEventListener("touchmove", moveTouch, false);
-});
+  touchStartListener = window.addEventListener('touchstart', startTouch, false)
+  touchMoveListener = window.addEventListener('touchmove', moveTouch, false)
+})
 onUnmounted(() => {
-  if (!inBrowser) return;
+  if (!inBrowser) return
 
-  window.removeEventListener("resize", resizeListener);
-  window.removeEventListener("scroll", scrollListener);
-  window.removeEventListener("touchstart", touchStartListener);
-  window.removeEventListener("touchmove", touchMoveListener);
-});
+  window.removeEventListener('resize', resizeListener)
+  window.removeEventListener('scroll', scrollListener)
+  window.removeEventListener('touchstart', touchStartListener)
+  window.removeEventListener('touchmove', touchMoveListener)
+})
 </script>
 
 <template>
   <div v-if="page.isNotFound">
     <NotFound />
   </div>
+
   <Content v-else-if="frontmatter.layout === false" />
+
   <BlogHomeLayout v-else-if="isHomePage(frontmatter)" :scrollY="scrollY" />
+
+  <!-- This is default layout -->
   <div v-else class="min-h-screen lg:flex w-full">
     <!--  left col-->
     <SideBar ref="sidebarRef" :isMobile="isMobile">

@@ -100,7 +100,7 @@ export function resolveArticlePreview(frontmatter) {
 export function resolveNavigatorLang(supportedLocales = [], navLang = "") {
   const navLangLow = String(navLang).trim().toLowerCase();
   const locales = supportedLocales.map((item) =>
-    String(item).trim().toLowerCase(),
+    String(item).trim().toLowerCase()
   );
 
   if (navLangLow === "en-us") {
@@ -137,3 +137,9 @@ export function arraysIntersection(arr1 = [], arr2 = []) {
 //
 //   return pathSplit[pathSplit.length - 2]
 // }
+
+export function handleFastRedirectToRecentPosts(window) {
+  const locale = window.location.search.slice(1);
+
+  if (locale) window.location.replace(`/${locale}/recent/1`);
+}

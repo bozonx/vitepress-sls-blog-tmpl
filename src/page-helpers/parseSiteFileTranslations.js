@@ -1,47 +1,44 @@
-import fs from "node:fs";
-import path from "node:path";
-import yaml from "js-yaml";
-import lodashTemplate from "lodash.template";
-import { DEFAULT_ENCODE } from "../constants.js";
+import yaml from 'js-yaml'
+import fs from 'node:fs'
+import path from 'node:path'
 
-export const SITE_DIR_REL_PATH = "../site";
+import { DEFAULT_ENCODE } from '../constants.js'
+
+export const SITE_DIR_REL_PATH = '../site'
 
 export function parseLocaleSite(lang, configFilePath, rawProps) {
-  const PROPS = {
-    ...rawProps,
-    lang,
-  };
+  const PROPS = { ...rawProps, lang }
 
-  const translations = loadConfigYamlFile(configFilePath, `site.${lang}.yaml`);
+  const translations = loadConfigYamlFile(configFilePath, `site.${lang}.yaml`)
 
   function transRecursive(items) {
     if (Array.isArray(items)) {
       for (const index in items) {
-        items[index] = transRecursive(items[index]);
+        items[index] = transRecursive(items[index])
       }
 
-      return items;
-    } else if (typeof items === "object") {
+      return items
+    } else if (typeof items === 'object') {
       for (const index of Object.keys(items)) {
-        items[index] = transRecursive(items[index]);
+        items[index] = transRecursive(items[index])
       }
 
-      return items;
-    } else if (typeof items === "string") {
-      return lodashTemplate(items)({ PROPS });
+      return items
+    } else if (typeof items === 'string') {
+      return simpleTemplate(items, { PROPS })
     }
 
-    return items;
+    return items
   }
 
-  return transRecursive(translations);
+  return transRecursive(translations)
 }
 
 export function loadConfigYamlFile(configFilePath, fileName) {
-  const relPath = path.join(SITE_DIR_REL_PATH, fileName);
-  const absPath = path.resolve(path.dirname(configFilePath), relPath);
-  const content = fs.readFileSync(absPath, DEFAULT_ENCODE);
-  const obj = yaml.load(content);
+  const relPath = path.join(SITE_DIR_REL_PATH, fileName)
+  const absPath = path.resolve(path.dirname(configFilePath), relPath)
+  const content = fs.readFileSync(absPath, DEFAULT_ENCODE)
+  const obj = yaml.load(content)
 
-  return yaml.load(obj.body);
+  return yaml.load(obj.body)
 }

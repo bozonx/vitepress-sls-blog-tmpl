@@ -158,15 +158,6 @@ export function loadDatesList(postsDirAbs) {
 
       return frontmatter.date
     })
-
-  // return dates.filter((item) => {
-  //   if (!item.match(/^\d{4}\-\d{2}\-\d{2}$/)) return
-  //
-  //   const itemPath = path.join(postsDirAbs, item)
-  //   const stat = fs.statSync(itemPath)
-  //
-  //   return stat.isDirectory()
-  // })
 }
 
 export function loadYears(postsDirAbs) {

@@ -1,6 +1,6 @@
-import yaml from 'js-yaml'
 import fs from 'node:fs'
 import path from 'node:path'
+import yaml from 'yaml'
 
 import { DEFAULT_ENCODE } from '../constants.js'
 import { stringTemplate } from '../helpers/stringTemplate.js'
@@ -39,7 +39,7 @@ export function loadConfigYamlFile(configFilePath, fileName) {
   const relPath = path.join(SITE_DIR_REL_PATH, fileName)
   const absPath = path.resolve(path.dirname(configFilePath), relPath)
   const content = fs.readFileSync(absPath, DEFAULT_ENCODE)
-  const obj = yaml.load(content)
+  const obj = yaml.parse(content)
 
-  return yaml.load(obj.body)
+  return yaml.parse(obj.body)
 }

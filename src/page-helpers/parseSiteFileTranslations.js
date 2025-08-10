@@ -2,8 +2,8 @@ import yaml from 'js-yaml'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { simpleTemplate } from '../helpers/helpers.js'
 import { DEFAULT_ENCODE } from '../constants.js'
+import { stringTemplate } from '../helpers/stringTemplate.js'
 
 export const SITE_DIR_REL_PATH = '../site'
 
@@ -26,7 +26,7 @@ export function parseLocaleSite(lang, configFilePath, rawProps) {
 
       return items
     } else if (typeof items === 'string') {
-      return simpleTemplate(items, { PROPS })
+      return stringTemplate(items, { PROPS })
     }
 
     return items

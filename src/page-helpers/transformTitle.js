@@ -1,4 +1,4 @@
-import { simpleTemplate } from '../helpers/helpers.js'
+import { stringTemplate } from '../helpers/stringTemplate.js'
 
 /**
  * Fix titles of utility pages which are template strings like {{
@@ -15,5 +15,5 @@ export function transformTitle(pageData, { siteConfig }) {
     params: pageData.params,
   }
 
-  pageData.title = simpleTemplate(pageData.title, options)
+  pageData.title = stringTemplate(pageData.title, options, true)
 }

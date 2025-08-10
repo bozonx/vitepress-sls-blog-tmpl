@@ -2,6 +2,7 @@ import yaml from 'js-yaml'
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { simpleTemplate } from '../helpers/helpers.js'
 import { DEFAULT_ENCODE } from '../constants.js'
 
 export const SITE_DIR_REL_PATH = '../site'

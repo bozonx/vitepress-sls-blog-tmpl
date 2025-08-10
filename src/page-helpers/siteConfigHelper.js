@@ -1,9 +1,7 @@
-import lodashTemplate from 'lodash.template'
-
 import { common } from '../configs/siteConfigBase.js'
 import en from '../configs/siteLocalesBase/en.js'
 import ru from '../configs/siteLocalesBase/ru.js'
-import { isExternalUrl } from '../helpers/helpers.js'
+import { isExternalUrl, simpleTemplate } from '../helpers/helpers.js'
 import {
   loadConfigYamlFile,
   parseLocaleSite,
@@ -47,10 +45,10 @@ export function parseLocaleSidebar(configFilePath, lang, rawProps) {
 
   function menuRecursive(items, linkPrePath) {
     for (const item of items) {
-      item.text = lodashTemplate(item.text)({ PROPS })
+      item.text = simpleTemplate(item.text, PROPS)
 
       if (typeof item.link === 'string') {
-        item.link = lodashTemplate(item.link)({ PROPS })
+        item.link = simpleTemplate(item.link, PROPS)
 
         if (item.link.indexOf('/') !== 0 && !isExternalUrl(item.link)) {
           item.link = linkPrePath + item.link

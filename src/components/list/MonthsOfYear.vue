@@ -1,7 +1,7 @@
 <script setup>
 import { useData } from "vitepress";
 import ListItemWithBadge from "./ListItemWithBadge.vue";
-import { makeMonthsList } from "../../helpers/listHelpers.js";
+import { makeMonthsList } from "../../page-helpers/listHelpers.js";
 
 const props = defineProps(["allPosts", "year", "class"]);
 const { theme } = useData();

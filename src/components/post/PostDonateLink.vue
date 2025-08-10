@@ -1,10 +1,13 @@
 <script setup>
-import { useData } from "vitepress";
-import SimpleLink from "../SimpleLink.vue";
+import { useData } from 'vitepress'
 
-const { theme } = useData();
+const { theme } = useData()
 </script>
 
 <template>
-  <div v-if="theme.postDonateCall" v-html="theme.postDonateCall" class="vp-doc"></div>
+  <div
+    v-if="theme.postDonateCall"
+    v-html="theme.postDonateCall"
+    class="vp-doc"
+  ></div>
 </template>

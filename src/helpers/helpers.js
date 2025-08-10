@@ -146,9 +146,30 @@ export function simpleTemplate(tmpl, data) {
 
   let res = tmpl
 
-  for (const key of Object.keys(data)) {
-    res = res.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), String(data[key]))
+  // Находим все шаблоны вида ${...} в строке
+  const templateRegex = /\$\{([^}]+)\}/g
+  let match
+
+  while ((match = templateRegex.exec(tmpl)) !== null) {
+    const fullMatch = match[0] // полное совпадение, например "${PROPS.t.links.recent}"
+    const key = match[1] // содержимое внутри скобок, например "PROPS.t.links.recent"
+
+    // Экранируем специальные символы для безопасного использования в регулярном выражении
+    const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const replaceRegex = new RegExp(`\\$\\{${escapedKey}\\}`, 'g')
+
+    // Получаем значение по пути с точками
+    const value = objectGet(data, key)
+
+    // Заменяем все вхождения
+    res = res.replace(replaceRegex, String(value || ''))
+
+    console.log(`Template: ${tmpl}, Key: ${key}, Value:`, value)
   }
 
   return res
+}
+
+export function objectGet(obj, key) {
+  return key.split('.').reduce((acc, k) => acc && acc[k], obj)
 }

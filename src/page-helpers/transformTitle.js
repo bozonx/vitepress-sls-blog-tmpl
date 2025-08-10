@@ -1,4 +1,4 @@
-import lodashTemplate from 'lodash.template'
+import { simpleTemplate } from '../helpers/helpers.js'
 
 /**
  * Fix titles of utility pages which are template strings like {{
@@ -15,7 +15,5 @@ export function transformTitle(pageData, { siteConfig }) {
     params: pageData.params,
   }
 
-  pageData.title = lodashTemplate(pageData.title, {
-    interpolate: /{{([\s\S]+?)}}/g,
-  })(options)
+  pageData.title = simpleTemplate(pageData.title, options)
 }

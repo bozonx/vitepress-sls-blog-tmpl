@@ -1,62 +1,49 @@
-import { addOgMetaTags } from "../helpers/addOgMetaTags.js";
-import { removeRootItemFromSiteMap } from "../helpers/helpers.js";
+import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
+import { addOgMetaTags } from '../page-helpers/addOgMetaTags.js'
 
 export const common = {
   head: [
     // tell IE to use the most modern engine
-    ["meta", { "http-equiv": "X-UA-Compatible", content: "IE=edge" }],
+    ['meta', { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
 
-    ["link", { rel: "icon", sizes: "16x16", href: "/img/favicon-16x16.png" }],
-    ["link", { rel: "icon", sizes: "32x32", href: "/img/favicon-32x32.png" }],
+    ['link', { rel: 'icon', sizes: '16x16', href: '/img/favicon-16x16.png' }],
+    ['link', { rel: 'icon', sizes: '32x32', href: '/img/favicon-32x32.png' }],
     [
-      "link",
+      'link',
       {
-        rel: "apple-touch-icon",
-        sizes: "180x180",
-        href: "/img/apple-touch-icon.png",
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/img/apple-touch-icon.png',
       },
     ],
-    ["link", { rel: "manifest", href: "/site.webmanifest" }],
+    ['link', { rel: 'manifest', href: '/site.webmanifest' }],
   ],
-  outDir: "../docs",
-  cacheDir: "../.cache",
-  srcExclude: ["/site"],
+  outDir: '../docs',
+  cacheDir: '../.cache',
+  srcExclude: ['/site'],
   metaChunk: true,
   lastUpdated: true,
   cleanUrls: true,
-  lang: "en-US",
-  locales: {
-    root: { lang: "en-US" },
-  },
+  lang: 'en-US',
+  locales: { root: { lang: 'en-US' } },
 
   themeConfig: {
     externalLinkIcon: true,
     // i18nRouting: true,
 
-    search: {
-      provider: "local",
-    },
+    search: { provider: 'local' },
 
-    lastUpdated: {
-      formatOptions: {
-        dateStyle: "medium",
-        forceLocale: true,
-      },
-    },
+    lastUpdated: { formatOptions: { dateStyle: 'medium', forceLocale: true } },
 
-    donateUrl: "page/donate",
-    linksUrl: "page/links",
-    docUrl: "doc",
-    mainHeroImg: "/img/home-logo.webp",
+    donateUrl: 'page/donate',
+    linksUrl: 'page/links',
+    docUrl: 'doc',
+    mainHeroImg: '/img/home-logo.webp',
   },
-  markdown: {
-    image: {
-      lazyLoading: true,
-    },
-  },
-};
+  markdown: { image: { lazyLoading: true } },
+}
 
-export default function({ hostname, repo }, en) {
+export default function ({ hostname, repo }, en) {
   return {
     ...common,
     title: en.title,
@@ -66,16 +53,16 @@ export default function({ hostname, repo }, en) {
       hostname,
       // fix sitemap - remove root from it
       transformItems: (items) => {
-        return removeRootItemFromSiteMap(items);
+        return removeRootItemFromSiteMap(items)
       },
     },
 
     themeConfig: {
       ...common.themeConfig,
-      socialLinks: repo && [{ icon: "github", link: repo }],
+      socialLinks: repo && [{ icon: 'github', link: repo }],
     },
     transformPageData(pageData, ctx) {
-      addOgMetaTags(pageData, ctx);
+      addOgMetaTags(pageData, ctx)
     },
-  };
+  }
 }

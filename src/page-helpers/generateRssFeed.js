@@ -1,20 +1,21 @@
-import path from "path";
-import fs from "fs";
-import { Feed } from "feed";
-import { createContentLoader } from "vitepress";
-import { POSTS_DIR, DEFAULT_ENCODE } from "../constants.js";
-import { parseMdFile } from "./parseMdFile.js";
-import { resolvePreview, extractPreviewFromMd } from "./makePreviewItem.js";
+import { Feed } from 'feed'
+import fs from 'fs'
+import path from 'path'
+import { createContentLoader } from 'vitepress'
+
+import { DEFAULT_ENCODE, POSTS_DIR } from '../constants.js'
+import { parseMdFile } from '../helpers/parseMdFile.js'
+import { extractPreviewFromMd, resolvePreview } from './makePreviewItem.js'
 
 export async function generateRssFeed(config) {
-  const feeds = {};
+  const feeds = {}
 
   for (const localeIndex of Object.keys(config.site.locales)) {
-    if (localeIndex === "root") continue;
+    if (localeIndex === 'root') continue
 
-    const locale = config.site.locales[localeIndex];
-    const hostname = config.userConfig.hostname;
-    const siteUrl = `${hostname}/${localeIndex}`;
+    const locale = config.site.locales[localeIndex]
+    const hostname = config.userConfig.hostname
+    const siteUrl = `${hostname}/${localeIndex}`
 
     feeds[localeIndex] = new Feed({
       language: localeIndex,
@@ -25,25 +26,25 @@ export async function generateRssFeed(config) {
       link: siteUrl,
       favicon: `${hostname}/img/favicon-32x32.png`,
       image: `${hostname}${config.userConfig.themeConfig.sidebarLogoSrc}`,
-    });
+    })
 
     const posts = await createContentLoader(
       `${localeIndex}/${POSTS_DIR}/*.md`,
-      { includeSrc: true },
-    ).load();
+      { includeSrc: true }
+    ).load()
 
     posts.sort(
-      (a, b) => +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date),
-    );
+      (a, b) => +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date)
+    )
 
     for (const { url, frontmatter, src } of posts) {
-      let descr = resolvePreview(frontmatter);
+      let descr = resolvePreview(frontmatter)
 
       if (!descr) {
-        const { content } = parseMdFile(src);
-        const previewFromMd = extractPreviewFromMd(content);
+        const { content } = parseMdFile(src)
+        const previewFromMd = extractPreviewFromMd(content)
 
-        descr = previewFromMd;
+        descr = previewFromMd
       }
 
       feeds[localeIndex].addItem({
@@ -53,7 +54,7 @@ export async function generateRssFeed(config) {
         link: `${hostname}${url}`,
         date: frontmatter.date && new Date(frontmatter.date),
         image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
-      });
+      })
     }
   }
 
@@ -61,7 +62,7 @@ export async function generateRssFeed(config) {
     fs.writeFileSync(
       path.join(config.outDir, `feed-${localeIndex}.rss`),
       feeds[localeIndex].rss2(),
-      DEFAULT_ENCODE,
-    );
+      DEFAULT_ENCODE
+    )
   }
 }

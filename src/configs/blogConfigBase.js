@@ -1,41 +1,40 @@
-import { figure } from "@mdit/plugin-figure";
+import { generateRssFeed } from '../helpers/generateRssFeed.js'
+import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
+import { transformPageMeta } from '../helpers/transformPageMeta.js'
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
-import { transformTitle } from "../helpers/transformTitle.js";
-import { transformPageMeta } from "../helpers/transformPageMeta.js";
-import { addOgMetaTags } from "../helpers/addOgMetaTags.js";
-import { generateRssFeed } from "../helpers/generateRssFeed.js";
-import { removeRootItemFromSiteMap } from "../helpers/helpers.js";
+import { transformTitle } from '../helpers/transformTitle.js'
+import { addOgMetaTags } from '../page-helpers/addOgMetaTags.js'
+import { figure } from '@mdit/plugin-figure'
+
 // import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 
 export const common = {
   head: [
     // tell IE to use the most modern engine
-    ["meta", { "http-equiv": "X-UA-Compatible", content: "IE=edge" }],
+    ['meta', { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
 
-    ["link", { rel: "icon", sizes: "16x16", href: "/img/favicon-16x16.png" }],
-    ["link", { rel: "icon", sizes: "32x32", href: "/img/favicon-32x32.png" }],
+    ['link', { rel: 'icon', sizes: '16x16', href: '/img/favicon-16x16.png' }],
+    ['link', { rel: 'icon', sizes: '32x32', href: '/img/favicon-32x32.png' }],
     [
-      "link",
+      'link',
       {
-        rel: "apple-touch-icon",
-        sizes: "180x180",
-        href: "/img/apple-touch-icon.png",
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/img/apple-touch-icon.png',
       },
     ],
-    ["link", { rel: "manifest", href: "/site.webmanifest" }],
+    ['link', { rel: 'manifest', href: '/site.webmanifest' }],
     // yandex social shares
     // ["script", { src: "https://yastatic.net/share2/share.js" }],
   ],
-  outDir: "../docs",
-  cacheDir: "../.cache",
-  srcExclude: ["/site"],
+  outDir: '../docs',
+  cacheDir: '../.cache',
+  srcExclude: ['/site'],
   metaChunk: true,
   lastUpdated: true,
   cleanUrls: true,
-  lang: "en-US",
-  locales: {
-    root: { lang: "en-US" },
-  },
+  lang: 'en-US',
+  locales: { root: { lang: 'en-US' } },
 
   themeConfig: {
     externalLinkIcon: true,
@@ -44,32 +43,32 @@ export const common = {
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
     showAuthorInPostList: true,
-    tagsBaseUrl: "tag",
-    allTagsUrl: "tags",
-    archiveBaseUrl: "archive",
-    recentBaseUrl: "recent",
-    allAuthorBaseUrl: "authors",
-    authorBaseUrl: "author",
-    donateUrl: "page/donate",
-    aboutUrl: "page/about",
-    linksUrl: "page/links",
-    docUrl: "doc",
-    mainHeroImg: "/img/home-logo.webp",
-    donateIcon: "fa6-solid:heart",
-    docIcon: "iconoir:book-solid",
-    socialLinksIcon: "heroicons:megaphone-16-solid",
-    recentIcon: "fa6-solid:newspaper",
-    tagsIcon: "fa6-solid:tag",
-    byDateIcon: "fa6-solid:calendar-days",
-    authorsIcon: "mdi:users",
-    youtubeIcon: "fa6-brands:youtube",
-    telegramIcon: "fa6-brands:telegram",
-    chatIcon: "fa6-solid:message",
-    rssIcon: "bi:rss-fill",
+    tagsBaseUrl: 'tag',
+    allTagsUrl: 'tags',
+    archiveBaseUrl: 'archive',
+    recentBaseUrl: 'recent',
+    allAuthorBaseUrl: 'authors',
+    authorBaseUrl: 'author',
+    donateUrl: 'page/donate',
+    aboutUrl: 'page/about',
+    linksUrl: 'page/links',
+    docUrl: 'doc',
+    mainHeroImg: '/img/home-logo.webp',
+    donateIcon: 'fa6-solid:heart',
+    docIcon: 'iconoir:book-solid',
+    socialLinksIcon: 'heroicons:megaphone-16-solid',
+    recentIcon: 'fa6-solid:newspaper',
+    tagsIcon: 'fa6-solid:tag',
+    byDateIcon: 'fa6-solid:calendar-days',
+    authorsIcon: 'mdi:users',
+    youtubeIcon: 'fa6-brands:youtube',
+    telegramIcon: 'fa6-brands:telegram',
+    chatIcon: 'fa6-solid:message',
+    rssIcon: 'bi:rss-fill',
   },
-};
+}
 
-export default function({ hostname, repo }, en) {
+export default function ({ hostname, repo }, en) {
   return {
     ...common,
     title: en.title,
@@ -81,38 +80,32 @@ export default function({ hostname, repo }, en) {
       hostname,
       // fix sitemap - remove root from it
       transformItems: (items) => {
-        return removeRootItemFromSiteMap(items);
+        return removeRootItemFromSiteMap(items)
       },
     },
 
     themeConfig: {
       ...common.themeConfig,
       socialLinks: repo && [
-        { icon: "fa6-brands:github-alt", href: repo, title: "Github" },
+        { icon: 'fa6-brands:github-alt', href: repo, title: 'Github' },
       ],
     },
     transformPageData(pageData, ctx) {
-      transformTitle(pageData, ctx);
-      transformPageMeta(pageData, ctx);
-      addOgMetaTags(pageData, ctx);
+      transformTitle(pageData, ctx)
+      transformPageMeta(pageData, ctx)
+      addOgMetaTags(pageData, ctx)
     },
     buildEnd: async (config) => {
-      await generateRssFeed(config);
+      await generateRssFeed(config)
     },
     markdown: {
-      image: {
-        lazyLoading: true,
-      },
+      image: { lazyLoading: true },
       config: (md) => {
         // md.use(removeH1Plugin);
-        md.use(figure);
+        md.use(figure)
         // md.use(makeYoutubeVideo);
       },
     },
-    vite: {
-      ssr: {
-        noExternal: ["vitepress-sls-blog-tmpl"],
-      },
-    },
-  };
+    vite: { ssr: { noExternal: ['vitepress-sls-blog-tmpl'] } },
+  }
 }

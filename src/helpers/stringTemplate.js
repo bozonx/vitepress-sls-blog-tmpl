@@ -1,3 +1,5 @@
+import { objectGet } from './helpers.js'
+
 /**
  * Обрабатывает mustache шаблоны с синтаксисом {{value.child}}
  *
@@ -22,8 +24,6 @@ function mustacheTemplate(tmpl, data) {
 
     // Заменяем все вхождения
     res = res.replace(replaceRegex, String(value || ''))
-
-    console.log(`Mustache Template: ${tmpl}, Key: ${key}, Value:`, value)
   }
 
   return res
@@ -53,8 +53,6 @@ function standardTemplate(tmpl, data) {
 
     // Заменяем все вхождения
     res = res.replace(replaceRegex, String(value || ''))
-
-    console.log(`Template: ${tmpl}, Key: ${key}, Value:`, value)
   }
 
   return res

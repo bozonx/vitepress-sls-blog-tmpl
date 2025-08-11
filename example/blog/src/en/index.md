@@ -1,7 +1,6 @@
 ---
 layout: home
 ---
-
 <script setup>
 import HomePageTags from 'vitepress-sls-blog-tmpl/HomePageTags.vue'
 import HomeHero from 'vitepress-sls-blog-tmpl/HomeHero.vue'
@@ -13,8 +12,8 @@ import { PROPS } from "../.vitepress/props.js";
 const { theme, localeIndex } = useData()
 
 const hero = {
-  firstLine: "Some text",
-  secondLine: "Some second text",
+  firstLine: "Antifeminist movement blog",
+  secondLine: "Articles, new&nbsp;of&nbsp;the&nbsp;movement",
   img: theme.value.mainHeroImg,
   buttons: [
     {
@@ -22,14 +21,19 @@ const hero = {
       href: `${theme.value.recentBaseUrl}/1`,
       primary: true,
     },
-    {
+/*    {
       text: theme.value.t.links.wiki,
       href: `${PROPS.siteUrl}/${localeIndex.value}/${theme.value.docUrl}`,
       icon: theme.value.docIcon,
+    },*/
+    {
+      text: `${theme.value.t.links.ourTelegramChannel} (RU)`,
+      href: "https://t.me/antifem_battle",
+      icon: theme.value.telegramIcon,
     },
     {
       text: theme.value.t.links.donate,
-      href: `${PROPS.siteUrl}/${localeIndex.value}/${theme.value.donateUrl}`,
+      href: `${theme.value.donateUrl}`,
       icon: theme.value.donateIcon,
     },
   ],
@@ -39,10 +43,10 @@ const hero = {
 <HomeHero v-bind="hero" />
 <HomePageTags :header="theme.t.tags" :allData="data.posts" />
 
-<UtilPageContent>
-
-## Some header
-
-other text
-
-</UtilPageContent>
+<!-- <UtilPageContent> -->
+<!---->
+<!-- ## header -->
+<!---->
+<!-- other text -->
+<!---->
+<!-- </UtilPageContent> -->

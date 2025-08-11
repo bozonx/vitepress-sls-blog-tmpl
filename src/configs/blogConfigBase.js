@@ -31,8 +31,11 @@ export const common = {
   cacheDir: '../.cache',
   srcExclude: ['/site'],
   metaChunk: true,
+  ignoreDeadLinks: true,
   lastUpdated: true,
   cleanUrls: true,
+  // TODO:  check
+  appearance: true,
   lang: 'en-US',
   locales: { root: { lang: 'en-US' } },
 
@@ -42,6 +45,7 @@ export const common = {
 
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
+    paginationMaxItems: 7,
     showAuthorInPostList: true,
     tagsBaseUrl: 'tag',
     allTagsUrl: 'tags',

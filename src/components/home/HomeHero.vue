@@ -17,7 +17,7 @@ const props = defineProps(["firstLine", "secondLine", "buttons", "img"]);
     </div>
     <ul v-if="props.buttons" class="sm:flex sm:gap-x-3 max-sm:space-y-6 mt-10 home-hero-buttons">
       <li v-for="item in props.buttons">
-        <Btn v-bind="item" onlyDark="true" class="!rounded-full !px-7 w-fit" />
+        <Btn v-bind="item" onlyDark="true" class="rounded-full! px-7! w-fit" />
       </li>
     </ul>
   </div>

@@ -25,7 +25,7 @@ const THUMB_VIRTUAL_HEIGHT = 157;
 
 <template>
   <div class="md:flex w-full">
-    <div v-if="props.thumbnail" class="md:mr-4 preview-img-col max-md:!w-full">
+    <div v-if="props.thumbnail" class="md:mr-4 preview-img-col max-md:w-full!">
       <img :src="props.thumbnail" :height="THUMB_VIRTUAL_HEIGHT" loading="lazy" aria-hidden="true" class="w-full" />
 
       <div class="mt-2 space-x-2 muted preview-author-date">

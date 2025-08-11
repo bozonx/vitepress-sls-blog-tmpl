@@ -1,5 +1,7 @@
+@import 'tailwindcss';
+
 :root {
-  --font-body: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-body: Arial, 'Helvetica Neue', Helvetica, sans-serif;
   --primary-hue: 213;
   --layout-hue: 213;
   --link-hue: 232;

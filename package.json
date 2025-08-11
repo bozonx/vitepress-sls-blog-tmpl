@@ -38,11 +38,10 @@
   "dependencies": {
     "@iconify/vue": "^5.0.0",
     "@mdit/plugin-figure": "^0.22.1",
+    "@tailwindcss/vite": "^4.1.11",
     "@vueuse/components": "^13.6.0",
-    "autoprefixer": "^10.4.21",
     "feed": "^5.1.0",
     "gray-matter": "^4.0.3",
-    "postcss": "^8.5.6",
     "rehype-external-links": "^3.0.0",
     "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",

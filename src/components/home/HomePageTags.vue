@@ -1,17 +1,17 @@
 <script setup>
-import TagsList from "../TagsList.vue";
-import { makeTagsList } from "../../helpers/listHelpers.js";
-import UtilPageHeader from "../UtilPageHeader.vue";
+import { makeTagsList } from '../../page-helpers/listHelpers.js'
+import TagsList from '../TagsList.vue'
+import UtilPageHeader from '../UtilPageHeader.vue'
 
-const props = defineProps(["allData", "header"]);
-const tagList = makeTagsList(props.allData || []);
-const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name));
+const props = defineProps(['allData', 'header'])
+const tagList = makeTagsList(props.allData || [])
+const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name))
 </script>
 
 <template>
   <UtilPageHeader class="home-hero-tags-header">{{
     props.header
-    }}</UtilPageHeader>
+  }}</UtilPageHeader>
   <TagsList :tags="sorted" class="mb-6 home-hero-tags" />
 </template>
 

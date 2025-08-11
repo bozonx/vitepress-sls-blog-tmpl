@@ -5,7 +5,6 @@ import { transformPageMeta } from '../page-helpers/transformPageMeta.js'
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from '../page-helpers/transformTitle.js'
 import { figure } from '@mdit/plugin-figure'
-import tailwindcss from '@tailwindcss/vite'
 
 // import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 
@@ -36,8 +35,6 @@ export const common = {
   cleanUrls: true,
   lang: 'en-US',
   locales: { root: { lang: 'en-US' } },
-
-  //vite: { plugins: [tailwindcss()] },
 
   themeConfig: {
     externalLinkIcon: true,

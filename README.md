@@ -2,11 +2,22 @@
 
 Vitepress blog template for freedom sites by Ivan K.
 
-## Install
+## Use in your project
 
 See `example` dir
 
-Run `yarn build` to build css
+## Use in dev mode
+
+Clone repo and run inside it.
+
+```
+pnpm link
+pnpm build:tw
+```
+
+The `build:tw` command only builds tailwind classes that are used in
+this blog template. All other styles as included in layout and
+are built via vitepress of your project
 
 ## Config
 

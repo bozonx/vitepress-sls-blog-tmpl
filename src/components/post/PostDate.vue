@@ -4,8 +4,8 @@ import { useData } from 'vitepress'
 import { makeHumanDate } from '../../helpers/helpers.js'
 import BaseLink from '../BaseLink.vue'
 
-const props = defineProps(['class'])
-const { page, theme, lang } = useData()
+// const props = defineProps([''])
+const { page, theme, localeIndex } = useData()
 const rawDate = page.value.frontmatter.date
 
 // Список поддерживаемых языков (европейские + ближневосточные)
@@ -50,7 +50,9 @@ const year = new Date(rawDate)?.getUTCFullYear()
 const month = new Date(rawDate)?.getUTCMonth() + 1
 
 // Используем поддерживаемый язык или fallback на английский
-const effectiveLang = isLanguageSupported(lang.value) ? lang.value : 'en'
+const effectiveLang = isLanguageSupported(localeIndex.value)
+  ? localeIndex.value
+  : 'en'
 const localeDate = makeHumanDate(rawDate, effectiveLang)
 
 // Функция для определения, является ли элемент годом
@@ -106,16 +108,16 @@ const isMonth = (item) => {
 }
 
 // Показываем предупреждение в dev режиме для неподдерживаемых языков
-if (import.meta.env.DEV && !isLanguageSupported(lang.value)) {
+if (import.meta.env.DEV && !isLanguageSupported(localeIndex.value)) {
   console.warn(
-    `[PostDate] Language "${lang.value}" is not fully supported. Using English fallback. ` +
+    `[PostDate] Language "${localeIndex.value}" is not fully supported. Using English fallback. ` +
       `Supported languages: ${supportedLanguages.join(', ')}`
   )
 }
 </script>
 
 <template>
-  <div v-if="rawDate" :class="['text-base muted post-date', props.class]">
+  <div v-if="rawDate" class="text-base muted post-date">
     <time :datetime="rawDate" class="space-x-1">
       <template v-for="item in localeDate.split(' ')">
         <!-- Ссылка на год -->

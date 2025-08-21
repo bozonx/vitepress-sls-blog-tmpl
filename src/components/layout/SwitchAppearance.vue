@@ -1,34 +1,37 @@
 <script setup>
 // see https://github.com/vuejs/vitepress/blob/9b1bb4ffc6423ef0f16a213133980fdb6e9bf552/src/client/theme-default/components/VPSwitch.vue
 // and https://github.com/vuejs/vitepress/blob/9b1bb4ffc6423ef0f16a213133980fdb6e9bf552/src/client/theme-default/components/VPSwitchAppearance.vue
-import { Icon } from "@iconify/vue";
-import { inject, ref, watchPostEffect } from "vue";
-import { useData } from "vitepress";
+import { useData } from 'vitepress'
+import { inject, ref, watchPostEffect } from 'vue'
 
-const { isDark, theme } = useData();
-const toggleAppearance = inject("toggle-appearance", () => {
-  isDark.value = !isDark.value;
-});
+const { isDark, theme } = useData()
+const toggleAppearance = inject('toggle-appearance', () => {
+  isDark.value = !isDark.value
+})
 
-const switchTitle = ref("");
+const switchTitle = ref('')
 
 watchPostEffect(() => {
   switchTitle.value = isDark.value
-    ? theme.value.lightModeSwitchTitle || "Switch to light theme"
-    : theme.value.darkModeSwitchTitle || "Switch to dark theme";
-});
+    ? theme.value.lightModeSwitchTitle || 'Switch to light theme'
+    : theme.value.darkModeSwitchTitle || 'Switch to dark theme'
+})
 </script>
 
 <template>
   <div class="appearance-wrapper">
-    <button class="VPSwitch VPSwitchAppearance" type="button" role="switch" :title="switchTitle" :aria-checked="isDark"
-      @click="toggleAppearance">
+    <button
+      class="VPSwitch VPSwitchAppearance"
+      type="button"
+      role="switch"
+      :title="switchTitle"
+      :aria-checked="isDark"
+      @click="toggleAppearance"
+    >
       <span class="check">
         <span class="icon">
           <span class="vpi-sun sun" />
           <span class="vpi-moon moon" />
-          <!-- <Icon class="icon-var sun" icon="fa-slid:sun" /> -->
-          <!-- <Icon class="icon-var moon" icon="ri:moon-fill" /> -->
         </span>
       </span>
     </button>
@@ -43,7 +46,7 @@ watchPostEffect(() => {
   padding: 0 0.7rem;
 }
 
-[class^="vpi-"] {
+[class^='vpi-'] {
   -webkit-mask: var(--icon) no-repeat;
   mask: var(--icon) no-repeat;
   -webkit-mask-size: 100% 100%;
@@ -135,7 +138,7 @@ watchPostEffect(() => {
 }
 
 /* .icon .icon-var { */
-.icon :deep([class^="vpi-"]) {
+.icon :deep([class^='vpi-']) {
   position: absolute;
   top: 3px;
   left: 3px;
@@ -145,7 +148,7 @@ watchPostEffect(() => {
 }
 
 /* .dark .icon .icon-var { */
-.dark .icon :deep([class^="vpi-"]) {
+.dark .icon :deep([class^='vpi-']) {
   color: var(--switch-appearance-dark-icon-color);
   transition: opacity 0.25s !important;
 }

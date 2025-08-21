@@ -1,68 +1,69 @@
 <script setup>
-import { ref, watchEffect } from "vue";
-import { useSlots } from "vue";
-import { useData } from "vitepress";
-import { Icon } from "@iconify/vue";
-import SideBarGroup from "./SideBarGroup.vue";
-import SideBarItems from "./SideBarItems.vue";
-import SideBarFooter from "./SideBarFooter.vue";
-import { SIDEBAR_WIDTH } from "../../constants.js";
+import { useData } from 'vitepress'
+import { ref, watchEffect } from 'vue'
+import { useSlots } from 'vue'
 
-const { theme, localeIndex } = useData();
-const slots = useSlots();
-const props = defineProps(["isMobile"]);
-const animationTimeMs = 400;
-const drawerOpen = ref(!props.isMobile);
-const animationLeftPx = ref(-SIDEBAR_WIDTH);
-const backdropOpacity = ref(0);
-let animationTimeout = null;
+import { SIDEBAR_WIDTH } from '../../constants.js'
+import SideBarFooter from './SideBarFooter.vue'
+import SideBarGroup from './SideBarGroup.vue'
+import SideBarItems from './SideBarItems.vue'
+
+const { theme, localeIndex } = useData()
+const slots = useSlots()
+const props = defineProps(['isMobile'])
+const animationTimeMs = 400
+const drawerOpen = ref(!props.isMobile)
+const animationLeftPx = ref(-SIDEBAR_WIDTH)
+const backdropOpacity = ref(0)
+let animationTimeout = null
 
 const openDrawer = () => {
-  if (!props.isMobile || drawerOpen.value) return;
+  if (!props.isMobile || drawerOpen.value) return
 
-  drawerOpen.value = true;
+  drawerOpen.value = true
 
   setTimeout(() => {
-    animationLeftPx.value = 0;
-    backdropOpacity.value = 1;
-  });
-};
+    animationLeftPx.value = 0
+    backdropOpacity.value = 1
+  })
+}
 
 const closeDrawer = () => {
-  if (!props.isMobile || !drawerOpen.value) return;
+  if (!props.isMobile || !drawerOpen.value) return
 
-  animationLeftPx.value = -SIDEBAR_WIDTH;
-  backdropOpacity.value = 0;
+  animationLeftPx.value = -SIDEBAR_WIDTH
+  backdropOpacity.value = 0
 
-  clearTimeout(animationTimeout);
+  clearTimeout(animationTimeout)
 
   animationTimeout = setTimeout(() => {
-    drawerOpen.value = false;
-    animationTimeout = null;
-  }, animationTimeMs);
-};
+    drawerOpen.value = false
+    animationTimeout = null
+  }, animationTimeMs)
+}
 
 defineExpose({
-  toggleSidebar() {
-    openDrawer();
-  },
+  openDrawer,
   handleLeftSwipe() {
-    if (props.isMobile) closeDrawer();
+    if (props.isMobile) closeDrawer()
   },
-});
+})
 
 watchEffect(async () => {
-  drawerOpen.value = !props.isMobile;
-});
+  drawerOpen.value = !props.isMobile
+})
 </script>
 
 <template>
   <div :class="{ hidden: !drawerOpen }">
-    <div :style="{
-      left: props.isMobile ? `${animationLeftPx}px` : '0',
-      'transition-duration': `${animationTimeMs}ms`,
-      width: `${SIDEBAR_WIDTH}px`,
-    }" class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer">
+    <div
+      :style="{
+        left: props.isMobile ? `${animationLeftPx}px` : '0',
+        'transition-duration': `${animationTimeMs}ms`,
+        width: `${SIDEBAR_WIDTH}px`,
+      }"
+      class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer"
+    >
       <div>
         <!--
         <div class="sidebar-closebtn-wrapper lg:hidden">
@@ -75,8 +76,19 @@ watchEffect(async () => {
         </div>
         -->
 
-        <a v-if="theme.sidebarLogoSrc" :href="`/${localeIndex}/`" class="sidebar-logo" :title="theme.t.toHome">
-          <img :src="theme.sidebarLogoSrc" loading="lazy" width="320" height="158" aria-hidden="true" />
+        <a
+          v-if="theme.sidebarLogoSrc"
+          :href="`/${localeIndex}/`"
+          class="sidebar-logo"
+          :title="theme.t.toHome"
+        >
+          <img
+            :src="theme.sidebarLogoSrc"
+            loading="lazy"
+            width="320"
+            height="158"
+            aria-hidden="true"
+          />
         </a>
         <h4 v-if="theme.siteTitle" class="sidebar-site-title text-sm muted">
           <a :href="`/${localeIndex}/`" :title="theme.t.toHome">
@@ -88,13 +100,21 @@ watchEffect(async () => {
           <slot name="sidebar-top" />
 
           <SideBarGroup v-if="theme.sideBar?.links">
-            <SideBarItems @click="closeDrawer" :items="theme.sideBar.links" :isMobile="props.isMobile" />
+            <SideBarItems
+              @click="closeDrawer"
+              :items="theme.sideBar.links"
+              :isMobile="props.isMobile"
+            />
           </SideBarGroup>
 
           <slot name="sidebar-middle" />
 
           <SideBarGroup v-if="theme.sideBar?.bottomLinks" class="mt-2">
-            <SideBarItems @click="closeDrawer" :items="theme.sideBar.bottomLinks" :isMobile="props.isMobile" />
+            <SideBarItems
+              @click="closeDrawer"
+              :items="theme.sideBar.bottomLinks"
+              :isMobile="props.isMobile"
+            />
           </SideBarGroup>
 
           <slot name="sidebar-bottom" />
@@ -107,10 +127,14 @@ watchEffect(async () => {
         <div></div>
       </div>
     </div>
-    <div @click="closeDrawer" :style="{
-      opacity: backdropOpacity,
-      'transition-duration': `${animationTimeMs}ms`,
-    }" class="transition-opacity lg:hidden app-drawer-backdrop"></div>
+    <div
+      @click="closeDrawer"
+      :style="{
+        opacity: backdropOpacity,
+        'transition-duration': `${animationTimeMs}ms`,
+      }"
+      class="transition-opacity lg:hidden app-drawer-backdrop"
+    ></div>
   </div>
 </template>
 
@@ -157,16 +181,20 @@ watchEffect(async () => {
   height: 200px;
   position: absolute;
   background: rgb(255, 255, 255);
-  background: linear-gradient(0deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 .dark .sidebar-gradient div {
   background: rgb(17, 24, 39);
-  background: linear-gradient(0deg,
-      var(--gray-900) 0%,
-      var(--gray-900-trans) 100%);
+  background: linear-gradient(
+    0deg,
+    var(--gray-900) 0%,
+    var(--gray-900-trans) 100%
+  );
 }
 
 .sidebar-menu {

@@ -25,7 +25,7 @@ const resolveItemShowClass = (item) => {
     <div class="flex-1 flex">
       <!-- for mobile -->
       <Btn
-        @click="$emit('toggleSidebar')"
+        @click="$emit('openDrawer')"
         icon="fa6-solid:bars"
         noBg="true"
         class="lg:hidden topbar-item"

@@ -24,8 +24,8 @@ let scrollListener
 let touchStartListener
 let touchMoveListener
 
-function onSidebarToggle() {
-  sidebarRef.value.toggleSidebar()
+function onOpenDrawer() {
+  sidebarRef.value.openDrawer()
 }
 
 function startTouch(e) {
@@ -117,7 +117,7 @@ onUnmounted(() => {
     <!-- right col-->
     <div class="flex-1">
       <header>
-        <TopBar @toggle-sidebar="onSidebarToggle" :isMobile="isMobile" />
+        <TopBar @open-drawer="onOpenDrawer" :isMobile="isMobile" />
       </header>
 
       <div :class="['flex']">

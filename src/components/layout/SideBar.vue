@@ -1,15 +1,14 @@
 <script setup>
 import { useData } from 'vitepress'
 import { ref, watchEffect } from 'vue'
-import { useSlots } from 'vue'
 
 import { SIDEBAR_WIDTH } from '../../constants.js'
 import SideBarFooter from './SideBarFooter.vue'
 import SideBarGroup from './SideBarGroup.vue'
 import SideBarItems from './SideBarItems.vue'
+import { Icon } from '@iconify/vue'
 
 const { theme, localeIndex } = useData()
-const slots = useSlots()
 const props = defineProps(['isMobile'])
 const animationTimeMs = 400
 const drawerOpen = ref(!props.isMobile)
@@ -65,16 +64,14 @@ watchEffect(async () => {
       class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer"
     >
       <div>
-        <!--
-        <div class="sidebar-closebtn-wrapper lg:hidden">
+        <!-- <div class="sidebar-closebtn-wrapper lg:hidden">
           <button
             @click.prevent.stop="closeDrawer"
             class="py-4 px-5 dark:text-gray-700 dark:hover:text-gray-300"
           >
             <Icon icon="fa6-solid:xmark" aria-hidden="true" />
           </button>
-        </div>
-        -->
+        </div> -->
 
         <a
           v-if="theme.sidebarLogoSrc"
@@ -134,7 +131,17 @@ watchEffect(async () => {
         'transition-duration': `${animationTimeMs}ms`,
       }"
       class="transition-opacity lg:hidden app-drawer-backdrop"
-    ></div>
+    >
+      <div class="sidebar-closebtn-wrapper">
+        <button
+          @click.prevent.stop="closeDrawer"
+          :title="theme.t.closeMenu"
+          class="py-6 px-6 cursor-pointer text-gray-300 hover:text-white"
+        >
+          <Icon icon="fa6-solid:xmark" class="text-2xl" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 

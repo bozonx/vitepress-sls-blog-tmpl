@@ -1,33 +1,44 @@
 <script setup>
-import { ref, watchEffect } from "vue";
-import { useData } from "vitepress";
-import Btn from "../Btn.vue";
-import SwitchLang from "./SwitchLang.vue";
-import SwitchAppearance from "./SwitchAppearance.vue";
+import { useData } from 'vitepress'
 
-const { theme } = useData();
-const props = defineProps(["isMobile"]);
+import Btn from '../Btn.vue'
+import SwitchAppearance from './SwitchAppearance.vue'
+import SwitchLang from './SwitchLang.vue'
+
+const { theme } = useData()
+const props = defineProps(['isMobile'])
 const resolveItemShowClass = (item) => {
-  if (item.mobileToo) return "";
-  else if (item.mobileOnly) return "lg:hidden";
+  if (item.mobileToo) return ''
+  else if (item.mobileOnly) return 'lg:hidden'
   // desktop only
-  return "max-lg:hidden";
-};
+  return 'max-lg:hidden'
+}
 </script>
 
 <template>
-  <nav :class="[
-    'flex w-full py-2 px-2 gap-x-1 top-bar',
-    props.isMobile && 'topbar--mobile',
-  ]">
+  <nav
+    :class="[
+      'flex w-full py-2 px-2 gap-x-1 top-bar',
+      props.isMobile && 'topbar--mobile',
+    ]"
+  >
     <div class="flex-1 flex">
       <!-- for mobile -->
-      <Btn @click="$emit('toggleSidebar')" icon="fa6-solid:bars" noBg="true" class="lg:hidden topbar-item"
-        iconClass="muted" :text="theme.sidebarMenuLabel" />
+      <Btn
+        @click="$emit('toggleSidebar')"
+        icon="fa6-solid:bars"
+        noBg="true"
+        class="lg:hidden topbar-item"
+        iconClass="muted"
+        :text="theme.sidebarMenuLabel"
+      />
     </div>
 
     <ul v-if="theme.topBar.links" class="flex space-x-1">
-      <li v-for="item in theme.topBar.links" :class="resolveItemShowClass(item)">
+      <li
+        v-for="item in theme.topBar.links"
+        :class="resolveItemShowClass(item)"
+      >
         <Btn v-bind="item" noBg="true" class="topbar-item" iconClass="muted" />
       </li>
     </ul>

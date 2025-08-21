@@ -8,10 +8,50 @@ const props = defineProps(['class'])
 const { page, theme, lang } = useData()
 const rawDate = page.value.frontmatter.date
 
+// Список поддерживаемых языков (европейские + ближневосточные)
+const supportedLanguages = [
+  'en',
+  'ru',
+  'de',
+  'fr',
+  'es',
+  'it',
+  'pt',
+  'nl',
+  'pl',
+  'cs',
+  'sk',
+  'hu',
+  'sv',
+  'no',
+  'da',
+  'fi',
+  'ar',
+  'he',
+  'uk',
+  'be',
+  'bg',
+  'hr',
+  'sr',
+  'sl',
+  'et',
+  'lv',
+  'lt',
+  'ro',
+  'el',
+  'tr',
+]
+
+// Проверяем, поддерживается ли язык
+const isLanguageSupported = (language) => supportedLanguages.includes(language)
+
 // Получаем год и месяц для создания ссылок
 const year = new Date(rawDate)?.getUTCFullYear()
 const month = new Date(rawDate)?.getUTCMonth() + 1
-const localeDate = makeHumanDate(rawDate, lang.value)
+
+// Используем поддерживаемый язык или fallback на английский
+const effectiveLang = isLanguageSupported(lang.value) ? lang.value : 'en'
+const localeDate = makeHumanDate(rawDate, effectiveLang)
 
 // Функция для определения, является ли элемент годом
 const isYear = (item) => {
@@ -39,6 +79,21 @@ const isMonth = (item) => {
     'von',
     'zu',
     'zur',
+    'van',
+    'den',
+    'der',
+    'des',
+    'del',
+    'da',
+    'di',
+    'du',
+    'of',
+    'the',
+    'a',
+    'an',
+    'in',
+    'on',
+    'at',
   ]
   const cleanItem = item.replace(/[^\wа-яё]/gi, '').toLowerCase()
 
@@ -47,6 +102,14 @@ const isMonth = (item) => {
     cleanItem.length >= 3 &&
     !excludedWords.includes(cleanItem) &&
     /^[^\d\.\-\,]{3,}$/.test(item)
+  )
+}
+
+// Показываем предупреждение в dev режиме для неподдерживаемых языков
+if (import.meta.env.DEV && !isLanguageSupported(lang.value)) {
+  console.warn(
+    `[PostDate] Language "${lang.value}" is not fully supported. Using English fallback. ` +
+      `Supported languages: ${supportedLanguages.join(', ')}`
   )
 }
 </script>

@@ -31,6 +31,8 @@
   --podcast-btn-bg: hsl(263, 60%, 40%);
   /**** VideoLink */
   --video-link-bg: hsl(4deg 65% 41%);
+  /**** Donate btn */
+  --donate-btn: hsl(0, 48%, 39%);
 
   /**** Layout */
   --page-max-width: 840px;
@@ -113,6 +115,10 @@ button {
 
 .dark .muted {
   color: var(--gray-400);
+}
+
+.donate-icon {
+  color: var(--donate-btn);
 }
 
 /**** Lighter Btn for use on lighter background */

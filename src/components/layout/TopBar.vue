@@ -39,7 +39,12 @@ const resolveItemShowClass = (item) => {
         v-for="item in theme.topBar.links"
         :class="resolveItemShowClass(item)"
       >
-        <Btn v-bind="item" noBg="true" class="topbar-item" iconClass="muted" />
+        <Btn
+          v-bind="item"
+          noBg="true"
+          class="topbar-item"
+          :iconClass="item.iconClass || 'muted'"
+        />
       </li>
     </ul>
 

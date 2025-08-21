@@ -4,7 +4,6 @@ import { useData } from 'vitepress'
 import { makeHumanDate } from '../../helpers/helpers.js'
 import BaseLink from '../BaseLink.vue'
 
-// const props = defineProps([''])
 const { page, theme, localeIndex } = useData()
 const rawDate = page.value.frontmatter.date
 

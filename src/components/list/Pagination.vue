@@ -8,7 +8,6 @@ const props = defineProps([
   "curPage",
   "totalPages",
   "baseUrl",
-  "class",
 ]);
 const items = [];
 

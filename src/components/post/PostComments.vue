@@ -1,14 +1,19 @@
 <script setup>
-import { useData } from "vitepress";
-import BtnLink from "../BtnLink.vue";
+import { useData } from 'vitepress'
 
-const props = defineProps(["class"]);
-const { theme, frontmatter } = useData();
+import BtnLink from '../BtnLink.vue'
+
+const { theme, frontmatter } = useData()
 </script>
 
 <template>
-  <div v-if="frontmatter.commentUrl" :class="props.class">
-    <BtnLink :href="frontmatter.commentUrl" :text="theme.t.commentCall" target="_blank" icon="fa6-solid:comment-dots"
-      class="underline" />
+  <div v-if="frontmatter.commentUrl">
+    <BtnLink
+      :href="frontmatter.commentUrl"
+      :text="theme.t.commentCall"
+      target="_blank"
+      icon="fa6-solid:comment-dots"
+      class="underline"
+    />
   </div>
 </template>

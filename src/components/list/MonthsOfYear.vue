@@ -1,20 +1,45 @@
 <script setup>
-import { useData } from "vitepress";
-import ListItemWithBadge from "./ListItemWithBadge.vue";
-import { makeMonthsList } from "../../page-helpers/listHelpers.js";
+import { useData } from 'vitepress'
 
-const props = defineProps(["allPosts", "year", "class"]);
-const { theme } = useData();
-const monthsList = makeMonthsList(props.allPosts, props.year);
+import { makeMonthsList } from '../../page-helpers/listHelpers.js'
+import ListItemWithBadge from './ListItemWithBadge.vue'
+
+const props = defineProps([
+  'allPosts',
+  'year',
+  'curPage',
+  'perPage',
+  'paginationMaxItems',
+])
+const { theme } = useData()
+const monthsList = makeMonthsList(props.allPosts, props.year)
+
+const curPage = Number(props.curPage)
+const sorted = [...(props.allData || [])].sort(
+  (a, b) => new Date(b.date) - new Date(a.date)
+)
 </script>
 
 <template>
-  <ul v-if="monthsList.length" class="props.class">
-    <template v-for="item in monthsList">
-      <li v-if="item.count">
-        <ListItemWithBadge :href="`${theme.archiveBaseUrl}/${props.year}/${item.month}`"
-          :text="theme.t.months[item.month - 1]" :count="item.count" />
-      </li>
-    </template>
-  </ul>
+  <div>
+    <ul v-if="monthsList.length">
+      <template v-for="item in monthsList">
+        <li v-if="item.count">
+          <ListItemWithBadge
+            :href="`${theme.archiveBaseUrl}/${props.year}/${item.month}`"
+            :text="theme.t.months[item.month - 1]"
+            :count="item.count"
+          />
+        </li>
+      </template>
+    </ul>
+
+    <PreviewList
+      :allData="sorted"
+      :curPage="curPage"
+      :perPage="props.perPage"
+      :paginationMaxItems="props.paginationMaxItems"
+      :paginationBaseUrl="theme.recentBaseUrl"
+    />
+  </div>
 </template>

@@ -1,70 +1,70 @@
 <script setup>
-import { useData } from "vitepress";
-import { ref, onMounted } from "vue";
-import { Icon } from "@iconify/vue";
+import { useData } from 'vitepress'
+import { onMounted, ref } from 'vue'
 
-const props = defineProps(["class"]);
-const { theme, frontmatter, title } = useData();
-const siteFullTitle = encodeURIComponent(title.value);
-const items = ref([]);
+import { Icon } from '@iconify/vue'
+
+const { theme, frontmatter, title } = useData()
+const siteFullTitle = encodeURIComponent(title.value)
+const items = ref([])
 const attrs = {
-  class: "social-btn",
-  target: "_blank",
-  rel: "nofollow noopener",
-};
-const socialItems = (theme.value.socialMediaShares || "")
-  .split(",")
+  class: 'social-btn',
+  target: '_blank',
+  rel: 'nofollow noopener',
+}
+const socialItems = (theme.value.socialMediaShares || '')
+  .split(',')
   .filter((item) => Boolean(item))
-  .map((item) => item.trim());
+  .map((item) => item.trim())
 
 const makeItems = () => {
-  const encodedDocUrl = encodeURIComponent(document.URL);
+  const encodedDocUrl = encodeURIComponent(document.URL)
   const itemsParams = {
     telegram: {
       href: `https://t.me/share/url?url=${encodedDocUrl}&text=${siteFullTitle}`,
-      icon: "logos:telegram",
-      title: "Telegram",
+      icon: 'logos:telegram',
+      title: 'Telegram',
       attrs,
     },
     whatsapp: {
       href: `https://api.whatsapp.com/send?text=${siteFullTitle}%20${encodedDocUrl}`,
-      icon: "logos:whatsapp-icon",
-      title: "Whatsapp",
+      icon: 'logos:whatsapp-icon',
+      title: 'Whatsapp',
       attrs,
     },
     vk: {
       href: `https://vk.com/share.php?url=${encodedDocUrl}&title=${siteFullTitle}`,
-      icon: "cib:vk",
-      title: "VK",
-      attrs: {
-        ...attrs,
-        class: `${attrs.class} social-vk`,
-      },
+      icon: 'cib:vk',
+      title: 'VK',
+      attrs: { ...attrs, class: `${attrs.class} social-vk` },
     },
     x: {
       href: `https://twitter.com/intent/tweet?text=${siteFullTitle}&url=${encodedDocUrl}`,
-      icon: "ri:twitter-x-fill",
-      title: "X.com",
+      icon: 'ri:twitter-x-fill',
+      title: 'X.com',
       attrs,
     },
     facebook: {
-      href: "https://www.facebook.com/sharer/sharer.php?u=" + encodedDocUrl,
-      icon: "logos:facebook",
-      title: "Facebook",
+      href: 'https://www.facebook.com/sharer/sharer.php?u=' + encodedDocUrl,
+      icon: 'logos:facebook',
+      title: 'Facebook',
       attrs,
     },
-  };
+  }
 
-  return socialItems.map((item) => itemsParams[item]);
-};
+  return socialItems.map((item) => itemsParams[item])
+}
 
 onMounted(() => {
-  items.value = makeItems();
-});
+  items.value = makeItems()
+})
 </script>
 
 <template>
-  <div v-if="theme.socialMediaShares" :class="['flex gap-y-3 max-sm:flex-col sm:items-center', props.class]">
+  <div
+    v-if="theme.socialMediaShares"
+    class="flex gap-y-3 max-sm:flex-col sm:items-center"
+  >
     <div class="mr-2 muted">{{ theme.t.shareSocialMedia }}:</div>
     <div class="flex gap-x-2">
       <template v-for="item in items">

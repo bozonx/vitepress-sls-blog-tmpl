@@ -4,13 +4,13 @@ import { useData } from 'vitepress'
 import { makeYearsList } from '../../page-helpers/listHelpers.js'
 import ListItemWithBadge from './ListItemWithBadge.vue'
 
-const props = defineProps(['allPosts', 'class'])
+const props = defineProps(['allPosts'])
 const { theme } = useData()
 const yearsList = makeYearsList(props.allPosts)
 </script>
 
 <template>
-  <ul v-if="yearsList.length" class="props.class">
+  <ul v-if="yearsList.length">
     <template v-for="item in yearsList">
       <li v-if="item.count">
         <ListItemWithBadge

@@ -4,13 +4,13 @@ import { useData } from 'vitepress'
 import { makeAuthorsList } from '../../page-helpers/listHelpers.js'
 import ListItemWithBadge from './ListItemWithBadge.vue'
 
-const props = defineProps(['allPosts', 'class'])
+const props = defineProps(['allPosts'])
 const { theme } = useData()
 const authorsList = makeAuthorsList(props.allPosts, theme.value.authors)
 </script>
 
 <template>
-  <ul v-if="authorsList.length" :class="props.class">
+  <ul v-if="authorsList.length">
     <template v-for="item in authorsList">
       <li v-if="item.count">
         <ListItemWithBadge

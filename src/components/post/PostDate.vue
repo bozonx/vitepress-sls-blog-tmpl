@@ -1,30 +1,78 @@
 <script setup>
-import { useData } from "vitepress";
-import { makeHumanDate } from "../../helpers/helpers.js";
-import BaseLink from "../BaseLink.vue";
+import { useData } from 'vitepress'
 
-const props = defineProps(["class"]);
-const { page, theme, lang } = useData();
-const rawDate = page.value.frontmatter.date;
-// const rawDateSplit = rawDate.split("-");
-// const year = Number(rawDateSplit[0]);
-const year = new Date(rawDate)?.getUTCFullYear();
-// const month = Number(rawDateSplit[1]);
-const month = new Date(rawDate)?.getUTCMonth() + 1;
-const localeDate = makeHumanDate(rawDate, lang.value);
+import { makeHumanDate } from '../../helpers/helpers.js'
+import BaseLink from '../BaseLink.vue'
+
+const props = defineProps(['class'])
+const { page, theme, lang } = useData()
+const rawDate = page.value.frontmatter.date
+
+// Получаем год и месяц для создания ссылок
+const year = new Date(rawDate)?.getUTCFullYear()
+const month = new Date(rawDate)?.getUTCMonth() + 1
+const localeDate = makeHumanDate(rawDate, lang.value)
+
+// Функция для определения, является ли элемент годом
+const isYear = (item) => {
+  // Убираем точки и другие символы для проверки года
+  const cleanItem = item.replace(/[^\d]/g, '')
+  return cleanItem.length === 4 && /^\d{4}$/.test(cleanItem)
+}
+
+// Функция для определения, является ли элемент месяцем
+const isMonth = (item) => {
+  // Исключаем служебные слова и короткие элементы
+  const excludedWords = [
+    'de',
+    'г',
+    'г.',
+    'of',
+    'van',
+    'der',
+    'den',
+    'del',
+    'da',
+    'di',
+    'du',
+    'des',
+    'von',
+    'zu',
+    'zur',
+  ]
+  const cleanItem = item.replace(/[^\wа-яё]/gi, '').toLowerCase()
+
+  // Проверяем, что это не служебное слово и достаточно длинное
+  return (
+    cleanItem.length >= 3 &&
+    !excludedWords.includes(cleanItem) &&
+    /^[^\d\.\-\,]{3,}$/.test(item)
+  )
+}
 </script>
 
 <template>
   <div v-if="rawDate" :class="['text-base muted post-date', props.class]">
     <time :datetime="rawDate" class="space-x-1">
       <template v-for="item in localeDate.split(' ')">
-        <BaseLink :href="`${theme.archiveBaseUrl}/${item}`" v-if="item.match(/^\d{4,4}$/)">
+        <!-- Ссылка на год -->
+        <BaseLink
+          :href="`${theme.archiveBaseUrl}/${year}`"
+          v-if="isYear(item)"
+          :key="`year-${item}`"
+        >
           {{ item }}
         </BaseLink>
-        <BaseLink :href="`${theme.archiveBaseUrl}/${year}/${month}`" v-else-if="item.match(/^[^\d\.\-\,]{2,}$/)">
+        <!-- Ссылка на месяц -->
+        <BaseLink
+          :href="`${theme.archiveBaseUrl}/${year}/${month}`"
+          v-else-if="isMonth(item)"
+          :key="`month-${item}`"
+        >
           {{ item }}
         </BaseLink>
-        <span v-else>{{ item }}</span>
+        <!-- Обычный текст -->
+        <span v-else :key="`text-${item}`">{{ item }}</span>
       </template>
     </time>
   </div>

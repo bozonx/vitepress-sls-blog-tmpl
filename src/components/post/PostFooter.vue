@@ -1,10 +1,10 @@
 <script setup>
-import PostTags from "./PostTags.vue";
-import PostSocialShare from "./PostSocialShare.vue";
-import PostAuthor from "./PostAuthor.vue";
-import PostComments from "./PostComments.vue";
-import PostDonateLink from "./PostDonateLink.vue";
-// import SimilarPostsList from "../list/SimilarPostsList.vue";
+// import SimilarPostsList from '../list/SimilarPostsList.vue'
+import PostAuthor from './PostAuthor.vue'
+import PostComments from './PostComments.vue'
+import PostDonateLink from './PostDonateLink.vue'
+import PostSocialShare from './PostSocialShare.vue'
+import PostTags from './PostTags.vue'
 </script>
 
 <template>

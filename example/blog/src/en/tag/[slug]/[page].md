@@ -21,7 +21,7 @@ const { theme, params, title, page } = useData()
   :allData="data.posts"
   :curPage="params.page"
   :perPage="PROPS.perPage"
-  :paginationMaxItems="PROPS.paginationMaxItems"
+  :paginationMaxItems="theme.paginationMaxItems"
   :tagName="params.name"
   :tagSlug="params.slug"
 />

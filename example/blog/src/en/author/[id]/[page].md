@@ -22,5 +22,5 @@ const { theme, params } = useData()
   :authorId="params.id"
   :curPage="params.page"
   :perPage="PROPS.perPage"
-  :paginationMaxItems="PROPS.paginationMaxItems"
+  :paginationMaxItems="theme.paginationMaxItems"
 />

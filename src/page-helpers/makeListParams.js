@@ -21,15 +21,28 @@ export function makeRecentParams(postsDirAbs, perPage) {
 export function makeYearPostsParams(postsDirAbs, perPage) {
   const dates = loadDatesList(postsDirAbs)
 
-  // return years.map((year) => ({ params: { year } }))
+  // Группируем даты по годам
+  const postsByYear = {}
+
+  for (const date of dates) {
+    const year = new Date(date).getUTCFullYear()
+
+    if (!postsByYear[year]) {
+      postsByYear[year] = []
+    }
+
+    postsByYear[year].push(date)
+  }
 
   const res = []
 
-  for (let i = 0; i < dates.length; i += perPage) {
-    const page = i / perPage + 1
-    const year = new Date(dates[i]).getUTCFullYear()
+  // Для каждого года создаем отдельную нумерацию страниц
+  for (const [year, yearDates] of Object.entries(postsByYear)) {
+    for (let i = 0; i < yearDates.length; i += perPage) {
+      const page = i / perPage + 1
 
-    res.push({ params: { page, year } })
+      res.push({ params: { page, year: Number(year) } })
+    }
   }
 
   return res

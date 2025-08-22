@@ -31,6 +31,7 @@ export default {
     postVideoButton: 'Watch Video',
     allPostsOfAuthor: 'All the posts of the author',
     closeMenu: 'Close menu',
+    allPostsOfYear: 'All posts of the year',
     links: {
       // thease links are used in site translations
       aboutBlog: 'About This Blog',

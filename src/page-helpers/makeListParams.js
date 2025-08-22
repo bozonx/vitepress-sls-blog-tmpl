@@ -18,10 +18,21 @@ export function makeRecentParams(postsDirAbs, perPage) {
   return res
 }
 
-export function makeYearsParams(postsDirAbs) {
-  const years = loadYears(postsDirAbs)
+export function makeYearPostsParams(postsDirAbs, perPage) {
+  const dates = loadDatesList(postsDirAbs)
 
-  return years.map((year) => ({ params: { year } }))
+  // return years.map((year) => ({ params: { year } }))
+
+  const res = []
+
+  for (let i = 0; i < dates.length; i += perPage) {
+    const page = i / perPage + 1
+    const year = new Date(dates[i]).getUTCFullYear()
+
+    res.push({ params: { page, year } })
+  }
+
+  return res
 }
 
 export function makeMonthsParams(postsDirAbs) {
@@ -160,16 +171,16 @@ export function loadDatesList(postsDirAbs) {
     })
 }
 
-export function loadYears(postsDirAbs) {
-  const dates = loadDatesList(postsDirAbs)
+// export function loadYears(postsDirAbs) {
+//   const dates = loadDatesList(postsDirAbs)
 
-  return dates.reduce((acc, date) => {
-    const year = new Date(date).getUTCFullYear()
+//   return dates.reduce((acc, date) => {
+//     const year = new Date(date).getUTCFullYear()
 
-    if (!acc.includes(year)) {
-      acc.push(year)
-    }
+//     if (!acc.includes(year)) {
+//       acc.push(year)
+//     }
 
-    return acc
-  }, [])
-}
+//     return acc
+//   }, [])
+// }

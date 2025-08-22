@@ -14,7 +14,7 @@ const yearsList = makeYearsList(props.allPosts)
     <template v-for="item in yearsList">
       <li v-if="item.count">
         <ListItemWithBadge
-          :href="`${theme.archiveBaseUrl}/${item.year}`"
+          :href="`${theme.archiveBaseUrl}/${item.year}/1`"
           :text="item.year"
           :count="item.count"
         />

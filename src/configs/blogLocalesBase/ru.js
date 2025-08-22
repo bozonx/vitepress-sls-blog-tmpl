@@ -31,6 +31,7 @@ export default {
     postVideoButton: 'Смотреть видео',
     allPostsOfAuthor: 'Все посты автора',
     closeMenu: 'Закрыть меню',
+    allPostsOfYear: 'Все посты за год',
     links: {
       // thease links are used in site translations
       aboutBlog: 'Об этом блоге',

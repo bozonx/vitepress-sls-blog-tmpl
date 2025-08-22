@@ -129,7 +129,7 @@ if (import.meta.env.DEV && !isLanguageSupported(localeIndex.value)) {
         </BaseLink>
         <!-- Ссылка на месяц -->
         <BaseLink
-          :href="`${theme.archiveBaseUrl}/${year}/m${month}`"
+          :href="`${theme.archiveBaseUrl}/${year}/month/${month}`"
           v-else-if="isMonth(item)"
           :key="`month-${item}`"
         >

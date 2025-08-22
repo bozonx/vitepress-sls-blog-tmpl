@@ -30,7 +30,7 @@ const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
       <template v-for="item in monthsList">
         <li v-if="item.count">
           <ListItemWithBadge
-            :href="`${theme.archiveBaseUrl}/${props.year}/m${item.month}`"
+            :href="`${theme.archiveBaseUrl}/${props.year}/month/${item.month}`"
             :text="theme.t.months[item.month - 1]"
             :count="item.count"
           />

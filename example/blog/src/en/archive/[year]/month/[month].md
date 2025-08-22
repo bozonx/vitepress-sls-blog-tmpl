@@ -9,7 +9,7 @@ head:
 <script setup>
 import MonthPostsList from 'vitepress-sls-blog-tmpl/MonthPostsList.vue'
 import { useData } from 'vitepress'
-import { data } from '../../loadPosts.data.js'
+import { data } from '../../../loadPosts.data.js'
 
 const { theme, params } = useData()
 </script>

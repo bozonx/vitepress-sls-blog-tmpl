@@ -141,6 +141,8 @@ export async function generateRssFeed(config) {
       try {
         const feedDir = path.join(config.outDir)
 
+        // TODO: use rssFormats
+
         // Генерируем RSS 2.0 feed
         const rssPath = path.join(feedDir, `feed-${localeIndex}.rss`)
         fs.writeFileSync(rssPath, feeds[localeIndex].rss2(), DEFAULT_ENCODE)

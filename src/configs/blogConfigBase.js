@@ -1,5 +1,6 @@
 import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
 import { addOgMetaTags } from '../page-helpers/addOgMetaTags.js'
+import { addRssLinks } from '../page-helpers/addRssLinks.js'
 import { generateRssFeed } from '../page-helpers/generateRssFeed.js'
 import { transformPageMeta } from '../page-helpers/transformPageMeta.js'
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
@@ -43,6 +44,7 @@ export const common = {
     externalLinkIcon: true,
     i18nRouting: true,
     maxPostsInRssFeed: 50,
+    rssFormats: ['rss', 'atom', 'json'],
 
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
@@ -99,6 +101,7 @@ export default function ({ hostname, repo }, en) {
       transformTitle(pageData, ctx)
       transformPageMeta(pageData, ctx)
       addOgMetaTags(pageData, ctx)
+      addRssLinks(pageData, ctx)
     },
     buildEnd: async (config) => {
       await generateRssFeed(config)

@@ -22,6 +22,8 @@
     "./siteConfigHelper.js": "./src/helpers/siteConfigHelper.js",
     "./makeListParams.js": "./src/page-helpers/makeListParams.js",
     "./makePreviewItem.js": "./src/page-helpers/makePreviewItem.js",
+    "./generateRssFeed.js": "./src/page-helpers/generateRssFeed.js",
+    "./rssValidator.js": "./src/page-helpers/rssValidator.js",
     "./SiteHome.vue": "./src/SiteHome.vue",
     "./UtilPageContent.vue": "./src/components/UtilPageContent.vue",
     "./HomeHero.vue": "./src/components/home/HomeHero.vue",

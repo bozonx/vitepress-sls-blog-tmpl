@@ -6,17 +6,18 @@ import { createContentLoader } from 'vitepress'
 import { DEFAULT_ENCODE, POSTS_DIR } from '../constants.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import {
-  extractPreviewFromMd,
-  resolvePreview,
-} from '../page-helpers/makePreviewItem.js'
-import { getFormatInfo, getRssFormats } from '../page-helpers/rssFormats.js'
-import {
   createPostGuid,
   formatTagsForRss,
+  getFormatInfo,
+  getRssFormats,
   truncateDescriptionForRss,
   validatePostForRss,
   validateRssConfig,
-} from '../page-helpers/rssValidator.js'
+} from '../helpers/rssHelpers.js'
+import {
+  extractPreviewFromMd,
+  resolvePreview,
+} from '../page-helpers/makePreviewItem.js'
 
 /**
  * Генерирует RSS и Atom feeds для всех локалей

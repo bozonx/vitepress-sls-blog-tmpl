@@ -1,4 +1,4 @@
-import { getFormatInfo, getRssFormats } from '../page-helpers/rssFormats.js'
+import { getFormatInfo, getRssFormats } from '../helpers/rssHelpers.js'
 
 /**
  * Добавляет RSS feed ссылки в head страницы

@@ -7,6 +7,7 @@ import { DEFAULT_ENCODE, POSTS_DIR } from '../constants.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import {
   createPostGuid,
+  debugLog,
   formatTagsForRss,
   getFormatInfo,
   getRssFormats,
@@ -66,7 +67,10 @@ export async function generateRssFeed(config) {
           { includeSrc: true }
         ).load()
 
-        console.log(`Found ${posts.length} posts for locale ${localeIndex}`)
+        debugLog(
+          config,
+          `Found ${posts.length} posts for locale ${localeIndex}`
+        )
 
         // Сортируем посты по дате (новые сначала) и ограничиваем количество
         const sortedPosts = posts
@@ -76,19 +80,20 @@ export async function generateRssFeed(config) {
           )
           .slice(0, config.userConfig.themeConfig.maxPostsInRssFeed)
 
-        console.log(`Processing ${sortedPosts.length} posts for RSS feed`)
+        debugLog(config, `Processing ${sortedPosts.length} posts for RSS feed`)
 
         for (const { url, frontmatter, src } of sortedPosts) {
           try {
             // Валидируем обязательные поля
             if (!validatePostForRss(frontmatter, url)) {
-              console.log(`Skipping post ${url} - validation failed`)
+              debugLog(config, `Skipping post ${url} - validation failed`)
               continue
             }
 
             // Получаем описание поста
             let descr = resolvePreview(frontmatter)
-            console.log(
+            debugLog(
+              config,
               `Initial description for ${frontmatter.title}:`,
               descr ? descr.substring(0, 50) + '...' : 'null'
             )
@@ -97,7 +102,8 @@ export async function generateRssFeed(config) {
               const { content } = parseMdFile(src)
               const previewFromMd = extractPreviewFromMd(content)
               descr = previewFromMd
-              console.log(
+              debugLog(
+                config,
                 `Extracted description from MD for ${frontmatter.title}:`,
                 descr ? descr.substring(0, 50) + '...' : 'null'
               )
@@ -105,7 +111,8 @@ export async function generateRssFeed(config) {
 
             // Очищаем и обрезаем описание для RSS
             const cleanDescription = truncateDescriptionForRss(descr)
-            console.log(
+            debugLog(
+              config,
               `Clean description for ${frontmatter.title}:`,
               cleanDescription
                 ? cleanDescription.substring(0, 50) + '...'
@@ -142,14 +149,15 @@ export async function generateRssFeed(config) {
               //   (frontmatter.updated && new Date(frontmatter.updated)) ||
               //   (frontmatter.date && new Date(frontmatter.date)),
             })
-            console.log(`Successfully added post: ${frontmatter.title}`)
+            debugLog(config, `Successfully added post: ${frontmatter.title}`)
           } catch (postError) {
             console.error(`Error processing post ${url}:`, postError)
             continue
           }
         }
 
-        console.log(
+        debugLog(
+          config,
           `Feed for locale ${localeIndex} contains ${feeds[localeIndex].items.length} items`
         )
       } catch (loaderError) {

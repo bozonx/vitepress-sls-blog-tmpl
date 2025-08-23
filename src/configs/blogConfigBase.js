@@ -1,10 +1,10 @@
 import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
 import { addOgMetaTags } from '../page-helpers/addOgMetaTags.js'
-import { addRssLinks } from '../page-helpers/addRssLinks.js'
 import { generateRssFeed } from '../page-helpers/generateRssFeed.js'
-import { transformPageMeta } from '../page-helpers/transformPageMeta.js'
+import { addRssLinks } from '../transformers/addRssLinks.js'
+import { transformPageMeta } from '../transformers/transformPageMeta.js'
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
-import { transformTitle } from '../page-helpers/transformTitle.js'
+import { transformTitle } from '../transformers/transformTitle.js'
 import { figure } from '@mdit/plugin-figure'
 
 // import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";

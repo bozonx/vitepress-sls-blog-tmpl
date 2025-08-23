@@ -191,3 +191,18 @@ export function getFormatInfo(format) {
 export function getRssFormats(config) {
   return config.userConfig.themeConfig?.rssFormats || ['rss', 'atom', 'json']
 }
+
+export function makeAuthorForRss(config, frontmatter, siteUrl, localeIndex) {
+  if (!frontmatter.authorId) return
+
+  const author = config.userConfig.themeConfig.authors.find(
+    (item) => item.id === frontmatter.authorId
+  )
+
+  if (!author) return
+
+  return {
+    name: author.name,
+    link: `${siteUrl}/${localeIndex}${config.userConfig.authorBaseUrl}/${author.id}`,
+  }
+}

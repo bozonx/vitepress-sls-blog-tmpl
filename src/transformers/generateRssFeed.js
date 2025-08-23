@@ -10,6 +10,7 @@ import {
   formatTagsForRss,
   getFormatInfo,
   getRssFormats,
+  makeAuthorForRss,
   truncateDescriptionForRss,
   validatePostForRss,
   validateRssConfig,
@@ -106,26 +107,21 @@ export async function generateRssFeed(config) {
               link: `${hostname}${url}`,
               date: frontmatter.date && new Date(frontmatter.date),
               image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
-
-              // TODO: review
               // Добавляем автора если есть
-              author: frontmatter.author
-                ? [
-                    {
-                      name: frontmatter.author,
-                      email: frontmatter.authorEmail || '',
-                      link: frontmatter.authorLink || '',
-                    },
-                  ]
-                : undefined,
+              author: makeAuthorForRss(
+                config,
+                frontmatter,
+                siteUrl,
+                localeIndex
+              ),
               // Добавляем категории
               category: categories.length > 0 ? categories : undefined,
               // Добавляем дополнительные поля
               published: frontmatter.date && new Date(frontmatter.date),
-              // TODO: review
-              updated:
-                (frontmatter.updated && new Date(frontmatter.updated)) ||
-                (frontmatter.date && new Date(frontmatter.date)),
+              // TODO: откуда брать updated?
+              // updated:
+              //   (frontmatter.updated && new Date(frontmatter.updated)) ||
+              //   (frontmatter.date && new Date(frontmatter.date)),
             })
           } catch (postError) {
             console.error(`Error processing post ${url}:`, postError)

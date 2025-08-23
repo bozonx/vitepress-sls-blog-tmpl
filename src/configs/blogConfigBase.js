@@ -1,7 +1,7 @@
 import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
-import { addOgMetaTags } from '../page-helpers/addOgMetaTags.js'
-import { generateRssFeed } from '../page-helpers/generateRssFeed.js'
+import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 import { addRssLinks } from '../transformers/addRssLinks.js'
+import { generateRssFeed } from '../transformers/generateRssFeed.js'
 import { transformPageMeta } from '../transformers/transformPageMeta.js'
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from '../transformers/transformTitle.js'

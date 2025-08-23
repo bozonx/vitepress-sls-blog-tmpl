@@ -42,6 +42,7 @@ export const common = {
   themeConfig: {
     externalLinkIcon: true,
     i18nRouting: true,
+    maxPostsInRssFeed: 50,
 
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,

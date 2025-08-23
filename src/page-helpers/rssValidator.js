@@ -3,6 +3,9 @@ import path from 'path'
 
 /** Утилиты для валидации RSS feed */
 
+// Максимальная длина описания для RSS (стандарт)
+const MAX_DESCRIPTION_LENGTH = 500
+
 /**
  * Валидирует обязательные поля frontmatter для RSS
  *
@@ -24,6 +27,13 @@ export function validatePostForRss(frontmatter, url) {
     const date = new Date(frontmatter.date)
     if (isNaN(date.getTime())) {
       errors.push('invalid date format')
+    } else {
+      // Проверяем что дата не в будущем (с небольшим допуском)
+      const now = new Date()
+      const futureLimit = new Date(now.getTime() + 24 * 60 * 60 * 1000) // +1 день
+      if (date > futureLimit) {
+        errors.push('date is too far in the future')
+      }
     }
   }
 
@@ -46,12 +56,36 @@ export function sanitizeTextForRss(text) {
 
   return text
     .replace(/<[^>]*>/g, '') // Удаляем HTML теги
-    .replace(/&/g, '&amp;') // Экранируем специальные символы
+    .replace(/&(?!amp;|lt;|gt;|quot;|#39;)/g, '&amp;') // Экранируем & только если это не уже экранированный символ
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;')
     .trim()
+}
+
+/**
+ * Обрезает описание до максимальной длины для RSS
+ *
+ * @param {string} description - Исходное описание
+ * @returns {string} - Обрезанное описание
+ */
+export function truncateDescriptionForRss(description) {
+  if (!description) return ''
+
+  const cleanDesc = sanitizeTextForRss(description)
+
+  if (cleanDesc.length <= MAX_DESCRIPTION_LENGTH) {
+    return cleanDesc
+  }
+
+  // Обрезаем по последнему пробелу чтобы не разрывать слова
+  const truncated = cleanDesc.substring(0, MAX_DESCRIPTION_LENGTH)
+  const lastSpace = truncated.lastIndexOf(' ')
+
+  return lastSpace > 0
+    ? truncated.substring(0, lastSpace) + '...'
+    : truncated + '...'
 }
 
 /**
@@ -63,8 +97,9 @@ export function sanitizeTextForRss(text) {
  * @returns {string} - Уникальный GUID
  */
 export function createPostGuid(hostname, url, date) {
-  // Используем URL как основу для GUID
-  return `${hostname}${url}`
+  // Используем URL и дату для создания более уникального GUID
+  const dateStr = date ? new Date(date).toISOString().split('T')[0] : ''
+  return `${hostname}${url}${dateStr ? `#${dateStr}` : ''}`
 }
 
 /**
@@ -77,21 +112,12 @@ export function createPostGuid(hostname, url, date) {
 export function formatTagsForRss(tags, hostname) {
   if (!tags || !Array.isArray(tags)) return []
 
-  return tags.map((tag) => ({
-    name: tag,
-    domain: `${hostname}/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`,
-  }))
-}
-
-/**
- * Проверяет существование директории и создает если нужно
- *
- * @param {string} dirPath - Путь к директории
- */
-export function ensureDirectoryExists(dirPath) {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true })
-  }
+  return tags
+    .filter((tag) => tag && typeof tag === 'string' && tag.trim()) // Фильтруем пустые теги
+    .map((tag) => ({
+      name: tag.trim(),
+      domain: `${hostname}/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`,
+    }))
 }
 
 /**

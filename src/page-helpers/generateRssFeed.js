@@ -8,9 +8,8 @@ import { parseMdFile } from '../helpers/mdWorks.js'
 import { extractPreviewFromMd, resolvePreview } from './makePreviewItem.js'
 import {
   createPostGuid,
-  ensureDirectoryExists,
   formatTagsForRss,
-  sanitizeTextForRss,
+  truncateDescriptionForRss,
   validatePostForRss,
   validateRssConfig,
 } from './rssValidator.js'
@@ -37,7 +36,7 @@ export async function generateRssFeed(config) {
       const hostname = config.userConfig.hostname
       const siteUrl = `${hostname}/${localeIndex}`
 
-      // Создаем базовый feed с улучшенными метаданными
+      // Создаем базовый feed
       feeds[localeIndex] = new Feed({
         language: localeIndex,
         title: locale.title,
@@ -47,7 +46,6 @@ export async function generateRssFeed(config) {
         link: siteUrl,
         favicon: `${hostname}/img/favicon-32x32.png`,
         image: `${hostname}${config.userConfig.themeConfig.sidebarLogoSrc}`,
-        // Добавляем дополнительные поля для лучшей совместимости
         generator: 'VitePress Blog Template',
         updated: new Date(),
         feedLinks: {
@@ -62,11 +60,13 @@ export async function generateRssFeed(config) {
           { includeSrc: true }
         ).load()
 
-        // Сортируем посты по дате (новые сначала)
-        posts.sort(
-          (a, b) =>
-            +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date)
-        )
+        // Сортируем посты по дате (новые сначала) и ограничиваем количество
+        posts
+          .sort(
+            (a, b) =>
+              +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date)
+          )
+          .slice(0, config.userConfig.themeConfig.maxPostsInRssFeed)
 
         for (const { url, frontmatter, src } of posts) {
           try {
@@ -84,8 +84,8 @@ export async function generateRssFeed(config) {
               descr = previewFromMd
             }
 
-            // Очищаем HTML теги из описания для RSS
-            const cleanDescription = sanitizeTextForRss(descr)
+            // Очищаем и обрезаем описание для RSS
+            const cleanDescription = truncateDescriptionForRss(descr)
 
             // Создаем уникальный GUID для поста
             const guid = createPostGuid(hostname, url, frontmatter.date)
@@ -101,6 +101,8 @@ export async function generateRssFeed(config) {
               link: `${hostname}${url}`,
               date: frontmatter.date && new Date(frontmatter.date),
               image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
+
+              // TODO: review
               // Добавляем автора если есть
               author: frontmatter.author
                 ? [
@@ -115,13 +117,10 @@ export async function generateRssFeed(config) {
               category: categories.length > 0 ? categories : undefined,
               // Добавляем дополнительные поля
               published: frontmatter.date && new Date(frontmatter.date),
+              // TODO: review
               updated:
                 (frontmatter.updated && new Date(frontmatter.updated)) ||
                 (frontmatter.date && new Date(frontmatter.date)),
-              // Добавляем контент если нужно
-              content: frontmatter.includeContent
-                ? parseMdFile(src).content
-                : undefined,
             })
           } catch (postError) {
             console.error(`Error processing post ${url}:`, postError)
@@ -141,9 +140,6 @@ export async function generateRssFeed(config) {
     for (const localeIndex of Object.keys(feeds)) {
       try {
         const feedDir = path.join(config.outDir)
-
-        // Создаем директорию если не существует
-        ensureDirectoryExists(feedDir)
 
         // Генерируем RSS 2.0 feed
         const rssPath = path.join(feedDir, `feed-${localeIndex}.rss`)

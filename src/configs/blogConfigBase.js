@@ -1,4 +1,5 @@
 import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
+import { addJsonLd } from '../transformers/addJsonLd.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 import { addRssLinks } from '../transformers/addRssLinks.js'
 import { generateRssFeed } from '../transformers/generateRssFeed.js'
@@ -101,6 +102,7 @@ export default function ({ hostname, repo }, en) {
       transformTitle(pageData, ctx)
       transformPageMeta(pageData, ctx)
       addOgMetaTags(pageData, ctx)
+      addJsonLd(pageData, ctx)
       addRssLinks(pageData, ctx)
     },
     buildEnd: async (config) => {

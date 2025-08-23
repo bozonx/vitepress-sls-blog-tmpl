@@ -1,12 +1,12 @@
 import { common } from '../configs/siteConfigBase.js'
 import en from '../configs/siteLocalesBase/en.js'
 import ru from '../configs/siteLocalesBase/ru.js'
-import { isExternalUrl } from '../helpers/helpers.js'
-import { stringTemplate } from '../helpers/stringTemplate.js'
 import {
   loadConfigYamlFile,
   parseLocaleSite,
-} from './parseSiteFileTranslations.js'
+} from '../page-helpers/parseSiteFileTranslations.js'
+import { isExternalUrl } from './helpers.js'
+import { stringTemplate } from './stringTemplate.js'
 
 const baseLocales = { en, ru }
 

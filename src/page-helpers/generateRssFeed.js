@@ -6,6 +6,7 @@ import { createContentLoader } from 'vitepress'
 import { DEFAULT_ENCODE, POSTS_DIR } from '../constants.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import { extractPreviewFromMd, resolvePreview } from './makePreviewItem.js'
+import { getFormatInfo, getRssFormats } from './rssFormats.js'
 import {
   createPostGuid,
   formatTagsForRss,
@@ -136,27 +137,36 @@ export async function generateRssFeed(config) {
       }
     }
 
+    // Получаем настройки форматов RSS из конфигурации
+    const rssFormats = getRssFormats(config)
+
     // Генерируем файлы для каждой локали
     for (const localeIndex of Object.keys(feeds)) {
       try {
         const feedDir = path.join(config.outDir)
 
-        // TODO: use rssFormats
+        // Генерируем файлы для каждого настроенного формата
+        for (const format of rssFormats) {
+          try {
+            const formatInfo = getFormatInfo(format)
+            const feedPath = path.join(
+              feedDir,
+              `feed-${localeIndex}.${formatInfo.extension}`
+            )
 
-        // Генерируем RSS 2.0 feed
-        const rssPath = path.join(feedDir, `feed-${localeIndex}.rss`)
-        fs.writeFileSync(rssPath, feeds[localeIndex].rss2(), DEFAULT_ENCODE)
-        console.log(`Generated RSS feed: ${rssPath}`)
+            // Генерируем контент для выбранного формата
+            const feedContent = formatInfo.generator(feeds[localeIndex])
 
-        // Генерируем Atom feed для лучшей совместимости
-        const atomPath = path.join(feedDir, `feed-${localeIndex}.atom`)
-        fs.writeFileSync(atomPath, feeds[localeIndex].atom1(), DEFAULT_ENCODE)
-        console.log(`Generated Atom feed: ${atomPath}`)
-
-        // Генерируем JSON feed (современный формат)
-        const jsonPath = path.join(feedDir, `feed-${localeIndex}.json`)
-        fs.writeFileSync(jsonPath, feeds[localeIndex].json1(), DEFAULT_ENCODE)
-        console.log(`Generated JSON feed: ${jsonPath}`)
+            // Записываем файл
+            fs.writeFileSync(feedPath, feedContent, DEFAULT_ENCODE)
+            console.log(`Generated ${formatInfo.title}: ${feedPath}`)
+          } catch (formatError) {
+            console.error(
+              `Error generating ${format} feed for locale ${localeIndex}:`,
+              formatError
+            )
+          }
+        }
       } catch (writeError) {
         console.error(
           `Error writing feeds for locale ${localeIndex}:`,

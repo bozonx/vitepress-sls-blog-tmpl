@@ -1,3 +1,5 @@
+import { getFormatInfo, getRssFormats } from './rssFormats.js'
+
 /**
  * Добавляет RSS feed ссылки в head страницы
  *
@@ -15,11 +17,7 @@ export function addRssLinks(pageData, { siteConfig }) {
   )
 
   // Получаем настройки форматов RSS
-  const rssFormats = siteConfig.userConfig.themeConfig?.rssFormats || [
-    'rss',
-    'atom',
-    'json',
-  ]
+  const rssFormats = getRssFormats(siteConfig)
 
   pageData.frontmatter.head ??= []
 
@@ -57,15 +55,4 @@ export function addRssLinks(pageData, { siteConfig }) {
       ])
     }
   }
-}
-
-/** Возвращает информацию о формате RSS */
-function getFormatInfo(format) {
-  const formats = {
-    rss: { mimeType: 'application/rss+xml', title: 'RSS Feed' },
-    atom: { mimeType: 'application/atom+xml', title: 'Atom Feed' },
-    json: { mimeType: 'application/feed+json', title: 'JSON Feed' },
-  }
-
-  return formats[format] || formats.rss
 }

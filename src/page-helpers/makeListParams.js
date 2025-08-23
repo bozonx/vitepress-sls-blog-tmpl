@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 import { DEFAULT_ENCODE } from '../constants.js'
-import { parseMdFile } from '../helpers/parseMdFile.js'
+import { parseMdFile } from '../helpers/mdWorks.js'
 import { transliterate } from '../helpers/transliterate.js'
 
 export function makeRecentParams(postsDirAbs, perPage) {

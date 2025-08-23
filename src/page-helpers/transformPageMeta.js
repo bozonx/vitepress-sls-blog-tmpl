@@ -1,5 +1,5 @@
 import { POSTS_DIR } from '../constants.js'
-import { mdToHtml } from '../helpers/convertMd.js'
+import { mdToHtml } from '../helpers/mdWorks.js'
 import { transliterate } from '../helpers/transliterate.js'
 
 /** Transform md in frontmatter params to html. And resolve preview */

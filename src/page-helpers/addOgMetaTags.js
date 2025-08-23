@@ -3,7 +3,7 @@ import path from 'path'
 
 import { DEFAULT_ENCODE } from '../constants.js'
 import { isHomePage, isPage, isPost } from '../helpers/helpers.js'
-import { parseMdFile } from '../helpers/parseMdFile.js'
+import { parseMdFile } from '../helpers/mdWorks.js'
 import { extractPreviewFromMd, resolvePreview } from './makePreviewItem.js'
 
 /**

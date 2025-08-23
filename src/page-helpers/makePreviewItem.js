@@ -2,8 +2,8 @@ import fs from 'fs'
 import path from 'path'
 
 import { DEFAULT_ENCODE } from '../constants.js'
-import { stripMd } from '../helpers/convertMd.js'
-import { parseMdFile } from '../helpers/parseMdFile.js'
+import { stripMd } from '../helpers/mdWorks.js'
+import { parseMdFile } from '../helpers/mdWorks.js'
 import { transliterate } from '../helpers/transliterate.js'
 
 export function makePreviewItem(filePath) {

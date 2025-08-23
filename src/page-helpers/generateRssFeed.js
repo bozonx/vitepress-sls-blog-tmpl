@@ -4,7 +4,7 @@ import path from 'path'
 import { createContentLoader } from 'vitepress'
 
 import { DEFAULT_ENCODE, POSTS_DIR } from '../constants.js'
-import { parseMdFile } from '../helpers/parseMdFile.js'
+import { parseMdFile } from '../helpers/mdWorks.js'
 import { extractPreviewFromMd, resolvePreview } from './makePreviewItem.js'
 
 export async function generateRssFeed(config) {

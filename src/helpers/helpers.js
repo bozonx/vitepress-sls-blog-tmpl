@@ -69,8 +69,10 @@ export function resolveI18Href(rawHref, localeIndex, i18nRouting) {
   if (isExternal || !i18nRouting) return trimmed
   // already included language
   if (trimmed.indexOf('/') === 0) return trimmed
-  // add language
-  return `/${localeIndex}${trimmed}`
+  // add language - добавляем слеш между localeIndex и trimmed
+  // Убираем начальный слеш из trimmed если он есть, чтобы избежать двойных слешей
+  const cleanHref = trimmed.startsWith('/') ? trimmed.slice(1) : trimmed
+  return `/${localeIndex}/${cleanHref}`
 }
 
 export function isExternalUrl(url) {

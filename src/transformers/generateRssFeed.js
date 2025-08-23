@@ -66,32 +66,51 @@ export async function generateRssFeed(config) {
           { includeSrc: true }
         ).load()
 
+        console.log(`Found ${posts.length} posts for locale ${localeIndex}`)
+
         // Сортируем посты по дате (новые сначала) и ограничиваем количество
-        posts
+        const sortedPosts = posts
           .sort(
             (a, b) =>
               +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date)
           )
           .slice(0, config.userConfig.themeConfig.maxPostsInRssFeed)
 
-        for (const { url, frontmatter, src } of posts) {
+        console.log(`Processing ${sortedPosts.length} posts for RSS feed`)
+
+        for (const { url, frontmatter, src } of sortedPosts) {
           try {
             // Валидируем обязательные поля
             if (!validatePostForRss(frontmatter, url)) {
+              console.log(`Skipping post ${url} - validation failed`)
               continue
             }
 
             // Получаем описание поста
             let descr = resolvePreview(frontmatter)
+            console.log(
+              `Initial description for ${frontmatter.title}:`,
+              descr ? descr.substring(0, 50) + '...' : 'null'
+            )
 
             if (!descr) {
               const { content } = parseMdFile(src)
               const previewFromMd = extractPreviewFromMd(content)
               descr = previewFromMd
+              console.log(
+                `Extracted description from MD for ${frontmatter.title}:`,
+                descr ? descr.substring(0, 50) + '...' : 'null'
+              )
             }
 
             // Очищаем и обрезаем описание для RSS
             const cleanDescription = truncateDescriptionForRss(descr)
+            console.log(
+              `Clean description for ${frontmatter.title}:`,
+              cleanDescription
+                ? cleanDescription.substring(0, 50) + '...'
+                : 'null'
+            )
 
             // Создаем уникальный GUID для поста
             const guid = createPostGuid(hostname, url, frontmatter.date)
@@ -123,11 +142,16 @@ export async function generateRssFeed(config) {
               //   (frontmatter.updated && new Date(frontmatter.updated)) ||
               //   (frontmatter.date && new Date(frontmatter.date)),
             })
+            console.log(`Successfully added post: ${frontmatter.title}`)
           } catch (postError) {
             console.error(`Error processing post ${url}:`, postError)
             continue
           }
         }
+
+        console.log(
+          `Feed for locale ${localeIndex} contains ${feeds[localeIndex].items.length} items`
+        )
       } catch (loaderError) {
         console.error(
           `Error loading posts for locale ${localeIndex}:`,

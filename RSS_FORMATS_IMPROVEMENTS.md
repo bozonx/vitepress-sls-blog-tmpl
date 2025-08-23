@@ -56,3 +56,35 @@ themeConfig: {
 ## Обратная совместимость
 
 Все изменения обратно совместимы. Если `rssFormats` не указан в конфигурации, используются все три формата по умолчанию: `['rss', 'atom', 'json']`.
+
+## Исправления критических ошибок
+
+### Проблема с пустыми RSS feeds
+
+**Проблема**: RSS feeds генерировались пустыми (без постов).
+
+**Причина**: Критическая ошибка в логике сортировки и ограничения постов в `generateRssFeed.js`. Методы `sort()` и `slice()` применялись к массиву `posts`, но результат не присваивался обратно переменной, что приводило к обработке исходного несортированного массива.
+
+**Решение**:
+
+```javascript
+// БЫЛО (неправильно):
+posts
+  .sort((a, b) => +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date))
+  .slice(0, config.userConfig.themeConfig.maxPostsInRssFeed)
+
+for (const { url, frontmatter, src } of posts) { // Использовался исходный массив!
+
+// СТАЛО (правильно):
+const sortedPosts = posts
+  .sort((a, b) => +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date))
+  .slice(0, config.userConfig.themeConfig.maxPostsInRssFeed)
+
+for (const { url, frontmatter, src } of sortedPosts) { // Используется отсортированный массив
+```
+
+### Улучшения обработки ошибок
+
+- Добавлена безопасная обработка авторов в `makeAuthorForRss()`
+- Добавлена отладочная информация для диагностики проблем
+- Улучшена валидация конфигурации авторов

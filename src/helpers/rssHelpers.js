@@ -193,13 +193,25 @@ export function getRssFormats(config) {
 }
 
 export function makeAuthorForRss(config, frontmatter, siteUrl, localeIndex) {
-  if (!frontmatter.authorId) return
+  if (!frontmatter.authorId) return undefined
 
-  const author = config.userConfig.themeConfig.authors.find(
-    (item) => item.id === frontmatter.authorId
-  )
+  const authors = config.userConfig.locales[localeIndex].themeConfig?.authors
 
-  if (!author) return
+  if (!authors || !Array.isArray(authors)) {
+    console.warn(
+      `Authors configuration not found or invalid for post with authorId: ${frontmatter.authorId}`
+    )
+    return undefined
+  }
+
+  const author = authors.find((item) => item.id === frontmatter.authorId)
+
+  if (!author) {
+    console.warn(
+      `Author with id "${frontmatter.authorId}" not found in authors configuration`
+    )
+    return undefined
+  }
 
   return {
     name: author.name,

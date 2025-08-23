@@ -35,8 +35,15 @@ function generatePageUrl(hostname, filePath) {
  * @param {Object} params - Параметры для создания структуры
  * @returns {Object} JSON-LD объект
  */
-function createWebsiteJsonLd({ hostname, siteName, description, pageUrl }) {
-  return {
+function createWebsiteJsonLd({
+  hostname,
+  siteName,
+  description,
+  pageUrl,
+  lang,
+  alternateLanguages,
+}) {
+  const website = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteName,
@@ -49,6 +56,21 @@ function createWebsiteJsonLd({ hostname, siteName, description, pageUrl }) {
       'query-input': 'required name=search_term_string',
     },
   }
+
+  // Добавляем информацию о языке
+  if (lang) {
+    website.inLanguage = lang
+  }
+
+  // Добавляем альтернативные языковые версии
+  if (alternateLanguages && alternateLanguages.length > 0) {
+    website.alternateName = alternateLanguages.map(
+      (lang) => `${siteName} (${lang.name})`
+    )
+    website.sameAs = alternateLanguages.map((lang) => lang.url)
+  }
+
+  return website
 }
 
 /**
@@ -68,6 +90,8 @@ function createArticleJsonLd({
   hostname,
   tags,
   siteName,
+  lang,
+  alternateLanguages,
 }) {
   const article = {
     '@context': 'https://schema.org',
@@ -78,6 +102,11 @@ function createArticleJsonLd({
     datePublished: date,
     publisher: { '@type': 'Organization', name: siteName, url: hostname },
     mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+  }
+
+  // Добавляем информацию о языке
+  if (lang) {
+    article.inLanguage = lang
   }
 
   // Добавляем автора если есть
@@ -103,6 +132,21 @@ function createArticleJsonLd({
     article.keywords = tags.map((tag) => tag.name).join(', ')
   }
 
+  // Добавляем альтернативные языковые версии
+  if (alternateLanguages && alternateLanguages.length > 0) {
+    article.isPartOf = {
+      '@type': 'CreativeWork',
+      '@id': `${hostname}/#website`,
+      inLanguage: lang,
+      hasPart: alternateLanguages.map((lang) => ({
+        '@type': 'CreativeWork',
+        '@id': lang.url,
+        inLanguage: lang.code,
+        url: lang.url,
+      })),
+    }
+  }
+
   // Добавляем тип статьи (BlogPosting для блог-постов)
   article['@type'] = 'BlogPosting'
 
@@ -122,6 +166,8 @@ function createWebPageJsonLd({
   hostname,
   siteName,
   cover,
+  lang,
+  alternateLanguages,
 }) {
   const webPage = {
     '@context': 'https://schema.org',
@@ -132,11 +178,31 @@ function createWebPageJsonLd({
     publisher: { '@type': 'Organization', name: siteName, url: hostname },
   }
 
+  // Добавляем информацию о языке
+  if (lang) {
+    webPage.inLanguage = lang
+  }
+
   // Добавляем изображение если есть
   if (cover) {
     webPage.image = {
       '@type': 'ImageObject',
       url: cover.startsWith('http') ? cover : `${hostname}${cover}`,
+    }
+  }
+
+  // Добавляем альтернативные языковые версии
+  if (alternateLanguages && alternateLanguages.length > 0) {
+    webPage.isPartOf = {
+      '@type': 'WebSite',
+      '@id': `${hostname}/#website`,
+      inLanguage: lang,
+      hasPart: alternateLanguages.map((lang) => ({
+        '@type': 'WebPage',
+        '@id': lang.url,
+        inLanguage: lang.code,
+        url: lang.url,
+      })),
     }
   }
 
@@ -167,6 +233,28 @@ export function addJsonLd(pageData, { siteConfig }) {
     )?.name
   const cover = pageData.frontmatter.cover
   const pageUrl = generatePageUrl(hostname, pageData.filePath)
+
+  // Получаем информацию о языке
+  const lang = langConfig.lang || langIndex
+  const alternateLanguages = []
+
+  // Собираем альтернативные языковые версии
+  if (siteConfig.site.locales) {
+    Object.entries(siteConfig.site.locales).forEach(([code, locale]) => {
+      if (code !== langIndex && code !== 'root') {
+        // Генерируем URL для альтернативной языковой версии
+        const alternateUrl = generatePageUrl(
+          hostname,
+          pageData.filePath.replace(`/${langIndex}/`, `/${code}/`)
+        )
+        alternateLanguages.push({
+          code: locale.lang || code,
+          name: locale.title || code,
+          url: alternateUrl,
+        })
+      }
+    })
+  }
 
   // Получаем описание
   let description = pageData.frontmatter.description
@@ -202,6 +290,8 @@ export function addJsonLd(pageData, { siteConfig }) {
       siteName,
       description,
       pageUrl,
+      lang,
+      alternateLanguages,
     })
   } else if (isArticle) {
     jsonLdData = createArticleJsonLd({
@@ -215,6 +305,8 @@ export function addJsonLd(pageData, { siteConfig }) {
       hostname,
       tags: pageData.frontmatter.tags,
       siteName,
+      lang,
+      alternateLanguages,
     })
   } else {
     jsonLdData = createWebPageJsonLd({
@@ -224,6 +316,8 @@ export function addJsonLd(pageData, { siteConfig }) {
       hostname,
       siteName,
       cover,
+      lang,
+      alternateLanguages,
     })
   }
 

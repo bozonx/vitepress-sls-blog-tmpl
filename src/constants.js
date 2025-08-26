@@ -1,4 +1,4 @@
-export const DEFAULT_ENCODE = 'utf8'
+export const DEFAULT_ENCODE = 'utf-8'
 export const MOBILE_BREAKPOINT = 1024
 export const SIDEBAR_WIDTH = 320
 export const POSTS_DIR = 'post'

@@ -1,14 +1,14 @@
 import { getFormatInfo, getRssFormats } from '../helpers/rssHelpers.js'
 
 /**
- * Добавляет RSS feed ссылки в head страницы
+ * Добавляет RSS feed ссылки в head главной страницы
  *
  * @param {Object} pageData - Данные страницы
  * @param {Object} ctx - Контекст с siteConfig
  */
 export function addRssLinks(pageData, { siteConfig }) {
-  // Пропускаем корневую страницу
-  if (pageData.filePath.indexOf('/') < 0) return
+  // only for index pages line ru/, en/
+  if (!pageData.filePath.match(/^\w+\/index\.md$/)) return
 
   const hostname = siteConfig.userConfig.hostname
   const langIndex = pageData.filePath.split('/')[0]

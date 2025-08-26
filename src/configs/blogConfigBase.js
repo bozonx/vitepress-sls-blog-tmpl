@@ -1,7 +1,7 @@
-import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
 import { addJsonLd } from '../transformers/addJsonLd.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 import { addRssLinks } from '../transformers/addRssLinks.js'
+import { filterSitemap } from '../transformers/filterSitemap.js'
 import { generateRssFeed } from '../transformers/generateRssFeed.js'
 import { transformPageMeta } from '../transformers/transformPageMeta.js'
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
@@ -88,7 +88,7 @@ export default function ({ hostname, repo }, en) {
       hostname,
       // fix sitemap - remove root from it
       transformItems: (items) => {
-        return removeRootItemFromSiteMap(items)
+        return filterSitemap(items)
       },
     },
 

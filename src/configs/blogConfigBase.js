@@ -1,3 +1,4 @@
+import { figure } from '@mdit/plugin-figure'
 import { addJsonLd } from '../transformers/addJsonLd.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 import { addRssLinks } from '../transformers/addRssLinks.js'
@@ -6,7 +7,7 @@ import { generateRssFeed } from '../transformers/generateRssFeed.js'
 import { transformPageMeta } from '../transformers/transformPageMeta.js'
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from '../transformers/transformTitle.js'
-import { figure } from '@mdit/plugin-figure'
+import { resolveDescription } from '../transformers/resolveDescription.js'
 
 // import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 
@@ -100,6 +101,7 @@ export default function ({ hostname, repo }, en) {
     },
     transformPageData(pageData, ctx) {
       transformTitle(pageData, ctx)
+      resolveDescription(pageData, ctx)
       transformPageMeta(pageData, ctx)
       addOgMetaTags(pageData, ctx)
       addJsonLd(pageData, ctx)

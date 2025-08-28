@@ -1,0 +1,69 @@
+/* from https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css */
+:root {
+  /* TODO: what to do with? --icon, --vp-code-lang-color */
+
+  --vp-c-divider: #e2e2e3;
+  --vp-c-gutter: #e2e2e3;
+  --vp-c-text-2: rgba(60, 60, 67, 0.78);
+  --vp-c-text-3: rgba(60, 60, 67, 0.56);
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-soft: #f6f6f7;
+  --vp-c-bg-alt: #f6f6f7;
+  --vp-c-indigo-1: #3451b2;
+  --vp-c-indigo-2: #3a5ccc;
+  --vp-c-gray-soft: rgba(142, 150, 170, 0.14);
+  --vp-c-red-soft: rgba(244, 63, 94, 0.14);
+  --vp-c-yellow-soft: rgba(234, 179, 8, 0.14);
+  --vp-c-red-soft: rgba(244, 63, 94, 0.14);
+
+  --vp-c-danger-soft: var(--vp-c-red-soft);
+  --vp-c-warning-soft: var(--vp-c-yellow-soft);
+  --vp-c-brand-1: var(--vp-c-indigo-1);
+  --vp-c-brand-2: var(--vp-c-indigo-2);
+  --vp-c-default-soft: var(--vp-c-gray-soft);
+
+  --vp-header-anchor-symbol: '#';
+  --vp-font-family-mono:
+    ui-monospace, 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono',
+    'Courier New', monospace;
+
+  --vp-code-font-size: 0.875em;
+  --vp-code-line-height: 1.7;
+  --vp-code-bg: var(--vp-c-default-soft);
+  --vp-code-color: var(--vp-c-brand-1);
+  --vp-code-link-color: var(--vp-c-brand-1);
+  --vp-code-link-hover-color: var(--vp-c-brand-2);
+  --vp-code-block-bg: var(--vp-c-bg-alt);
+  --vp-code-block-color: var(--vp-c-text-2);
+  --vp-code-block-divider-color: var(--vp-c-gutter);
+  --vp-code-line-highlight-color: var(--vp-c-default-soft);
+  --vp-code-line-error-color: var(--vp-c-danger-soft);
+  --vp-code-line-warning-color: var(--vp-c-warning-soft);
+  --vp-code-line-number-color: var(--vp-c-text-3);
+  --vp-code-copy-code-border-color: var(--vp-c-divider);
+  --vp-code-copy-code-bg: var(--vp-c-bg-soft);
+  --vp-code-copy-code-hover-border-color: var(--vp-c-divider);
+  --vp-code-copy-code-hover-bg: var(--vp-c-bg);
+  --vp-code-copy-code-active-text: var(--vp-c-text-2);
+  --vp-code-copy-code-hover-bg: var(--vp-c-bg);
+  --vp-code-copy-copied-text-content: 'Copied';
+
+  --vp-icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3C/svg%3E");
+  --vp-icon-copied: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3Cpath d='m9 14 2 2 4-4'/%3E%3C/svg%3E");
+}
+
+.dark {
+  --vp-c-divider: #2e2e32;
+  --vp-c-gutter: #000000;
+  --vp-c-text-2: rgba(235, 235, 245, 0.6);
+  --vp-c-text-3: rgba(235, 235, 245, 0.38);
+  --vp-c-bg: #1b1b1f;
+  --vp-c-bg-soft: #202127;
+  --vp-c-bg-alt: #161618;
+  --vp-c-indigo-1: #a8b1ff;
+  --vp-c-indigo-2: #5c73e7;
+  --vp-c-gray-soft: rgba(101, 117, 133, 0.16);
+  --vp-c-red-soft: rgba(244, 63, 94, 0.16);
+  --vp-c-yellow-soft: rgba(234, 179, 8, 0.16);
+  --vp-c-red-soft: rgba(244, 63, 94, 0.16);
+}

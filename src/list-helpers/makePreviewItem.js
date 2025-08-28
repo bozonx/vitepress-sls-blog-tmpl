@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { smartTruncate } from 'squidlet-lib'
 
 import { DEFAULT_ENCODE } from '../constants.js'
 import { stripMd } from '../helpers/mdWorks.js'
@@ -46,7 +47,7 @@ export function extractPreviewFromMd(mdContent) {
   const mdContentNoHeader = removeTitleFromMd(mdContent)
   const striped = stripMd(mdContentNoHeader)
 
-  return striped.substring(0, 300)
+  return smartTruncate(striped, 300)
 }
 
 function removeTitleFromMd(mdNoFrontmatter) {

@@ -72,11 +72,3 @@ export function resolveArticlePreview(frontmatter) {
     return description
   }
 }
-
-// export function arraysIntersection(arr1 = [], arr2 = []) {
-//   return arr1.filter((x) => arr2.includes(x))
-// }
-
-// export function objectGet(obj, key) {
-//   return key.split('.').reduce((acc, k) => acc && acc[k], obj)
-// }

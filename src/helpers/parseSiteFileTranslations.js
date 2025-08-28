@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import yaml from 'yaml'
-import { standardTemplate } from 'squidlet-lib/js'
+import { standardTemplate } from 'squidlet-lib'
 
 import { DEFAULT_ENCODE } from '../constants.js'
 

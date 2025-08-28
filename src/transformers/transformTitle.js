@@ -1,4 +1,4 @@
-import { mustacheTemplate } from 'squidlet-lib/js'
+import { mustacheTemplate } from 'squidlet-lib'
 
 /**
  * Fix titles of utility pages which are template strings like {{

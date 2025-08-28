@@ -1,7 +1,7 @@
 <script setup>
 import { useData } from 'vitepress'
+import { arraysIntersection } from 'squidlet-lib'
 
-import { arraysIntersection } from '../../helpers/helpers.js'
 import PreviewList from './PreviewList.vue'
 
 const props = defineProps(['allPosts'])

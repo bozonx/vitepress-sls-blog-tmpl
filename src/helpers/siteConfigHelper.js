@@ -6,7 +6,7 @@ import {
   parseLocaleSite,
 } from '../list-helpers/parseSiteFileTranslations.js'
 import { isExternalUrl } from './helpers.js'
-import { standardTemplate } from 'squidlet-lib/js'
+import { standardTemplate } from 'squidlet-lib'
 
 const baseLocales = { en, ru }
 

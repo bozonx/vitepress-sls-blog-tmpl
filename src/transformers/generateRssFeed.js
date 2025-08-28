@@ -19,7 +19,7 @@ import {
 import {
   extractPreviewFromMd,
   resolvePreview,
-} from '../page-helpers/makePreviewItem.js'
+} from '../list-helpers/makePreviewItem.js'
 
 /**
  * Генерирует RSS и Atom feeds для всех локалей

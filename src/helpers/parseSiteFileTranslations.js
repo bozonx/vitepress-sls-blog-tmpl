@@ -3,7 +3,7 @@ import path from 'node:path'
 import yaml from 'yaml'
 
 import { DEFAULT_ENCODE } from '../constants.js'
-import { stringTemplate } from '../helpers/stringTemplate.js'
+import { stringTemplate } from './stringTemplate.js'
 
 export const SITE_DIR_REL_PATH = '../site'
 

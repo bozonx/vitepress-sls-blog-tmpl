@@ -23,7 +23,6 @@ export function makePreviewItem(filePath) {
     url,
     date: frontmatter.date,
     authorId: frontmatter.authorId,
-    // title: extractTitleFromMd(content),
     title: frontmatter.title,
     tags: [...(frontmatter.tags || [])].map((item) => ({
       name: item,
@@ -53,9 +52,3 @@ export function extractPreviewFromMd(mdContent) {
 function removeTitleFromMd(mdNoFrontmatter) {
   return mdNoFrontmatter.trim().replace(/^\#\s+.+/, '')
 }
-
-// export function extractImageFromMd(rawData) {
-//   const firstImgMatch = removeFrontmatter(rawData.src).match(/\!\[[^\]]*\]\(([^\)]+)\)/)
-//
-//   return (firstImgMatch) ? firstImgMatch[1] : null
-// }

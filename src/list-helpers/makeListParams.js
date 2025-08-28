@@ -98,31 +98,6 @@ export function makeTagsParams(postsDirAbs, perPage, lang) {
     }
   }
 
-  // const dates = loadDatesList(postsDirAbs);
-  //
-  // for (const date of dates) {
-  //   const datePath = path.join(postsDirAbs, date);
-  //   const posts = fs.readdirSync(datePath, DEFAULT_ENCODE);
-  //   const filteredPosts = posts.filter((item) => item.endsWith(".md"));
-  //
-  //   for (const postName of posts) {
-  //     const postPath = path.join(datePath, postName);
-  //     const postRawContent = fs.readFileSync(postPath, DEFAULT_ENCODE);
-  //     const { data } = grayMatter(postRawContent);
-  //     const tags = data.tags;
-  //
-  //     if (!tags?.length) continue;
-  //
-  //     for (const tag of tags) {
-  //       if (typeof tagsCount[tag] === "undefined") {
-  //         tagsCount[tag] = 1;
-  //       } else {
-  //         tagsCount[tag]++;
-  //       }
-  //     }
-  //   }
-  // }
-
   const res = []
 
   for (const name of Object.keys(tagsCount)) {
@@ -183,17 +158,3 @@ export function loadDatesList(postsDirAbs) {
       return frontmatter.date
     })
 }
-
-// export function loadYears(postsDirAbs) {
-//   const dates = loadDatesList(postsDirAbs)
-
-//   return dates.reduce((acc, date) => {
-//     const year = new Date(date).getUTCFullYear()
-
-//     if (!acc.includes(year)) {
-//       acc.push(year)
-//     }
-
-//     return acc
-//   }, [])
-// }

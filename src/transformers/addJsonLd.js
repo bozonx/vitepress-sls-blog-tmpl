@@ -7,7 +7,7 @@ import { parseMdFile } from '../helpers/mdWorks.js'
 import {
   extractPreviewFromMd,
   resolvePreview,
-} from '../page-helpers/makePreviewItem.js'
+} from '../list-helpers/makePreviewItem.js'
 
 /**
  * Генерирует полный URL для страницы

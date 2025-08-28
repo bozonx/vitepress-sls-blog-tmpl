@@ -1,7 +1,7 @@
 import { common } from '../configs/blogConfigBase.js'
 import en from '../configs/blogLocalesBase/en.js'
 import ru from '../configs/blogLocalesBase/ru.js'
-import { parseLocaleSite } from '../page-helpers/parseSiteFileTranslations.js'
+import { parseLocaleSite } from './parseSiteFileTranslations.js'
 import { mdToHtml } from './mdWorks.js'
 
 const baseLocales = { en, ru }

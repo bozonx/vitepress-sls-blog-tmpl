@@ -1,5 +1,5 @@
 <script setup>
-import { makePostOfMonthList } from '../../page-helpers/listHelpers.js'
+import { makePostOfMonthList } from '../../list-helpers/listHelpers.js'
 import PreviewListItem from './PreviewListItem.vue'
 
 const props = defineProps(['allData', 'year', 'month'])

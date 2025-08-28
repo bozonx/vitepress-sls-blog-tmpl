@@ -1,5 +1,5 @@
 <script setup>
-import { makeTagsList } from '../../page-helpers/listHelpers.js'
+import { makeTagsList } from '../../list-helpers/listHelpers.js'
 import TagsList from '../TagsList.vue'
 
 const props = defineProps(['allPosts'])

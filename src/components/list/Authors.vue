@@ -1,7 +1,7 @@
 <script setup>
 import { useData } from 'vitepress'
 
-import { makeAuthorsList } from '../../page-helpers/listHelpers.js'
+import { makeAuthorsList } from '../../list-helpers/listHelpers.js'
 import ListItemWithBadge from './ListItemWithBadge.vue'
 
 const props = defineProps(['allPosts'])

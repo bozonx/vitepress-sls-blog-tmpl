@@ -4,7 +4,7 @@ import ru from '../configs/siteLocalesBase/ru.js'
 import {
   loadConfigYamlFile,
   parseLocaleSite,
-} from '../page-helpers/parseSiteFileTranslations.js'
+} from '../list-helpers/parseSiteFileTranslations.js'
 import { isExternalUrl } from './helpers.js'
 import { stringTemplate } from './stringTemplate.js'
 

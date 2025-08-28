@@ -1,5 +1,5 @@
 import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
-import { addOgMetaTags } from '../page-helpers/addOgMetaTags.js'
+import { addOgMetaTags } from '../list-helpers/addOgMetaTags.js'
 
 export const common = {
   head: [

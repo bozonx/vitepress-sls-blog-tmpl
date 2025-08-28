@@ -1,7 +1,7 @@
 <script setup>
 import { useData } from 'vitepress'
 
-import { makeMonthsList } from '../../page-helpers/listHelpers.js'
+import { makeMonthsList } from '../../list-helpers/listHelpers.js'
 import ListItemWithBadge from './ListItemWithBadge.vue'
 import PreviewList from './PreviewList.vue'
 

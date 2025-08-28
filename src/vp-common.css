@@ -1,7 +1,6 @@
 /* from https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css */
-:root {
-  /* TODO: what to do with? --icon, --vp-code-lang-color */
 
+:root {
   --vp-c-divider: #e2e2e3;
   --vp-c-gutter: #e2e2e3;
   --vp-c-text-2: rgba(60, 60, 67, 0.78);
@@ -26,30 +25,6 @@
   --vp-font-family-mono:
     ui-monospace, 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono',
     'Courier New', monospace;
-
-  --vp-code-font-size: 0.875em;
-  --vp-code-line-height: 1.7;
-  --vp-code-bg: var(--vp-c-default-soft);
-  --vp-code-color: var(--vp-c-brand-1);
-  --vp-code-link-color: var(--vp-c-brand-1);
-  --vp-code-link-hover-color: var(--vp-c-brand-2);
-  --vp-code-block-bg: var(--vp-c-bg-alt);
-  --vp-code-block-color: var(--vp-c-text-2);
-  --vp-code-block-divider-color: var(--vp-c-gutter);
-  --vp-code-line-highlight-color: var(--vp-c-default-soft);
-  --vp-code-line-error-color: var(--vp-c-danger-soft);
-  --vp-code-line-warning-color: var(--vp-c-warning-soft);
-  --vp-code-line-number-color: var(--vp-c-text-3);
-  --vp-code-copy-code-border-color: var(--vp-c-divider);
-  --vp-code-copy-code-bg: var(--vp-c-bg-soft);
-  --vp-code-copy-code-hover-border-color: var(--vp-c-divider);
-  --vp-code-copy-code-hover-bg: var(--vp-c-bg);
-  --vp-code-copy-code-active-text: var(--vp-c-text-2);
-  --vp-code-copy-code-hover-bg: var(--vp-c-bg);
-  --vp-code-copy-copied-text-content: 'Copied';
-
-  --vp-icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3C/svg%3E");
-  --vp-icon-copied: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3Cpath d='m9 14 2 2 4-4'/%3E%3C/svg%3E");
 }
 
 .dark {
@@ -66,4 +41,149 @@
   --vp-c-red-soft: rgba(244, 63, 94, 0.16);
   --vp-c-yellow-soft: rgba(234, 179, 8, 0.16);
   --vp-c-red-soft: rgba(244, 63, 94, 0.16);
+}
+
+/**
+ * Component: Header Anchor
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-header-anchor-symbol: '#';
+}
+
+/**
+ * Component: Code
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-code-line-height: 1.7;
+  --vp-code-font-size: 0.875em;
+  --vp-code-color: var(--vp-c-brand-1);
+  --vp-code-link-color: var(--vp-c-brand-1);
+  --vp-code-link-hover-color: var(--vp-c-brand-2);
+  --vp-code-bg: var(--vp-c-default-soft);
+
+  --vp-code-block-color: var(--vp-c-text-2);
+  --vp-code-block-bg: var(--vp-c-bg-alt);
+  --vp-code-block-divider-color: var(--vp-c-gutter);
+
+  --vp-code-lang-color: var(--vp-c-text-2);
+
+  --vp-code-line-highlight-color: var(--vp-c-default-soft);
+  --vp-code-line-number-color: var(--vp-c-text-2);
+
+  --vp-code-line-diff-add-color: var(--vp-c-success-soft);
+  --vp-code-line-diff-add-symbol-color: var(--vp-c-success-1);
+
+  --vp-code-line-diff-remove-color: var(--vp-c-danger-soft);
+  --vp-code-line-diff-remove-symbol-color: var(--vp-c-danger-1);
+
+  --vp-code-line-warning-color: var(--vp-c-warning-soft);
+  --vp-code-line-error-color: var(--vp-c-danger-soft);
+
+  --vp-code-copy-code-border-color: var(--vp-c-divider);
+  --vp-code-copy-code-bg: var(--vp-c-bg-soft);
+  --vp-code-copy-code-hover-border-color: var(--vp-c-divider);
+  --vp-code-copy-code-hover-bg: var(--vp-c-bg);
+  --vp-code-copy-code-active-text: var(--vp-c-text-2);
+  --vp-code-copy-copied-text-content: 'Copied';
+
+  --vp-code-tab-divider: var(--vp-code-block-divider-color);
+  --vp-code-tab-text-color: var(--vp-c-text-2);
+  --vp-code-tab-bg: var(--vp-code-block-bg);
+  --vp-code-tab-hover-text-color: var(--vp-c-text-1);
+  --vp-code-tab-active-text-color: var(--vp-c-text-1);
+  --vp-code-tab-active-bar-color: var(--vp-c-brand-1);
+}
+
+:lang(es),
+:lang(pt) {
+  --vp-code-copy-copied-text-content: 'Copiado';
+}
+:lang(fa) {
+  --vp-code-copy-copied-text-content: 'کپی شد';
+}
+:lang(ko) {
+  --vp-code-copy-copied-text-content: '복사됨';
+}
+:lang(ru) {
+  --vp-code-copy-copied-text-content: 'Скопировано';
+}
+:lang(zh) {
+  --vp-code-copy-copied-text-content: '已复制';
+}
+
+/**
+ * Component: Custom Block
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-custom-block-font-size: 14px;
+  --vp-custom-block-code-font-size: 13px;
+
+  --vp-custom-block-info-border: transparent;
+  --vp-custom-block-info-text: var(--vp-c-text-1);
+  --vp-custom-block-info-bg: var(--vp-c-default-soft);
+  --vp-custom-block-info-code-bg: var(--vp-c-default-soft);
+
+  --vp-custom-block-note-border: transparent;
+  --vp-custom-block-note-text: var(--vp-c-text-1);
+  --vp-custom-block-note-bg: var(--vp-c-default-soft);
+  --vp-custom-block-note-code-bg: var(--vp-c-default-soft);
+
+  --vp-custom-block-tip-border: transparent;
+  --vp-custom-block-tip-text: var(--vp-c-text-1);
+  --vp-custom-block-tip-bg: var(--vp-c-tip-soft);
+  --vp-custom-block-tip-code-bg: var(--vp-c-tip-soft);
+
+  --vp-custom-block-important-border: transparent;
+  --vp-custom-block-important-text: var(--vp-c-text-1);
+  --vp-custom-block-important-bg: var(--vp-c-important-soft);
+  --vp-custom-block-important-code-bg: var(--vp-c-important-soft);
+
+  --vp-custom-block-warning-border: transparent;
+  --vp-custom-block-warning-text: var(--vp-c-text-1);
+  --vp-custom-block-warning-bg: var(--vp-c-warning-soft);
+  --vp-custom-block-warning-code-bg: var(--vp-c-warning-soft);
+
+  --vp-custom-block-danger-border: transparent;
+  --vp-custom-block-danger-text: var(--vp-c-text-1);
+  --vp-custom-block-danger-bg: var(--vp-c-danger-soft);
+  --vp-custom-block-danger-code-bg: var(--vp-c-danger-soft);
+
+  --vp-custom-block-caution-border: transparent;
+  --vp-custom-block-caution-text: var(--vp-c-text-1);
+  --vp-custom-block-caution-bg: var(--vp-c-caution-soft);
+  --vp-custom-block-caution-code-bg: var(--vp-c-caution-soft);
+
+  --vp-custom-block-details-border: var(--vp-custom-block-info-border);
+  --vp-custom-block-details-text: var(--vp-custom-block-info-text);
+  --vp-custom-block-details-bg: var(--vp-custom-block-info-bg);
+  --vp-custom-block-details-code-bg: var(--vp-custom-block-info-code-bg);
+}
+
+/**
+ * Component: Carbon Ads
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-carbon-ads-text-color: var(--vp-c-text-1);
+  --vp-carbon-ads-poweredby-color: var(--vp-c-text-2);
+  --vp-carbon-ads-bg-color: var(--vp-c-bg-soft);
+  --vp-carbon-ads-hover-text-color: var(--vp-c-brand-1);
+  --vp-carbon-ads-hover-poweredby-color: var(--vp-c-text-1);
+}
+
+/**
+  * Component: Local Search
+  * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-local-search-bg: var(--vp-c-bg);
+  --vp-local-search-result-bg: var(--vp-c-bg);
+  --vp-local-search-result-border: var(--vp-c-divider);
+  --vp-local-search-result-selected-bg: var(--vp-c-bg);
+  --vp-local-search-result-selected-border: var(--vp-c-brand-1);
+  --vp-local-search-highlight-bg: var(--vp-c-brand-1);
+  --vp-local-search-highlight-text: var(--vp-c-neutral-inverse);
 }

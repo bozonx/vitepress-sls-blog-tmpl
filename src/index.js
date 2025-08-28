@@ -1,10 +1,11 @@
-import Layout from "./LayoutIndex.vue";
+import 'vitepress/dist/client/theme-default/styles/components/vp-code-group.css'
+import 'vitepress/dist/client/theme-default/styles/components/vp-code.css'
+// see https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/components/vp-doc.css
+import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
+import './vp-common.css'
+import './vp-icons.css'
+import './styles.css'
 
-import "./vp-doc.css";
-// import "vitepress/dist/client/theme-default/styles/vars.css";
+import Layout from './LayoutIndex.vue'
 
-import "./styles.css";
-
-export default {
-  Layout,
-};
+export default { Layout }

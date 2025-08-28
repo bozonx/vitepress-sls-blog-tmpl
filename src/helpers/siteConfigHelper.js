@@ -6,7 +6,7 @@ import {
   parseLocaleSite,
 } from '../list-helpers/parseSiteFileTranslations.js'
 import { isExternalUrl } from './helpers.js'
-import { stringTemplate } from './stringTemplate.js'
+import { standardTemplate } from 'squidlet-lib/js'
 
 const baseLocales = { en, ru }
 
@@ -46,10 +46,10 @@ export function parseLocaleSidebar(configFilePath, lang, rawProps) {
 
   function menuRecursive(items, linkPrePath) {
     for (const item of items) {
-      item.text = stringTemplate(item.text, PROPS)
+      item.text = standardTemplate(item.text, PROPS)
 
       if (typeof item.link === 'string') {
-        item.link = stringTemplate(item.link, PROPS)
+        item.link = standardTemplate(item.link, PROPS)
 
         if (item.link.indexOf('/') !== 0 && !isExternalUrl(item.link)) {
           item.link = linkPrePath + item.link

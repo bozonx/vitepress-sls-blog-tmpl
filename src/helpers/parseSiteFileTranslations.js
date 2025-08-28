@@ -1,9 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import yaml from 'yaml'
+import { standardTemplate } from 'squidlet-lib/js'
 
 import { DEFAULT_ENCODE } from '../constants.js'
-import { stringTemplate } from './stringTemplate.js'
 
 export const SITE_DIR_REL_PATH = '../site'
 
@@ -26,7 +26,7 @@ export function parseLocaleSite(lang, configFilePath, rawProps) {
 
       return items
     } else if (typeof items === 'string') {
-      return stringTemplate(items, { PROPS })
+      return standardTemplate(items, { PROPS })
     }
 
     return items

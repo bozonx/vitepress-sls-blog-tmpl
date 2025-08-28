@@ -6,8 +6,7 @@
   "author": "(Ivan Kozyrin <ipkozyrin@gmail.com>)",
   "license": "MIT",
   "scripts": {
-    "tw:build": "pnpm dlx @tailwindcss/cli --minify -i ./src/tailwind.css -o ./dist/styles.css",
-    "postinstall": "npm run build"
+    "tw:build": "pnpm dlx @tailwindcss/cli --minify -i ./src/tailwind.css -o ./dist/styles.css"
   },
   "exports": {
     ".": "./src/index.js",
@@ -47,6 +46,7 @@
     "remark": "^15.0.1",
     "remark-rehype": "^11.1.2",
     "slug": "^11.0.0",
+    "squidlet-lib": "^0.1.10",
     "strip-markdown": "^6.0.0",
     "tailwindcss": "^4.1.11",
     "vitepress": "2.0.0-alpha.9",

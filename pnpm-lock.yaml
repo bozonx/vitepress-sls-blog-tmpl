@@ -4,6 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  squildlet-lib: link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squildlet-lib
+  squidlet-lib: link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squidlet-lib
+
 importers:
 
   .:
@@ -38,6 +42,9 @@ importers:
       slug:
         specifier: ^11.0.0
         version: 11.0.0
+      squidlet-lib:
+        specifier: link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squidlet-lib
+        version: link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squidlet-lib
       strip-markdown:
         specifier: ^6.0.0
         version: 6.0.0

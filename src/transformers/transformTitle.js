@@ -1,4 +1,4 @@
-import { stringTemplate } from '../helpers/stringTemplate.js'
+import { mustacheTemplate } from 'squidlet-lib/js'
 
 /**
  * Fix titles of utility pages which are template strings like {{
@@ -15,5 +15,5 @@ export function transformTitle(pageData, { siteConfig }) {
     params: pageData.params,
   }
 
-  pageData.title = stringTemplate(pageData.title, options, true)
+  pageData.title = mustacheTemplate(pageData.title, options)
 }

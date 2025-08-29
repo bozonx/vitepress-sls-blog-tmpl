@@ -47,7 +47,7 @@ export function extractPreviewFromMd(mdContent) {
   const mdContentNoHeader = removeTitleFromMd(mdContent)
   const striped = stripMd(mdContentNoHeader)
 
-  return smartTruncate(striped, 300)
+  return smartTruncate(striped, 300, { respectWords: true })
 }
 
 function removeTitleFromMd(mdNoFrontmatter) {

@@ -9,6 +9,7 @@ import {
   resolvePreview,
 } from '../list-helpers/makePreviewItem.js'
 
+// TODO: use from squidlet-lib
 /**
  * Обрезает описание до рекомендуемой длины для OG тегов
  *

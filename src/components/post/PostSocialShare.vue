@@ -12,13 +12,19 @@ const attrs = {
   target: '_blank',
   rel: 'nofollow noopener',
 }
+
+// Получаем список социальных сетей из конфигурации темы
 const socialItems = (theme.value.socialMediaShares || '')
   .split(',')
   .filter((item) => Boolean(item))
   .map((item) => item.trim())
 
 const makeItems = () => {
-  const encodedDocUrl = encodeURIComponent(document.URL)
+  // Безопасное получение URL документа с fallback
+  const currentUrl = typeof document !== 'undefined' ? document.URL : ''
+  const encodedDocUrl = encodeURIComponent(currentUrl)
+
+  // Параметры для каждой социальной сети
   const itemsParams = {
     telegram: {
       href: `https://t.me/share/url?url=${encodedDocUrl}&text=${siteFullTitle}`,
@@ -27,9 +33,9 @@ const makeItems = () => {
       attrs,
     },
     whatsapp: {
-      href: `https://api.whatsapp.com/send?text=${siteFullTitle}%20${encodedDocUrl}`,
+      href: `https://api.whatsapp.com/send?text=${siteFullTitle}&url=${encodedDocUrl}`,
       icon: 'logos:whatsapp-icon',
-      title: 'Whatsapp',
+      title: 'WhatsApp',
       attrs,
     },
     vk: {
@@ -39,20 +45,21 @@ const makeItems = () => {
       attrs: { ...attrs, class: `${attrs.class} social-vk` },
     },
     x: {
-      href: `https://twitter.com/intent/tweet?text=${siteFullTitle}&url=${encodedDocUrl}`,
+      href: `https://x.com/intent/tweet?text=${siteFullTitle}&url=${encodedDocUrl}`,
       icon: 'ri:twitter-x-fill',
-      title: 'X.com',
+      title: 'X (Twitter)',
       attrs,
     },
     facebook: {
-      href: 'https://www.facebook.com/sharer/sharer.php?u=' + encodedDocUrl,
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedDocUrl}`,
       icon: 'logos:facebook',
       title: 'Facebook',
       attrs,
     },
   }
 
-  return socialItems.map((item) => itemsParams[item])
+  // Возвращаем только те социальные сети, которые указаны в конфигурации
+  return socialItems.map((item) => itemsParams[item]).filter((item) => item) // Убираем undefined элементы
 }
 
 onMounted(() => {
@@ -62,12 +69,12 @@ onMounted(() => {
 
 <template>
   <div
-    v-if="theme.socialMediaShares"
+    v-if="theme.socialMediaShares && items.length > 0"
     class="flex gap-y-3 max-sm:flex-col sm:items-center"
   >
     <div class="mr-2 muted">{{ theme.t.shareSocialMedia }}:</div>
     <div class="flex gap-x-2">
-      <template v-for="item in items">
+      <template v-for="item in items" :key="item.title">
         <a :href="item.href" :title="item.title" v-bind="item.attrs">
           <Icon :icon="item.icon" aria-hidden="true" />
         </a>

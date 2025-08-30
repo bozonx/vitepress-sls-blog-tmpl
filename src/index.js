@@ -9,4 +9,13 @@ import './styles.css'
 
 import Layout from './LayoutIndex.vue'
 
+// Экспортируем функции для работы с изображениями
+export {
+  getImageSize,
+  getImageSizeFromFile,
+  getImageSizeFromUrl,
+  isSupportedImageType,
+  getAspectRatioInfo,
+} from './helpers/imageHelpers.js'
+
 export default { Layout }

@@ -8,7 +8,7 @@ import {
   extractPreviewFromMd,
   resolvePreview,
 } from '../list-helpers/makePreviewItem.js'
-import { getImageSize } from '../helpers/imageHelpers.js'
+import { getImageDimensions } from '../helpers/imageHelpers.js'
 
 // Используем image-size пакет для получения размеров изображений
 /**
@@ -52,54 +52,6 @@ function generatePageUrl(hostname, filePath) {
   const cleanPath = urlPath.replace(/\/index$/, '')
 
   return `${hostname}/${cleanPath}`
-}
-
-/**
- * Получает размеры изображения из файла
- *
- * @param {string} imagePath - Путь к изображению
- * @param {string} srcDir - Директория исходников
- * @returns {{ width: number; height: number } | null} Размеры изображения или
- *   null
- */
-function getImageDimensions(imagePath, srcDir) {
-  if (!imagePath) return null
-
-  try {
-    // Полный путь к файлу изображения
-    const fullImagePath = path.join(srcDir, 'public', imagePath)
-
-    // Проверяем существование файла
-    if (!fs.existsSync(fullImagePath)) {
-      console.warn(`Image file not found: ${fullImagePath}`)
-      return null
-    }
-
-    // Читаем файл в буфер и передаем буфер в getImageSize
-    const buffer = fs.readFileSync(fullImagePath)
-
-    // Проверяем, что буфер не пустой
-    if (!buffer || buffer.length === 0) {
-      console.warn(`Empty buffer for image file: ${fullImagePath}`)
-      return null
-    }
-
-    const dimensions = getImageSize(buffer)
-
-    // Проверяем, что размеры валидны
-    if (!dimensions || !dimensions.width || !dimensions.height) {
-      console.warn(`Invalid image dimensions for ${imagePath}`)
-      return null
-    }
-
-    return { width: dimensions.width, height: dimensions.height }
-  } catch (error) {
-    console.warn(
-      `Failed to get image dimensions for ${imagePath}:`,
-      error.message
-    )
-    return null
-  }
 }
 
 /** Add OpenGraph metatags to the page */

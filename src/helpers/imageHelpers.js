@@ -1,5 +1,6 @@
 import { imageSize } from 'image-size'
 import fs from 'fs'
+import path from 'path'
 
 /**
  * Получает размеры изображения из файла
@@ -75,44 +76,44 @@ export function getImageSize(buffer) {
   }
 }
 
-/**
- * Проверяет, поддерживается ли формат изображения
- *
- * @param {string} type - Тип изображения (например, 'jpeg', 'png', 'gif')
- * @returns {boolean} True если формат поддерживается
- */
-export function isSupportedImageType(type) {
-  const supportedTypes = [
-    'jpeg',
-    'jpg',
-    'png',
-    'gif',
-    'webp',
-    'bmp',
-    'tiff',
-    'ico',
-    'svg',
-    'avif',
-  ]
-  return supportedTypes.includes(type.toLowerCase())
-}
+// /**
+//  * Проверяет, поддерживается ли формат изображения
+//  *
+//  * @param {string} type - Тип изображения (например, 'jpeg', 'png', 'gif')
+//  * @returns {boolean} True если формат поддерживается
+//  */
+// export function isSupportedImageType(type) {
+//   const supportedTypes = [
+//     'jpeg',
+//     'jpg',
+//     'png',
+//     'gif',
+//     'webp',
+//     'bmp',
+//     'tiff',
+//     'ico',
+//     'svg',
+//     'avif',
+//   ]
+//   return supportedTypes.includes(type.toLowerCase())
+// }
 
-/**
- * Получает информацию о соотношении сторон изображения
- *
- * @param {number} width - Ширина изображения
- * @param {number} height - Высота изображения
- * @returns {Object} Объект с соотношением сторон и ориентацией
- */
-export function getAspectRatioInfo(width, height) {
-  const ratio = width / height
+// /**
+//  * Получает информацию о соотношении сторон изображения
+//  *
+//  * @param {number} width - Ширина изображения
+//  * @param {number} height - Высота изображения
+//  * @returns {Object} Объект с соотношением сторон и ориентацией
+//  */
+// export function getAspectRatioInfo(width, height) {
+//   const ratio = width / height
 
-  return {
-    ratio: ratio,
-    ratioFormatted: ratio.toFixed(2),
-    orientation: ratio > 1 ? 'landscape' : ratio < 1 ? 'portrait' : 'square',
-    isLandscape: ratio > 1,
-    isPortrait: ratio < 1,
-    isSquare: ratio === 1,
-  }
-}
+//   return {
+//     ratio: ratio,
+//     ratioFormatted: ratio.toFixed(2),
+//     orientation: ratio > 1 ? 'landscape' : ratio < 1 ? 'portrait' : 'square',
+//     isLandscape: ratio > 1,
+//     isPortrait: ratio < 1,
+//     isSquare: ratio === 1,
+//   }
+// }

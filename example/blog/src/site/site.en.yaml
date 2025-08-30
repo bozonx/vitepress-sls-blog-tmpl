@@ -64,3 +64,6 @@ body: |
       - text: "RSS feed"
         href: "${PROPS.hostname}/feed-${PROPS.lang}.rss"
         icon: "${PROPS.theme.rssIcon}"
+      - text: "Atom feed"
+        href: "${PROPS.hostname}/feed-${PROPS.lang}.atom"
+        icon: "${PROPS.theme.atomIcon}"

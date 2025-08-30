@@ -64,15 +64,6 @@ watchEffect(async () => {
       class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer"
     >
       <div>
-        <!-- <div class="sidebar-closebtn-wrapper lg:hidden">
-          <button
-            @click.prevent.stop="closeDrawer"
-            class="py-4 px-5 dark:text-gray-700 dark:hover:text-gray-300"
-          >
-            <Icon icon="fa6-solid:xmark" aria-hidden="true" />
-          </button>
-        </div> -->
-
         <a
           v-if="theme.sidebarLogoSrc"
           :href="`/${localeIndex}/`"

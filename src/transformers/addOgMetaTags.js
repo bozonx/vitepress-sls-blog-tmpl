@@ -59,10 +59,10 @@ function generatePageUrl(hostname, filePath) {
  *
  * @param {string} imagePath - Путь к изображению
  * @param {string} srcDir - Директория исходников
- * @returns {Promise<{ width: number; height: number } | null>} Размеры
- *   изображения или null
+ * @returns {{ width: number; height: number } | null} Размеры изображения или
+ *   null
  */
-async function getImageDimensions(imagePath, srcDir) {
+function getImageDimensions(imagePath, srcDir) {
   if (!imagePath) return null
 
   try {
@@ -84,7 +84,7 @@ async function getImageDimensions(imagePath, srcDir) {
       return null
     }
 
-    const dimensions = await getImageSize(buffer)
+    const dimensions = getImageSize(buffer)
 
     // Проверяем, что размеры валидны
     if (!dimensions || !dimensions.width || !dimensions.height) {
@@ -103,7 +103,7 @@ async function getImageDimensions(imagePath, srcDir) {
 }
 
 /** Add OpenGraph metatags to the page */
-export async function addOgMetaTags(pageData, { siteConfig }) {
+export function addOgMetaTags(pageData, { siteConfig }) {
   // skip root index.md
   if (pageData.filePath.indexOf('/') < 0) return
 
@@ -125,7 +125,7 @@ export async function addOgMetaTags(pageData, { siteConfig }) {
   // Получаем размеры изображения если оно есть
   let imageDimensions = null
   if (pageData.frontmatter.cover) {
-    imageDimensions = await getImageDimensions(
+    imageDimensions = getImageDimensions(
       pageData.frontmatter.cover,
       siteConfig.srcDir
     )

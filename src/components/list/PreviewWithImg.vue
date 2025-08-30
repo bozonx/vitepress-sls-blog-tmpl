@@ -1,18 +1,20 @@
 <script setup>
-import TagsList from "../TagsList.vue";
+import TagsList from '../TagsList.vue'
 // import { extractImgDimensionFromFileName } from "../../helpers/helpers.js";
 
 const props = defineProps([
-  "date",
-  "localeDate",
-  "tags",
-  "preview",
-  "authorName",
-  "thumbnail",
-]);
+  'date',
+  'localeDate',
+  'tags',
+  'preview',
+  'authorName',
+  'thumbnail',
+  'thumbnailHeight',
+  'thumbnailWidth',
+])
 
 // const THUMB_WIDTH = 280;
-const THUMB_VIRTUAL_HEIGHT = 157;
+// const THUMB_VIRTUAL_HEIGHT = 157
 // const imgFullSize = extractImgDimensionFromFileName(props.thumbnail);
 // let imgHeight;
 //
@@ -26,7 +28,14 @@ const THUMB_VIRTUAL_HEIGHT = 157;
 <template>
   <div class="md:flex w-full">
     <div v-if="props.thumbnail" class="md:mr-4 preview-img-col max-md:w-full!">
-      <img :src="props.thumbnail" :height="THUMB_VIRTUAL_HEIGHT" loading="lazy" aria-hidden="true" class="w-full" />
+      <img
+        :src="props.thumbnail"
+        :height="thumbnailHeight"
+        :width="thumbnailWidth"
+        loading="lazy"
+        aria-hidden="true"
+        class="w-full"
+      />
 
       <div class="mt-2 space-x-2 muted preview-author-date">
         <span v-if="props.authorName">{{ props.authorName }}.</span>

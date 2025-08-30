@@ -61,8 +61,8 @@ export default function ({ hostname, repo }, en) {
       ...common.themeConfig,
       socialLinks: repo && [{ icon: 'github', link: repo }],
     },
-    transformPageData: async (pageData, ctx) => {
-      await addOgMetaTags(pageData, ctx)
+    transformPageData(pageData, ctx) {
+      addOgMetaTags(pageData, ctx)
     },
   }
 }

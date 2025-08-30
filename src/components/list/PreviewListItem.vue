@@ -1,27 +1,33 @@
 <script setup>
-import { useData } from "vitepress";
-import { makeHumanDate } from "../../helpers/helpers.js";
-import PreviewWithImg from "./PreviewWithImg.vue";
-import PreviewNoImg from "./PreviewNoImg.vue";
+import { useData } from 'vitepress'
+import { makeHumanDate } from '../../helpers/helpers.js'
+import PreviewWithImg from './PreviewWithImg.vue'
+import PreviewNoImg from './PreviewNoImg.vue'
 
-const { lang, theme } = useData();
-const props = defineProps(["item"]);
+const { lang, theme } = useData()
+const props = defineProps(['item'])
 const params = {
   tags: props.item.tags,
   date: props.item.date,
   localeDate: makeHumanDate(props.item.date, lang.value),
-  preview: String(props.item?.preview).trim().replace(/\.$/, "") + " ...",
+  preview: String(props.item?.preview).trim().replace(/\.$/, '') + ' ...',
   authorName:
     theme.value.showAuthorInPostList &&
     theme.value.authors.find((item) => item.id === props.item.authorId)?.name,
-};
+}
 </script>
 
 <template>
   <a :href="props.item.url" class="mb-6 px-5 py-5 preview">
     <h2 class="mb-3 text-2xl tracking-tight">{{ props.item.title }}</h2>
 
-    <PreviewWithImg v-if="item.thumbnail" v-bind="params" :thumbnail="props.item.thumbnail" />
+    <PreviewWithImg
+      v-if="item.thumbnail"
+      v-bind="params"
+      :thumbnail="props.item.thumbnail"
+      :thumbnailHeight="props.item.thumbnailHeight"
+      :thumbnailWidth="props.item.thumbnailWidth"
+    />
     <PreviewNoImg v-else v-bind="params" />
   </a>
 </template>

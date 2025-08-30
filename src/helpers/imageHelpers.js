@@ -1,41 +1,19 @@
 import { imageSize } from 'image-size'
-import fs from 'fs'
 
 /**
- * Получает размеры изображения из различных источников
+ * Получает размеры изображения из буфера
  *
- * @param {Buffer | Uint8Array | string} input - Буфер, Uint8Array или путь к
- *   файлу
+ * @param {Buffer} buffer - Буфер с данными изображения
  * @returns {{ width: number; height: number; type: string }} Объект с размерами
  *   и типом изображения
  * @throws {Error} Если не удалось определить размеры изображения
  */
-export function getImageSize(input) {
+export function getImageSize(buffer) {
   try {
-    let buffer
-
-    // Если передан путь к файлу (строка), читаем файл
-    if (typeof input === 'string') {
-      buffer = fs.readFileSync(input)
-    }
-    // Если передан Uint8Array, конвертируем в Buffer
-    else if (input instanceof Uint8Array) {
-      buffer = Buffer.from(input)
-    }
-    // Если передан Buffer
-    else if (Buffer.isBuffer(input)) {
-      buffer = input
-    }
-    // Если передан ArrayBuffer
-    else if (input instanceof ArrayBuffer) {
-      buffer = Buffer.from(input)
-    } else {
-      throw new Error(
-        'Unsupported input type. Expected Buffer, Uint8Array, ArrayBuffer or file path string'
-      )
+    if (!Buffer.isBuffer(buffer)) {
+      throw new Error('Input must be a Buffer')
     }
 
-    // Используем синхронную версию для буферов
     const dimensions = imageSize(buffer)
 
     return {
@@ -45,44 +23,6 @@ export function getImageSize(input) {
     }
   } catch (error) {
     throw new Error(`Failed to get image dimensions: ${error.message}`)
-  }
-}
-
-/**
- * Получает размеры изображения из File объекта (для браузера)
- *
- * @param {File} file - File объект из input[type="file"]
- * @returns {Promise<{ width: number; height: number; type: string }>} Объект с
- *   размерами и типом изображения
- */
-export async function getImageSizeFromFile(file) {
-  if (!(file instanceof File)) {
-    throw new Error('Input must be a File object')
-  }
-
-  const arrayBuffer = await file.arrayBuffer()
-  return getImageSize(arrayBuffer)
-}
-
-/**
- * Получает размеры изображения из URL
- *
- * @param {string} url - URL изображения
- * @returns {Promise<{ width: number; height: number; type: string }>} Объект с
- *   размерами и типом изображения
- */
-export async function getImageSizeFromUrl(url) {
-  try {
-    const response = await fetch(url)
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    const arrayBuffer = await response.arrayBuffer()
-    return getImageSize(arrayBuffer)
-  } catch (error) {
-    throw new Error(`Failed to fetch image from URL: ${error.message}`)
   }
 }
 

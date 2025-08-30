@@ -1,5 +1,5 @@
 import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
-import { addOgMetaTags } from '../list-helpers/addOgMetaTags.js'
+import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 
 export const common = {
   head: [
@@ -61,8 +61,8 @@ export default function ({ hostname, repo }, en) {
       ...common.themeConfig,
       socialLinks: repo && [{ icon: 'github', link: repo }],
     },
-    transformPageData(pageData, ctx) {
-      addOgMetaTags(pageData, ctx)
+    transformPageData: async (pageData, ctx) => {
+      await addOgMetaTags(pageData, ctx)
     },
   }
 }

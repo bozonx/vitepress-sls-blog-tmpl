@@ -1,4 +1,4 @@
-import imageSize from 'image-size'
+import { imageSize } from 'image-size'
 
 /**
  * Получает размеры изображения из различных источников
@@ -13,18 +13,13 @@ export async function getImageSize(input) {
   try {
     let buffer
 
-    // Если передан путь к файлу (строка)
+    // Если передан путь к файлу (строка), читаем файл
     if (typeof input === 'string') {
-      const dimensions = imageSize(input)
-      return {
-        width: dimensions.width,
-        height: dimensions.height,
-        type: dimensions.type,
-      }
+      const fs = await import('fs')
+      buffer = fs.readFileSync(input)
     }
-
     // Если передан Uint8Array, конвертируем в Buffer
-    if (input instanceof Uint8Array) {
+    else if (input instanceof Uint8Array) {
       buffer = Buffer.from(input)
     }
     // Если передан Buffer
@@ -40,6 +35,7 @@ export async function getImageSize(input) {
       )
     }
 
+    // Используем синхронную версию для буферов
     const dimensions = imageSize(buffer)
 
     return {

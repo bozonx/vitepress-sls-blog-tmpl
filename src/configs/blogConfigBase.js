@@ -99,11 +99,11 @@ export default function ({ hostname, repo }, en) {
         { icon: 'fa6-brands:github-alt', href: repo, title: 'Github' },
       ],
     },
-    transformPageData(pageData, ctx) {
+    transformPageData: async (pageData, ctx) => {
       transformTitle(pageData, ctx)
       resolveDescription(pageData, ctx)
       transformPageMeta(pageData, ctx)
-      addOgMetaTags(pageData, ctx)
+      await addOgMetaTags(pageData, ctx)
       addJsonLd(pageData, ctx)
       addRssLinks(pageData, ctx)
     },

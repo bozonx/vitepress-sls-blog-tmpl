@@ -8,8 +8,9 @@ import {
   extractPreviewFromMd,
   resolvePreview,
 } from '../list-helpers/makePreviewItem.js'
+import { getImageSize } from '../helpers/imageHelpers.js'
 
-// TODO: use from squidlet-lib
+// Используем image-size пакет для получения размеров изображений
 /**
  * Обрезает описание до рекомендуемой длины для OG тегов
  *
@@ -53,8 +54,56 @@ function generatePageUrl(hostname, filePath) {
   return `${hostname}/${cleanPath}`
 }
 
+/**
+ * Получает размеры изображения из файла
+ *
+ * @param {string} imagePath - Путь к изображению
+ * @param {string} srcDir - Директория исходников
+ * @returns {Promise<{ width: number; height: number } | null>} Размеры
+ *   изображения или null
+ */
+async function getImageDimensions(imagePath, srcDir) {
+  if (!imagePath) return null
+
+  try {
+    // Полный путь к файлу изображения
+    const fullImagePath = path.join(srcDir, 'public', imagePath)
+
+    // Проверяем существование файла
+    if (!fs.existsSync(fullImagePath)) {
+      console.warn(`Image file not found: ${fullImagePath}`)
+      return null
+    }
+
+    // Читаем файл в буфер и передаем буфер в getImageSize
+    const buffer = fs.readFileSync(fullImagePath)
+
+    // Проверяем, что буфер не пустой
+    if (!buffer || buffer.length === 0) {
+      console.warn(`Empty buffer for image file: ${fullImagePath}`)
+      return null
+    }
+
+    const dimensions = await getImageSize(buffer)
+
+    // Проверяем, что размеры валидны
+    if (!dimensions || !dimensions.width || !dimensions.height) {
+      console.warn(`Invalid image dimensions for ${imagePath}`)
+      return null
+    }
+
+    return { width: dimensions.width, height: dimensions.height }
+  } catch (error) {
+    console.warn(
+      `Failed to get image dimensions for ${imagePath}:`,
+      error.message
+    )
+    return null
+  }
+}
+
 /** Add OpenGraph metatags to the page */
-export function addOgMetaTags(pageData, { siteConfig }) {
+export async function addOgMetaTags(pageData, { siteConfig }) {
   // skip root index.md
   if (pageData.filePath.indexOf('/') < 0) return
 
@@ -72,6 +121,15 @@ export function addOgMetaTags(pageData, { siteConfig }) {
     )?.name
   const img =
     pageData.frontmatter.cover && hostname + pageData.frontmatter.cover
+
+  // Получаем размеры изображения если оно есть
+  let imageDimensions = null
+  if (pageData.frontmatter.cover) {
+    imageDimensions = await getImageDimensions(
+      pageData.frontmatter.cover,
+      siteConfig.srcDir
+    )
+  }
 
   // Генерируем URL страницы
   const pageUrl = generatePageUrl(hostname, pageData.filePath)
@@ -187,24 +245,24 @@ export function addOgMetaTags(pageData, { siteConfig }) {
       { property: 'og:image', content: img },
     ])
 
-    // Размеры изображения (если доступны)
-    pageData.frontmatter.coverWidth &&
-      pageData.frontmatter.head.push([
-        'meta',
-        {
-          property: 'og:image:width',
-          content: pageData.frontmatter.coverWidth.toString(),
-        },
-      ])
+    // Размеры изображения (приоритет автоматически полученным размерам)
+    const imageWidth = imageDimensions?.width || pageData.frontmatter.coverWidth
+    const imageHeight =
+      imageDimensions?.height || pageData.frontmatter.coverHeight
 
-    pageData.frontmatter.coverHeight &&
+    if (imageWidth) {
       pageData.frontmatter.head.push([
         'meta',
-        {
-          property: 'og:image:height',
-          content: pageData.frontmatter.coverHeight.toString(),
-        },
+        { property: 'og:image:width', content: imageWidth.toString() },
       ])
+    }
+
+    if (imageHeight) {
+      pageData.frontmatter.head.push([
+        'meta',
+        { property: 'og:image:height', content: imageHeight.toString() },
+      ])
+    }
 
     // Альтернативный текст для изображения
     pageData.frontmatter.coverAlt &&

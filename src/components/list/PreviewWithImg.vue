@@ -1,6 +1,6 @@
 <script setup>
+import { computed } from 'vue'
 import TagsList from '../TagsList.vue'
-// import { extractImgDimensionFromFileName } from "../../helpers/helpers.js";
 
 const props = defineProps([
   'date',
@@ -12,17 +12,6 @@ const props = defineProps([
   'thumbnailHeight',
   'thumbnailWidth',
 ])
-
-// const THUMB_WIDTH = 280;
-// const THUMB_VIRTUAL_HEIGHT = 157
-// const imgFullSize = extractImgDimensionFromFileName(props.thumbnail);
-// let imgHeight;
-//
-// if (imgFullSize) {
-//   const coef = imgFullSize[0] / imgFullSize[1];
-//
-//   imgHeight = Math.round(THUMB_WIDTH / coef);
-// }
 </script>
 
 <template>
@@ -32,9 +21,11 @@ const props = defineProps([
         :src="props.thumbnail"
         :height="thumbnailHeight"
         :width="thumbnailWidth"
+        sizes="(max-width: 766px) 100vw, 280px"
         loading="lazy"
         aria-hidden="true"
         class="w-full"
+        alt=""
       />
 
       <div class="mt-2 space-x-2 muted preview-author-date">
@@ -56,5 +47,32 @@ const props = defineProps([
 <style scoped>
 .preview-img-col {
   width: var(--list-item-thumb-width);
+  flex-shrink: 0;
+}
+
+.preview-img-col img {
+  object-fit: cover;
+  display: block;
+  max-width: 100%;
+}
+
+/* На экранах меньше 766px изображение занимает всю ширину */
+@media (max-width: 766px) {
+  .preview-img-col {
+    width: 100%;
+  }
+
+  .preview-img-col img {
+    width: 100%;
+    /* Высота будет установлена через атрибут height */
+  }
+}
+
+/* На экранах больше 766px изображение имеет фиксированную ширину */
+@media (min-width: 767px) {
+  .preview-img-col img {
+    width: 280px;
+    /* Высота будет установлена через атрибут height */
+  }
 }
 </style>

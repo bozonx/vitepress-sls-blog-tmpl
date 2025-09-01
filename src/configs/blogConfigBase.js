@@ -74,6 +74,7 @@ export const common = {
     telegramIcon: 'fa6-brands:telegram',
     chatIcon: 'fa6-solid:message',
     rssIcon: 'bi:rss-fill',
+    atomIcon: 'vscode-icons:file-type-atom',
   },
 }
 
@@ -100,7 +101,7 @@ export default function ({ hostname, repo }, en) {
       ],
     },
     transformPageData(pageData, ctx) {
-      transformTitle(pageData, ctx)
+      // transformTitle(pageData, ctx)
       resolveDescription(pageData, ctx)
       transformPageMeta(pageData, ctx)
       addOgMetaTags(pageData, ctx)

@@ -14,17 +14,42 @@ export function addCanonicalLink(pageData, { siteConfig }) {
     if (!pageData.filePath || pageData.filePath.indexOf('/') < 0) return
 
     // Проверяем наличие параметра canonical в frontmatter
-    // canonical должен содержать URL для канонической ссылки
-    const canonicalUrl = pageData.frontmatter.canonical
-    if (!canonicalUrl || typeof canonicalUrl !== 'string') return
+    const canonicalValue = pageData.frontmatter.canonical
+    if (!canonicalValue) return
 
-    // Проверяем, что URL валидный
-    try {
-      new URL(canonicalUrl)
-    } catch (error) {
-      console.warn(
-        `Invalid canonical URL in ${pageData.filePath}: ${canonicalUrl}`
-      )
+    let canonicalUrl = null
+
+    // Проверяем специальные значения для ссылки на саму страницу
+    if (canonicalValue === 'self' || canonicalValue === 's') {
+      // Генерируем URL для текущей страницы
+      const hostname = siteConfig.userConfig.hostname
+      if (!hostname) {
+        console.warn(
+          'Canonical link not added: hostname not configured in siteConfig'
+        )
+        return
+      }
+      canonicalUrl = generatePageUrl(hostname, pageData.filePath)
+
+      if (!canonicalUrl) {
+        console.warn(
+          `Failed to generate canonical URL for: ${pageData.filePath}`
+        )
+        return
+      }
+    } else if (typeof canonicalValue === 'string') {
+      // Проверяем, что URL валидный
+      try {
+        new URL(canonicalValue)
+        canonicalUrl = canonicalValue
+      } catch (error) {
+        console.warn(
+          `Invalid canonical URL in ${pageData.filePath}: ${canonicalValue}`
+        )
+        return
+      }
+    } else {
+      // Неподдерживаемый тип значения
       return
     }
 
@@ -33,7 +58,7 @@ export function addCanonicalLink(pageData, { siteConfig }) {
       pageData.frontmatter.head = []
     }
 
-    // Добавляем каноническую ссылку с указанным URL
+    // Добавляем каноническую ссылку
     pageData.frontmatter.head.push([
       'link',
       { rel: 'canonical', href: canonicalUrl },

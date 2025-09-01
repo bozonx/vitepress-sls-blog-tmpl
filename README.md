@@ -81,7 +81,11 @@ commentUrl: https://...
 tags:
   - some
 # Add canonical link to page head for SEO (prevents duplicate content issues)
-canonical: "https://example.com/en/post/post-slug"
+canonical: "https://example.com/en/post/post-slug"  # URL канонической страницы
+# или
+canonical: "self"  # Ссылка на саму страницу
+# или
+canonical: "s"     # Сокращенная версия
 
 ...special params
 ---
@@ -121,7 +125,12 @@ If the post doesn't have any media then the first image will be used as main ima
 ## SEO Features
 
 ### Canonical Links
-Add `canonical: "https://example.com/en/post/post-slug"` to your post frontmatter to automatically include a canonical link in the page head. This helps search engines understand which version of a page is the primary one, preventing duplicate content issues.
+Add `canonical` parameter to your post frontmatter to automatically include a canonical link in the page head. This helps search engines understand which version of a page is the primary one, preventing duplicate content issues.
+
+**Options:**
+- `canonical: "https://example.com/en/post/post-slug"` - Link to another page
+- `canonical: "self"` - Link to the current page itself
+- `canonical: "s"` - Short version of "self"
 
 See [CANONICAL_README.md](CANONICAL_README.md) for detailed documentation.
 ```

@@ -56,8 +56,8 @@ export async function generateRssFeed(config) {
         generator: 'VitePress Blog Template',
         updated: new Date(),
         feedLinks: {
-          rss: `${siteUrl}/feed-${localeIndex}.rss`,
-          atom: `${siteUrl}/feed-${localeIndex}.atom`,
+          rss: `${hostname}/feed-${localeIndex}.rss`,
+          atom: `${hostname}/feed-${localeIndex}.atom`,
         },
       })
 

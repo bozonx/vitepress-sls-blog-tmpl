@@ -80,6 +80,8 @@ commentUrl: https://...
 # List of tags. Tags can include spaces
 tags:
   - some
+# Add canonical link to page head for SEO (prevents duplicate content issues)
+canonical: "https://example.com/en/post/post-slug"
 
 ...special params
 ---
@@ -115,6 +117,13 @@ podcastLang: en | ru | ...
 ---
 
 If the post doesn't have any media then the first image will be used as main image to show in lists.
+
+## SEO Features
+
+### Canonical Links
+Add `canonical: "https://example.com/en/post/post-slug"` to your post frontmatter to automatically include a canonical link in the page head. This helps search engines understand which version of a page is the primary one, preventing duplicate content issues.
+
+See [CANONICAL_README.md](CANONICAL_README.md) for detailed documentation.
 ```
 
 ## Publish

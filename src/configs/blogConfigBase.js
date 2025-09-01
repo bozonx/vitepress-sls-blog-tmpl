@@ -9,6 +9,7 @@ import { transformPageMeta } from '../transformers/transformPageMeta.js'
 // import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from '../transformers/transformTitle.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
+import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
 
 // import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 
@@ -109,6 +110,7 @@ export default function ({ hostname, repo }, en) {
       addJsonLd(pageData, ctx)
       addRssLinks(pageData, ctx)
       addHreflang(pageData, ctx)
+      addCanonicalLink(pageData, ctx)
     },
     buildEnd: async (config) => {
       await generateRssFeed(config)

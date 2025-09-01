@@ -26,7 +26,7 @@ export function addHreflang(pageData, { siteConfig }) {
     (lang) => lang !== 'root' && lang !== currentLang
   )
 
-  // Если нет других языков, не добавляем hreflang
+  // Если нет языков, не добавляем hreflang
   if (otherLocales.length === 0) return
 
   // Инициализируем head если его нет
@@ -49,6 +49,19 @@ export function addHreflang(pageData, { siteConfig }) {
 
   // Убираем индекс из пути
   const finalPath = cleanPath.replace(/\/index$/, '')
+
+  // Добавляем метатег для текущего языка
+  const currentLangConfig = availableLocales[currentLang]
+  const currentLangCode = currentLangConfig?.lang || currentLang
+
+  pageData.frontmatter.head.push([
+    'link',
+    {
+      rel: 'alternate',
+      hreflang: currentLangCode,
+      href: `${hostname}/${currentLang}${finalPath ? `/${finalPath}` : ''}`,
+    },
+  ])
 
   // Добавляем метатеги для других языков
   otherLocales.forEach((lang) => {

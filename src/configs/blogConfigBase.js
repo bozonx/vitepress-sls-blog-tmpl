@@ -1,5 +1,6 @@
 import { figure } from '@mdit/plugin-figure'
 import { addJsonLd } from '../transformers/addJsonLd.js'
+import { addHreflang } from '../transformers/addHreflang.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 import { addRssLinks } from '../transformers/addRssLinks.js'
 import { filterSitemap } from '../transformers/filterSitemap.js'
@@ -107,6 +108,7 @@ export default function ({ hostname, repo }, en) {
       addOgMetaTags(pageData, ctx)
       addJsonLd(pageData, ctx)
       addRssLinks(pageData, ctx)
+      addHreflang(pageData, ctx)
     },
     buildEnd: async (config) => {
       await generateRssFeed(config)

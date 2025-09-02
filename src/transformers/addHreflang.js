@@ -18,34 +18,24 @@ export function addHreflang(pageData, { siteConfig }) {
   if (!hostname) return
 
   // Получаем текущий язык из пути файла
-  const currentLang = pageData.filePath.split('/')[0]
-
+  const [currentLang, ...restPath] = pageData.filePath.split('/')
   // Получаем доступные языки из конфигурации, исключая root
   const availableLocales = siteConfig.site.locales
+
   if (!availableLocales) return
 
-  console.log('availableLocales', currentLang, availableLocales)
-
-  // Фильтруем языки, исключая root и текущий язык
-  const otherLocales = Object.keys(availableLocales).filter(
-    // (lang) => lang !== 'root' && lang !== currentLang
+  // Фильтруем языки, исключая root
+  const localesIndexes = Object.keys(availableLocales).filter(
     (lang) => lang !== ROOT_LANG
   )
 
   // Если нет языков, не добавляем hreflang
-  if (otherLocales.length === 0) return
-
+  if (localesIndexes.length === 0) return
   // Инициализируем head если его нет
-  if (!pageData.frontmatter.head) {
-    pageData.frontmatter.head = []
-  }
+  if (!pageData.frontmatter.head) pageData.frontmatter.head = []
 
-  // TODO: review
-  // Генерируем путь страницы без языкового префикса
-  const pagePathWithoutLang = pageData.filePath.substring(
-    currentLang.length + 1
-  )
-
+  // TODO: путь не резовлится в реальный url
+  const pagePathWithoutLang = restPath.join('/')
   // Убираем расширение файла
   const fileExtension = path.extname(pagePathWithoutLang)
   const cleanPath = pagePathWithoutLang.substring(
@@ -56,23 +46,9 @@ export function addHreflang(pageData, { siteConfig }) {
   // Убираем индекс из пути
   const finalPath = cleanPath.replace(/\/index$/, '')
 
-  // Добавляем метатег для текущего языка
-  const currentLangConfig = availableLocales[currentLang]
-  const currentLangCode = currentLangConfig?.lang || currentLang
-
-  pageData.frontmatter.head.push([
-    'link',
-    {
-      rel: 'alternate',
-      hreflang: currentLangCode,
-      href: `${hostname}/${currentLang}${finalPath ? `/${finalPath}` : ''}`,
-    },
-  ])
-
-  // Добавляем метатеги для других языков
-  otherLocales.forEach((lang) => {
-    const langConfig = availableLocales[lang]
-    const langCode = langConfig?.lang || lang
+  // Добавляем метатеги для всех языков, включая текущий
+  localesIndexes.forEach((lang) => {
+    const langCode = availableLocales[lang]?.lang || lang
 
     pageData.frontmatter.head.push([
       'link',
@@ -87,7 +63,7 @@ export function addHreflang(pageData, { siteConfig }) {
   // TODO: правильно взять основной язык
   // Добавляем x-default hreflang (указывает на основной язык сайта)
   // Определяем основной язык как первый доступный (обычно en)
-  const mainLang = otherLocales[0] || currentLang
+  const mainLang = localesIndexes[0] || currentLang
   const mainLangConfig = availableLocales[mainLang]
   const mainLangCode = mainLangConfig?.lang || mainLang
 

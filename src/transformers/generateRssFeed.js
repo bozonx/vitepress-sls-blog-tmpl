@@ -94,8 +94,6 @@ export async function generateRssFeed(config) {
               id: guid,
               link: `${hostname}${url}`,
               date: frontmatter.date && new Date(frontmatter.date),
-
-              // TODO: review
               image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
               // Добавляем автора если есть
               author: makeAuthorForRss(

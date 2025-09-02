@@ -108,6 +108,7 @@ export default function ({ hostname, repo }, en) {
       transformPageMeta(pageData, ctx)
       addOgMetaTags(pageData, ctx)
       addJsonLd(pageData, ctx)
+      createYamlToJsonLd(pageData, ctx)
       addRssLinks(pageData, ctx)
       addHreflang(pageData, ctx)
       addCanonicalLink(pageData, ctx)

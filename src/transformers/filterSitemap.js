@@ -14,7 +14,7 @@ export function filterSitemap(items) {
         else if (POSTS_DIR_REGEXP.test(item.url)) return true
         else return false
       })
-      // remove innecex root link of index pages
+      // remove innecesary root link of index pages
       .map((item) => {
         // only for index pages line ru/, en/
         if (item.url.indexOf('/') === item.url.length - 1) {

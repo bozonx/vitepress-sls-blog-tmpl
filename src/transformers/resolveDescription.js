@@ -16,27 +16,25 @@ import { extractPreviewFromMd } from '../list-helpers/makePreviewItem.js'
 export function resolveDescription(pageData, { siteConfig }) {
   if (!isPost(pageData.frontmatter) && !isPage(pageData.frontmatter)) return
 
-  const frontmatterDescription = pageData.frontmatter.description
-
   if (
-    typeof frontmatterDescription === 'string' &&
-    frontmatterDescription.trim() === ''
-  ) {
-    try {
-      // Читаем содержимое файла
-      const rawContent = fs.readFileSync(
-        path.join(siteConfig.srcDir, pageData.filePath),
-        DEFAULT_ENCODE
-      )
-      const { content } = parseMdFile(rawContent)
+    typeof pageData.frontmatter.description !== 'string' ||
+    pageData.frontmatter.description.trim() !== ''
+  )
+    return
 
-      pageData.description = extractPreviewFromMd(content)
-    } catch (error) {
-      console.warn(
-        `Failed to read file for description: ${pageData.filePath}`,
-        error.message
-      )
-    }
+  try {
+    // Читаем содержимое файла
+    const rawContent = fs.readFileSync(
+      path.join(siteConfig.srcDir, pageData.filePath),
+      DEFAULT_ENCODE
+    )
+    const { content } = parseMdFile(rawContent)
+
+    pageData.description = extractPreviewFromMd(content)
+  } catch (error) {
+    console.warn(
+      `Failed to read file for description: ${pageData.filePath}`,
+      error.message
+    )
   }
-  // Если описание есть и не пустое - оставляем как есть
 }

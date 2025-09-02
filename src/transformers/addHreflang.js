@@ -29,15 +29,13 @@ export function addHreflang(pageData, { siteConfig }) {
   // Если нет языков, не добавляем hreflang
   if (localesIndexes.length === 0) return
   // Инициализируем head если его нет
-  if (!pageData.frontmatter.head) pageData.frontmatter.head = []
+  pageData.frontmatter.head ??= []
 
   // Получаем текущий язык из пути файла
   const [, ...restPath] = pageData.relativePath.split('/')
   const pagePathWithoutLang = restPath.join('/')
   const cleanPath = generatePageUrlPath(pagePathWithoutLang)
   const finalPath = cleanPath ? `/${cleanPath}` : ''
-
-  console.log('finalPath', pagePathWithoutLang, cleanPath, finalPath)
 
   // Добавляем метатеги для всех языков, включая текущий
   localesIndexes.forEach((lang) => {

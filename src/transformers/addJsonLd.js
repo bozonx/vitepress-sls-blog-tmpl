@@ -1,13 +1,5 @@
-import fs from 'fs'
-import path from 'path'
-
-import { DEFAULT_ENCODE, ROOT_LANG } from '../constants.js'
+import { ROOT_LANG } from '../constants.js'
 import { isPost, generatePageUrlPath } from '../helpers/helpers.js'
-import { parseMdFile } from '../helpers/mdWorks.js'
-import {
-  extractPreviewFromMd,
-  resolvePreview,
-} from '../list-helpers/makePreviewItem.js'
 
 /**
  * Создает JSON-LD структуру для статьи
@@ -86,6 +78,7 @@ function createArticleJsonLd({
 
 /**
  * Добавляет JSON-LD структурированные данные на страницу Только для постов
+ * pageData.description has to be resolved before start this transformer
  *
  * @param {Object} pageData - Данные страницы
  * @param {Object} ctx - Контекст с siteConfig
@@ -98,6 +91,7 @@ export function addJsonLd(pageData, { siteConfig }) {
   const langConfig = siteConfig.site.locales[langIndex]
   const siteName = langConfig.title
   const title = pageData.title
+  const description = pageData.description
   const author =
     pageData.frontmatter.authorId &&
     langConfig.themeConfig.authors?.find(
@@ -123,28 +117,6 @@ export function addJsonLd(pageData, { siteConfig }) {
         url: `${hostname}/${code}/${alternateUrl}`,
       })
     })
-  }
-
-  // TODO: review - что есть оно пустое - нужно брать вверхнее описание
-  // Получаем описание
-  let description = pageData.frontmatter.description
-
-  description = resolvePreview(pageData.frontmatter)
-
-  if (!description) {
-    try {
-      const rawContent = fs.readFileSync(
-        path.join(siteConfig.srcDir, pageData.filePath),
-        DEFAULT_ENCODE
-      )
-      const { content } = parseMdFile(rawContent)
-      description = extractPreviewFromMd(content)
-    } catch (error) {
-      console.warn(
-        `Failed to read file for JSON-LD description: ${pageData.filePath}`,
-        error.message
-      )
-    }
   }
 
   // Создаем соответствующую JSON-LD структуру

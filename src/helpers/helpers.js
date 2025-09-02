@@ -1,3 +1,5 @@
+import { pathTrimExt } from 'squidlet-lib'
+
 // /**
 //  * Returns [640, 320] from "some-file-name--640x320.avif"
 //  * or undefined is it doesn't contain dimestions
@@ -77,4 +79,22 @@ export function resolveArticlePreview(frontmatter) {
   } else if (descrAsPreview && description) {
     return description
   }
+}
+
+/**
+ * Генерирует полный URL для текущей страницы from pageData.relativePath
+ *
+ * @param {string} relativePath - Путь к файлу
+ * @returns {string} Полный URL
+ */
+export function generatePageUrlPath(relativePath) {
+  // Убираем расширение файла
+  const cleanPath = pathTrimExt(relativePath)
+
+  // Убираем индекс из пути
+  let finalPath = cleanPath.replace(/\/index$/, '')
+
+  if (finalPath === 'index') finalPath = ''
+
+  return finalPath
 }

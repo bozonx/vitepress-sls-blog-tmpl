@@ -1,4 +1,4 @@
-import path from 'path'
+import { generatePageUrlPath } from '../helpers/helpers.js'
 
 /**
  * Добавляет каноническую ссылку в head страницы если указан параметр canonical
@@ -13,30 +13,22 @@ export function addCanonicalLink(pageData, { siteConfig }) {
     return
   }
 
-  // TODO: use relativePath
+  // Проверяем наличие параметра canonical в frontmatter
+  const canonicalValue = pageData.frontmatter.canonical
+
+  if (!canonicalValue) return
 
   try {
-    // Проверяем наличие параметра canonical в frontmatter
-    const canonicalValue = pageData.frontmatter.canonical
-    if (!canonicalValue) return
-
     let canonicalUrl = null
 
     // Проверяем специальные значения для ссылки на саму страницу
-    if (canonicalValue === 'self' || canonicalValue === 's') {
+    if (canonicalValue === 'self') {
       // Генерируем URL для текущей страницы
-      const hostname = siteConfig.userConfig.hostname
-      if (!hostname) {
-        console.warn(
-          'Canonical link not added: hostname not configured in siteConfig'
-        )
-        return
-      }
-      canonicalUrl = generatePageUrl(hostname, pageData.filePath)
+      canonicalUrl = generatePageUrl(pageData, siteConfig)
 
       if (!canonicalUrl) {
         console.warn(
-          `Failed to generate canonical URL for: ${pageData.filePath}`
+          `Failed to generate canonical URL for: ${pageData.relativePath}`
         )
         return
       }
@@ -75,25 +67,27 @@ export function addCanonicalLink(pageData, { siteConfig }) {
 }
 
 /**
- * Генерирует полный URL для страницы
+ * Генерирует полный URL для текущей страницы
  *
  * @param {string} hostname - Хост сайта
  * @param {string} filePath - Путь к файлу
  * @returns {string | null} Полный URL или null если не удалось сгенерировать
  */
-function generatePageUrl(hostname, filePath) {
-  if (!hostname || !filePath) return null
+function generatePageUrl(pageData, siteConfig) {
+  if (!pageData.relativePath) return
+
+  const hostname = siteConfig.userConfig.hostname
+
+  if (!hostname) {
+    console.warn(
+      'Canonical link not added: hostname not configured in siteConfig'
+    )
+    return
+  }
 
   try {
-    // Убираем расширение файла
-    const fileExtension = path.extname(filePath)
-    const urlPath = filePath.substring(
-      0,
-      filePath.length - fileExtension.length
-    )
-
     // Убираем индекс из пути
-    const cleanPath = urlPath.replace(/\/index$/, '')
+    const cleanPath = generatePageUrlPath(pageData.relativePath)
 
     return `${hostname}/${cleanPath}`
   } catch (error) {

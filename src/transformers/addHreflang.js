@@ -1,5 +1,5 @@
-import path from 'path'
 import { ROOT_LANG } from '../constants.js'
+import { generatePageUrlPath } from '../helpers/helpers.js'
 
 /**
  * Добавляет метатеги hreflang в head страницы для SEO и многоязычности
@@ -32,19 +32,12 @@ export function addHreflang(pageData, { siteConfig }) {
   if (!pageData.frontmatter.head) pageData.frontmatter.head = []
 
   // Получаем текущий язык из пути файла
-  const [currentLang, ...restPath] = pageData.relativePath.split('/')
+  const [, ...restPath] = pageData.relativePath.split('/')
   const pagePathWithoutLang = restPath.join('/')
-  // Убираем расширение файла
-  const fileExtension = path.extname(pagePathWithoutLang)
-  const cleanPath = pagePathWithoutLang.substring(
-    0,
-    pagePathWithoutLang.length - fileExtension.length
-  )
+  const cleanPath = generatePageUrlPath(pagePathWithoutLang)
+  const finalPath = cleanPath ? `/${cleanPath}` : ''
 
-  // Убираем индекс из пути
-  const finalPath = cleanPath.replace(/\/index$/, '')
-
-  console.log('finalPath', finalPath)
+  console.log('finalPath', pagePathWithoutLang, cleanPath, finalPath)
 
   // Добавляем метатеги для всех языков, включая текущий
   localesIndexes.forEach((lang) => {
@@ -55,7 +48,7 @@ export function addHreflang(pageData, { siteConfig }) {
       {
         rel: 'alternate',
         hreflang: langCode,
-        href: `${hostname}/${lang}${finalPath ? `/${finalPath}` : ''}`,
+        href: `${hostname}/${lang}${finalPath}`,
       },
     ])
   })
@@ -81,7 +74,7 @@ export function addHreflang(pageData, { siteConfig }) {
     {
       rel: 'alternate',
       hreflang: 'x-default',
-      href: `${hostname}/${mainLang}${finalPath ? `/${finalPath}` : ''}`,
+      href: `${hostname}/${mainLang}${finalPath}`,
     },
   ])
 }

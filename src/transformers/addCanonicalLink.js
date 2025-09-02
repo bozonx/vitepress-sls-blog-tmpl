@@ -9,7 +9,7 @@ import { generatePageUrlPath } from '../helpers/helpers.js'
  */
 export function addCanonicalLink(pageData, { siteConfig }) {
   // Пропускаем корневые страницы и страницы без языкового префикса
-  if (!pageData.filePath || pageData.filePath.indexOf('/') < 0) {
+  if (!pageData.relativePath || pageData.filePath.indexOf('/') < 0) {
     return
   }
 
@@ -23,15 +23,16 @@ export function addCanonicalLink(pageData, { siteConfig }) {
 
     // Проверяем специальные значения для ссылки на саму страницу
     if (canonicalValue === 'self') {
-      // Генерируем URL для текущей страницы
-      canonicalUrl = generatePageUrl(pageData, siteConfig)
+      const hostname = siteConfig.userConfig.hostname
 
-      if (!canonicalUrl) {
+      if (!hostname) {
         console.warn(
-          `Failed to generate canonical URL for: ${pageData.relativePath}`
+          'Canonical link not added: hostname not configured in siteConfig'
         )
         return
       }
+      // Генерируем URL для текущей страницы
+      canonicalUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
     } else if (typeof canonicalValue === 'string') {
       // Проверяем, что URL валидный
       try {
@@ -73,25 +74,4 @@ export function addCanonicalLink(pageData, { siteConfig }) {
  * @param {string} filePath - Путь к файлу
  * @returns {string | null} Полный URL или null если не удалось сгенерировать
  */
-function generatePageUrl(pageData, siteConfig) {
-  if (!pageData.relativePath) return
-
-  const hostname = siteConfig.userConfig.hostname
-
-  if (!hostname) {
-    console.warn(
-      'Canonical link not added: hostname not configured in siteConfig'
-    )
-    return
-  }
-
-  try {
-    // Убираем индекс из пути
-    const cleanPath = generatePageUrlPath(pageData.relativePath)
-
-    return `${hostname}/${cleanPath}`
-  } catch (error) {
-    console.error('Error generating page URL:', error.message)
-    return null
-  }
-}
+function generatePageUrl(pageData, siteConfig) {}

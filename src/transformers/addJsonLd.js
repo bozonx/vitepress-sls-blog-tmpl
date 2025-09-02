@@ -210,14 +210,15 @@ function createWebPageJsonLd({
 }
 
 /**
- * Добавляет JSON-LD структурированные данные на страницу
+ * Добавляет JSON-LD структурированные данные на страницу Только для постов и
+ * страниц
  *
  * @param {Object} pageData - Данные страницы
  * @param {Object} ctx - Контекст с siteConfig
  */
 export function addJsonLd(pageData, { siteConfig }) {
-  // Пропускаем корневой index.md
-  if (pageData.filePath.indexOf('/') < 0) return
+  // TODO: а что на обычных страницах?
+  if (!isPost(pageData.frontmatter) && !isPage(pageData.frontmatter)) return
 
   const hostname = siteConfig.userConfig.hostname
   const langIndex = pageData.filePath.split('/')[0]

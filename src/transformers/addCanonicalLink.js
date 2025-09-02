@@ -2,17 +2,18 @@ import path from 'path'
 
 /**
  * Добавляет каноническую ссылку в head страницы если указан параметр canonical
- * в frontmatter. Каноническая ссылка помогает избежать дублированного контента
- * и указывает поисковикам на основную версию страницы
+ * в frontmatter. Если указан self то генерируется URL текущей страницы
  *
  * @param {Object} pageData - Данные страницы
  * @param {Object} ctx - Контекст с siteConfig
  */
 export function addCanonicalLink(pageData, { siteConfig }) {
-  try {
-    // Пропускаем корневые страницы и страницы без языкового префикса
-    if (!pageData.filePath || pageData.filePath.indexOf('/') < 0) return
+  // Пропускаем корневые страницы и страницы без языкового префикса
+  if (!pageData.filePath || pageData.filePath.indexOf('/') < 0) {
+    return
+  }
 
+  try {
     // Проверяем наличие параметра canonical в frontmatter
     const canonicalValue = pageData.frontmatter.canonical
     if (!canonicalValue) return

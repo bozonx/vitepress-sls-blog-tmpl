@@ -1,4 +1,5 @@
 import { getFormatInfo, getRssFormats } from '../helpers/rssHelpers.js'
+import { isHomePage } from '../helpers/helpers.js'
 
 /**
  * Добавляет RSS feed ссылки в head главной страницы
@@ -8,7 +9,9 @@ import { getFormatInfo, getRssFormats } from '../helpers/rssHelpers.js'
  */
 export function addRssLinks(pageData, { siteConfig }) {
   // only for index pages line ru/, en/
-  if (!pageData.filePath.match(/^\w+\/index\.md$/)) return
+  // if (!pageData.filePath.match(/^\w+\/index\.md$/)) return
+
+  if (!isHomePage(pageData.frontmatter)) return
 
   const hostname = siteConfig.userConfig.hostname
   const langIndex = pageData.filePath.split('/')[0]

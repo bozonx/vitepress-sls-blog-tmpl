@@ -9,7 +9,9 @@ import path from 'path'
  */
 export function addHreflang(pageData, { siteConfig }) {
   // Пропускаем корневые страницы и страницы без языкового префикса
-  if (!pageData.filePath || pageData.filePath.indexOf('/') < 0) return
+  if (!pageData.filePath || pageData.filePath.indexOf('/') < 0) {
+    return
+  }
 
   const hostname = siteConfig.userConfig.hostname
   if (!hostname) return

@@ -2,18 +2,19 @@ import fs from 'fs'
 import path from 'path'
 
 import { DEFAULT_ENCODE } from '../constants.js'
+import { isPost, isPage } from '../helpers/helpers.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import { extractPreviewFromMd } from '../list-helpers/makePreviewItem.js'
 
 /**
- * If description = "" in frontmatter, set description from content
+ * If description = "" in frontmatter, set description from content for posts
+ * and pages
  *
  * @param {Object} pageData - Данные страницы
  * @param {Object} ctx - Контекст с siteConfig
  */
 export function resolveDescription(pageData, { siteConfig }) {
-  // Пропускаем корневой index.md
-  if (pageData.filePath.indexOf('/') < 0) return
+  if (!isPost(pageData.frontmatter) && !isPage(pageData.frontmatter)) return
 
   const frontmatterDescription = pageData.frontmatter.description
 

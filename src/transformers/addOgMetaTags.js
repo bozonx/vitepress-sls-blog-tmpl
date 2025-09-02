@@ -56,6 +56,8 @@ function generatePageUrl(hostname, filePath) {
 
 /** Add OpenGraph metatags to the page */
 export function addOgMetaTags(pageData, { siteConfig }) {
+
+  // TODO:  на какие страницы не нужно добавлять OpenGraph теги?
   // skip root index.md
   if (pageData.filePath.indexOf('/') < 0) return
 

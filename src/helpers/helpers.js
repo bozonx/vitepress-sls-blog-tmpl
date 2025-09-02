@@ -16,14 +16,20 @@
 
 /** Is it post or util page */
 export function isPost(frontmatter) {
+  if (!frontmatter) return
+
   return Boolean(frontmatter.date)
 }
 
 export function isHomePage(frontmatter) {
+  if (!frontmatter) return
+
   return frontmatter.layout === 'home'
 }
 
 export function isPage(frontmatter) {
+  if (!frontmatter) return
+
   return typeof frontmatter.layout === 'undefined' && !frontmatter.date
 }
 

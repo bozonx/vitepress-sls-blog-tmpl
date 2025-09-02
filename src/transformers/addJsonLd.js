@@ -2,34 +2,12 @@ import fs from 'fs'
 import path from 'path'
 
 import { DEFAULT_ENCODE, ROOT_LANG } from '../constants.js'
-import { isPost } from '../helpers/helpers.js'
+import { isPost, generatePageUrlPath } from '../helpers/helpers.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import {
   extractPreviewFromMd,
   resolvePreview,
 } from '../list-helpers/makePreviewItem.js'
-
-/**
- * Генерирует полный URL для страницы
- *
- * @param {string} hostname - Хост сайта
- * @param {string} filePath - Путь к файлу
- * @returns {string} Полный URL
- */
-function generatePageUrl(hostname, filePath) {
-  if (!hostname || !filePath) return null
-
-  // TODO: use relativePath
-
-  // Убираем расширение файла
-  const fileExtension = path.extname(filePath)
-  const urlPath = filePath.substring(0, filePath.length - fileExtension.length)
-
-  // Убираем индекс из пути
-  const cleanPath = urlPath.replace(/\/index$/, '')
-
-  return `${hostname}/${cleanPath}`
-}
 
 /**
  * Создает JSON-LD структуру для статьи
@@ -126,31 +104,24 @@ export function addJsonLd(pageData, { siteConfig }) {
       (item) => item.id === pageData.frontmatter.authorId
     )?.name
   const cover = pageData.frontmatter.cover
-
-  // TODO: review
-  const pageUrl = generatePageUrl(hostname, pageData.filePath)
-
+  const pageUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
   // Получаем информацию о языке
   const lang = langConfig.lang || langIndex
+  const [, ...restPath] = pageData.relativePath.split('/')
+  const pagePathWithoutLang = restPath.join('/')
   const alternateLanguages = []
 
   // Собираем альтернативные языковые версии
   if (siteConfig.site.locales) {
     Object.entries(siteConfig.site.locales).forEach(([code, locale]) => {
-      if (code !== langIndex && code !== ROOT_LANG) {
-        // TODO: review
-        // TODO: не правильный язык в url
-        // Генерируем URL для альтернативной языковой версии
-        const alternateUrl = generatePageUrl(
-          hostname,
-          pageData.filePath.replace(`/${langIndex}/`, `/${code}/`)
-        )
-        alternateLanguages.push({
-          code: locale.lang || code,
-          name: locale.title || code,
-          url: alternateUrl,
-        })
-      }
+      if (code === langIndex || code === ROOT_LANG) return
+      // Генерируем URL для альтернативной языковой версии
+      const alternateUrl = generatePageUrlPath(pagePathWithoutLang)
+
+      alternateLanguages.push({
+        code: locale.lang || code,
+        url: `${hostname}/${code}/${alternateUrl}`,
+      })
     })
   }
 

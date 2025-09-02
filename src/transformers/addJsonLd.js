@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import { DEFAULT_ENCODE } from '../constants.js'
+import { DEFAULT_ENCODE, ROOT_LANG } from '../constants.js'
 import { isHomePage, isPage, isPost } from '../helpers/helpers.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import {
@@ -242,7 +242,7 @@ export function addJsonLd(pageData, { siteConfig }) {
   // Собираем альтернативные языковые версии
   if (siteConfig.site.locales) {
     Object.entries(siteConfig.site.locales).forEach(([code, locale]) => {
-      if (code !== langIndex && code !== 'root') {
+      if (code !== langIndex && code !== ROOT_LANG) {
         // Генерируем URL для альтернативной языковой версии
         const alternateUrl = generatePageUrl(
           hostname,

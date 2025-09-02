@@ -1,5 +1,6 @@
 import { getFormatInfo, getRssFormats } from '../helpers/rssHelpers.js'
 import { isHomePage } from '../helpers/helpers.js'
+import { ROOT_LANG } from '../constants.js'
 
 /**
  * Добавляет RSS feed ссылки в head главной страницы
@@ -16,7 +17,7 @@ export function addRssLinks(pageData, { siteConfig }) {
   const hostname = siteConfig.userConfig.hostname
   const langIndex = pageData.filePath.split('/')[0]
   const supportedLocales = Object.keys(siteConfig.site.locales).filter(
-    (locale) => locale !== 'root'
+    (locale) => locale !== ROOT_LANG
   )
 
   // Получаем настройки форматов RSS

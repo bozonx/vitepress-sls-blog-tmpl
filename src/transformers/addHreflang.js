@@ -1,4 +1,5 @@
 import path from 'path'
+import { ROOT_LANG } from '../constants.js'
 
 /**
  * Добавляет метатеги hreflang в head страницы для SEO и многоязычности
@@ -23,9 +24,12 @@ export function addHreflang(pageData, { siteConfig }) {
   const availableLocales = siteConfig.site.locales
   if (!availableLocales) return
 
+  console.log('availableLocales', currentLang, availableLocales)
+
   // Фильтруем языки, исключая root и текущий язык
   const otherLocales = Object.keys(availableLocales).filter(
-    (lang) => lang !== 'root' && lang !== currentLang
+    // (lang) => lang !== 'root' && lang !== currentLang
+    (lang) => lang !== ROOT_LANG
   )
 
   // Если нет языков, не добавляем hreflang

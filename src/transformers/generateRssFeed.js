@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { createContentLoader } from 'vitepress'
 
-import { DEFAULT_ENCODE, POSTS_DIR } from '../constants.js'
+import { DEFAULT_ENCODE, POSTS_DIR, ROOT_LANG } from '../constants.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import {
   createPostGuid,
@@ -37,7 +37,7 @@ export async function generateRssFeed(config) {
     const feeds = {}
 
     for (const localeIndex of Object.keys(config.site.locales)) {
-      if (localeIndex === 'root') continue
+      if (localeIndex === ROOT_LANG) continue
 
       const locale = config.site.locales[localeIndex]
       const hostname = config.userConfig.hostname

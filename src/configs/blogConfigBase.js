@@ -10,6 +10,7 @@ import { transformPageMeta } from '../transformers/transformPageMeta.js'
 import { transformTitle } from '../transformers/transformTitle.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
+import { createYamlToJsonLd } from '../transformers/yamlToJsonLd.js'
 
 // import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 

@@ -19,6 +19,8 @@ import {
 function generatePageUrl(hostname, filePath) {
   if (!hostname || !filePath) return null
 
+  // TODO: use relativePath
+
   // Убираем расширение файла
   const fileExtension = path.extname(filePath)
   const urlPath = filePath.substring(0, filePath.length - fileExtension.length)

@@ -11,19 +11,15 @@ import { ROOT_LANG } from '../constants.js'
  */
 export function addHreflang(pageData, { siteConfig }) {
   // Пропускаем корневые страницы и страницы без языкового префикса
-  if (!pageData.filePath || pageData.filePath.indexOf('/') < 0) {
+  if (!pageData.relativePath || pageData.relativePath.indexOf('/') < 0) {
     return
   }
 
-  const hostname = siteConfig.userConfig.hostname
-  if (!hostname) return
-
-  // Получаем текущий язык из пути файла
-  const [currentLang, ...restPath] = pageData.filePath.split('/')
   // Получаем доступные языки из конфигурации, исключая root
   const availableLocales = siteConfig.site.locales
+  const hostname = siteConfig.userConfig.hostname
 
-  if (!availableLocales) return
+  if (!hostname || !availableLocales) return
 
   // Фильтруем языки, исключая root
   const localesIndexes = Object.keys(availableLocales).filter(
@@ -35,7 +31,8 @@ export function addHreflang(pageData, { siteConfig }) {
   // Инициализируем head если его нет
   if (!pageData.frontmatter.head) pageData.frontmatter.head = []
 
-  // TODO: путь не резовлится в реальный url
+  // Получаем текущий язык из пути файла
+  const [currentLang, ...restPath] = pageData.relativePath.split('/')
   const pagePathWithoutLang = restPath.join('/')
   // Убираем расширение файла
   const fileExtension = path.extname(pagePathWithoutLang)
@@ -46,6 +43,8 @@ export function addHreflang(pageData, { siteConfig }) {
 
   // Убираем индекс из пути
   const finalPath = cleanPath.replace(/\/index$/, '')
+
+  console.log('finalPath', finalPath)
 
   // Добавляем метатеги для всех языков, включая текущий
   localesIndexes.forEach((lang) => {
@@ -66,19 +65,13 @@ export function addHreflang(pageData, { siteConfig }) {
   // Если не указан, используем 'en-US' как fallback
   const defaultLang = siteConfig.userConfig?.locales?.root?.lang || 'en-US'
   // Находим локаль, соответствующую языку по умолчанию
-  let mainLang
-
-  // Ищем локаль с соответствующим языком
-  for (const lang of localesIndexes) {
-    if (availableLocales[lang]?.lang === defaultLang) {
-      mainLang = lang
-      break
-    }
-  }
+  const mainLang = localesIndexes.find(
+    (lang) => availableLocales[lang]?.lang === defaultLang
+  )
 
   if (!mainLang) {
     console.warn(
-      `[addHreflang] Не удалось определить основной язык для страницы: ${pageData.filePath}`
+      `[addHreflang] Не удалось определить основной язык для страницы: ${pageData.relativePath}`
     )
     return
   }

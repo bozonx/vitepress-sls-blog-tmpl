@@ -13,6 +13,8 @@ export function addCanonicalLink(pageData, { siteConfig }) {
     return
   }
 
+  // TODO: use relativePath
+
   try {
     // Проверяем наличие параметра canonical в frontmatter
     const canonicalValue = pageData.frontmatter.canonical

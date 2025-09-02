@@ -44,6 +44,8 @@ function truncateDescription(description, maxLength = 160) {
 function generatePageUrl(hostname, filePath) {
   if (!hostname || !filePath) return null
 
+  // TODO: use relativePath
+
   // Убираем расширение файла
   const fileExtension = path.extname(filePath)
   const urlPath = filePath.substring(0, filePath.length - fileExtension.length)
@@ -56,7 +58,6 @@ function generatePageUrl(hostname, filePath) {
 
 /** Add OpenGraph metatags to the page */
 export function addOgMetaTags(pageData, { siteConfig }) {
-
   // TODO:  на какие страницы не нужно добавлять OpenGraph теги?
   // skip root index.md
   if (pageData.filePath.indexOf('/') < 0) return

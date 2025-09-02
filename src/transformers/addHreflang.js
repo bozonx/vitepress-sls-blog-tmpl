@@ -3,7 +3,8 @@ import { ROOT_LANG } from '../constants.js'
 
 /**
  * Добавляет метатеги hreflang в head страницы для SEO и многоязычности
- * Генерирует ссылки на эту же страницу на всех доступных языках
+ * Генерирует ссылки на эту же страницу на всех доступных языках Основной язык
+ * (x-default) определяется из siteConfig.userConfig.locales.root.lang
  *
  * @param {Object} pageData - Данные страницы
  * @param {Object} ctx - Контекст с siteConfig
@@ -60,12 +61,27 @@ export function addHreflang(pageData, { siteConfig }) {
     ])
   })
 
-  // TODO: правильно взять основной язык
   // Добавляем x-default hreflang (указывает на основной язык сайта)
-  // Определяем основной язык как первый доступный (обычно en)
-  const mainLang = localesIndexes[0] || currentLang
-  const mainLangConfig = availableLocales[mainLang]
-  const mainLangCode = mainLangConfig?.lang || mainLang
+  // Определяем основной язык из конфигурации сайта (siteConfig.userConfig.locales.root.lang)
+  // Если не указан, используем 'en-US' как fallback
+  const defaultLang = siteConfig.userConfig?.locales?.root?.lang || 'en-US'
+  // Находим локаль, соответствующую языку по умолчанию
+  let mainLang
+
+  // Ищем локаль с соответствующим языком
+  for (const lang of localesIndexes) {
+    if (availableLocales[lang]?.lang === defaultLang) {
+      mainLang = lang
+      break
+    }
+  }
+
+  if (!mainLang) {
+    console.warn(
+      `[addHreflang] Не удалось определить основной язык для страницы: ${pageData.filePath}`
+    )
+    return
+  }
 
   pageData.frontmatter.head.push([
     'link',

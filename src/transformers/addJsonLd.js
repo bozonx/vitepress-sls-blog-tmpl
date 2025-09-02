@@ -1,6 +1,18 @@
 import { ROOT_LANG } from '../constants.js'
 import { isPost, generatePageUrlPath } from '../helpers/helpers.js'
 
+/*
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Иван Иванов",
+    "url": "https://example.com/author/ivan-ivanov",
+    "description": "Иван Иванов — эксперт в области технологий и программирования, автор множества статей о разработке и ИИ.",
+    "image": "https://example.com/images/ivan-ivanov.jpg",
+    "sameAs": [
+    "https://twitter.com/ivanov",
+    ],
+*/
+
 /**
  * Создает JSON-LD структуру для статьи
  *

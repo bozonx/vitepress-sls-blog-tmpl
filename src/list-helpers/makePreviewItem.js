@@ -2,7 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import { smartTruncate } from 'squidlet-lib'
 
-import { DEFAULT_ENCODE } from '../constants.js'
+import { DEFAULT_ENCODE, MAX_DESCRIPTION_LENGTH } from '../constants.js'
+import { sanitizeText } from '../helpers/helpers.js'
 import { stripMd } from '../helpers/mdWorks.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import { transliterate } from '../helpers/transliterate.js'
@@ -55,8 +56,11 @@ export function resolvePreview({ previewText, descrAsPreview, description }) {
 export function extractPreviewFromMd(mdContent) {
   const mdContentNoHeader = removeTitleFromMd(mdContent)
   const striped = stripMd(mdContentNoHeader)
+  const sanitized = sanitizeText(striped)
 
-  return smartTruncate(striped, 300, { respectWords: true })
+  return smartTruncate(sanitized, MAX_DESCRIPTION_LENGTH, {
+    respectWords: true,
+  })
 }
 
 function removeTitleFromMd(mdNoFrontmatter) {

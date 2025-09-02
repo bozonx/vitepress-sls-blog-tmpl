@@ -5,3 +5,5 @@ export const POSTS_DIR = 'post'
 export const ROOT_LANG = 'root'
 // Минимальное расстояние для свайпа
 export const SWIPE_OFFSET = 50
+// Максимальная длина описания (RSS стандарт)
+export const MAX_DESCRIPTION_LENGTH = 500

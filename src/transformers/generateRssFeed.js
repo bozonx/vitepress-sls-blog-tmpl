@@ -4,7 +4,6 @@ import path from 'path'
 import { createContentLoader } from 'vitepress'
 
 import { DEFAULT_ENCODE, POSTS_DIR, ROOT_LANG } from '../constants.js'
-import { parseMdFile } from '../helpers/mdWorks.js'
 import {
   createPostGuid,
   debugLog,
@@ -16,13 +15,10 @@ import {
   validatePostForRss,
   validateRssConfig,
 } from '../helpers/rssHelpers.js'
-import {
-  extractPreviewFromMd,
-  resolvePreview,
-} from '../list-helpers/makePreviewItem.js'
 
 /**
- * Генерирует RSS и Atom feeds для всех локалей
+ * Генерирует RSS и Atom feeds для всех локалей. pageData.description has to be
+ * resolved before start this transformer
  *
  * @param {Object} config - Конфигурация VitePress
  * @returns {Promise<void>}
@@ -51,9 +47,13 @@ export async function generateRssFeed(config) {
         copyright: locale.themeConfig.footer.copyright,
         id: siteUrl,
         link: siteUrl,
+
+        // TODO:  review
         favicon: `${hostname}/img/favicon-32x32.png`,
+
+        // TODO:  review
         image: `${hostname}${config.userConfig.themeConfig.sidebarLogoSrc}`,
-        generator: 'VitePress Blog Template',
+        generator: 'VitePress SLS Blog Template',
         updated: new Date(),
         feedLinks: {
           rss: `${hostname}/feed-${localeIndex}.rss`,
@@ -90,45 +90,15 @@ export async function generateRssFeed(config) {
               continue
             }
 
-            // Получаем описание поста
-            let descr = resolvePreview(frontmatter)
-            debugLog(
-              config,
-              `Initial description for ${frontmatter.title}:`,
-              descr ? descr.substring(0, 50) + '...' : 'null'
-            )
-
-            if (!descr) {
-              const { content } = parseMdFile(src)
-              const previewFromMd = extractPreviewFromMd(content)
-              descr = previewFromMd
-              debugLog(
-                config,
-                `Extracted description from MD for ${frontmatter.title}:`,
-                descr ? descr.substring(0, 50) + '...' : 'null'
-              )
-            }
-
-            // Очищаем и обрезаем описание для RSS
-            const cleanDescription = truncateDescriptionForRss(descr)
-            debugLog(
-              config,
-              `Clean description for ${frontmatter.title}:`,
-              cleanDescription
-                ? cleanDescription.substring(0, 50) + '...'
-                : 'null'
-            )
-
             // Создаем уникальный GUID для поста
             const guid = createPostGuid(hostname, url, frontmatter.date)
-
             // Подготавливаем категории из тегов
             const categories = formatTagsForRss(frontmatter.tags, hostname)
 
             // Добавляем пост в feed
             feeds[localeIndex].addItem({
               title: frontmatter.title,
-              description: cleanDescription,
+              description: frontmatter.description,
               id: guid,
               link: `${hostname}${url}`,
               date: frontmatter.date && new Date(frontmatter.date),

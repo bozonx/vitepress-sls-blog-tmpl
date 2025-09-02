@@ -3,8 +3,7 @@ import path from 'path'
 
 import { DEFAULT_ENCODE } from '../constants.js'
 import { isPost, isPage } from '../helpers/helpers.js'
-import { parseMdFile } from '../helpers/mdWorks.js'
-import { extractPreviewFromMd } from '../list-helpers/makePreviewItem.js'
+import { makeDescriptionFromMd } from '../helpers/mdWorks.js'
 
 /**
  * If description = "" in frontmatter, set description from content for posts
@@ -28,9 +27,8 @@ export function resolveDescription(pageData, { siteConfig }) {
       path.join(siteConfig.srcDir, pageData.filePath),
       DEFAULT_ENCODE
     )
-    const { content } = parseMdFile(rawContent)
 
-    pageData.description = extractPreviewFromMd(content)
+    pageData.description = makeDescriptionFromMd(rawContent)
   } catch (error) {
     console.warn(
       `Failed to read file for description: ${pageData.filePath}`,

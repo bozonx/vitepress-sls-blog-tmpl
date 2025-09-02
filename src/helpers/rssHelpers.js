@@ -1,8 +1,3 @@
-import fs from 'fs'
-import path from 'path'
-
-/** Утилиты для валидации RSS feed */
-
 /**
  * Валидирует обязательные поля frontmatter для RSS
  *
@@ -147,58 +142,46 @@ export function getRssFormats(config) {
   return config.userConfig.themeConfig?.rssFormats || ['rss', 'atom', 'json']
 }
 
-/**
- * Проверяет, включен ли debug режим
- *
- * @param {Object} config - Конфигурация
- * @returns {boolean} True если debug режим включен
- */
-export function isDebugMode(config) {
-  return (
-    config.userConfig?.debug === true ||
-    config.userConfig?.themeConfig?.debug === true ||
-    process.env.NODE_ENV === 'development'
-  )
-}
-
-/**
- * Выводит debug сообщение только в debug режиме
- *
- * @param {Object} config - Конфигурация
- * @param {string} message - Сообщение для вывода
- * @param {...any} args - Дополнительные аргументы
- */
-export function debugLog(config, message, ...args) {
-  if (isDebugMode(config)) {
-    console.log(message, ...args)
-  }
-}
-
 export function makeAuthorForRss(config, frontmatter, siteUrl, localeIndex) {
   if (!frontmatter.authorId) return undefined
 
   const authors = config.userConfig.locales[localeIndex].themeConfig?.authors
 
-  if (!authors || !Array.isArray(authors)) {
-    debugLog(
-      config,
-      `Authors configuration not found or invalid for post with authorId: ${frontmatter.authorId}`
-    )
-    return undefined
-  }
+  if (!Array.isArray(authors)) return
 
   const author = authors.find((item) => item.id === frontmatter.authorId)
 
-  if (!author) {
-    debugLog(
-      config,
-      `Author with id "${frontmatter.authorId}" not found in authors configuration`
-    )
-    return undefined
-  }
+  if (!author) return
 
   return {
     name: author.name,
     link: `${siteUrl}/${config.userConfig.themeConfig.authorBaseUrl}/${author.id}/1`,
   }
 }
+
+// /**
+//  * Проверяет, включен ли debug режим
+//  *
+//  * @param {Object} config - Конфигурация
+//  * @returns {boolean} True если debug режим включен
+//  */
+// export function isDebugMode(config) {
+//   return (
+//     config.userConfig?.debug === true ||
+//     config.userConfig?.themeConfig?.debug === true ||
+//     process.env.NODE_ENV === 'development'
+//   )
+// }
+
+// /**
+//  * Выводит debug сообщение только в debug режиме
+//  *
+//  * @param {Object} config - Конфигурация
+//  * @param {string} message - Сообщение для вывода
+//  * @param {...any} args - Дополнительные аргументы
+//  */
+// export function debugLog(config, message, ...args) {
+//   if (isDebugMode(config)) {
+//     console.log(message, ...args)
+//   }
+// }

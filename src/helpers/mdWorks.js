@@ -5,6 +5,9 @@ import { remark } from 'remark'
 import remarkRehype from 'remark-rehype'
 import strip from 'strip-markdown'
 
+import { DEFAULT_ENCODE } from '../constants.js'
+import { extractPreviewFromMd } from '../list-helpers/makePreviewItem.js'
+
 export function stripMd(mdContent) {
   if (!mdContent) return mdContent
 
@@ -26,4 +29,10 @@ export function parseMdFile(rawContent) {
   const { data, content } = grayMatter(rawContent)
 
   return { frontmatter: data, content }
+}
+
+export function makeDescriptionFromMd(rawContent) {
+  const { content } = parseMdFile(rawContent)
+
+  return extractPreviewFromMd(content)
 }

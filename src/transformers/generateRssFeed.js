@@ -4,14 +4,13 @@ import path from 'path'
 import { createContentLoader } from 'vitepress'
 
 import { DEFAULT_ENCODE, POSTS_DIR, ROOT_LANG } from '../constants.js'
+import { makeDescriptionFromMd } from '../helpers/mdWorks.js'
 import {
   createPostGuid,
-  debugLog,
   formatTagsForRss,
   getFormatInfo,
   getRssFormats,
   makeAuthorForRss,
-  truncateDescriptionForRss,
   validatePostForRss,
   validateRssConfig,
 } from '../helpers/rssHelpers.js'
@@ -47,11 +46,7 @@ export async function generateRssFeed(config) {
         copyright: locale.themeConfig.footer.copyright,
         id: siteUrl,
         link: siteUrl,
-
-        // TODO:  review
         favicon: `${hostname}/img/favicon-32x32.png`,
-
-        // TODO:  review
         image: `${hostname}${config.userConfig.themeConfig.sidebarLogoSrc}`,
         generator: 'VitePress SLS Blog Template',
         updated: new Date(),
@@ -67,11 +62,6 @@ export async function generateRssFeed(config) {
           { includeSrc: true }
         ).load()
 
-        debugLog(
-          config,
-          `Found ${posts.length} posts for locale ${localeIndex}`
-        )
-
         // Сортируем посты по дате (новые сначала) и ограничиваем количество
         const sortedPosts = posts
           .sort(
@@ -80,16 +70,18 @@ export async function generateRssFeed(config) {
           )
           .slice(0, config.userConfig.themeConfig.maxPostsInRssFeed)
 
-        debugLog(config, `Processing ${sortedPosts.length} posts for RSS feed`)
-
         for (const { url, frontmatter, src } of sortedPosts) {
           try {
             // Валидируем обязательные поля
             if (!validatePostForRss(frontmatter, url)) {
-              debugLog(config, `Skipping post ${url} - validation failed`)
+              console.warn(config, `Skipping post ${url} - validation failed`)
+
               continue
             }
 
+            const description = frontmatter.description
+              ? frontmatter.description
+              : makeDescriptionFromMd(src)
             // Создаем уникальный GUID для поста
             const guid = createPostGuid(hostname, url, frontmatter.date)
             // Подготавливаем категории из тегов
@@ -98,10 +90,12 @@ export async function generateRssFeed(config) {
             // Добавляем пост в feed
             feeds[localeIndex].addItem({
               title: frontmatter.title,
-              description: frontmatter.description,
+              description,
               id: guid,
               link: `${hostname}${url}`,
               date: frontmatter.date && new Date(frontmatter.date),
+
+              // TODO: review
               image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
               // Добавляем автора если есть
               author: makeAuthorForRss(
@@ -119,17 +113,11 @@ export async function generateRssFeed(config) {
               //   (frontmatter.updated && new Date(frontmatter.updated)) ||
               //   (frontmatter.date && new Date(frontmatter.date)),
             })
-            debugLog(config, `Successfully added post: ${frontmatter.title}`)
           } catch (postError) {
             console.error(`Error processing post ${url}:`, postError)
             continue
           }
         }
-
-        debugLog(
-          config,
-          `Feed for locale ${localeIndex} contains ${feeds[localeIndex].items.length} items`
-        )
       } catch (loaderError) {
         console.error(
           `Error loading posts for locale ${localeIndex}:`,
@@ -176,8 +164,7 @@ export async function generateRssFeed(config) {
         )
       }
     }
-
-    console.log('RSS feed generation completed successfully')
+    // success
   } catch (error) {
     console.error('Error generating RSS feeds:', error)
     throw error

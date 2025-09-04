@@ -114,14 +114,16 @@ export function addJsonLd(pageData, { siteConfig }) {
   const [, ...restPath] = pageData.relativePath.split('/')
   const pagePathWithoutLang = restPath.join('/')
   const alternateLanguages = []
-  console.log(siteConfig)
-  const publisher = langConfig.publisher && {
+
+  // Формируем информацию об издателе для JSON-LD
+  // Если langConfig.publisher не определен, поле не будет добавлено
+  const publisher = langConfig.themeConfig.publisher && {
     '@type': 'Organization',
-    name: langConfig.publisher.name || siteName,
-    url: langConfig.publisher.url || hostname,
-    logo: langConfig.publisher.logo && {
+    name: langConfig.themeConfig.publisher.name || siteName,
+    url: langConfig.themeConfig.publisher.url || hostname,
+    logo: langConfig.themeConfig.publisher.logo && {
       '@type': 'ImageObject',
-      url: langConfig.publisher.logo,
+      url: langConfig.themeConfig.publisher.logo,
     },
   }
 

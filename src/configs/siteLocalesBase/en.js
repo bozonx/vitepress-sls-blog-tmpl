@@ -1,54 +1,38 @@
 export default {
-  label: "English",
+  label: 'English',
   themeConfig: {
-    returnToTopLabel: "Return to top",
-    sidebarMenuLabel: "Menu",
-    darkModeSwitchLabel: "Appearance",
-    darkModeSwitchTitle: "Switch to dark theme",
-    lightModeSwitchTitle: "Switch to light theme",
-    langMenuLabel: "Change language",
-    docFooter: {
-      prev: "Previous page",
-      next: "Next page",
-    },
-    outline: {
-      label: "On this page",
-    },
-    lastUpdated: {
-      text: "Updated at",
-    },
-    editLink: {
-      text: "Edit this page on GitHub",
-    },
+    returnToTopLabel: 'Return to top',
+    sidebarMenuLabel: 'Menu',
+    darkModeSwitchLabel: 'Appearance',
+    darkModeSwitchTitle: 'Switch to dark theme',
+    lightModeSwitchTitle: 'Switch to light theme',
+    langMenuLabel: 'Change language',
+    docFooter: { prev: 'Previous page', next: 'Next page' },
+    outline: { label: 'On this page' },
+    lastUpdated: { text: 'Updated at' },
+    editLink: { text: 'Edit this page on GitHub' },
   },
-  t: {
-    donate: "Donate",
-    wiki: "Wiki",
-    socialMedia: "Social media",
-  },
+  t: { donate: 'Donate', wiki: 'Wiki', socialMedia: 'Social media' },
   search: {
     options: {
       locales: {
         // don't forget to select while translate
         en: {
           translations: {
-            button: {
-              buttonText: "Search",
-              buttonAriaLabel: "Search",
-            },
+            button: { buttonText: 'Search', buttonAriaLabel: 'Search' },
             modal: {
-              noResultsText: "No results for",
-              resetButtonTitle: "Reset search",
-              displayDetails: "Display detailed list",
-              backButtonTitle: "Close search",
+              noResultsText: 'No results for',
+              resetButtonTitle: 'Reset search',
+              displayDetails: 'Display detailed list',
+              backButtonTitle: 'Close search',
               footer: {
-                selectText: "to select",
-                selectKeyAriaLabel: "enter",
-                navigateText: "to navigate",
-                navigateUpKeyAriaLabel: "up arrow",
-                navigateDownKeyAriaLabel: "down arrow",
-                closeText: "to close",
-                closeKeyAriaLabel: "escape",
+                selectText: 'to select',
+                selectKeyAriaLabel: 'enter',
+                navigateText: 'to navigate',
+                navigateUpKeyAriaLabel: 'up arrow',
+                navigateDownKeyAriaLabel: 'down arrow',
+                closeText: 'to close',
+                closeKeyAriaLabel: 'escape',
               },
             },
           },
@@ -56,4 +40,4 @@ export default {
       },
     },
   },
-};
+}

@@ -1,8 +1,13 @@
 import { ROOT_LANG } from '../constants.js'
-import { isPost, generatePageUrlPath } from '../helpers/helpers.js'
+import {
+  isPost,
+  generatePageUrlPath,
+  isAuthorPage,
+} from '../helpers/helpers.js'
+import yaml from 'js-yaml'
 
 function parseYaToJsonLd(pageData) {
-  return yaml.parse(pageData.frontmatter.jsonLd)
+  return yaml.load(pageData.frontmatter.jsonLd)
 }
 
 function createAuthorJsonLd(pageData, siteConfig, langConfig) {
@@ -30,6 +35,9 @@ function createArticleJsonLd(pageData, siteConfig, langIndex, langConfig) {
       (item) => item.id === pageData.frontmatter.authorId
     )?.name
   const cover = pageData.frontmatter.cover
+  const date = pageData.frontmatter.date
+  const updated = pageData.frontmatter.updated
+  const tags = pageData.frontmatter.tags
   const pageUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
   // Получаем информацию о языке
   const lang = langConfig.lang || langIndex
@@ -63,6 +71,7 @@ function createArticleJsonLd(pageData, siteConfig, langIndex, langConfig) {
     })
   }
 
+  // Создаем базовую структуру статьи
   const article = {
     '@type': 'BlogPosting',
     headline: title,
@@ -112,6 +121,17 @@ function createArticleJsonLd(pageData, siteConfig, langIndex, langConfig) {
     }
   }
 
+  // Если указан frontmatter.jsonLd, парсим его и переопределяем поля
+  if (pageData.frontmatter.jsonLd) {
+    try {
+      const customJsonLd = yaml.load(pageData.frontmatter.jsonLd)
+      // Переопределяем поля из customJsonLd
+      Object.assign(article, customJsonLd)
+    } catch (error) {
+      console.warn('Ошибка при парсинге frontmatter.jsonLd:', error)
+    }
+  }
+
   return article
 }
 
@@ -141,12 +161,14 @@ export function addJsonLd(pageData, { siteConfig }) {
       langConfig
     )
   } else if (isAuthorPage(pageData.filePath)) {
-    return createAuthorJsonLd(pageData, siteConfig, langConfig)
+    jsonLdData = createAuthorJsonLd(pageData, siteConfig, langConfig)
   } else if (pageData.frontmatter.jsonLd) {
     jsonLdData = parseYaToJsonLd(pageData)
   } else {
     return
   }
+
+  if (!jsonLdData) return
 
   // Инициализируем head если его нет
   pageData.frontmatter.head ??= []
@@ -155,6 +177,10 @@ export function addJsonLd(pageData, { siteConfig }) {
   pageData.frontmatter.head.push([
     'script',
     { type: 'application/ld+json' },
-    JSON.stringify({ '@context': 'https://schema.org', jsonLdData }, null, 2),
+    JSON.stringify(
+      { '@context': 'https://schema.org', ...jsonLdData },
+      null,
+      2
+    ),
   ])
 }

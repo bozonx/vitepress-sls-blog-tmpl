@@ -82,6 +82,12 @@ collections:
         required: false
         preview: false
         i18n: true
+      - label: 'JSON-LD in yaml format. Add some fields to the generated JSON-LD or make full JSON-LD'
+        name: 'jsonLd'
+        widget: 'text'
+        required: false
+        preview: false
+        i18n: true
       - label: 'Cover'
         name: 'cover'
         widget: 'image'

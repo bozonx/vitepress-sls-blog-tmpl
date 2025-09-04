@@ -23,17 +23,8 @@ function createAuthorJsonLd(
   hostname,
   langIndex
 ) {
-  /*
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Иван Иванов",
-    "url": "https://example.com/author/ivan-ivanov",
-    "description": "Иван Иванов — эксперт в области технологий и программирования, автор множества статей о разработке и ИИ.",
-    "image": "https://example.com/images/ivan-ivanov.jpg",
-    "sameAs": [
-    "https://twitter.com/ivanov",
-    ],
-*/
+  if (pageData.params.page !== 1) return
+
   const authors = langConfig.themeConfig?.authors
   const authorId = pageData.params.id
   const author = authors?.find((item) => item.id === authorId)
@@ -47,9 +38,9 @@ function createAuthorJsonLd(
     '@type': 'Person',
     name: authorName,
     url: `${hostname}/${langIndex}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${authorId}/1`,
-    // description: author?.description,
-    // image: author?.image,
-    // sameAs: author?.sameAs,
+    description: author?.descr,
+    image: author?.image,
+    sameAs: author?.sameAs,
   }
 }
 

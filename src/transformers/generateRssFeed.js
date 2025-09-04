@@ -4,7 +4,7 @@ import path from 'path'
 import { createContentLoader } from 'vitepress'
 
 import { DEFAULT_ENCODE, POSTS_DIR, ROOT_LANG } from '../constants.js'
-import { makeDescriptionFromMd } from '../helpers/mdWorks.js'
+import { extractDescriptionFromMd } from '../helpers/mdWorks.js'
 import {
   createPostGuid,
   formatTagsForRss,
@@ -81,7 +81,10 @@ export async function generateRssFeed(config) {
 
             const description = frontmatter.description
               ? frontmatter.description
-              : makeDescriptionFromMd(src)
+              : extractDescriptionFromMd(
+                  src,
+                  config.userConfig.themeConfig.maxDescriptionLength
+                )
             // Создаем уникальный GUID для поста
             const guid = createPostGuid(hostname, url, frontmatter.date)
             // Подготавливаем категории из тегов

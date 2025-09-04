@@ -4,8 +4,8 @@ import html from 'rehype-stringify'
 import { remark } from 'remark'
 import remarkRehype from 'remark-rehype'
 import strip from 'strip-markdown'
-
-import { extractPreviewFromMd } from '../list-helpers/makePreviewItem.js'
+import { smartTruncate } from 'squidlet-lib'
+import { sanitizeText } from './helpers.js'
 
 export function stripMd(mdContent) {
   if (!mdContent) return mdContent
@@ -30,8 +30,16 @@ export function parseMdFile(rawContent) {
   return { frontmatter: data, content }
 }
 
-export function makeDescriptionFromMd(rawContent) {
+export function extractDescriptionFromMd(rawContent, maxLength) {
   const { content } = parseMdFile(rawContent)
+  const mdContentNoHeader = removeTitleFromMd(content)
+  const striped = stripMd(mdContentNoHeader)
+  // TODO: review this
+  const sanitized = sanitizeText(striped)
 
-  return extractPreviewFromMd(content)
+  return smartTruncate(sanitized, maxLength, { respectWords: true })
+}
+
+function removeTitleFromMd(mdNoFrontmatter) {
+  return mdNoFrontmatter.trim().replace(/^\#\s+.+/, '')
 }

@@ -3,7 +3,6 @@ import path from 'path'
 
 import { DEFAULT_ENCODE } from '../constants.js'
 import { isPost, isPage } from '../helpers/helpers.js'
-import { makeDescriptionFromMd } from '../helpers/mdWorks.js'
 
 /**
  * If description = "" in frontmatter, set description from content for posts
@@ -28,7 +27,10 @@ export function resolveDescription(pageData, { siteConfig }) {
       DEFAULT_ENCODE
     )
 
-    pageData.description = makeDescriptionFromMd(rawContent)
+    pageData.description = extractDescriptionFromMd(
+      rawContent,
+      siteConfig.userConfig.themeConfig.maxDescriptionLength
+    )
   } catch (error) {
     console.warn(
       `Failed to read file for description: ${pageData.filePath}`,

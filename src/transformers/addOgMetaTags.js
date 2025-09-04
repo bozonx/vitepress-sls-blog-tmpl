@@ -3,11 +3,8 @@ import path from 'path'
 
 import { DEFAULT_ENCODE } from '../constants.js'
 import { isHomePage, isPage, isPost } from '../helpers/helpers.js'
-import { parseMdFile } from '../helpers/mdWorks.js'
-import {
-  extractPreviewFromMd,
-  resolvePreview,
-} from '../list-helpers/makePreviewItem.js'
+import { extractDescriptionFromMd } from '../helpers/mdWorks.js'
+import { resolvePreview } from '../list-helpers/makePreviewItem.js'
 import { getImageDimensions } from '../helpers/imageHelpers.js'
 
 // Используем image-size пакет для получения размеров изображений
@@ -104,9 +101,11 @@ export function addOgMetaTags(pageData, { siteConfig }) {
           path.join(siteConfig.srcDir, pageData.filePath),
           DEFAULT_ENCODE
         )
-        const { content } = parseMdFile(rawContent)
 
-        descr = extractPreviewFromMd(content)
+        descr = extractDescriptionFromMd(
+          rawContent,
+          siteConfig.userConfig.themeConfig.maxDescriptionLength
+        )
       } catch (error) {
         console.warn(
           `Failed to read file for OG description: ${pageData.filePath}`,

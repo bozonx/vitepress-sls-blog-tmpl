@@ -126,23 +126,3 @@ export function sanitizeText(text) {
     .replace(/'/g, '&#39;')
     .trim()
 }
-
-export function resolveDescriptionForRss(fsrcDir, filePath) {
-  try {
-    // Читаем содержимое файла
-    const rawContent = fs.readFileSync(
-      path.join(siteConfig.srcDir, pageData.filePath),
-      DEFAULT_ENCODE
-    )
-    const { content } = parseMdFile(rawContent)
-
-    pageData.description = extractPreviewFromMd(content)
-  } catch (error) {
-    console.warn(
-      `Failed to read file for description: ${pageData.filePath}`,
-      error.message
-    )
-  }
-
-  return description
-}

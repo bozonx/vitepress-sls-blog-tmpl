@@ -50,6 +50,10 @@ export const common = {
     maxPostsInRssFeed: 50,
     rssFormats: ['rss', 'atom', 'json'],
 
+    // max description length for description meta tag,
+    //  open graph, json-ld and for rss feed
+    // for RSS max is 500 characters
+    maxDescriptionLength: 300,
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
     paginationMaxItems: 7,

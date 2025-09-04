@@ -4,6 +4,13 @@ body: |
   description: ""
   siteTitle: ""
 
+  # Конфигурация издателя для JSON-LD
+  # Раскомментируйте и настройте для вашего сайта
+  # publisher:
+  #   name: "Your Blog Name"
+  #   url: "https://yourblog.com"
+  #   logo: "https://yourblog.com/logo.png"
+
   authors:
     - id: "ivan-k"
       name: "Ivan K"

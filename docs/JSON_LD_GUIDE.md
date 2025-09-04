@@ -1,132 +1,116 @@
-# JSON-LD Guide
+# Руководство по настройке JSON-LD
 
-Это руководство объясняет, как использовать JSON-LD трансформер для генерации структурированных данных на основе YAML.
+## Обзор
 
-## Что такое JSON-LD?
+JSON-LD (JavaScript Object Notation for Linked Data) - это формат структурированных данных, который помогает поисковым системам лучше понимать содержимое вашего сайта.
 
-JSON-LD (JavaScript Object Notation for Linked Data) - это формат для представления структурированных данных в JSON. Это помогает поисковым системам лучше понимать содержимое ваших страниц.
+## Автоматическая генерация
 
-## Как использовать
+Шаблон автоматически генерирует JSON-LD для всех постов блога, включая следующие поля:
 
-### 1. Добавьте параметр в frontmatter
+- `@context`: Схема Schema.org
+- `@type`: BlogPosting
+- `headline`: Заголовок поста
+- `description`: Описание поста
+- `url`: URL поста
+- `datePublished`: Дата публикации
+- `dateModified`: Дата последнего обновления (если указана)
+- `author`: Автор поста
+- `image`: Обложка поста (если указана)
+- `keywords`: Теги поста
+- `publisher`: Информация об издателе
+- `inLanguage`: Язык поста
+- `isPartOf`: Связь с основным сайтом и альтернативными языковыми версиями
 
-В frontmatter вашей Markdown страницы добавьте параметр `jsonLd`:
+## Настройка поля Publisher
 
-```yaml
----
-title: My Page
-description: Page description
-jsonLd: |
-  "@type": WebPage
-  name: My Page
-  url: https://example.com/my-page
-  description: This is my page
-  isPartOf:
-    "@type": WebSite
-    name: My Website
-    url: https://example.com
----
+Поле `publisher` содержит информацию об организации, которая публикует контент. Для его настройки добавьте в конфигурацию локали:
+
+### В файле `src/configs/siteLocalesBase/en.js`:
+
+```javascript
+export default {
+  label: 'English',
+  publisher: {
+    name: 'Your Site Name',
+    url: 'https://yoursite.com',
+    logo: 'https://yoursite.com/logo.png',
+  },
+  // ... остальная конфигурация
+}
 ```
 
-### 2. Поддерживаемые поля
+### В файле `src/configs/siteLocalesBase/ru.js`:
 
-Трансформер поддерживает следующие поля:
-
-- **`"@type"`** - Тип страницы/контента (например, `WebPage`, `Article`, `BlogPosting`)
-- **`name`** - Название страницы
-- **`url`** - URL страницы
-- **`description`** - Описание страницы
-- **`isPartOf`** - Информация о родительском сайте (может быть объектом или массивом)
-
-### 3. Важное примечание о YAML синтаксисе
-
-**Поля, начинающиеся с `@`, должны быть в кавычках:**
-
-```yaml
-"@type": WebPage    # Правильно
-@type: WebPage      # Неправильно - вызовет ошибку парсинга
+```javascript
+export default {
+  label: 'Русский',
+  publisher: {
+    name: 'Название вашего сайта',
+    url: 'https://yoursite.com',
+    logo: 'https://yoursite.com/logo.png',
+  },
+  // ... остальная конфигурация
+}
 ```
 
-### 4. Примеры использования
+### Параметры publisher:
 
-#### Простая страница
+- `name`: Название организации/сайта
+- `url`: URL основного сайта
+- `logo`: URL логотипа организации (опционально)
 
-```yaml
-jsonLd: |
-  "@type": WebPage
-  name: About Us
-  url: https://example.com/about
-  description: Learn more about our company
-  isPartOf:
-    "@type": WebSite
-    name: Company Website
-    url: https://example.com
-```
+## Переопределение в конфигурации сайта
 
-#### Статья блога
+Вы также можете переопределить настройки publisher в конфигурации конкретного сайта, добавив в YAML файл:
 
 ```yaml
-jsonLd: |
-  "@type": Article
-  name: How to Use JSON-LD
-  url: https://example.com/blog/json-ld-guide
-  description: Complete guide to implementing JSON-LD
-  isPartOf:
-    "@type": Blog
-    name: Tech Blog
-    url: https://example.com/blog
+publisher:
+  name: 'Custom Site Name'
+  url: 'https://customsite.com'
+  logo: 'https://customsite.com/custom-logo.png'
 ```
 
-#### Страница с множественными родителями
+## Проверка результата
 
-```yaml
-jsonLd: |
-  "@type": Article
-  name: Cross-Platform Article
-  url: https://example.com/article
-  description: Article published on multiple platforms
-  isPartOf:
-    - "@type": WebSite
-      name: Main Site
-      url: https://example.com
-    - "@type": Blog
-      name: Blog Platform
-      url: https://example.com/blog
-    - "@type": NewsSite
-      name: News Portal
-      url: https://news.example.com
+После настройки поле `publisher` должно появиться в JSON-LD:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Заголовок поста",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Your Site Name",
+    "url": "https://yoursite.com",
+    "logo": { "@type": "ImageObject", "url": "https://yoursite.com/logo.png" }
+  }
+  // ... остальные поля
+}
 ```
 
-## Как это работает
+## Устранение проблем
 
-1. Трансформер проверяет наличие `jsonLd` в frontmatter
-2. Парсит YAML в JavaScript объект
-3. Создает JSON-LD структуру с базовым контекстом
-4. Добавляет поддерживаемые поля
-5. Сохраняет результат в `frontmatter.jsonLdData`
+### Поле publisher не появляется:
 
-## Обработка ошибок
+1. Проверьте, что конфигурация `publisher` добавлена в файлы локалей
+2. Убедитесь, что значения не пустые
+3. Проверьте консоль на наличие ошибок
 
-Если в YAML есть ошибки, трансформер:
+### Неправильные данные:
 
-- Выводит предупреждение в консоль
-- Создает базовую JSON-LD структуру с типом `WebPage`
-- Продолжает работу без прерывания
+1. Проверьте корректность URL
+2. Убедитесь, что логотип доступен по указанному URL
+3. Проверьте формат дат в постах
 
-## Интеграция с VitePress
+## Дополнительные возможности
 
-Трансформер автоматически вызывается в цепочке трансформации страниц. Результат доступен в компонентах через `$frontmatter.jsonLdData`.
+Шаблон также поддерживает:
 
-## Лучшие практики
-
-1. **Используйте правильные типы** - выбирайте наиболее подходящий тип для вашего контента
-2. **Обеспечьте уникальность URL** - каждый URL должен быть уникальным
-3. **Добавляйте описания** - подробные описания помогают поисковым системам
-4. **Проверяйте валидность** - используйте инструменты Google для проверки структурированных данных
-5. **Используйте кавычки для @ полей** - обязательно заключайте в кавычки поля, начинающиеся с `@`
-
-## Полезные ссылки
-
-- [Schema.org](https://schema.org/) - Справочник по типам и свойствам
-- [Google Rich Results Test](https://search.google.com/test/rich-results) - Тестирование структурированных данных
-- [JSON-LD Specification](https://json-ld.org/) - Спецификация формата
+- Автоматическое определение языка
+- Генерацию альтернативных языковых версий
+- Интеграцию с Open Graph тегами
+- Генерацию RSS/Atom фидов
+- Канонические ссылки
+- Hreflang теги

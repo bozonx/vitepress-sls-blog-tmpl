@@ -16,7 +16,13 @@ function parseYaToJsonLd(strYaml) {
   }
 }
 
-function createAuthorJsonLd(pageData, siteConfig, langConfig) {
+function createAuthorJsonLd(
+  pageData,
+  siteConfig,
+  langConfig,
+  hostname,
+  langIndex
+) {
   /*
     "@context": "https://schema.org",
     "@type": "Person",
@@ -28,20 +34,22 @@ function createAuthorJsonLd(pageData, siteConfig, langConfig) {
     "https://twitter.com/ivanov",
     ],
 */
-
   const authors = langConfig.themeConfig?.authors
-  const authorId = pageData.frontmatter.authorId
-
-  // Проверяем существование авторов и находим нужного
+  const authorId = pageData.params.id
   const author = authors?.find((item) => item.id === authorId)
 
-  // Возвращаем имя автора или authorId как fallback
+  if (!author) return
+
   const authorName = author?.name || authorId
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: authorName,
+    url: `${hostname}/${langIndex}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${authorId}/1`,
+    // description: author?.description,
+    // image: author?.image,
+    // sameAs: author?.sameAs,
   }
 }
 
@@ -181,11 +189,17 @@ export function addJsonLd(pageData, { siteConfig }) {
   // Объявляем переменные в начале функции
   const langIndex = pageData.filePath.split('/')[0]
   const langConfig = siteConfig.site.locales[langIndex]
+  const hostname = siteConfig.userConfig.hostname
 
   if (isAuthorPage(pageData.filePath)) {
-    jsonLdData = createAuthorJsonLd(pageData, siteConfig, langConfig)
+    jsonLdData = createAuthorJsonLd(
+      pageData,
+      siteConfig,
+      langConfig,
+      hostname,
+      langIndex
+    )
   } else if (isPost(pageData.frontmatter) || isPage(pageData.frontmatter)) {
-    const hostname = siteConfig.userConfig.hostname
     const siteName = langConfig.title
     const pageUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
     const lang = langConfig.lang || langIndex

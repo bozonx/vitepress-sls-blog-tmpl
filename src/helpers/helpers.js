@@ -40,7 +40,7 @@ export function isPage(frontmatter) {
 export function isAuthorPage(filePath) {
   if (!filePath) return
 
-  return filePath.match(/^\w+\/authors\/.*\.md$/)
+  return filePath.match(/^\w+\/author\/\[id]\/\[page].md$/)
 }
 
 export function makeHumanDate(rawDate, lang, toTimeZone = 'UTC') {

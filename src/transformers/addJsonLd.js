@@ -4,10 +4,10 @@ import {
   generatePageUrlPath,
   isAuthorPage,
 } from '../helpers/helpers.js'
-import yaml from 'js-yaml'
+import yaml from 'yaml'
 
-function parseYaToJsonLd(pageData) {
-  return yaml.load(pageData.frontmatter.jsonLd)
+function parseYaToJsonLd(strYaml) {
+  return yaml.parse(strYaml)
 }
 
 function createAuthorJsonLd(pageData, siteConfig, langConfig) {
@@ -124,7 +124,7 @@ function createArticleJsonLd(pageData, siteConfig, langIndex, langConfig) {
   // Если указан frontmatter.jsonLd, парсим его и переопределяем поля
   if (pageData.frontmatter.jsonLd) {
     try {
-      const customJsonLd = yaml.load(pageData.frontmatter.jsonLd)
+      const customJsonLd = parseYaToJsonLd(pageData.frontmatter.jsonLd)
       // Переопределяем поля из customJsonLd
       Object.assign(article, customJsonLd)
     } catch (error) {
@@ -163,7 +163,8 @@ export function addJsonLd(pageData, { siteConfig }) {
   } else if (isAuthorPage(pageData.filePath)) {
     jsonLdData = createAuthorJsonLd(pageData, siteConfig, langConfig)
   } else if (pageData.frontmatter.jsonLd) {
-    jsonLdData = parseYaToJsonLd(pageData)
+    jsonLdData = parseYaToJsonLd(pageData.frontmatter.jsonLd)
+    // TODO: add -url,description,isPartOf,publisher,breadcrumb
   } else {
     return
   }

@@ -11,7 +11,8 @@ function parseYaToJsonLd(strYaml) {
   try {
     return yaml.parse(strYaml)
   } catch (error) {
-    console.warn('Ошибка при парсинге frontmatter.jsonLd для страницы:', error)
+    console.warn('Ошибка при парсинге frontmatter.jsonLd:', error)
+    return {} // Возвращаем пустой объект вместо undefined
   }
 }
 
@@ -31,8 +32,7 @@ function createAuthorJsonLd(pageData, siteConfig, langConfig) {
  */
 function createArticleJsonLd(
   pageData,
-  siteConfig,
-  langIndex,
+  lang,
   langConfig,
   hostname,
   pageUrl,
@@ -50,8 +50,6 @@ function createArticleJsonLd(
   const date = pageData.frontmatter.date
   const updated = pageData.frontmatter.updated
   const tags = pageData.frontmatter.tags
-  // Получаем информацию о языке
-  const lang = langConfig.lang || langIndex
 
   // Создаем базовую структуру статьи
   const article = {
@@ -88,11 +86,18 @@ function createArticleJsonLd(
     article.keywords = tags.map((tag) => tag.name).join(', ')
   }
 
+  // Добавляем isPartOf если есть
+  if (isPartOf) {
+    article.isPartOf = isPartOf
+  }
+
   // Если указан frontmatter.jsonLd, парсим его и переопределяем поля
   if (pageData.frontmatter.jsonLd) {
     const customJsonLd = parseYaToJsonLd(pageData.frontmatter.jsonLd)
     // Переопределяем поля из customJsonLd
-    Object.assign(article, customJsonLd)
+    if (customJsonLd && typeof customJsonLd === 'object') {
+      Object.assign(article, customJsonLd)
+    }
   }
 
   return article
@@ -117,7 +122,9 @@ function createPageJsonLd(pageData, pageUrl, publisher, isPartOf) {
   if (pageData.frontmatter.jsonLd) {
     const customJsonLd = parseYaToJsonLd(pageData.frontmatter.jsonLd)
     // Переопределяем поля из customJsonLd
-    Object.assign(page, customJsonLd)
+    if (customJsonLd && typeof customJsonLd === 'object') {
+      Object.assign(page, customJsonLd)
+    }
   }
 
   return page
@@ -137,9 +144,11 @@ function createPageJsonLd(pageData, pageUrl, publisher, isPartOf) {
  * @param {Object} ctx - Контекст с siteConfig
  */
 export function addJsonLd(pageData, { siteConfig }) {
+  let jsonLdData = null
+
+  // Объявляем переменные в начале функции
   const langIndex = pageData.filePath.split('/')[0]
   const langConfig = siteConfig.site.locales[langIndex]
-  let jsonLdData = null
 
   if (isAuthorPage(pageData.filePath)) {
     jsonLdData = createAuthorJsonLd(pageData, siteConfig, langConfig)
@@ -147,6 +156,7 @@ export function addJsonLd(pageData, { siteConfig }) {
     const hostname = siteConfig.userConfig.hostname
     const siteName = langConfig.title
     const pageUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
+    const lang = langConfig.lang || langIndex
     let isPartOf
     const [, ...restPath] = pageData.relativePath.split('/')
     const pagePathWithoutLang = restPath.join('/')
@@ -166,18 +176,27 @@ export function addJsonLd(pageData, { siteConfig }) {
       })
     }
 
-    // Добавляем альтернативные языковые версии
+    // Создаем isPartOf для постов и страниц
+    // Для всех страниц используем одинаковую структуру с альтернативными языками
     if (alternateLanguages && alternateLanguages.length > 0) {
       isPartOf = {
         '@type': 'CreativeWork',
         '@id': `${hostname}/#website`,
         inLanguage: lang,
-        hasPart: alternateLanguages.map((lang) => ({
+        hasPart: alternateLanguages.map((altLang) => ({
           '@type': 'CreativeWork',
-          '@id': lang.url,
-          inLanguage: lang.code,
-          url: lang.url,
+          '@id': altLang.url,
+          inLanguage: altLang.code,
+          url: altLang.url,
         })),
+      }
+    } else {
+      // Если нет альтернативных языков, используем простую структуру WebSite
+      isPartOf = {
+        '@type': 'WebSite',
+        '@id': `${hostname}/#website`,
+        name: siteName,
+        url: hostname,
       }
     }
 
@@ -196,8 +215,7 @@ export function addJsonLd(pageData, { siteConfig }) {
     if (isPost(pageData.frontmatter)) {
       jsonLdData = createArticleJsonLd(
         pageData,
-        siteConfig,
-        langIndex,
+        lang,
         langConfig,
         hostname,
         pageUrl,
@@ -209,12 +227,15 @@ export function addJsonLd(pageData, { siteConfig }) {
     }
   } else if (pageData.frontmatter.jsonLd) {
     // all other pages
-    jsonLdData = parseYaToJsonLd(pageData.frontmatter.jsonLd)
+    const customJsonLd = parseYaToJsonLd(pageData.frontmatter.jsonLd)
+    if (customJsonLd && typeof customJsonLd === 'object') {
+      jsonLdData = customJsonLd
+    }
   } else {
     return
   }
 
-  if (!jsonLdData) return
+  if (!jsonLdData || Object.keys(jsonLdData).length === 0) return
 
   // Инициализируем head если его нет
   pageData.frontmatter.head ??= []

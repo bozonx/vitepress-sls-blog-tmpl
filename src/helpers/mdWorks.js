@@ -5,7 +5,6 @@ import { remark } from 'remark'
 import remarkRehype from 'remark-rehype'
 import strip from 'strip-markdown'
 
-import { DEFAULT_ENCODE } from '../constants.js'
 import { extractPreviewFromMd } from '../list-helpers/makePreviewItem.js'
 
 export function stripMd(mdContent) {

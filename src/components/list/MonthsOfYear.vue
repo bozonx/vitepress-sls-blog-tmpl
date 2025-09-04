@@ -41,7 +41,7 @@ const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
     <h2 class="text-2xl font-bold mb-6 mt-6">{{ theme.t.allPostsOfYear }}</h2>
 
     <PreviewList
-      :allData="sorted"
+      :allPosts="sorted"
       :curPage="curPage"
       :perPage="props.perPage"
       :paginationMaxItems="props.paginationMaxItems"

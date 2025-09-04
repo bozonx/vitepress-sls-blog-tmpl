@@ -3,8 +3,8 @@ import { makeTagsList } from '../../list-helpers/listHelpers.js'
 import TagsList from '../TagsList.vue'
 import UtilPageHeader from '../UtilPageHeader.vue'
 
-const props = defineProps(['allData', 'header'])
-const tagList = makeTagsList(props.allData || [])
+const props = defineProps(['allPosts', 'header'])
+const tagList = makeTagsList(props.allPosts || [])
 const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name))
 </script>
 

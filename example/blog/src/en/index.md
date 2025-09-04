@@ -1,6 +1,7 @@
 ---
 layout: home
 ---
+
 <script setup>
 import HomePageTags from 'vitepress-sls-blog-tmpl/HomePageTags.vue'
 import HomeHero from 'vitepress-sls-blog-tmpl/HomeHero.vue'
@@ -41,7 +42,7 @@ const hero = {
 </script>
 
 <HomeHero v-bind="hero" />
-<HomePageTags :header="theme.t.tags" :allData="data.posts" />
+<HomePageTags :header="theme.t.tags" :allPosts="data.posts" />
 
 <!-- <UtilPageContent> -->
 <!---->

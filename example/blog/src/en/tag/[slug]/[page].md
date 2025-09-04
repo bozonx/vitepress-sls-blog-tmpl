@@ -18,7 +18,7 @@ const { theme, params, title, page } = useData()
 # {{theme.t.tagPageHeader}}: {{params.name}}
 
 <TagPostsList
-  :allData="data.posts"
+  :allPosts="data.posts"
   :curPage="params.page"
   :perPage="PROPS.perPage"
   :paginationMaxItems="theme.paginationMaxItems"

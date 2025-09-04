@@ -18,7 +18,7 @@ const { theme, params } = useData()
 # {{theme.t.allPosts}}
 
 <RecentList
-  :allData="data.posts"
+  :allPosts="data.posts"
   :curPage="params.page"
   :perPage="PROPS.perPage"
   :paginationMaxItems="theme.paginationMaxItems"

@@ -107,6 +107,7 @@ export function generatePageUrlPath(relativePath) {
   return finalPath
 }
 
+// TODO: use npm package
 /**
  * Очищает HTML теги из текста для безопасного использования в RSS
  *

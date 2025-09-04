@@ -1,17 +1,17 @@
 <script setup>
-import PreviewListItem from "./PreviewListItem.vue";
-import Pagination from "./Pagination.vue";
+import PreviewListItem from './PreviewListItem.vue'
+import Pagination from './Pagination.vue'
 
 const props = defineProps([
-  "allData",
-  "curPage",
-  "perPage",
-  "paginationMaxItems",
-  "paginationBaseUrl",
-]);
-const start = props.curPage === 1 ? 0 : (props.curPage - 1) * props.perPage;
-const items = props.allData.slice(start, start + props.perPage);
-const totalPages = Math.ceil(props.allData.length / props.perPage);
+  'allPosts',
+  'curPage',
+  'perPage',
+  'paginationMaxItems',
+  'paginationBaseUrl',
+])
+const start = props.curPage === 1 ? 0 : (props.curPage - 1) * props.perPage
+const items = props.allPosts.slice(start, start + props.perPage)
+const totalPages = Math.ceil(props.allPosts.length / props.perPage)
 </script>
 
 <template>
@@ -23,8 +23,12 @@ const totalPages = Math.ceil(props.allData.length / props.perPage);
     </ul>
 
     <div v-if="props.paginationBaseUrl && totalPages > 1" class="mt-14">
-      <Pagination :curPage="props.curPage" :totalPages="totalPages" :maxItems="props.paginationMaxItems"
-        :baseUrl="props.paginationBaseUrl" />
+      <Pagination
+        :curPage="props.curPage"
+        :totalPages="totalPages"
+        :maxItems="props.paginationMaxItems"
+        :baseUrl="props.paginationBaseUrl"
+      />
     </div>
   </div>
 </template>

@@ -16,4 +16,4 @@ const { theme, params } = useData()
 
 # {{theme.t.months[Number(params.month) - 1]}} {{params.year}}
 
-<MonthPostsList :allData="data.posts" :year="params.year" :month="params.month" />
+<MonthPostsList :allPosts="data.posts" :year="params.year" :month="params.month" />

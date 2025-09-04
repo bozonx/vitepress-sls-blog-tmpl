@@ -13,7 +13,7 @@ const params = {
   preview: String(props.item?.preview).trim().replace(/\.$/, '') + ' ...',
   authorName:
     theme.value.showAuthorInPostList &&
-    theme.value.authors.find((item) => item.id === props.item.authorId)?.name,
+    theme.value.authors?.find((item) => item.id === props.item.authorId)?.name,
 }
 </script>
 

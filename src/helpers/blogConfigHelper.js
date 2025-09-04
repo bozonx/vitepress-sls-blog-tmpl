@@ -15,7 +15,7 @@ export function loadBlogLocale(lang, configFilePath, PROPS) {
   })
   const { title, description, t, ...themeConfig } = site
 
-  const authors = themeConfig.authors.map((item) => {
+  const authors = themeConfig.authors?.map((item) => {
     return { ...item, descr: mdToHtml(item.descr) }
   })
   const postDonateCall = mdToHtml(themeConfig.postDonateCall)

@@ -3,11 +3,16 @@ import {
   isPost,
   generatePageUrlPath,
   isAuthorPage,
+  isPage,
 } from '../helpers/helpers.js'
 import yaml from 'yaml'
 
 function parseYaToJsonLd(strYaml) {
-  return yaml.parse(strYaml)
+  try {
+    return yaml.parse(strYaml)
+  } catch (error) {
+    console.warn('Ошибка при парсинге frontmatter.jsonLd для страницы:', error)
+  }
 }
 
 function createAuthorJsonLd(pageData, siteConfig, langConfig) {
@@ -24,9 +29,16 @@ function createAuthorJsonLd(pageData, siteConfig, langConfig) {
  * @param {Object} params - Параметры для создания структуры
  * @returns {Object} JSON-LD объект
  */
-function createArticleJsonLd(pageData, siteConfig, langIndex, langConfig) {
-  const hostname = siteConfig.userConfig.hostname
-  const siteName = langConfig.title
+function createArticleJsonLd(
+  pageData,
+  siteConfig,
+  langIndex,
+  langConfig,
+  hostname,
+  pageUrl,
+  publisher,
+  isPartOf
+) {
   const title = pageData.title
   const description = pageData.description
   const author =
@@ -38,38 +50,8 @@ function createArticleJsonLd(pageData, siteConfig, langIndex, langConfig) {
   const date = pageData.frontmatter.date
   const updated = pageData.frontmatter.updated
   const tags = pageData.frontmatter.tags
-  const pageUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
   // Получаем информацию о языке
   const lang = langConfig.lang || langIndex
-  const [, ...restPath] = pageData.relativePath.split('/')
-  const pagePathWithoutLang = restPath.join('/')
-  const alternateLanguages = []
-
-  // Формируем информацию об издателе для JSON-LD
-  // Если langConfig.publisher не определен, поле не будет добавлено
-  const publisher = langConfig.themeConfig.publisher && {
-    '@type': 'Organization',
-    name: langConfig.themeConfig.publisher.name || siteName,
-    url: langConfig.themeConfig.publisher.url || hostname,
-    logo: langConfig.themeConfig.publisher.logo && {
-      '@type': 'ImageObject',
-      url: langConfig.themeConfig.publisher.logo,
-    },
-  }
-
-  // Собираем альтернативные языковые версии
-  if (siteConfig.site.locales) {
-    Object.entries(siteConfig.site.locales).forEach(([code, locale]) => {
-      if (code === langIndex || code === ROOT_LANG) return
-      // Генерируем URL для альтернативной языковой версии
-      const alternateUrl = generatePageUrlPath(pagePathWithoutLang)
-
-      alternateLanguages.push({
-        code: locale.lang || code,
-        url: `${hostname}/${code}/${alternateUrl}`,
-      })
-    })
-  }
 
   // Создаем базовую структуру статьи
   const article = {
@@ -106,43 +88,39 @@ function createArticleJsonLd(pageData, siteConfig, langIndex, langConfig) {
     article.keywords = tags.map((tag) => tag.name).join(', ')
   }
 
-  // Добавляем альтернативные языковые версии
-  if (alternateLanguages && alternateLanguages.length > 0) {
-    article.isPartOf = {
-      '@type': 'CreativeWork',
-      '@id': `${hostname}/#website`,
-      inLanguage: lang,
-      hasPart: alternateLanguages.map((lang) => ({
-        '@type': 'CreativeWork',
-        '@id': lang.url,
-        inLanguage: lang.code,
-        url: lang.url,
-      })),
-    }
-  }
-
   // Если указан frontmatter.jsonLd, парсим его и переопределяем поля
   if (pageData.frontmatter.jsonLd) {
-    try {
-      const customJsonLd = parseYaToJsonLd(pageData.frontmatter.jsonLd)
-      // Переопределяем поля из customJsonLd
-      Object.assign(article, customJsonLd)
-    } catch (error) {
-      console.warn('Ошибка при парсинге frontmatter.jsonLd:', error)
-    }
+    const customJsonLd = parseYaToJsonLd(pageData.frontmatter.jsonLd)
+    // Переопределяем поля из customJsonLd
+    Object.assign(article, customJsonLd)
   }
 
   return article
 }
 
-function createPageJsonLd(pageData, siteConfig, langConfig) {
-  // TODO: add -url,description,isPartOf,publisher,breadcrumb
-  return {
-    '@context': 'https://schema.org',
+function createPageJsonLd(pageData, pageUrl, publisher, isPartOf) {
+  // Создаем базовую структуру страницы
+  const page = {
     '@type': 'WebPage',
     name: pageData.title,
-    url: pageData.url,
+    url: pageUrl,
+    description: pageData.description,
+    isPartOf,
   }
+
+  // Добавляем издателя если есть
+  if (publisher) {
+    page.publisher = publisher
+  }
+
+  // Если указан frontmatter.jsonLd, парсим его и переопределяем поля
+  if (pageData.frontmatter.jsonLd) {
+    const customJsonLd = parseYaToJsonLd(pageData.frontmatter.jsonLd)
+    // Переопределяем поля из customJsonLd
+    Object.assign(page, customJsonLd)
+  }
+
+  return page
 }
 
 /**
@@ -163,17 +141,72 @@ export function addJsonLd(pageData, { siteConfig }) {
   const langConfig = siteConfig.site.locales[langIndex]
   let jsonLdData = null
 
-  if (isPost(pageData.frontmatter)) {
-    jsonLdData = createArticleJsonLd(
-      pageData,
-      siteConfig,
-      langIndex,
-      langConfig
-    )
-  } else if (isAuthorPage(pageData.filePath)) {
+  if (isAuthorPage(pageData.filePath)) {
     jsonLdData = createAuthorJsonLd(pageData, siteConfig, langConfig)
-  } else if (isPage(pageData.frontmatter)) {
-    jsonLdData = createPageJsonLd(pageData, siteConfig, langConfig)
+  } else if (isPost(pageData.frontmatter) || isPage(pageData.frontmatter)) {
+    const hostname = siteConfig.userConfig.hostname
+    const siteName = langConfig.title
+    const pageUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
+    let isPartOf
+    const [, ...restPath] = pageData.relativePath.split('/')
+    const pagePathWithoutLang = restPath.join('/')
+    const alternateLanguages = []
+
+    // Собираем альтернативные языковые версии
+    if (siteConfig.site.locales) {
+      Object.entries(siteConfig.site.locales).forEach(([code, locale]) => {
+        if (code === langIndex || code === ROOT_LANG) return
+        // Генерируем URL для альтернативной языковой версии
+        const alternateUrl = generatePageUrlPath(pagePathWithoutLang)
+
+        alternateLanguages.push({
+          code: locale.lang || code,
+          url: `${hostname}/${code}/${alternateUrl}`,
+        })
+      })
+    }
+
+    // Добавляем альтернативные языковые версии
+    if (alternateLanguages && alternateLanguages.length > 0) {
+      isPartOf = {
+        '@type': 'CreativeWork',
+        '@id': `${hostname}/#website`,
+        inLanguage: lang,
+        hasPart: alternateLanguages.map((lang) => ({
+          '@type': 'CreativeWork',
+          '@id': lang.url,
+          inLanguage: lang.code,
+          url: lang.url,
+        })),
+      }
+    }
+
+    // Формируем информацию об издателе для JSON-LD
+    // Если langConfig.publisher не определен, поле не будет добавлено
+    const publisher = langConfig.themeConfig.publisher && {
+      '@type': 'Organization',
+      name: langConfig.themeConfig.publisher.name || siteName,
+      url: langConfig.themeConfig.publisher.url || hostname,
+      logo: langConfig.themeConfig.publisher.logo && {
+        '@type': 'ImageObject',
+        url: langConfig.themeConfig.publisher.logo,
+      },
+    }
+
+    if (isPost(pageData.frontmatter)) {
+      jsonLdData = createArticleJsonLd(
+        pageData,
+        siteConfig,
+        langIndex,
+        langConfig,
+        hostname,
+        pageUrl,
+        publisher,
+        isPartOf
+      )
+    } else {
+      jsonLdData = createPageJsonLd(pageData, pageUrl, publisher, isPartOf)
+    }
   } else if (pageData.frontmatter.jsonLd) {
     // all other pages
     jsonLdData = parseYaToJsonLd(pageData.frontmatter.jsonLd)

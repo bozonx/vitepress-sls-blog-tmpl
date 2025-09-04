@@ -17,6 +17,18 @@ function parseYaToJsonLd(strYaml) {
 }
 
 function createAuthorJsonLd(pageData, siteConfig, langConfig) {
+  /*
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Иван Иванов",
+    "url": "https://example.com/author/ivan-ivanov",
+    "description": "Иван Иванов — эксперт в области технологий и программирования, автор множества статей о разработке и ИИ.",
+    "image": "https://example.com/images/ivan-ivanov.jpg",
+    "sameAs": [
+    "https://twitter.com/ivanov",
+    ],
+*/
+
   const authors = langConfig.themeConfig.authors
   const authorId = pageData.frontmatter.authorId
   const author = authors.find((item) => item.id === authorId)
@@ -36,8 +48,7 @@ function createArticleJsonLd(
   langConfig,
   hostname,
   pageUrl,
-  publisher,
-  isPartOf
+  publisher
 ) {
   const title = pageData.title
   const description = pageData.description
@@ -61,6 +72,17 @@ function createArticleJsonLd(
     publisher,
     mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
     inLanguage: lang,
+    isPartOf: {
+      '@type': 'CreativeWork',
+      '@id': `${hostname}/#website`,
+      inLanguage: lang,
+      hasPart: alternateLanguages.map((altLang) => ({
+        '@type': 'CreativeWork',
+        '@id': altLang.url,
+        inLanguage: altLang.code,
+        url: altLang.url,
+      })),
+    },
   }
 
   // Добавляем автора если есть
@@ -86,11 +108,6 @@ function createArticleJsonLd(
     article.keywords = tags.map((tag) => tag.name).join(', ')
   }
 
-  // Добавляем isPartOf если есть
-  if (isPartOf) {
-    article.isPartOf = isPartOf
-  }
-
   // Если указан frontmatter.jsonLd, парсим его и переопределяем поля
   if (pageData.frontmatter.jsonLd) {
     const customJsonLd = parseYaToJsonLd(pageData.frontmatter.jsonLd)
@@ -103,14 +120,19 @@ function createArticleJsonLd(
   return article
 }
 
-function createPageJsonLd(pageData, pageUrl, publisher, isPartOf) {
+function createPageJsonLd(pageData, pageUrl, publisher) {
   // Создаем базовую структуру страницы
   const page = {
     '@type': 'WebPage',
     name: pageData.title,
     url: pageUrl,
     description: pageData.description,
-    isPartOf,
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `${hostname}/#website`,
+      name: siteName,
+      url: hostname,
+    },
   }
 
   // Добавляем издателя если есть
@@ -157,7 +179,6 @@ export function addJsonLd(pageData, { siteConfig }) {
     const siteName = langConfig.title
     const pageUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
     const lang = langConfig.lang || langIndex
-    let isPartOf
     const [, ...restPath] = pageData.relativePath.split('/')
     const pagePathWithoutLang = restPath.join('/')
     const alternateLanguages = []
@@ -174,30 +195,6 @@ export function addJsonLd(pageData, { siteConfig }) {
           url: `${hostname}/${code}/${alternateUrl}`,
         })
       })
-    }
-
-    // Создаем isPartOf для постов и страниц
-    // Для всех страниц используем одинаковую структуру с альтернативными языками
-    if (alternateLanguages && alternateLanguages.length > 0) {
-      isPartOf = {
-        '@type': 'CreativeWork',
-        '@id': `${hostname}/#website`,
-        inLanguage: lang,
-        hasPart: alternateLanguages.map((altLang) => ({
-          '@type': 'CreativeWork',
-          '@id': altLang.url,
-          inLanguage: altLang.code,
-          url: altLang.url,
-        })),
-      }
-    } else {
-      // Если нет альтернативных языков, используем простую структуру WebSite
-      isPartOf = {
-        '@type': 'WebSite',
-        '@id': `${hostname}/#website`,
-        name: siteName,
-        url: hostname,
-      }
     }
 
     // Формируем информацию об издателе для JSON-LD
@@ -219,11 +216,10 @@ export function addJsonLd(pageData, { siteConfig }) {
         langConfig,
         hostname,
         pageUrl,
-        publisher,
-        isPartOf
+        publisher
       )
     } else {
-      jsonLdData = createPageJsonLd(pageData, pageUrl, publisher, isPartOf)
+      jsonLdData = createPageJsonLd(pageData, pageUrl, publisher)
     }
   } else if (pageData.frontmatter.jsonLd) {
     // all other pages

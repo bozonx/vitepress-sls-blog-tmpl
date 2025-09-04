@@ -5,3 +5,5 @@ export const POSTS_DIR = 'post'
 export const ROOT_LANG = 'root'
 // Минимальное расстояние для свайпа
 export const SWIPE_OFFSET = 50
+// length of preview of list item when it gets from content
+export const PREVIEW_LENGTH = 300

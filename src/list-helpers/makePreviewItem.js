@@ -5,7 +5,8 @@ import { DEFAULT_ENCODE } from '../constants.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import { transliterate } from '../helpers/transliterate.js'
 import { getImageDimensions } from '../helpers/imageHelpers.js'
-import { extractPreviewFromMd } from '../helpers/mdWorks.js'
+import { extractDescriptionFromMd } from '../helpers/mdWorks.js'
+import { PREVIEW_LENGTH } from '../constants.js'
 
 export function makePreviewItem(filePath) {
   const relativePath = path.relative(
@@ -17,8 +18,8 @@ export function makePreviewItem(filePath) {
   const rawContent = fs.readFileSync(filePath, DEFAULT_ENCODE)
   const { frontmatter, content } = parseMdFile(rawContent)
   let preview = resolvePreview(frontmatter, content)
-
-  if (!preview) preview = extractPreviewFromMd(content)
+  // make preview from content as description
+  if (!preview) preview = extractDescriptionFromMd(content, PREVIEW_LENGTH)
 
   // Получаем размеры изображения если оно есть
   let thumbnailDimensions = null

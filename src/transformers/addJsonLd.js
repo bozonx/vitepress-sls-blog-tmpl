@@ -135,6 +135,16 @@ function createArticleJsonLd(pageData, siteConfig, langIndex, langConfig) {
   return article
 }
 
+function createPageJsonLd(pageData, siteConfig, langConfig) {
+  // TODO: add -url,description,isPartOf,publisher,breadcrumb
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: pageData.title,
+    url: pageData.url,
+  }
+}
+
 /**
  * Добавляет JSON-LD структурированные данные на страницу. pageData.description
  * has to be resolved before start this transformer. Где добавляет:
@@ -162,9 +172,11 @@ export function addJsonLd(pageData, { siteConfig }) {
     )
   } else if (isAuthorPage(pageData.filePath)) {
     jsonLdData = createAuthorJsonLd(pageData, siteConfig, langConfig)
+  } else if (isPage(pageData.frontmatter)) {
+    jsonLdData = createPageJsonLd(pageData, siteConfig, langConfig)
   } else if (pageData.frontmatter.jsonLd) {
+    // all other pages
     jsonLdData = parseYaToJsonLd(pageData.frontmatter.jsonLd)
-    // TODO: add -url,description,isPartOf,publisher,breadcrumb
   } else {
     return
   }

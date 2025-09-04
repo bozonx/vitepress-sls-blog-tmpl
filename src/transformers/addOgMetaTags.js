@@ -7,6 +7,7 @@ import { extractDescriptionFromMd } from '../helpers/mdWorks.js'
 import { resolvePreview } from '../list-helpers/makePreviewItem.js'
 import { getImageDimensions } from '../helpers/imageHelpers.js'
 
+// TODO:  review this
 // Используем image-size пакет для получения размеров изображений
 /**
  * Обрезает описание до рекомендуемой длины для OG тегов
@@ -116,7 +117,10 @@ export function addOgMetaTags(pageData, { siteConfig }) {
   }
 
   // Обрезаем описание до рекомендуемой длины
-  descr = truncateDescription(descr)
+  descr = truncateDescription(
+    descr,
+    siteConfig.userConfig.themeConfig.maxDescriptionLength
+  )
 
   pageData.frontmatter.head ??= []
 

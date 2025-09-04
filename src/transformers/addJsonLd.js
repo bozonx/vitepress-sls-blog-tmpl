@@ -29,11 +29,20 @@ function createAuthorJsonLd(pageData, siteConfig, langConfig) {
     ],
 */
 
-  const authors = langConfig.themeConfig.authors
+  const authors = langConfig.themeConfig?.authors
   const authorId = pageData.frontmatter.authorId
-  const author = authors.find((item) => item.id === authorId)
 
-  return { '@context': 'https://schema.org', '@type': 'Person', name: authorId }
+  // Проверяем существование авторов и находим нужного
+  const author = authors?.find((item) => item.id === authorId)
+
+  // Возвращаем имя автора или authorId как fallback
+  const authorName = author?.name || authorId
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: authorName,
+  }
 }
 
 /**
@@ -48,7 +57,8 @@ function createArticleJsonLd(
   langConfig,
   hostname,
   pageUrl,
-  publisher
+  publisher,
+  alternateLanguages = []
 ) {
   const title = pageData.title
   const description = pageData.description
@@ -120,7 +130,7 @@ function createArticleJsonLd(
   return article
 }
 
-function createPageJsonLd(pageData, pageUrl, publisher) {
+function createPageJsonLd(pageData, pageUrl, publisher, hostname, siteName) {
   // Создаем базовую структуру страницы
   const page = {
     '@type': 'WebPage',
@@ -216,10 +226,17 @@ export function addJsonLd(pageData, { siteConfig }) {
         langConfig,
         hostname,
         pageUrl,
-        publisher
+        publisher,
+        alternateLanguages
       )
     } else {
-      jsonLdData = createPageJsonLd(pageData, pageUrl, publisher)
+      jsonLdData = createPageJsonLd(
+        pageData,
+        pageUrl,
+        publisher,
+        hostname,
+        siteName
+      )
     }
   } else if (pageData.frontmatter.jsonLd) {
     // all other pages

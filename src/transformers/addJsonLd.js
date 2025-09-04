@@ -29,9 +29,9 @@ function createArticleJsonLd({
   cover,
   hostname,
   tags,
-  siteName,
   lang,
   alternateLanguages,
+  publisher,
 }) {
   const article = {
     '@context': 'https://schema.org',
@@ -40,9 +40,7 @@ function createArticleJsonLd({
     description: description,
     url: pageUrl,
     datePublished: date,
-
-    // TODO: add to config
-    publisher: { '@type': 'Organization', name: siteName, url: hostname },
+    publisher,
     mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
     inLanguage: lang,
   }
@@ -116,6 +114,16 @@ export function addJsonLd(pageData, { siteConfig }) {
   const [, ...restPath] = pageData.relativePath.split('/')
   const pagePathWithoutLang = restPath.join('/')
   const alternateLanguages = []
+  console.log(siteConfig)
+  const publisher = langConfig.publisher && {
+    '@type': 'Organization',
+    name: langConfig.publisher.name || siteName,
+    url: langConfig.publisher.url || hostname,
+    logo: langConfig.publisher.logo && {
+      '@type': 'ImageObject',
+      url: langConfig.publisher.logo,
+    },
+  }
 
   // Собираем альтернативные языковые версии
   if (siteConfig.site.locales) {
@@ -142,9 +150,9 @@ export function addJsonLd(pageData, { siteConfig }) {
     cover,
     hostname,
     tags: pageData.frontmatter.tags,
-    siteName,
     lang,
     alternateLanguages,
+    publisher,
   })
 
   // Инициализируем head если его нет

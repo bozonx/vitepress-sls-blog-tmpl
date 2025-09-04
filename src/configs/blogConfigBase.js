@@ -51,6 +51,17 @@ export const common = {
     maxPostsInRssFeed: 50,
     rssFormats: ['rss', 'atom', 'json'],
 
+    /**
+     * If specified and have not defines fields then default values for name
+     * (site name) and url (site url) will be used. It is used in json-ld and in
+     * Open Graph tags.
+     */
+    // publisher: {
+    //   name: 'Publisher',
+    //   url: 'https://example.com',
+    //   logo: 'https://example.com/logo.png',
+    // },
+
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
     paginationMaxItems: 7,

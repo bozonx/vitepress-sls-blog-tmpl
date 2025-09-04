@@ -1,3 +1,17 @@
+// TODO: remove
+
+/*
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Иван Иванов",
+    "url": "https://example.com/author/ivan-ivanov",
+    "description": "Иван Иванов — эксперт в области технологий и программирования, автор множества статей о разработке и ИИ.",
+    "image": "https://example.com/images/ivan-ivanov.jpg",
+    "sameAs": [
+    "https://twitter.com/ivanov",
+    ],
+*/
+
 /*
 
 <script type="application/ld+json">
@@ -70,15 +84,13 @@
 import yaml from 'yaml'
 
 /**
- * Создает JSON-LD структуру на основе YAML данных из frontmatter Поддерживает
- * параметры: @type, name, url, description, isPartOf
+ * Создает JSON-LD структуру на основе YAML данных из frontmatter.jsonLd
  *
  * @param {Object} pageData - Данные страницы
  * @param {Object} ctx - Контекст с siteConfig
  * @returns {Object} Обновленные данные страницы
  */
-export function createYamlToJsonLd(pageData, { siteConfig }) {
-  // Проверяем наличие YAML данных в frontmatter
+export function jsonLdFromYaml(pageData, { siteConfig }) {
   if (!pageData.frontmatter?.jsonLd) {
     return pageData
   }
@@ -90,53 +102,34 @@ export function createYamlToJsonLd(pageData, { siteConfig }) {
     // Создаем базовую JSON-LD структуру
     const jsonLd = { '@context': 'https://schema.org' }
 
-    // Добавляем поддерживаемые параметры
-    if (yamlData['@type']) {
-      jsonLd['@type'] = yamlData['@type']
-    }
-
-    if (yamlData.name) {
-      jsonLd.name = yamlData.name
-    }
-
-    if (yamlData.url) {
-      jsonLd.url = yamlData.url
-    }
-
-    if (yamlData.description) {
-      jsonLd.description = yamlData.description
-    }
-
     // Обрабатываем isPartOf - может быть объектом или массивом
-    if (yamlData.isPartOf) {
-      if (Array.isArray(yamlData.isPartOf)) {
-        jsonLd.isPartOf = yamlData.isPartOf.map((item) => ({
-          '@type': item['@type'] || 'WebSite',
-          name: item.name,
-          url: item.url,
-        }))
-      } else {
-        jsonLd.isPartOf = {
-          '@type': yamlData.isPartOf['@type'] || 'WebSite',
-          name: yamlData.isPartOf.name,
-          url: yamlData.isPartOf.url,
-        }
-      }
-    }
+    // if (yamlData.isPartOf) {
+    //   if (Array.isArray(yamlData.isPartOf)) {
+    //     jsonLd.isPartOf = yamlData.isPartOf.map((item) => ({
+    //       '@type': item['@type'] || 'WebSite',
+    //       name: item.name,
+    //       url: item.url,
+    //     }))
+    //   } else {
+    //     jsonLd.isPartOf = {
+    //       '@type': yamlData.isPartOf['@type'] || 'WebSite',
+    //       name: yamlData.isPartOf.name,
+    //       url: yamlData.isPartOf.url,
+    //     }
+    //   }
+    // }
 
-    // Добавляем сгенерированные данные в frontmatter
-    pageData.frontmatter.jsonLdData = jsonLd
+    // Добавляем JSON-LD скрипт
+    pageData.frontmatter.head.push([
+      'script',
+      { type: 'application/ld+json' },
+      JSON.stringify(jsonLd, null, 2),
+    ])
   } catch (error) {
     console.warn(
       `Ошибка парсинга YAML для JSON-LD на странице ${pageData.relativePath}:`,
       error.message
     )
-
-    // В случае ошибки добавляем пустой объект
-    pageData.frontmatter.jsonLdData = {
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-    }
   }
 
   return pageData

@@ -10,7 +10,6 @@ import { transformPageMeta } from '../transformers/transformPageMeta.js'
 import { transformTitle } from '../transformers/transformTitle.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
-import { createYamlToJsonLd } from '../transformers/yamlToJsonLd.js'
 
 // import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 
@@ -109,7 +108,6 @@ export default function ({ hostname, repo }, en) {
       transformPageMeta(pageData, ctx)
       addOgMetaTags(pageData, ctx)
       addJsonLd(pageData, ctx)
-      createYamlToJsonLd(pageData, ctx)
       addRssLinks(pageData, ctx)
       addHreflang(pageData, ctx)
       addCanonicalLink(pageData, ctx)

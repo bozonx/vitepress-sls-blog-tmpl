@@ -106,23 +106,3 @@ export function generatePageUrlPath(relativePath) {
 
   return finalPath
 }
-
-// TODO: use npm package
-/**
- * Очищает HTML теги из текста для безопасного использования в RSS
- *
- * @param {string} text - Исходный текст
- * @returns {string} - Очищенный текст
- */
-export function sanitizeText(text) {
-  if (!text) return ''
-
-  return text
-    .replace(/<[^>]*>/g, '') // Удаляем HTML теги
-    .replace(/&(?!amp;|lt;|gt;|quot;|#39;)/g, '&amp;') // Экранируем & только если это не уже экранированный символ
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-    .trim()
-}

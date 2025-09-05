@@ -75,7 +75,11 @@ function createPostJsonLd(
         url: altLang.url,
       })),
     },
-    author: authorName && { '@type': 'Person', name: authorName },
+    author: authorName && {
+      '@type': 'Person',
+      name: authorName,
+      url: `${langIndexUrl}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${pageData.frontmatter.authorId}/1`,
+    },
     updatedDate: pageData.frontmatter.updated,
     keywords:
       tags && tags.length > 0

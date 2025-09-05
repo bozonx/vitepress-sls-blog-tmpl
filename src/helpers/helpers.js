@@ -32,15 +32,15 @@ export function isHomePage(frontmatter) {
 export function isPage(frontmatter) {
   if (!frontmatter) return
 
-  // TODO: как то слабоват это условие, надо подумать
-
   return typeof frontmatter.layout === 'undefined' && !frontmatter.date
 }
 
-export function isAuthorPage(filePath) {
+export function isAuthorPage(filePath, siteConfig) {
   if (!filePath) return
 
-  return filePath.match(/^\w+\/author\/\[id]\/\[page].md$/)
+  return filePath.match(
+    new RegExp(`^\w+\/${siteConfig.userConfig.themeConfig.authorBaseUrl}\/`)
+  )
 }
 
 export function makeHumanDate(rawDate, lang, toTimeZone = 'UTC') {

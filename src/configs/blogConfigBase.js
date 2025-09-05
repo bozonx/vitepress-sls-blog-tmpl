@@ -6,12 +6,9 @@ import { addRssLinks } from '../transformers/addRssLinks.js'
 import { filterSitemap } from '../transformers/filterSitemap.js'
 import { generateRssFeed } from '../transformers/generateRssFeed.js'
 import { transformPageMeta } from '../transformers/transformPageMeta.js'
-// import { removeH1Plugin } from "../helpers/mdit-remove-h1.js";
 import { transformTitle } from '../transformers/transformTitle.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
-
-// import { makeYoutubeVideo } from "../helpers/makeYoutubeVideo.js";
 
 export const common = {
   head: [
@@ -29,8 +26,6 @@ export const common = {
       },
     ],
     ['link', { rel: 'manifest', href: '/site.webmanifest' }],
-    // yandex social shares
-    // ["script", { src: "https://yastatic.net/share2/share.js" }],
   ],
   outDir: '../docs',
   cacheDir: '../.cache',
@@ -122,9 +117,7 @@ export default function ({ hostname, repo }, en) {
     markdown: {
       image: { lazyLoading: true },
       config: (md) => {
-        // md.use(removeH1Plugin);
         md.use(figure)
-        // md.use(makeYoutubeVideo);
       },
     },
     vite: { ssr: { noExternal: ['vitepress-sls-blog-tmpl'] } },

@@ -140,3 +140,11 @@ See [CANONICAL_README.md](CANONICAL_README.md) for detailed documentation.
 ```
 yarn publish
 ```
+
+## Youtube
+
+see https://github.com/miletorix/vitepress-youtube-embed
+
+```
+<YouTubeEmbed video-id="vidid" />
+```

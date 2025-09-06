@@ -18,5 +18,5 @@ const posts = inject('posts')
   <PostComments class="mt-20" />
   <PostSocialShare class="mt-10" />
   <PostTags class="mt-10" />
-  <SimilarPostsList class="mt-10" :allPosts="posts[localeIndex]" />
+  <SimilarPostsList class="mt-14" :allPosts="posts[localeIndex]" />
 </template>

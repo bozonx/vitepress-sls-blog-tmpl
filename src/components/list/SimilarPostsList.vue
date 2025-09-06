@@ -1,10 +1,11 @@
 <script setup>
-import { useData } from 'vitepress'
+import { useData, useRoute } from 'vitepress'
 import { arraysIntersection } from 'squidlet-lib'
 import PreviewListItem from './PreviewListItem.vue'
 
 const props = defineProps(['allPosts'])
-const { frontmatter, theme } = useData()
+const { frontmatter, theme, page } = useData()
+const route = useRoute()
 let items = []
 
 if (frontmatter.value.tags) {
@@ -18,8 +19,13 @@ if (frontmatter.value.tags) {
   items = [...(props.allPosts || [])]
     .filter((item) => {
       // Исключаем текущий пост из списка похожих
+      const isCurrentPost =
+        item.url === route.path ||
+        item.url === page.value.relativePath?.replace(/\.md$/, '') ||
+        item.url === `/${page.value.relativePath?.replace(/\.md$/, '')}`
+
       return (
-        item.url !== frontmatter.value.url &&
+        !isCurrentPost &&
         getTagsIntersection(item.tags, frontmatter.value.tags).length > 0
       )
     })
@@ -46,10 +52,12 @@ if (frontmatter.value.tags) {
 </script>
 
 <template>
-  <h2 class="text-xl font-bold mb-4 mt-14">{{ theme.t.similarPosts }}</h2>
-  <ul>
-    <li v-for="item in items">
-      <PreviewListItem :item="item" />
-    </li>
-  </ul>
+  <div>
+    <h2 class="text-xl font-bold mb-4">{{ theme.t.similarPosts }}</h2>
+    <ul>
+      <li v-for="item in items">
+        <PreviewListItem :item="item" />
+      </li>
+    </ul>
+  </div>
 </template>

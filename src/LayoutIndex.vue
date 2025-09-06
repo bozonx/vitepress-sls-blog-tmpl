@@ -1,6 +1,6 @@
 <script setup>
 import { inBrowser, useData } from 'vitepress'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch, provide } from 'vue'
 
 import BlogHomeLayout from './BlogHomeLayout.vue'
 import PageContent from './components/PageContent.vue'
@@ -11,6 +11,7 @@ import ToTheTop from './components/layout/ToTheTop.vue'
 import TopBar from './components/layout/TopBar.vue'
 import { MOBILE_BREAKPOINT, SWIPE_OFFSET } from './constants.js'
 import { isHomePage } from './helpers/helpers.js'
+import { usePosts } from './composables/usePosts.js'
 
 const { page, theme, frontmatter } = useData()
 const windowWidth = ref(0)
@@ -26,6 +27,25 @@ let touchMoveListener
 let touchEndListener
 
 const props = defineProps(['posts'])
+
+// Инициализируем composable для работы с постами
+const { posts: reactivePosts, savePosts } = usePosts()
+
+// Отслеживаем изменения в props.posts и сохраняем их реактивно
+watch(
+  () => props.posts,
+  (newPosts) => {
+    if (newPosts && newPosts.length > 0) {
+      savePosts(newPosts)
+      console.log(`Posts saved reactively: ${newPosts.length} posts`)
+    }
+  },
+  { immediate: true, deep: true }
+)
+
+savePosts(props.posts)
+// Предоставляем реактивные посты дочерним компонентам
+provide('posts', reactivePosts)
 
 function onOpenDrawer() {
   sidebarRef.value.openDrawer()

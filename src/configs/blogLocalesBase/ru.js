@@ -11,6 +11,7 @@ export default {
     socialMediaShares: 'telegram,whatsapp,vk,x,facebook',
   },
   t: {
+    similarPosts: 'Похожие посты',
     shareSocialMedia: 'Поделиться в соц сетях',
     currentLang: 'Текущий язык',
     tagBadgeCount: 'Количество постов по этому тэгу',

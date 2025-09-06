@@ -1,10 +1,15 @@
 <script setup>
-// import SimilarPostsList from '../list/SimilarPostsList.vue'
+import { inject } from 'vue'
+import { useData } from 'vitepress'
+import SimilarPostsList from '../list/SimilarPostsList.vue'
 import PostAuthor from './PostAuthor.vue'
 import PostComments from './PostComments.vue'
 import PostDonateLink from './PostDonateLink.vue'
 import PostSocialShare from './PostSocialShare.vue'
 import PostTags from './PostTags.vue'
+
+const { localeIndex } = useData()
+const posts = inject('posts')
 </script>
 
 <template>
@@ -13,5 +18,5 @@ import PostTags from './PostTags.vue'
   <PostComments class="mt-20" />
   <PostSocialShare class="mt-10" />
   <PostTags class="mt-10" />
-  <!-- <SimilarPostsList class="mt-10" /> -->
+  <SimilarPostsList class="mt-10" :allPosts="posts[localeIndex]" />
 </template>

@@ -13,6 +13,7 @@ export function makePreviewItem(filePath) {
     path.resolve(filePath, '../../../'),
     filePath
   )
+  const lang = filePath.split('/')[0]
 
   const url = '/' + relativePath.replace(/\.md$/, '')
   const rawContent = fs.readFileSync(filePath, DEFAULT_ENCODE)
@@ -35,7 +36,7 @@ export function makePreviewItem(filePath) {
     title: frontmatter.title,
     tags: [...(frontmatter.tags || [])].map((item) => ({
       name: item,
-      slug: transliterate(item),
+      slug: transliterate(item, lang),
     })),
     preview,
     thumbnail: frontmatter.cover,

@@ -20,6 +20,7 @@
     "./blogConfigHelper.js": "./src/helpers/blogConfigHelper.js",
     "./siteConfigHelper.js": "./src/helpers/siteConfigHelper.js",
     "./imageHelpers.js": "./src/helpers/imageHelpers.js",
+    "./getCachedPosts.js": "./src/list-helpers/getCachedPosts.js",
     "./makeListParams.js": "./src/list-helpers/makeListParams.js",
     "./makePreviewItem.js": "./src/list-helpers/makePreviewItem.js",
     "./generateRssFeed.js": "./src/list-helpers/generateRssFeed.js",

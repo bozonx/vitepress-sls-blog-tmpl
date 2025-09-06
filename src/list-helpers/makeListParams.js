@@ -1,10 +1,3 @@
-import fs from 'fs'
-import path from 'path'
-
-import { DEFAULT_ENCODE } from '../constants.js'
-import { parseMdFile } from '../helpers/mdWorks.js'
-import { transliterate } from '../helpers/transliterate.js'
-
 export function makeRecentParams(posts, perPage) {
   const dates = posts.map((item) => item.date)
   const res = []
@@ -75,31 +68,33 @@ export function makeMonthsParams(posts) {
   return res
 }
 
-export function makeTagsParams(posts, perPage, lang) {
+export function makeTagsParams(posts, perPage) {
   const tagsCount = {}
 
   for (const item of posts) {
     const tags = item.tags
 
-    console.log('111111111111', tags)
-
     if (!tags?.length) continue
 
     for (const tag of tags) {
-      if (typeof tagsCount[tag] === 'undefined') {
-        tagsCount[tag] = 1
+      // Теги теперь имеют структуру { name: 'технологии', slug: 'tehnologii' }
+      const tagName = tag.name || tag
+      const tagSlug = tag.slug || tag
+
+      if (typeof tagsCount[tagSlug] === 'undefined') {
+        tagsCount[tagSlug] = { name: tagName, count: 1 }
       } else {
-        tagsCount[tag]++
+        tagsCount[tagSlug].count++
       }
     }
   }
 
   const res = []
 
-  for (const name of Object.keys(tagsCount)) {
-    const slug = transliterate(name, lang)
+  for (const slug of Object.keys(tagsCount)) {
+    const { name, count } = tagsCount[slug]
 
-    for (let i = 0; i < Math.ceil(tagsCount[name] / perPage); i++) {
+    for (let i = 0; i < Math.ceil(count / perPage); i++) {
       res.push({ params: { slug, name, page: i + 1 } })
     }
   }
@@ -133,16 +128,16 @@ export function makeAuthorsParams(posts, perPage) {
   return res
 }
 
-export function loadDatesList(postsDirAbs) {
-  const allFiles = fs.readdirSync(postsDirAbs, DEFAULT_ENCODE)
+// export function loadDatesList(postsDirAbs) {
+//   const allFiles = fs.readdirSync(postsDirAbs, DEFAULT_ENCODE)
 
-  return allFiles
-    .filter((item) => item.match(/\.md$/))
-    .map((item) => {
-      const itemPath = path.join(postsDirAbs, item)
-      const rawContent = fs.readFileSync(itemPath, DEFAULT_ENCODE)
-      const { frontmatter } = parseMdFile(rawContent)
+//   return allFiles
+//     .filter((item) => item.match(/\.md$/))
+//     .map((item) => {
+//       const itemPath = path.join(postsDirAbs, item)
+//       const rawContent = fs.readFileSync(itemPath, DEFAULT_ENCODE)
+//       const { frontmatter } = parseMdFile(rawContent)
 
-      return frontmatter.date
-    })
-}
+//       return frontmatter.date
+//     })
+// }

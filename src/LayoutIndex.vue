@@ -25,6 +25,8 @@ let touchStartListener
 let touchMoveListener
 let touchEndListener
 
+const props = defineProps(['posts'])
+
 function onOpenDrawer() {
   sidebarRef.value.openDrawer()
 }

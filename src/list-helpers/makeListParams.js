@@ -5,8 +5,8 @@ import { DEFAULT_ENCODE } from '../constants.js'
 import { parseMdFile } from '../helpers/mdWorks.js'
 import { transliterate } from '../helpers/transliterate.js'
 
-export function makeRecentParams(postsDirAbs, perPage) {
-  const dates = loadDatesList(postsDirAbs)
+export function makeRecentParams(posts, perPage) {
+  const dates = posts.map((item) => item.date)
   const res = []
 
   for (let i = 0; i < dates.length; i += perPage) {
@@ -18,8 +18,8 @@ export function makeRecentParams(postsDirAbs, perPage) {
   return res
 }
 
-export function makeYearPostsParams(postsDirAbs, perPage) {
-  const dates = loadDatesList(postsDirAbs)
+export function makeYearPostsParams(posts, perPage) {
+  const dates = posts.map((item) => item.date)
 
   // Группируем даты по годам
   const postsByYear = {}
@@ -48,9 +48,9 @@ export function makeYearPostsParams(postsDirAbs, perPage) {
   return res
 }
 
-export function makeMonthsParams(postsDirAbs) {
+export function makeMonthsParams(posts) {
   const monthCount = {}
-  const dates = loadDatesList(postsDirAbs)
+  const dates = posts.map((item) => item.date)
 
   for (const date of dates) {
     const year = new Date(date).getUTCFullYear()
@@ -75,17 +75,13 @@ export function makeMonthsParams(postsDirAbs) {
   return res
 }
 
-export function makeTagsParams(postsDirAbs, perPage, lang) {
+export function makeTagsParams(posts, perPage, lang) {
   const tagsCount = {}
-  const allFiles = fs
-    .readdirSync(postsDirAbs, DEFAULT_ENCODE)
-    .filter((item) => item.match(/\.md$/))
 
-  for (const item of allFiles) {
-    const itemPath = path.join(postsDirAbs, item)
-    const rawContent = fs.readFileSync(itemPath, DEFAULT_ENCODE)
-    const { frontmatter } = parseMdFile(rawContent)
-    const tags = frontmatter.tags
+  for (const item of posts) {
+    const tags = item.tags
+
+    console.log('111111111111', tags)
 
     if (!tags?.length) continue
 
@@ -111,17 +107,9 @@ export function makeTagsParams(postsDirAbs, perPage, lang) {
   return res
 }
 
-export function makeAuthorsParams(postsDirAbs, perPage) {
-  const allFiles = fs.readdirSync(postsDirAbs, DEFAULT_ENCODE)
-  const authorIds = allFiles
-    .filter((item) => item.match(/\.md$/))
-    .map((item) => {
-      const itemPath = path.join(postsDirAbs, item)
-      const rawContent = fs.readFileSync(itemPath, DEFAULT_ENCODE)
-      const { frontmatter } = parseMdFile(rawContent)
-
-      return frontmatter.authorId
-    })
+export function makeAuthorsParams(posts, perPage) {
+  const authorIds = posts
+    .map((item) => item.authorId)
     .filter((item) => Boolean(item))
   const authorPostCount = {}
   const res = []

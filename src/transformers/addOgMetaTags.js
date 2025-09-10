@@ -55,13 +55,13 @@ function generatePageUrl(hostname, filePath) {
 }
 
 /** Add OpenGraph metatags to the page */
-export function addOgMetaTags(pageData, { siteConfig }) {
+export function addOgMetaTags({ page, head, pageData, siteConfig }) {
   // TODO:  на какие страницы не нужно добавлять OpenGraph теги?
   // skip root index.md
-  if (pageData.filePath.indexOf('/') < 0) return
+  if (page.indexOf('/') < 0) return
 
   const hostname = siteConfig.userConfig.hostname
-  const langIndex = pageData.filePath.split('/')[0]
+  const langIndex = page.split('/')[0]
   const langConfig = siteConfig.site.locales[langIndex]
   const isHome = isHomePage(pageData.frontmatter)
   const isArticle = isPost(pageData.frontmatter)
@@ -85,6 +85,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
   }
 
   // Генерируем URL страницы
+  // TODO:  review this
   const pageUrl = generatePageUrl(hostname, pageData.filePath)
 
   let descr = pageData.frontmatter.description
@@ -99,6 +100,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
     if (!descr) {
       try {
         const rawContent = fs.readFileSync(
+          // TODO:  review this
           path.join(siteConfig.srcDir, pageData.filePath),
           DEFAULT_ENCODE
         )
@@ -109,7 +111,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
         )
       } catch (error) {
         console.warn(
-          `Failed to read file for OG description: ${pageData.filePath}`,
+          `Failed to read file for OG description: ${page}`,
           error.message
         )
       }
@@ -122,48 +124,26 @@ export function addOgMetaTags(pageData, { siteConfig }) {
     siteConfig.userConfig.themeConfig.maxDescriptionLength
   )
 
-  pageData.frontmatter.head ??= []
-
   // Базовые обязательные OpenGraph теги
-  pageData.frontmatter.head.push([
-    'meta',
-    { property: 'og:site_name', content: siteName },
-  ])
+  head.push(['meta', { property: 'og:site_name', content: siteName }])
 
-  pageData.frontmatter.head.push([
-    'meta',
-    { property: 'og:title', content: title },
-  ])
+  head.push(['meta', { property: 'og:title', content: title }])
 
-  descr &&
-    pageData.frontmatter.head.push([
-      'meta',
-      { property: 'og:description', content: descr },
-    ])
+  descr && head.push(['meta', { property: 'og:description', content: descr }])
 
   // URL страницы (обязательный тег)
-  pageUrl &&
-    pageData.frontmatter.head.push([
-      'meta',
-      { property: 'og:url', content: pageUrl },
-    ])
+  pageUrl && head.push(['meta', { property: 'og:url', content: pageUrl }])
 
   // Локаль для многоязычных сайтов
-  pageData.frontmatter.head.push([
-    'meta',
-    { property: 'og:locale', content: langIndex },
-  ])
+  head.push(['meta', { property: 'og:locale', content: langIndex }])
 
   // Тип контента
   const ogType = isArticle ? 'article' : 'website'
-  pageData.frontmatter.head.push([
-    'meta',
-    { property: 'og:type', content: ogType },
-  ])
+  head.push(['meta', { property: 'og:type', content: ogType }])
 
   if (isArticle) {
     // Дополнительные теги для статей
-    pageData.frontmatter.head.push([
+    head.push([
       'meta',
       {
         property: 'article:published_time',
@@ -173,7 +153,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
 
     // Добавляем время модификации если есть
     pageData.frontmatter.updated &&
-      pageData.frontmatter.head.push([
+      head.push([
         'meta',
         {
           property: 'article:modified_time',
@@ -182,26 +162,17 @@ export function addOgMetaTags(pageData, { siteConfig }) {
       ])
 
     author &&
-      pageData.frontmatter.head.push([
-        'meta',
-        { property: 'article:author', content: author },
-      ])
+      head.push(['meta', { property: 'article:author', content: author }])
 
     // Теги статьи
     ;(pageData.frontmatter.tags || []).forEach((tag) => {
-      pageData.frontmatter.head.push([
-        'meta',
-        { property: 'article:tag', content: tag.name },
-      ])
+      head.push(['meta', { property: 'article:tag', content: tag.name }])
     })
   }
 
   // Изображение
   if (img) {
-    pageData.frontmatter.head.push([
-      'meta',
-      { property: 'og:image', content: img },
-    ])
+    head.push(['meta', { property: 'og:image', content: img }])
 
     // Размеры изображения (приоритет автоматически полученным размерам)
     const imageWidth = imageDimensions?.width || pageData.frontmatter.coverWidth
@@ -209,14 +180,14 @@ export function addOgMetaTags(pageData, { siteConfig }) {
       imageDimensions?.height || pageData.frontmatter.coverHeight
 
     if (imageWidth) {
-      pageData.frontmatter.head.push([
+      head.push([
         'meta',
         { property: 'og:image:width', content: imageWidth.toString() },
       ])
     }
 
     if (imageHeight) {
-      pageData.frontmatter.head.push([
+      head.push([
         'meta',
         { property: 'og:image:height', content: imageHeight.toString() },
       ])
@@ -224,7 +195,7 @@ export function addOgMetaTags(pageData, { siteConfig }) {
 
     // Альтернативный текст для изображения
     pageData.frontmatter.coverAlt &&
-      pageData.frontmatter.head.push([
+      head.push([
         'meta',
         { property: 'og:image:alt', content: pageData.frontmatter.coverAlt },
       ])
@@ -232,32 +203,14 @@ export function addOgMetaTags(pageData, { siteConfig }) {
 
   // Twitter Card теги
   const twitterCardType = img ? 'summary_large_image' : 'summary'
-  pageData.frontmatter.head.push([
-    'meta',
-    { name: 'twitter:card', content: twitterCardType },
-  ])
+  head.push(['meta', { name: 'twitter:card', content: twitterCardType }])
 
-  pageData.frontmatter.head.push([
-    'meta',
-    { name: 'twitter:title', content: title },
-  ])
+  head.push(['meta', { name: 'twitter:title', content: title }])
 
-  descr &&
-    pageData.frontmatter.head.push([
-      'meta',
-      { name: 'twitter:description', content: descr },
-    ])
+  descr && head.push(['meta', { name: 'twitter:description', content: descr }])
 
-  img &&
-    pageData.frontmatter.head.push([
-      'meta',
-      { name: 'twitter:image', content: img },
-    ])
+  img && head.push(['meta', { name: 'twitter:image', content: img }])
 
   // Twitter Creator (если есть автор)
-  author &&
-    pageData.frontmatter.head.push([
-      'meta',
-      { name: 'twitter:creator', content: author },
-    ])
+  author && head.push(['meta', { name: 'twitter:creator', content: author }])
 }

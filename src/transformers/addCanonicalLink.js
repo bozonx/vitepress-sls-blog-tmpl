@@ -4,12 +4,11 @@ import { generatePageUrlPath } from '../helpers/helpers.js'
  * Добавляет каноническую ссылку в head страницы если указан параметр canonical
  * в frontmatter. Если указан self то генерируется URL текущей страницы
  *
- * @param {Object} pageData - Данные страницы
- * @param {Object} ctx - Контекст с siteConfig
+ * @param {Object} context - { page, head, pageData, siteConfig }
  */
-export function addCanonicalLink(pageData, { siteConfig }) {
+export function addCanonicalLink({ page, head, pageData, siteConfig }) {
   // Пропускаем корневые страницы и страницы без языкового префикса
-  if (!pageData.relativePath || pageData.filePath.indexOf('/') < 0) {
+  if (!page || page.indexOf('/') < 0) {
     return
   }
 
@@ -32,16 +31,14 @@ export function addCanonicalLink(pageData, { siteConfig }) {
         return
       }
       // Генерируем URL для текущей страницы
-      canonicalUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
+      canonicalUrl = `${hostname}/${generatePageUrlPath(page)}`
     } else if (typeof canonicalValue === 'string') {
       // Проверяем, что URL валидный
       try {
         new URL(canonicalValue)
         canonicalUrl = canonicalValue
       } catch (error) {
-        console.warn(
-          `Invalid canonical URL in ${pageData.filePath}: ${canonicalValue}`
-        )
+        console.warn(`Invalid canonical URL in ${page}: ${canonicalValue}`)
         return
       }
     } else {
@@ -49,29 +46,9 @@ export function addCanonicalLink(pageData, { siteConfig }) {
       return
     }
 
-    // Инициализируем head если его нет
-    if (!pageData.frontmatter.head) {
-      pageData.frontmatter.head = []
-    }
-
     // Добавляем каноническую ссылку
-    pageData.frontmatter.head.push([
-      'link',
-      { rel: 'canonical', href: canonicalUrl },
-    ])
+    head.push(['link', { rel: 'canonical', href: canonicalUrl }])
   } catch (error) {
-    console.error(
-      `Error adding canonical link for ${pageData.filePath}:`,
-      error.message
-    )
+    console.error(`Error adding canonical link for ${page}:`, error.message)
   }
 }
-
-/**
- * Генерирует полный URL для текущей страницы
- *
- * @param {string} hostname - Хост сайта
- * @param {string} filePath - Путь к файлу
- * @returns {string | null} Полный URL или null если не удалось сгенерировать
- */
-function generatePageUrl(pageData, siteConfig) {}

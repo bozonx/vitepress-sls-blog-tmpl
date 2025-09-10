@@ -107,12 +107,11 @@ export default function ({ hostname, repo }, en) {
       transformPageMeta(pageData, ctx)
       addOgMetaTags(pageData, ctx)
       addJsonLd(pageData, ctx)
-      addRssLinks(pageData, ctx)
-
-      addCanonicalLink(pageData, ctx)
     },
     async transformHead(context) {
+      addRssLinks(context)
       addHreflang(context)
+      addCanonicalLink(context)
     },
     buildEnd: async (config) => {
       await generateRssFeed(config)

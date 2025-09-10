@@ -5,15 +5,14 @@ import { ROOT_LANG } from '../constants.js'
 /**
  * Добавляет RSS feed ссылки в head главной страницы
  *
- * @param {Object} pageData - Данные страницы
- * @param {Object} ctx - Контекст с siteConfig
+ * @param {Object} context { page, head, pageData, siteConfig }
  */
-export function addRssLinks(pageData, { siteConfig }) {
+export function addRssLinks({ page, head, pageData, siteConfig }) {
   // only for index pages line ru/, en/
   if (!isHomePage(pageData.frontmatter)) return
 
   const hostname = siteConfig.userConfig.hostname
-  const langIndex = pageData.filePath.split('/')[0]
+  const langIndex = page.split('/')[0]
   const supportedLocales = Object.keys(siteConfig.site.locales).filter(
     (locale) => locale !== ROOT_LANG
   )
@@ -21,14 +20,12 @@ export function addRssLinks(pageData, { siteConfig }) {
   // Получаем настройки форматов RSS
   const rssFormats = getRssFormats(siteConfig)
 
-  pageData.frontmatter.head ??= []
-
   // Добавляем RSS ссылки для текущего языка
   for (const format of rssFormats) {
     const feedUrl = `${hostname}/feed-${langIndex}.${format}`
     const formatInfo = getFormatInfo(format)
 
-    pageData.frontmatter.head.push([
+    head.push([
       'link',
       {
         rel: 'alternate',
@@ -45,7 +42,8 @@ export function addRssLinks(pageData, { siteConfig }) {
     if (locale !== langIndex) {
       // Добавляем только основной формат для альтернативных языков
       const feedUrl = `${hostname}/feed-${locale}.rss`
-      pageData.frontmatter.head.push([
+
+      head.push([
         'link',
         {
           rel: 'alternate',

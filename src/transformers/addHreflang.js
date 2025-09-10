@@ -6,10 +6,9 @@ import { generatePageUrlPath } from '../helpers/helpers.js'
  * Генерирует ссылки на эту же страницу на всех доступных языках Основной язык
  * (x-default) определяется из siteConfig.userConfig.locales.root.lang
  *
- * @param {Object} pageData - Данные страницы
- * @param {Object} ctx - Контекст с siteConfig
+ * @param {Object} context { page, head, pageData, siteConfig }
  */
-export function addHreflang({ page, head, pageData, siteConfig }) {
+export function addHreflang({ page, head, siteConfig }) {
   // Пропускаем корневые страницы и страницы без языкового префикса
   if (!page || page.indexOf('/') < 0) {
     return

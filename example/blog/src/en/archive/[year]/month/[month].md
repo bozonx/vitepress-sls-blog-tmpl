@@ -9,11 +9,16 @@ head:
 <script setup>
 import MonthPostsList from 'vitepress-sls-blog-tmpl/MonthPostsList.vue'
 import { useData } from 'vitepress'
-import { data } from '../../../loadPosts.data.js'
+import { inject } from 'vue'
 
-const { theme, params } = useData()
+const { theme, params, localeIndex } = useData()
+const posts = inject('posts')
 </script>
 
 # {{theme.t.months[Number(params.month) - 1]}} {{params.year}}
 
-<MonthPostsList :allPosts="data.posts" :year="params.year" :month="params.month" />
+<MonthPostsList
+  :allPosts="posts[localeIndex]"
+  :year="params.year"
+  :month="params.month"
+/>

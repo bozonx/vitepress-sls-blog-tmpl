@@ -52,7 +52,7 @@ if (frontmatter.value.tags) {
 </script>
 
 <template>
-  <div>
+  <div v-if="items.length">
     <h2 class="text-xl font-bold mb-4">{{ theme.t.similarPosts }}</h2>
     <ul>
       <li v-for="item in items">

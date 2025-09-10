@@ -9,11 +9,12 @@ head:
 <script setup>
 import Authors from 'vitepress-sls-blog-tmpl/Authors.vue'
 import { useData } from 'vitepress'
-import { data } from './loadPosts.data.js'
+import { inject } from 'vue'
 
-const { theme } = useData()
+const { theme, localeIndex } = useData()
+const posts = inject('posts')
 </script>
 
 # {{theme.t.links.authors}}
 
-<Authors :allPosts="data.posts" />
+<Authors :allPosts="posts[localeIndex]" />

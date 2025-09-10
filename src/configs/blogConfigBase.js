@@ -103,8 +103,8 @@ export default function ({ hostname, repo }, en) {
     },
     transformPageData(pageData, ctx) {
       // transformTitle(pageData, ctx)
-      resolveDescription(pageData, ctx)
       transformPageMeta(pageData, ctx)
+      resolveDescription(pageData, ctx)
     },
     async transformHead(context) {
       addOgMetaTags(context)

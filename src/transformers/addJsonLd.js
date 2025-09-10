@@ -176,24 +176,23 @@ function createPageJsonLd(
  *   Site/site.[localeIndex].yaml authors
  * - На всех остальных страницах где указан frontmatter.jsonLd в виде yaml
  *
- * @param {Object} pageData - Данные страницы
- * @param {Object} ctx - Контекст с siteConfig
+ * @param {Object} context { page, head, pageData, siteConfig }
  */
-export function addJsonLd(pageData, { siteConfig }) {
+export function addJsonLd({ page, head, pageData, siteConfig }) {
   // Пропускаем корневые страницы и страницы без языкового префикса
-  if (!pageData.relativePath || pageData.relativePath.indexOf('/') < 0) {
+  if (!page || page.indexOf('/') < 0) {
     return
   }
 
   let jsonLdData = null
-  const langIndex = pageData.filePath.split('/')[0]
+  const langIndex = page.split('/')[0]
   const langConfig = siteConfig.site.locales[langIndex]
 
   if (!langConfig) return
 
   const hostname = siteConfig.userConfig.hostname
   const langIndexUrl = `${hostname}/${langIndex}`
-  const pageUrl = `${hostname}/${generatePageUrlPath(pageData.relativePath)}`
+  const pageUrl = `${hostname}/${generatePageUrlPath(page)}`
   // Формируем информацию об издателе для JSON-LD
   const publisher = langConfig.themeConfig.publisher && {
     '@type': 'Organization',
@@ -205,7 +204,7 @@ export function addJsonLd(pageData, { siteConfig }) {
     },
   }
 
-  if (isAuthorPage(pageData.filePath, siteConfig)) {
+  if (isAuthorPage(page, siteConfig)) {
     jsonLdData = createAuthorJsonLd(
       pageData,
       siteConfig,
@@ -242,11 +241,8 @@ export function addJsonLd(pageData, { siteConfig }) {
   if (typeof jsonLdData !== 'object' || Object.keys(jsonLdData).length === 0)
     return
 
-  // Инициализируем head если его нет
-  pageData.frontmatter.head ??= []
-
   // Добавляем JSON-LD скрипт
-  pageData.frontmatter.head.push([
+  head.push([
     'script',
     { type: 'application/ld+json' },
     JSON.stringify(

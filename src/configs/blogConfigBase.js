@@ -105,11 +105,10 @@ export default function ({ hostname, repo }, en) {
       // transformTitle(pageData, ctx)
       resolveDescription(pageData, ctx)
       transformPageMeta(pageData, ctx)
-
-      addJsonLd(pageData, ctx)
     },
     async transformHead(context) {
       addOgMetaTags(context)
+      addJsonLd(context)
       addRssLinks(context)
       addHreflang(context)
       addCanonicalLink(context)

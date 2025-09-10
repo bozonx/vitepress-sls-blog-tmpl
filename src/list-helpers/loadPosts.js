@@ -28,16 +28,10 @@ export async function loadPosts(localeDir, ignoreCache = false) {
   }
 
   try {
-    // Формируем путь к директории с постами
     const postsDir = path.join(localeDir, POSTS_DIR)
-
-    // Читаем все файлы из директории postsDir
     const files = await fs.readdir(postsDir)
-    // Фильтруем только .md файлы
     const mdFiles = files.filter((file) => file.endsWith('.md'))
-    // Создаем полные пути к файлам
     const fullPaths = mdFiles.map((file) => path.join(postsDir, file))
-    // Обрабатываем каждый файл через makePreviewItem
     const posts = fullPaths.map((filePath) => makePreviewItem(filePath))
     // Сохраняем в глобальный кэш для текущей локали
     global.blogCache[localIndex] = posts

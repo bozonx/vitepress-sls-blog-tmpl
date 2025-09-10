@@ -13,16 +13,13 @@ if (frontmatter.value.tags) {
   const getTagsIntersection = (tags1, tags2) => {
     const slugs1 = tags1.map((tag) => tag.slug)
     const slugs2 = tags2.map((tag) => tag.slug)
+
     return arraysIntersection(slugs1, slugs2)
   }
 
   items = [...(props.allPosts || [])]
     .filter((item) => {
-      // Исключаем текущий пост из списка похожих
-      const isCurrentPost =
-        item.url === route.path ||
-        item.url === page.value.relativePath?.replace(/\.md$/, '') ||
-        item.url === `/${page.value.relativePath?.replace(/\.md$/, '')}`
+      const isCurrentPost = item.url === route.path
 
       return (
         !isCurrentPost &&

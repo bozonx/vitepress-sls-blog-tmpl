@@ -9,9 +9,9 @@ import { generatePageUrlPath } from '../helpers/helpers.js'
  * @param {Object} pageData - Данные страницы
  * @param {Object} ctx - Контекст с siteConfig
  */
-export function addHreflang(pageData, { siteConfig }) {
+export function addHreflang({ page, head, pageData, siteConfig }) {
   // Пропускаем корневые страницы и страницы без языкового префикса
-  if (!pageData.relativePath || pageData.relativePath.indexOf('/') < 0) {
+  if (!page || page.indexOf('/') < 0) {
     return
   }
 
@@ -28,11 +28,9 @@ export function addHreflang(pageData, { siteConfig }) {
 
   // Если нет языков, не добавляем hreflang
   if (localesIndexes.length === 0) return
-  // Инициализируем head если его нет
-  pageData.frontmatter.head ??= []
 
   // Получаем текущий язык из пути файла
-  const [, ...restPath] = pageData.relativePath.split('/')
+  const [, ...restPath] = page.split('/')
   const pagePathWithoutLang = restPath.join('/')
   const cleanPath = generatePageUrlPath(pagePathWithoutLang)
   const finalPath = cleanPath ? `/${cleanPath}` : ''
@@ -41,7 +39,7 @@ export function addHreflang(pageData, { siteConfig }) {
   localesIndexes.forEach((lang) => {
     const langCode = availableLocales[lang]?.lang || lang
 
-    pageData.frontmatter.head.push([
+    head.push([
       'link',
       {
         rel: 'alternate',
@@ -62,12 +60,12 @@ export function addHreflang(pageData, { siteConfig }) {
 
   if (!mainLang) {
     console.warn(
-      `[addHreflang] Не удалось определить основной язык для страницы: ${pageData.relativePath}`
+      `[addHreflang] Не удалось определить основной язык для страницы: ${page}`
     )
     return
   }
 
-  pageData.frontmatter.head.push([
+  head.push([
     'link',
     {
       rel: 'alternate',

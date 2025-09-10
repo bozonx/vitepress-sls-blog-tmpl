@@ -108,8 +108,11 @@ export default function ({ hostname, repo }, en) {
       addOgMetaTags(pageData, ctx)
       addJsonLd(pageData, ctx)
       addRssLinks(pageData, ctx)
-      addHreflang(pageData, ctx)
+
       addCanonicalLink(pageData, ctx)
+    },
+    async transformHead(context) {
+      addHreflang(context)
     },
     buildEnd: async (config) => {
       await generateRssFeed(config)

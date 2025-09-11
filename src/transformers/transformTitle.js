@@ -1,12 +1,14 @@
 import { mustacheTemplate } from 'squidlet-lib'
 
 /**
- * Fix titles of utility pages and others which are template strings like {{
- * theme.t.siteName }}
+ * If page.frontmatter.title is a template string, then replace it with the
+ * template string.
  */
 export function transformTitle(pageData, { siteConfig }) {
   // skip root pages
   if (pageData.filePath.indexOf('/') < 0) return
+
+  if (!pageData.frontmatter.title) return
 
   const langIndex = pageData.filePath.split('/')[0]
 
@@ -15,5 +17,10 @@ export function transformTitle(pageData, { siteConfig }) {
     params: pageData.params || {},
   }
 
-  pageData.title = mustacheTemplate(pageData.title, options)
+  pageData.frontmatter.title = mustacheTemplate(
+    pageData.frontmatter.title,
+    options,
+    { eval: true }
+  )
+  pageData.title = pageData.frontmatter.title
 }

@@ -9,7 +9,6 @@ import { transformPageMeta } from '../transformers/transformPageMeta.js'
 import { transformTitle } from '../transformers/transformTitle.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
-import { dinamicTitleFromH1 } from '../transformers/dinamicTitleFromH1.js'
 
 export const common = {
   head: [
@@ -103,12 +102,11 @@ export default function ({ hostname, repo }, en) {
       ],
     },
     transformPageData(pageData, ctx) {
-      // transformTitle(pageData, ctx)
+      transformTitle(pageData, ctx)
       transformPageMeta(pageData, ctx)
       resolveDescription(pageData, ctx)
     },
     async transformHead(context) {
-      dinamicTitleFromH1(context)
       addOgMetaTags(context)
       addJsonLd(context)
       addRssLinks(context)

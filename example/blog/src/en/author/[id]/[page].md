@@ -1,4 +1,6 @@
 ---
+title: "{{theme.authors.find((item) => item.id === params.id)?.
+name}}"
 layout: util
 head:
   - - meta
@@ -12,11 +14,11 @@ import { useData } from 'vitepress'
 import { inject } from 'vue'
 import { PROPS } from "../../../.vitepress/props.js";
 
-const { theme, params, localeIndex } = useData()
+const { theme, params, localeIndex, frontmatter } = useData()
 const posts = inject('posts')
 </script>
 
-# {{theme.authors.find((item) => item.id === params.id)?.name}}
+# {{frontmatter.title}}
 
 <AuthorDetails
   :allPosts="posts[localeIndex]"

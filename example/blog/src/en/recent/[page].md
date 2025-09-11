@@ -1,4 +1,5 @@
 ---
+title: "{{theme.t.allPosts}}"
 layout: util
 head:
   - - meta
@@ -12,11 +13,11 @@ import { useData } from 'vitepress'
 import { inject } from 'vue'
 import { PROPS } from "../../.vitepress/props.js";
 
-const { theme, params, localeIndex } = useData()
+const { theme, params, localeIndex, frontmatter } = useData()
 const posts = inject('posts')
 </script>
 
-# {{theme.t.allPosts}}
+# {{frontmatter.title}}
 
 <RecentList
   :allPosts="posts[localeIndex]"

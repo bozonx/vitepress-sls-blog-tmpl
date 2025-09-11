@@ -1,4 +1,5 @@
 ---
+title: "{{params.year}} {{theme.t.year}}"
 layout: util
 head:
   - - meta
@@ -12,11 +13,11 @@ import MonthsOfYear from 'vitepress-sls-blog-tmpl/MonthsOfYear.vue'
 import { inject } from 'vue'
 import { PROPS } from "../../../.vitepress/props.js";
 
-const { theme, params, localeIndex } = useData()
+const { theme, params, localeIndex, frontmatter } = useData()
 const posts = inject('posts')
 </script>
 
-# {{params.year}} {{theme.t.year}}
+# {{frontmatter.title}}
 
 <MonthsOfYear
   :allPosts="posts[localeIndex]"

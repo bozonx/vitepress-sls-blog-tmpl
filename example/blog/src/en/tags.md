@@ -1,4 +1,5 @@
 ---
+title: "{{theme.t.allTags}}"
 layout: util
 head:
   - - meta
@@ -11,10 +12,10 @@ import { useData } from 'vitepress'
 import { inject } from 'vue'
 import AllTagsList from 'vitepress-sls-blog-tmpl/AllTagsList.vue'
 
-const { theme, localeIndex } = useData()
+const { localeIndex, frontmatter } = useData()
 const posts = inject('posts')
 </script>
 
-# {{theme.t.allTags}}
+# {{frontmatter.title}}
 
 <AllTagsList :allPosts="posts[localeIndex]" />

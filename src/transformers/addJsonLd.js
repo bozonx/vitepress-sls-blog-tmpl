@@ -110,9 +110,6 @@ function createAuthorJsonLd(
   langIndex,
   langConfig
 ) {
-  // TODO: review this
-  if (pageData.params.page !== 1) return
-
   const authors = langConfig.themeConfig?.authors
   const authorId = pageData.params.id
   const author = authors?.find((item) => item.id === authorId)

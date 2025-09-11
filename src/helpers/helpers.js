@@ -36,11 +36,11 @@ export function isPage(frontmatter) {
 }
 
 export function isAuthorPage(filePath, siteConfig) {
-  if (!filePath) return
+  if (!filePath) return false
 
-  return filePath.match(
-    new RegExp(`^\w+\/${siteConfig.userConfig.themeConfig.authorBaseUrl}\/`)
-  )
+  const authorBaseUrl = siteConfig.userConfig.themeConfig.authorBaseUrl
+
+  return !!filePath.match(new RegExp(`^\\w+\/${authorBaseUrl}\/`))
 }
 
 export function makeHumanDate(rawDate, lang, toTimeZone = 'UTC') {

@@ -1,5 +1,5 @@
 import { getImageDimensions } from '../helpers/imageHelpers.js'
-import { generatePageUrlPath, isPost } from '../helpers/helpers.js'
+import { generatePageUrlPath, isHomePage, isPost } from '../helpers/helpers.js'
 
 /** Add OpenGraph metatags to the page */
 export function addOgMetaTags({ page, head, pageData, siteConfig }) {
@@ -14,7 +14,10 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
   const isArticle = isPost(pageData.frontmatter)
   const siteName = langConfig.title
   const title = pageData.title || siteName
-  const descr = pageData.description || langConfig.description
+  const descr =
+    isHomePage(pageData.frontmatter) && !pageData.description
+      ? langConfig.description
+      : pageData.description
   const author =
     pageData.frontmatter.authorId &&
     langConfig.themeConfig.authors?.find(
@@ -22,10 +25,6 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
     )?.name
   const img =
     pageData.frontmatter.cover && hostname + pageData.frontmatter.cover
-  // Получаем размеры изображения если оно есть
-  const imageDimensions =
-    pageData.frontmatter.cover &&
-    getImageDimensions(pageData.frontmatter.cover, siteConfig.srcDir)
   // Тип контента
   const ogType = isArticle ? 'article' : 'website'
   // Twitter Card теги
@@ -38,9 +37,7 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
   head.push(['meta', { property: 'og:url', content: pageUrl }])
   head.push(['meta', { property: 'og:locale', content: locale }])
   head.push(['meta', { property: 'og:type', content: ogType }])
-
-  if (isArticle) {
-    // Дополнительные теги для статей
+  pageData.frontmatter.date &&
     head.push([
       'meta',
       {
@@ -49,33 +46,33 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
       },
     ])
 
-    // Добавляем время модификации если есть
-    pageData.frontmatter.updated &&
-      head.push([
-        'meta',
-        {
-          property: 'article:modified_time',
-          content: pageData.frontmatter.updated,
-        },
-      ])
+  // Добавляем время модификации если есть
+  // pageData.frontmatter.updated &&
+  //   head.push([
+  //     'meta',
+  //     {
+  //       property: 'article:modified_time',
+  //       content: pageData.frontmatter.updated,
+  //     },
+  //   ])
 
-    author &&
-      head.push(['meta', { property: 'article:author', content: author }])
-
-    // Теги статьи
-    ;(pageData.frontmatter.tags || []).forEach((tag) => {
+  author && head.push(['meta', { property: 'article:author', content: author }])
+  pageData.frontmatter.tags &&
+    (pageData.frontmatter.tags || []).forEach((tag) => {
       head.push(['meta', { property: 'article:tag', content: tag.name }])
     })
-  }
 
   // Изображение
   if (img) {
-    head.push(['meta', { property: 'og:image', content: img }])
-
+    // Получаем размеры изображения если оно есть
+    const imageDimensions =
+      pageData.frontmatter.cover &&
+      getImageDimensions(pageData.frontmatter.cover, siteConfig.srcDir)
     // Размеры изображения (приоритет автоматически полученным размерам)
-    const imageWidth = imageDimensions?.width || pageData.frontmatter.coverWidth
-    const imageHeight =
-      imageDimensions?.height || pageData.frontmatter.coverHeight
+    const imageWidth = imageDimensions?.width
+    const imageHeight = imageDimensions?.height
+
+    head.push(['meta', { property: 'og:image', content: img }])
 
     if (imageWidth) {
       head.push([
@@ -100,13 +97,9 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
   }
 
   head.push(['meta', { name: 'twitter:card', content: twitterCardType }])
-
   head.push(['meta', { name: 'twitter:title', content: title }])
-
   descr && head.push(['meta', { name: 'twitter:description', content: descr }])
-
   img && head.push(['meta', { name: 'twitter:image', content: img }])
-
   // Twitter Creator (если есть автор)
   author && head.push(['meta', { name: 'twitter:creator', content: author }])
 }

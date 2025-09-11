@@ -1,72 +1,20 @@
-import fs from 'fs'
-import path from 'path'
-
-import { DEFAULT_ENCODE } from '../constants.js'
-import { isHomePage, isPage, isPost } from '../helpers/helpers.js'
-import { extractDescriptionFromMd } from '../helpers/mdWorks.js'
-import { resolvePreview } from '../list-helpers/makePreviewItem.js'
 import { getImageDimensions } from '../helpers/imageHelpers.js'
-
-// TODO:  review this
-// Используем image-size пакет для получения размеров изображений
-/**
- * Обрезает описание до рекомендуемой длины для OG тегов
- *
- * @param {string} description - Исходное описание
- * @param {number} maxLength - Максимальная длина (по умолчанию 160)
- * @returns {string} Обрезанное описание
- */
-function truncateDescription(description, maxLength = 160) {
-  if (!description || description.length <= maxLength) {
-    return description
-  }
-
-  // Обрезаем до последнего полного слова
-  const truncated = description.substring(0, maxLength)
-  const lastSpaceIndex = truncated.lastIndexOf(' ')
-
-  if (lastSpaceIndex > maxLength * 0.8) {
-    return truncated.substring(0, lastSpaceIndex) + '...'
-  }
-
-  return truncated + '...'
-}
-
-/**
- * Генерирует полный URL для страницы
- *
- * @param {string} hostname - Хост сайта
- * @param {string} filePath - Путь к файлу
- * @returns {string} Полный URL
- */
-function generatePageUrl(hostname, filePath) {
-  if (!hostname || !filePath) return null
-
-  // TODO: use relativePath
-
-  // Убираем расширение файла
-  const fileExtension = path.extname(filePath)
-  const urlPath = filePath.substring(0, filePath.length - fileExtension.length)
-
-  // Убираем индекс из пути
-  const cleanPath = urlPath.replace(/\/index$/, '')
-
-  return `${hostname}/${cleanPath}`
-}
+import { generatePageUrlPath, isPost } from '../helpers/helpers.js'
 
 /** Add OpenGraph metatags to the page */
 export function addOgMetaTags({ page, head, pageData, siteConfig }) {
-  // TODO:  на какие страницы не нужно добавлять OpenGraph теги?
-  // skip root index.md
-  if (page.indexOf('/') < 0) return
+  // skip root pages
+  if (!page || page.indexOf('/') < 0) return
 
   const hostname = siteConfig.userConfig.hostname
+  const pageUrl = `${hostname}/${generatePageUrlPath(page)}`
   const langIndex = page.split('/')[0]
   const langConfig = siteConfig.site.locales[langIndex]
-  const isHome = isHomePage(pageData.frontmatter)
+  const locale = langConfig.lang.replace('-', '_')
   const isArticle = isPost(pageData.frontmatter)
   const siteName = langConfig.title
-  const title = isHome ? siteName : pageData.title
+  const title = pageData.title || siteName
+  const descr = pageData.description || langConfig.description
   const author =
     pageData.frontmatter.authorId &&
     langConfig.themeConfig.authors?.find(
@@ -74,71 +22,21 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
     )?.name
   const img =
     pageData.frontmatter.cover && hostname + pageData.frontmatter.cover
-
   // Получаем размеры изображения если оно есть
-  let imageDimensions = null
-  if (pageData.frontmatter.cover) {
-    imageDimensions = getImageDimensions(
-      pageData.frontmatter.cover,
-      siteConfig.srcDir
-    )
-  }
-
-  // Генерируем URL страницы
-  // TODO:  review this
-  const pageUrl = generatePageUrl(hostname, pageData.filePath)
-
-  let descr = pageData.frontmatter.description
-
-  if (isHome) {
-    // for home page get the main description
-    descr = langConfig.description
-  } else if (isArticle || isPage(pageData.frontmatter)) {
-    // means post or page
-    descr = resolvePreview(pageData.frontmatter)
-
-    if (!descr) {
-      try {
-        const rawContent = fs.readFileSync(
-          // TODO:  review this
-          path.join(siteConfig.srcDir, pageData.filePath),
-          DEFAULT_ENCODE
-        )
-
-        descr = extractDescriptionFromMd(
-          rawContent,
-          siteConfig.userConfig.themeConfig.maxDescriptionLength
-        )
-      } catch (error) {
-        console.warn(
-          `Failed to read file for OG description: ${page}`,
-          error.message
-        )
-      }
-    }
-  }
-
-  // Обрезаем описание до рекомендуемой длины
-  descr = truncateDescription(
-    descr,
-    siteConfig.userConfig.themeConfig.maxDescriptionLength
-  )
+  const imageDimensions =
+    pageData.frontmatter.cover &&
+    getImageDimensions(pageData.frontmatter.cover, siteConfig.srcDir)
+  // Тип контента
+  const ogType = isArticle ? 'article' : 'website'
+  // Twitter Card теги
+  const twitterCardType = img ? 'summary_large_image' : 'summary'
 
   // Базовые обязательные OpenGraph теги
   head.push(['meta', { property: 'og:site_name', content: siteName }])
-
   head.push(['meta', { property: 'og:title', content: title }])
-
   descr && head.push(['meta', { property: 'og:description', content: descr }])
-
-  // URL страницы (обязательный тег)
-  pageUrl && head.push(['meta', { property: 'og:url', content: pageUrl }])
-
-  // Локаль для многоязычных сайтов
-  head.push(['meta', { property: 'og:locale', content: langIndex }])
-
-  // Тип контента
-  const ogType = isArticle ? 'article' : 'website'
+  head.push(['meta', { property: 'og:url', content: pageUrl }])
+  head.push(['meta', { property: 'og:locale', content: locale }])
   head.push(['meta', { property: 'og:type', content: ogType }])
 
   if (isArticle) {
@@ -201,8 +99,6 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
       ])
   }
 
-  // Twitter Card теги
-  const twitterCardType = img ? 'summary_large_image' : 'summary'
   head.push(['meta', { name: 'twitter:card', content: twitterCardType }])
 
   head.push(['meta', { name: 'twitter:title', content: title }])

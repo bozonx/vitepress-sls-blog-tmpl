@@ -12,7 +12,7 @@ export function transformTitle(pageData, { siteConfig }) {
 
   const options = {
     theme: siteConfig.site.locales[langIndex].themeConfig,
-    params: pageData.params,
+    params: pageData.params || {},
   }
 
   pageData.title = mustacheTemplate(pageData.title, options)

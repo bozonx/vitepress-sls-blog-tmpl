@@ -125,8 +125,7 @@ function createAuthorJsonLd(
     url: `${hostname}/${langIndex}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${authorId}/1`,
     description: author?.descr,
     image: author?.image,
-    // TODO: преобразовать
-    sameAs: author?.sameAs,
+    sameAs: author?.links?.map((link) => link.url),
   }
 }
 

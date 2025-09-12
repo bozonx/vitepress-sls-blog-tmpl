@@ -14,7 +14,12 @@ body: |
   authors:
     - id: "ivan-k"
       name: "Ivan K"
-      descr: ".\n\n[about](https://)"
+      descr: "some descr"
+      image: "https://....webp"
+      links:
+        - type: "youtube"
+          url: "https://www.youtube.com/..."
+          title: "YouTube channel ..."
   postDonateCall: "If you like this project, please support it financially. [Donate](${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl})"
   footer:
     message: "Copying allowed only with a link to the source."

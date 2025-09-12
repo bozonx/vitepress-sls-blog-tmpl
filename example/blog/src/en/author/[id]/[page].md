@@ -2,10 +2,6 @@
 title: "{{theme.authors.find((item) => item.id === params.id)?.
 name}}"
 layout: util
-head:
-  - - meta
-    - name: robots
-      content: noindex
 ---
 
 <script setup>

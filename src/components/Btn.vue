@@ -1,27 +1,27 @@
 <script setup>
-import { useData } from "vitepress";
-import { useSlots } from "vue";
-import { Icon } from "@iconify/vue";
-import { isExternalUrl } from "../helpers/helpers.js";
-import BaseLink from "./BaseLink.vue";
+import { useData } from 'vitepress'
+import { useSlots } from 'vue'
+import { Icon } from '@iconify/vue'
+import { isExternalUrl } from '../helpers/helpers.js'
+import BaseLink from './BaseLink.vue'
 
-const slots = useSlots();
-const { theme } = useData();
+const slots = useSlots()
+const { theme } = useData()
 const props = defineProps([
-  "id",
-  "class",
-  "href",
-  "title",
-  "target",
-  "icon",
-  "text",
-  "disabled",
-  "iconClass",
-  "noBg",
-  "onlyDark",
-  "primary",
-  "hideExternalIcon",
-]);
+  'id',
+  'class',
+  'href',
+  'title',
+  'target',
+  'icon',
+  'text',
+  'disabled',
+  'iconClass',
+  'noBg',
+  'onlyDark',
+  'primary',
+  'hideExternalIcon',
+])
 const {
   class: className,
   icon,
@@ -32,19 +32,19 @@ const {
   hideExternalIcon,
   onlyDark,
   ...btnProps
-} = props;
-const isExternal = !hideExternalIcon && isExternalUrl(props.href);
-const hasText = text || slots.default;
+} = props
+const isExternal = !hideExternalIcon && isExternalUrl(props.href)
+const hasText = text || slots.default
 
 if (btnProps.href) {
   // means just link
-  btnProps.tag = "a";
-  delete btnProps.disabled;
+  btnProps.tag = 'a'
+  delete btnProps.disabled
 } else {
   // means Button
-  btnProps.tag = "button";
-  delete btnProps.href;
-  delete btnProps.target;
+  btnProps.tag = 'button'
+  delete btnProps.href
+  delete btnProps.target
 }
 </script>
 

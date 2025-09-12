@@ -28,6 +28,10 @@ const getIconName = (type) => {
     facebook: 'mdi:facebook',
     instagram: 'mdi:instagram',
     tiktok: 'mdi:tiktok',
+    vk: 'mdi:vk',
+    mastodon: 'mdi:mastodon',
+    diaspora: 'mdi:diaspora',
+    // bastyon, odysee, threads - иконки недоступны в @iconify/vue, используем fallback
   }
 
   return iconMap[type] || iconMap.site // fallback на site если тип не распознан

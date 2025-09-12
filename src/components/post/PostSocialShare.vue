@@ -84,16 +84,34 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+}
+
 .social-btn svg {
-  width: 48px;
-  height: 48px;
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .social-btn:hover {
-  filter: brightness(85%);
+  color: var(--vp-c-brand-1);
+  transform: translateY(-1px);
+  filter: none; /* Убираем старый эффект brightness */
 }
 
 .social-vk {
+  color: #0077ff;
+}
+
+.social-vk:hover {
   color: #0077ff;
 }
 </style>

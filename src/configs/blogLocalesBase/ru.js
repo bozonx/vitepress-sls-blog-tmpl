@@ -33,6 +33,7 @@ export default {
     allPostsOfAuthor: 'Все посты автора',
     closeMenu: 'Закрыть меню',
     allPostsOfYear: 'Все посты за год',
+    downloadFile: 'Скачать',
     links: {
       // thease links are used in site translations
       aboutBlog: 'Об этом блоге',

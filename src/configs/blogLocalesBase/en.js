@@ -33,6 +33,7 @@ export default {
     allPostsOfAuthor: 'All the posts of the author',
     closeMenu: 'Close menu',
     allPostsOfYear: 'All posts of the year',
+    downloadFile: 'Download',
     links: {
       // thease links are used in site translations
       aboutBlog: 'About This Blog',

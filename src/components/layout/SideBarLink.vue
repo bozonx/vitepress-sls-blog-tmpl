@@ -17,7 +17,24 @@ const { class: className, ...bindProps } = props
   <Btn
     v-bind="bindProps"
     noBg="true"
-    :class="['pr-2 pl-3 py-3 font-normal rounded-none btn-lighter', className]"
+    :class="[
+      'pr-2 pl-3 py-3 font-normal rounded-none btn-lighter sidebar-link',
+      className,
+    ]"
     iconClass="muted"
   />
 </template>
+
+<style scoped>
+.sidebar-link {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-link :deep(.flex) {
+  transition: transform 0.2s ease-in-out;
+}
+
+.sidebar-link:hover :deep(.flex) {
+  transform: translateX(4px);
+}
+</style>

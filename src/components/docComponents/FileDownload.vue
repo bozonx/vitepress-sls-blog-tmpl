@@ -57,12 +57,6 @@ const downloadFile = async () => {
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
-
-    // Отключаем кнопку на 5 секунд
-    isDisabled.value = true
-    setTimeout(() => {
-      isDisabled.value = false
-    }, 55000)
   } catch (error) {
     console.error('Error downloading file:', error)
     // В случае ошибки открываем файл в новой вкладке
@@ -120,20 +114,23 @@ const fileIcon = computed(() => {
 
 <template>
   <div class="file-download" :class="class">
-    <div class="file-info">
+    <div class="file-info" :class="{ 'has-hint': $slots.default }">
       <div class="file-icon">
         <Icon :icon="fileIcon" />
       </div>
       <div class="file-details">
         <div class="file-name muted">
-          <slot>{{ downloadFilename }}</slot>
+          {{ downloadFilename }}
+        </div>
+        <div v-if="$slots.default" class="file-hint">
+          <slot />
         </div>
       </div>
     </div>
 
     <Btn
       icon="mdi:download"
-      :disabled="disabled || isDisabled"
+      :disabled="isDisabled"
       :text="theme.t.downloadFile"
       class="download-btn"
       @click="downloadFile"
@@ -169,6 +166,10 @@ const fileIcon = computed(() => {
   min-width: 0;
 }
 
+.file-info.has-hint {
+  align-items: flex-start;
+}
+
 .file-icon {
   display: flex;
   align-items: center;
@@ -195,6 +196,17 @@ const fileIcon = computed(() => {
   font-weight: 500;
   word-break: break-all;
   margin-bottom: 0.25rem;
+}
+
+.file-hint {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+.dark .file-hint {
+  color: var(--gray-400);
 }
 
 .download-btn {

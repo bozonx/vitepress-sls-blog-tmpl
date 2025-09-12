@@ -10,10 +10,8 @@ const { theme } = useData()
 const props = defineProps({
   // URL файла для скачивания
   url: { type: String, required: true },
-  // Имя файла (отображается пользователю)
+  // Если не правильно опрелилось имя то укажите его здесь самостоятельно
   filename: { type: String, default: '' },
-  // Текст кнопки
-  buttonText: { type: String },
   // CSS классы
   class: { type: String, default: '' },
   // Отключить кнопку
@@ -21,26 +19,32 @@ const props = defineProps({
 })
 
 // Состояние отключения кнопки
-const isDisabled = ref(props.disabled || false)
+const isDisabled = ref(props.disabled)
 
 // Вычисляемое имя файла для скачивания (используется в download атрибуте)
 const downloadFilename = computed(() => {
-  return props.filename || props.url.split('/').pop() || 'file'
+  if (props.filename) {
+    return props.filename
+  }
+
+  // Извлекаем полное имя файла с расширением из URL
+  return props.url.split('/').pop() || 'file'
 })
 
 const extensionName = computed(() => {
-  return (downloadFilename.value.split('.').pop() || '').toLowerCase()
-})
+  const filename = downloadFilename.value
+  const extension = filename.split('.').pop()
 
-const buttonText = computed(() => {
-  return props.buttonText || theme.value.t.downloadFile
-})
-
-// Функция для скачивания файла
-const downloadFile = async () => {
-  if (isDisabled.value) {
-    return
+  // Если расширение есть и оно не равно самому имени файла (т.е. есть точка)
+  if (extension && extension !== filename) {
+    return extension.toLowerCase()
   }
+
+  return undefined
+})
+
+const downloadFile = async () => {
+  if (isDisabled.value) return
 
   try {
     // Создаем временную ссылку для скачивания
@@ -58,7 +62,7 @@ const downloadFile = async () => {
     isDisabled.value = true
     setTimeout(() => {
       isDisabled.value = false
-    }, 5000)
+    }, 55000)
   } catch (error) {
     console.error('Error downloading file:', error)
     // В случае ошибки открываем файл в новой вкладке
@@ -68,6 +72,11 @@ const downloadFile = async () => {
 
 // Получаем иконку для типа файла
 const getFileTypeIcon = (extension) => {
+  // Если расширение не определено, возвращаем иконку по умолчанию
+  if (!extension) {
+    return 'mdi:file'
+  }
+
   const iconMap = {
     pdf: 'mdi:file-pdf-box',
     doc: 'mdi:file-word-box',
@@ -111,23 +120,21 @@ const fileIcon = computed(() => {
 
 <template>
   <div class="file-download" :class="class">
-    <!-- Информация о файле -->
     <div class="file-info">
       <div class="file-icon">
         <Icon :icon="fileIcon" />
       </div>
       <div class="file-details">
-        <div class="file-name">
+        <div class="file-name muted">
           <slot>{{ downloadFilename }}</slot>
         </div>
       </div>
     </div>
 
-    <!-- Кнопка скачивания -->
     <Btn
       icon="mdi:download"
       :disabled="disabled || isDisabled"
-      :text="buttonText"
+      :text="theme.t.downloadFile"
       class="download-btn"
       @click="downloadFile"
     />
@@ -140,26 +147,18 @@ const fileIcon = computed(() => {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  padding-left: 2rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   background: var(--bg-color);
   transition: all 0.2s ease;
   gap: 1rem;
-}
-
-.file-download:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 3px solid var(--primary-color);
 }
 
 .dark .file-download {
   background: var(--bg-dark-color);
   border-color: var(--border-dark-color);
-}
-
-.dark .file-download:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
 .file-info {
@@ -194,33 +193,8 @@ const fileIcon = computed(() => {
 
 .file-name {
   font-weight: 500;
-  color: var(--text-color);
   word-break: break-all;
   margin-bottom: 0.25rem;
-}
-
-.dark .file-name {
-  color: var(--text-dark-color);
-}
-
-.file-meta {
-  display: flex;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--gray-600);
-}
-
-.dark .file-meta {
-  color: var(--gray-400);
-}
-
-.file-type {
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.file-size {
-  font-weight: 400;
 }
 
 .download-btn {

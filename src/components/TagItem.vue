@@ -38,6 +38,6 @@ const className =
 
 .tag-item:hover {
   filter: brightness(115%);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 </style>

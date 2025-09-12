@@ -103,7 +103,7 @@ onMounted(() => {
 
 .social-btn:hover {
   color: var(--vp-c-brand-1);
-  transform: translateY(-1px);
+  transform: translateY(-3px);
   filter: none; /* Убираем старый эффект brightness */
 }
 

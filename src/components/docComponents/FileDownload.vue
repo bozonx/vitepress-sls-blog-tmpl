@@ -12,8 +12,6 @@ const props = defineProps({
   url: { type: String, required: true },
   // Имя файла (отображается пользователю)
   filename: { type: String, default: '' },
-  // Тип файла (опционально)
-  type: { type: String, default: '' },
   // Текст кнопки
   buttonText: { type: String },
   // CSS классы
@@ -22,12 +20,16 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
 })
 
-// Состояние загрузки
-const isDownloading = ref(false)
+// Состояние отключения кнопки
+const isDisabled = ref(props.disabled || false)
 
 // Вычисляемое имя файла для скачивания (используется в download атрибуте)
 const downloadFilename = computed(() => {
   return props.filename || props.url.split('/').pop() || 'file'
+})
+
+const extensionName = computed(() => {
+  return (downloadFilename.value.split('.').pop() || '').toLowerCase()
 })
 
 const buttonText = computed(() => {
@@ -36,13 +38,11 @@ const buttonText = computed(() => {
 
 // Функция для скачивания файла
 const downloadFile = async () => {
-  if (props.disabled || isDownloading.value) {
+  if (isDisabled.value) {
     return
   }
 
   try {
-    isDownloading.value = true
-
     // Создаем временную ссылку для скачивания
     const link = document.createElement('a')
     link.href = props.url
@@ -53,19 +53,21 @@ const downloadFile = async () => {
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
+
+    // Отключаем кнопку на 5 секунд
+    isDisabled.value = true
+    setTimeout(() => {
+      isDisabled.value = false
+    }, 5000)
   } catch (error) {
     console.error('Error downloading file:', error)
     // В случае ошибки открываем файл в новой вкладке
     window.open(props.url, '_blank')
-  } finally {
-    isDownloading.value = false
   }
 }
 
 // Получаем иконку для типа файла
-const getFileTypeIcon = (filename) => {
-  const extension = filename.split('.').pop()?.toLowerCase()
-
+const getFileTypeIcon = (extension) => {
   const iconMap = {
     pdf: 'mdi:file-pdf-box',
     doc: 'mdi:file-word-box',
@@ -81,6 +83,8 @@ const getFileTypeIcon = (filename) => {
     jpg: 'mdi:file-image',
     jpeg: 'mdi:file-image',
     png: 'mdi:file-image',
+    webp: 'mdi:file-image',
+    avif: 'mdi:file-image',
     gif: 'mdi:file-image',
     svg: 'mdi:file-image',
     mp4: 'mdi:file-video',
@@ -101,7 +105,7 @@ const getFileTypeIcon = (filename) => {
 
 // Иконка для отображения
 const fileIcon = computed(() => {
-  return getFileTypeIcon(downloadFilename.value)
+  return getFileTypeIcon(extensionName.value)
 })
 </script>
 
@@ -116,28 +120,17 @@ const fileIcon = computed(() => {
         <div class="file-name">
           <slot>{{ downloadFilename }}</slot>
         </div>
-        <div v-if="type" class="file-meta">
-          <span class="file-type">{{ type }}</span>
-        </div>
       </div>
     </div>
 
     <!-- Кнопка скачивания -->
     <Btn
-      :icon="isDownloading ? '' : 'mdi:download'"
-      :disabled="disabled || isDownloading"
+      icon="mdi:download"
+      :disabled="disabled || isDisabled"
       :text="buttonText"
-      :class="['download-btn', isDownloading && 'downloading']"
+      class="download-btn"
       @click="downloadFile"
-    >
-      <template v-if="isDownloading">
-        <Icon icon="mdi:loading" class="spinner-icon" />
-        {{ buttonText }}
-      </template>
-      <template v-else>
-        {{ buttonText }}
-      </template>
-    </Btn>
+    />
   </div>
 </template>
 
@@ -232,29 +225,6 @@ const fileIcon = computed(() => {
 
 .download-btn {
   flex-shrink: 0;
-}
-
-.download-btn.downloading {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.download-btn.downloading :deep(.iconify) {
-  animation: spin 1s linear infinite;
-}
-
-.spinner-icon {
-  animation: spin 1s linear infinite;
-  margin-right: 0.5rem;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* Адаптивность для мобильных устройств */

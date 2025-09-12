@@ -1,6 +1,7 @@
 <script setup>
 import { useData } from 'vitepress'
 
+import Author from '../Author.vue'
 import UtilPageHeader from '../UtilPageHeader.vue'
 import PreviewList from './PreviewList.vue'
 
@@ -21,7 +22,7 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
 </script>
 
 <template>
-  <div class="mb-12 vp-doc" v-html="author?.descr"></div>
+  <Author :author="author" />
 
   <UtilPageHeader>{{ theme.t.allPostsOfAuthor }}</UtilPageHeader>
 

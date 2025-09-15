@@ -27,6 +27,10 @@ export function loadBlogLocale(lang, configFilePath, PROPS) {
     themeConfig: {
       ...baseLocale.themeConfig,
       ...themeConfig,
+      editLink: {
+        pattern: `${PROPS.repo}/edit/main/src/:path`,
+        ...baseLocale.themeConfig.editLink,
+      },
       authors,
       postDonateCall,
       t: { ...baseLocale.t, ...t },

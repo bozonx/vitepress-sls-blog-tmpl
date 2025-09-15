@@ -7,6 +7,7 @@ import PostComments from './PostComments.vue'
 import PostDonateLink from './PostDonateLink.vue'
 import PostSocialShare from './PostSocialShare.vue'
 import PostTags from './PostTags.vue'
+import EditLink from '../EditLink.vue'
 
 const { localeIndex } = useData()
 const posts = inject('posts')
@@ -14,6 +15,7 @@ const posts = inject('posts')
 
 <template>
   <PostAuthor class="mt-10" />
+  <EditLink class="mt-10" />
   <PostDonateLink class="mt-10" />
   <PostComments class="mt-20" />
   <PostSocialShare class="mt-10" />

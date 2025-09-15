@@ -9,6 +9,7 @@ export default {
     langMenuLabel: 'Change language',
     // you can overwrite it in site config
     socialMediaShares: 'telegram,whatsapp,vk,x,facebook',
+    editLink: { text: 'Edit this page on GitHub' },
   },
   t: {
     similarPosts: 'Similar Posts',

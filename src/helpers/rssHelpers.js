@@ -139,7 +139,7 @@ export function getFormatInfo(format) {
  * @returns {Array} Массив форматов RSS
  */
 export function getRssFormats(config) {
-  return config.userConfig.themeConfig?.rssFormats || ['rss', 'atom', 'json']
+  return config.userConfig.rssFormats || ['rss', 'atom', 'json']
 }
 
 export function makeAuthorForRss(config, frontmatter, siteUrl, localeIndex) {

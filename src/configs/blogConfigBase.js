@@ -39,20 +39,22 @@ export const common = {
   lang: 'en-US',
   locales: { root: { lang: 'en-US' } },
 
-  themeConfig: {
-    externalLinkIcon: true,
-    i18nRouting: true,
-    maxPostsInRssFeed: 50,
-    rssFormats: ['rss', 'atom', 'json'],
+  // Build params
+  maxPostsInRssFeed: 50,
+  rssFormats: ['rss', 'atom', 'json'],
+  // max description length for description meta tag,
+  //  open graph, json-ld and for rss feed
+  // for RSS max is 500 characters
+  maxDescriptionLength: 300,
 
-    // max description length for description meta tag,
-    //  open graph, json-ld and for rss feed
-    // for RSS max is 500 characters
-    maxDescriptionLength: 300,
+  themeConfig: {
+    i18nRouting: true,
+
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
     paginationMaxItems: 7,
     showAuthorInPostList: true,
+    externalLinkIcon: true,
     tagsBaseUrl: 'tag',
     allTagsUrl: 'tags',
     archiveBaseUrl: 'archive',

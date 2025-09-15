@@ -30,7 +30,7 @@ export function resolveDescription(pageData, { siteConfig }) {
 
     pageData.description = extractDescriptionFromMd(
       rawContent,
-      siteConfig.userConfig.themeConfig.maxDescriptionLength
+      siteConfig.userConfig.maxDescriptionLength
     )
   } catch (error) {
     console.warn(

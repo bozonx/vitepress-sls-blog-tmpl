@@ -68,7 +68,7 @@ export async function generateRssFeed(config) {
             (a, b) =>
               +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date)
           )
-          .slice(0, config.userConfig.themeConfig.maxPostsInRssFeed)
+          .slice(0, config.userConfig.maxPostsInRssFeed)
 
         for (const { url, frontmatter, src } of sortedPosts) {
           try {
@@ -83,7 +83,7 @@ export async function generateRssFeed(config) {
               ? frontmatter.description
               : extractDescriptionFromMd(
                   src,
-                  config.userConfig.themeConfig.maxDescriptionLength
+                  config.userConfig.maxDescriptionLength
                 )
             // Создаем уникальный GUID для поста
             const guid = createPostGuid(hostname, url, frontmatter.date)

@@ -80,7 +80,8 @@ function createPostJsonLd(
       name: authorName,
       url: `${langIndexUrl}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${pageData.frontmatter.authorId}/1`,
     },
-    updatedDate: pageData.frontmatter.updated,
+    updatedDate:
+      pageData.lastUpdated && new Date(pageData.lastUpdated).toISOString(),
     keywords:
       tags && tags.length > 0
         ? tags.map((tag) => tag.name).join(', ')

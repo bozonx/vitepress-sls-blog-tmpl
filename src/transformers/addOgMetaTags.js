@@ -47,14 +47,14 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
     ])
 
   // Добавляем время модификации если есть
-  // pageData.frontmatter.updated &&
-  //   head.push([
-  //     'meta',
-  //     {
-  //       property: 'article:modified_time',
-  //       content: pageData.frontmatter.updated,
-  //     },
-  //   ])
+  pageData.lastUpdated &&
+    head.push([
+      'meta',
+      {
+        property: 'article:modified_time',
+        content: new Date(pageData.lastUpdated).toISOString(),
+      },
+    ])
 
   author && head.push(['meta', { property: 'article:author', content: author }])
   pageData.frontmatter.tags &&

@@ -109,10 +109,6 @@ export async function generateRssFeed(config) {
               category: categories.length > 0 ? categories : undefined,
               // Добавляем дополнительные поля
               published: frontmatter.date && new Date(frontmatter.date),
-              // TODO: откуда брать updated?
-              // updated:
-              //   (frontmatter.updated && new Date(frontmatter.updated)) ||
-              //   (frontmatter.date && new Date(frontmatter.date)),
             })
           } catch (postError) {
             console.error(`Error processing post ${url}:`, postError)

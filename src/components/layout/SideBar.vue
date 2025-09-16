@@ -97,7 +97,9 @@ watchEffect(async () => {
             />
           </SideBarGroup>
 
-          <SideBarTags :allPosts="posts[localeIndex]" />
+          <SideBarGroup>
+            <SideBarTags :allPosts="posts[localeIndex]" />
+          </SideBarGroup>
 
           <slot name="sidebar-middle" />
 

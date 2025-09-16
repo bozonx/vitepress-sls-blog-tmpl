@@ -72,7 +72,7 @@ export const common = {
     docIcon: 'iconoir:book-solid',
     socialLinksIcon: 'heroicons:megaphone-16-solid',
     recentIcon: 'fa6-solid:newspaper',
-    tagsIcon: 'fa6-solid:tag',
+    // tagsIcon: 'fa6-solid:tag',
     byDateIcon: 'fa6-solid:calendar-days',
     authorsIcon: 'mdi:users',
     youtubeIcon: 'fa6-brands:youtube',

@@ -1,7 +1,7 @@
 <template>
   <div class="side-bar-tags">
     <TagsList :tags="tags" sizeSm="true" class="mb-2" />
-    <SimpleLink :href="allTagsUrl" class="text-sm">{{
+    <SimpleLink v-if="showAllTags" :href="allTagsUrl" class="text-sm">{{
       theme.t.allTagsCall
     }}</SimpleLink>
   </div>
@@ -15,10 +15,12 @@ import { useData } from 'vitepress'
 
 const props = defineProps(['allPosts'])
 const { theme, localeIndex } = useData()
-const tags = makeTagsList(props.allPosts)
+const allTags = makeTagsList(props.allPosts)
+const tags = allTags
   .map(({ count, ...tag }) => tag)
   .slice(0, theme.value.sidebarTagsCount)
 const allTagsUrl = `/${localeIndex.value}/${theme.value.allTagsUrl}`
+const showAllTags = allTags.length > theme.value.sidebarTagsCount
 </script>
 
 <style scoped>

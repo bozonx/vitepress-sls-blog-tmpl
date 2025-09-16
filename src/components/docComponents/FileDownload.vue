@@ -5,7 +5,6 @@ import Btn from '../Btn.vue'
 import { useData } from 'vitepress'
 
 const { theme } = useData()
-const hostname = inject('hostname')
 
 // Пропсы компонента
 const props = defineProps({

@@ -5,7 +5,6 @@ import Btn from '../Btn.vue'
 import { useData } from 'vitepress'
 
 const { theme } = useData()
-const hostname = inject('hostname')
 
 // Пропсы компонента
 const props = defineProps({
@@ -35,9 +34,9 @@ const isPlayerVisible = ref(false)
 // Обработка URL - добавление hostname для локальных путей
 const processedUrl = computed(() => {
   // Если URL начинается с /, добавляем hostname
-  if (props.url.startsWith('/') && hostname) {
-    return `${hostname}${props.url}`
-  }
+  // if (props.url.startsWith('/') && hostname) {
+  //   return `${hostname}${props.url}`
+  // }
   return props.url
 })
 
@@ -123,7 +122,6 @@ const setVolume = (newVolume) => {
     const volumeValue = parseFloat(newVolume)
     audioRef.value.volume = volumeValue
     volume.value = volumeValue
-    console.log('Volume set to:', volumeValue)
   }
 }
 
@@ -147,19 +145,12 @@ const handleLoadedMetadata = () => {
     isLoading.value = false
     // Устанавливаем громкость после загрузки метаданных
     audioRef.value.volume = volume.value
-    console.log(
-      'Audio metadata loaded, duration:',
-      duration.value,
-      'volume:',
-      volume.value
-    )
   }
 }
 
 const handleTimeUpdate = () => {
   if (audioRef.value) {
     currentTime.value = audioRef.value.currentTime
-    console.log('Time update:', currentTime.value, '/', duration.value)
   }
 }
 
@@ -199,19 +190,9 @@ const formatTime = (time) => {
 // Форматирование процентов для прогресс-бара
 const progressPercent = computed(() => {
   if (!duration.value || !isFinite(duration.value)) {
-    console.log('Progress: no duration or invalid duration')
     return 0
   }
-  const percent = (currentTime.value / duration.value) * 100
-  console.log(
-    'Progress percent:',
-    percent,
-    'currentTime:',
-    currentTime.value,
-    'duration:',
-    duration.value
-  )
-  return percent
+  return (currentTime.value / duration.value) * 100
 })
 
 const downloadFile = async () => {
@@ -416,11 +397,6 @@ const fileIcon = computed(() => {
           <span class="time-separator">/</span>
           <span class="total-time">{{ formatTime(duration) }}</span>
         </div>
-
-        <!-- Отладочная информация -->
-        <div class="debug-info" style="font-size: 0.75rem; color: #666">
-          Progress: {{ progressPercent.toFixed(1) }}% | Volume: {{ volume }}
-        </div>
       </div>
 
       <!-- Прогресс-бар -->
@@ -429,17 +405,9 @@ const fileIcon = computed(() => {
           <div class="progress-track">
             <div
               class="progress-fill"
-              :style="{ width: `${progressPercent}%` }"
+              :style="{ width: `${Math.max(progressPercent, 0.1)}%` }"
             ></div>
           </div>
-        </div>
-        <!-- Отладочная информация для прогресса -->
-        <div style="font-size: 0.75rem; color: #999; margin-top: 0.25rem">
-          Progress: {{ progressPercent.toFixed(1) }}% ({{
-            currentTime.toFixed(1)
-          }}s / {{ duration.toFixed(1) }}s)
-          <br>
-          Progress fill width: {{ progressPercent }}%
         </div>
       </div>
 
@@ -456,10 +424,6 @@ const fileIcon = computed(() => {
           class="volume-slider"
           :disabled="isDisabled"
         />
-        <!-- Отладочная информация для громкости -->
-        <span style="font-size: 0.75rem; color: #999; margin-left: 0.5rem">
-          {{ (volume * 100).toFixed(0) }}%
-        </span>
       </div>
     </div>
 
@@ -477,17 +441,19 @@ const fileIcon = computed(() => {
   flex-direction: column;
   padding: 1rem;
   padding-left: 2rem;
-  border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
-  background: var(--bg-color);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 0.75rem;
+  background: var(--bg-color, #ffffff);
   transition: all 0.2s ease;
   gap: 1rem;
-  border-left: 3px solid var(--primary-color);
+  border-left: 4px solid var(--primary-color, #3b82f6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .dark .audio-file {
-  background: var(--bg-dark-color);
-  border-color: var(--border-dark-color);
+  background: var(--bg-dark-color, #1f2937);
+  border-color: var(--border-dark-color, #374151);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Заголовок файла - первая строка */
@@ -506,26 +472,29 @@ const fileIcon = computed(() => {
   height: 2.5rem;
   border: none;
   border-radius: 50%;
-  background: var(--primary-color);
+  background: var(--primary-color, #3b82f6);
   color: white;
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
 }
 
 .play-btn-header:hover:not(:disabled) {
   background: var(--primary-color-dark, #2563eb);
   transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
 }
 
 .play-btn-header:disabled {
-  background: var(--gray-400);
+  background: var(--gray-400, #9ca3af);
   cursor: not-allowed;
   transform: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .dark .play-btn-header:disabled {
-  background: var(--gray-600);
+  background: var(--gray-600, #4b5563);
 }
 
 .file-info {
@@ -546,15 +515,27 @@ const fileIcon = computed(() => {
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  background: var(--gray-100);
-  border-radius: 0.375rem;
-  color: var(--gray-600);
+  background: var(--gray-100, #f3f4f6);
+  border-radius: 0.5rem;
+  color: var(--gray-600, #4b5563);
   flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.file-icon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dark .file-icon {
-  background: var(--gray-800);
-  color: var(--gray-400);
+  background: var(--gray-800, #1f2937);
+  color: var(--gray-400, #9ca3af);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.dark .file-icon:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .file-details {
@@ -588,15 +569,29 @@ const fileIcon = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 0.75rem;
-  background: var(--gray-50);
-  border-radius: 0.375rem;
-  border: 1px solid var(--border-color);
+  padding: 1rem;
+  background: var(--gray-50, #f9fafb);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color, #e5e7eb);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.3s ease-out;
 }
 
 .dark .audio-player {
-  background: var(--gray-900);
-  border-color: var(--border-dark-color);
+  background: var(--gray-900, #111827);
+  border-color: var(--border-dark-color, #374151);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .player-controls {
@@ -615,11 +610,12 @@ const fileIcon = computed(() => {
   height: 2.5rem;
   border: none;
   border-radius: 50%;
-  background: var(--primary-color);
+  background: var(--primary-color, #3b82f6);
   color: white;
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
 }
 
 .play-btn:hover:not(:disabled),
@@ -627,34 +623,38 @@ const fileIcon = computed(() => {
 .hide-btn:hover:not(:disabled) {
   background: var(--primary-color-dark, #2563eb);
   transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
 }
 
 .play-btn:disabled,
 .stop-btn:disabled {
-  background: var(--gray-400);
+  background: var(--gray-400, #9ca3af);
   cursor: not-allowed;
   transform: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .dark .play-btn:disabled,
 .dark .stop-btn:disabled {
-  background: var(--gray-600);
+  background: var(--gray-600, #4b5563);
 }
 
 .hide-btn {
-  background: var(--gray-500);
+  background: var(--gray-500, #6b7280);
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
 }
 
 .hide-btn:hover {
-  background: var(--gray-600);
+  background: var(--gray-600, #4b5563);
+  box-shadow: 0 4px 8px rgba(107, 114, 128, 0.4);
 }
 
 .dark .hide-btn {
-  background: var(--gray-600);
+  background: var(--gray-600, #4b5563);
 }
 
 .dark .hide-btn:hover {
-  background: var(--gray-500);
+  background: var(--gray-500, #6b7280);
 }
 
 .time-display {
@@ -662,21 +662,29 @@ const fileIcon = computed(() => {
   align-items: center;
   gap: 0.25rem;
   font-size: 0.875rem;
-  color: var(--gray-600);
-  font-family: monospace;
+  color: var(--gray-600, #4b5563);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
   min-width: 0;
+  font-weight: 500;
+  background: var(--gray-100, #f3f4f6);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--gray-200, #e5e7eb);
 }
 
 .dark .time-display {
-  color: var(--gray-400);
+  color: var(--gray-400, #9ca3af);
+  background: var(--gray-800, #1f2937);
+  border-color: var(--gray-700, #374151);
 }
 
 .time-separator {
-  color: var(--gray-400);
+  color: var(--gray-400, #9ca3af);
+  font-weight: 400;
 }
 
 .dark .time-separator {
-  color: var(--gray-500);
+  color: var(--gray-500, #6b7280);
 }
 
 /* Прогресс-бар */
@@ -687,45 +695,67 @@ const fileIcon = computed(() => {
 
 .progress-bar {
   cursor: pointer;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
 }
 
 .progress-track {
   width: 100%;
-  height: 0.375rem;
+  height: 0.5rem;
   background: var(--gray-200, #e5e7eb);
-  border-radius: 0.1875rem;
+  border-radius: 0.25rem;
   overflow: hidden;
   position: relative;
-  /* Временная отладка */
-  border: 1px solid blue;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .dark .progress-track {
   background: var(--gray-700, #374151);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .progress-fill {
   height: 100%;
-  background: var(--primary-color, #3b82f6);
-  border-radius: 0.1875rem;
-  transition: width 0.1s ease;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color, #3b82f6),
+    var(--primary-color-light, #60a5fa)
+  );
+  border-radius: 0.25rem;
+  transition: width 0.2s ease;
   min-width: 0;
-  /* Временная отладка */
-  border: 1px solid red;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.3);
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  border-radius: 0.25rem;
 }
 
 /* Контрол громкости */
 .volume-control {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   min-width: 0;
+  padding: 0.5rem 0;
 }
 
 .volume-icon {
   color: var(--gray-600);
   flex-shrink: 0;
+  font-size: 1.25rem;
 }
 
 .dark .volume-icon {
@@ -735,43 +765,98 @@ const fileIcon = computed(() => {
 .volume-slider {
   flex: 1;
   min-width: 0;
-  height: 0.25rem;
+  height: 0.375rem;
   background: var(--gray-200, #e5e7eb);
-  border-radius: 0.125rem;
+  border-radius: 0.1875rem;
   outline: none;
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
-  /* Временная отладка */
-  border: 1px solid green;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
 .dark .volume-slider {
   background: var(--gray-700, #374151);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.volume-slider:hover {
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.15),
+    0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dark .volume-slider:hover {
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .volume-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 1rem;
-  height: 1rem;
-  background: var(--primary-color, #3b82f6);
+  width: 1.25rem;
+  height: 1.25rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color, #3b82f6),
+    var(--primary-color-light, #60a5fa)
+  );
   border-radius: 50%;
   cursor: pointer;
+  box-shadow:
+    0 2px 4px rgba(59, 130, 246, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  border: 2px solid white;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 4px 8px rgba(59, 130, 246, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark .volume-slider::-webkit-slider-thumb {
+  border: 2px solid var(--gray-800, #1f2937);
 }
 
 .volume-slider::-moz-range-thumb {
-  width: 1rem;
-  height: 1rem;
-  background: var(--primary-color, #3b82f6);
+  width: 1.25rem;
+  height: 1.25rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color, #3b82f6),
+    var(--primary-color-light, #60a5fa)
+  );
   border-radius: 50%;
   cursor: pointer;
-  border: none;
+  border: 2px solid white;
+  box-shadow:
+    0 2px 4px rgba(59, 130, 246, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.dark .volume-slider::-moz-range-thumb {
+  border: 2px solid var(--gray-800, #1f2937);
 }
 
 .volume-slider:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.volume-slider:disabled::-webkit-slider-thumb {
+  transform: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.volume-slider:disabled::-moz-range-thumb {
+  transform: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Сообщение об ошибке */

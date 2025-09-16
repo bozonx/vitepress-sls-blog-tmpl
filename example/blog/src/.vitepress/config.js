@@ -4,13 +4,14 @@ import { loadBlogLocale } from 'vitepress-sls-blog-tmpl/blogConfigHelper.js'
 
 import { PROPS } from './props.js'
 
-const ru = loadBlogLocale('ru', __filename, PROPS)
-const en = loadBlogLocale('en', __filename, PROPS)
-const configBase = blogConfigBase(PROPS, en)
-
 export default async () => {
+  const ru = await loadBlogLocale('ru', __filename, PROPS)
+  const en = await loadBlogLocale('en', __filename, PROPS)
+  const configBase = blogConfigBase(PROPS, en)
+
   return defineConfig({
     ...configBase,
+
     locales: {
       ...configBase.locales,
       en: { lang: 'en-US', ...en },

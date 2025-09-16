@@ -23,10 +23,10 @@ export function makePreviewItem(filePath) {
   if (!preview) preview = extractDescriptionFromMd(content, PREVIEW_LENGTH)
 
   // Получаем размеры изображения если оно есть
-  let thumbnailDimensions = null
+  let coverDimensions = null
   if (frontmatter.cover) {
     const baseDir = path.resolve(filePath, '../../../')
-    thumbnailDimensions = getImageDimensions(frontmatter.cover, baseDir)
+    coverDimensions = getImageDimensions(frontmatter.cover, baseDir)
   }
 
   return {
@@ -40,8 +40,9 @@ export function makePreviewItem(filePath) {
     })),
     preview,
     thumbnail: frontmatter.cover,
-    thumbnailHeight: thumbnailDimensions?.height || frontmatter.thumbnailHeight,
-    thumbnailWidth: thumbnailDimensions?.width || frontmatter.thumbnailWidth,
+    cover: frontmatter.cover,
+    coverHeight: coverDimensions?.height,
+    coverWidth: coverDimensions?.width,
   }
 }
 

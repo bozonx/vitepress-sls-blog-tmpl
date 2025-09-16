@@ -1,5 +1,8 @@
 export const DEFAULT_ENCODE = 'utf-8'
+// tablet breakpoint
 export const MOBILE_BREAKPOINT = 1024
+// phone breakpoint
+export const PHONE_BREAKPOINT = 766
 export const SIDEBAR_WIDTH = 320
 export const POSTS_DIR = 'post'
 export const ROOT_LANG = 'root'

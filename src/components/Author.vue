@@ -7,7 +7,7 @@
       <img
         :src="author?.image"
         :alt="author?.name"
-        sizes="(min-width: 768px) 280px, 100vw"
+        :sizes="`(min-width: ${PHONE_BREAKPOINT}px) 280px, 100vw`"
         class="w-full h-auto rounded-lg"
       />
     </div>
@@ -22,6 +22,7 @@
 
 <script setup>
 import SocialMediaLinks from './SocialMediaLinks.vue'
+import { PHONE_BREAKPOINT } from '../constants.js'
 
 const props = defineProps(['author'])
 </script>

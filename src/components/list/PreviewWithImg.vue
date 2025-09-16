@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue'
 import TagsList from '../TagsList.vue'
+import { PHONE_BREAKPOINT } from '../../constants.js'
 
 const props = defineProps([
   'date',
@@ -9,8 +9,8 @@ const props = defineProps([
   'preview',
   'authorName',
   'thumbnail',
-  'thumbnailHeight',
-  'thumbnailWidth',
+  'coverHeight',
+  'coverWidth',
 ])
 </script>
 
@@ -19,9 +19,9 @@ const props = defineProps([
     <div v-if="props.thumbnail" class="md:mr-4 preview-img-col max-md:w-full!">
       <img
         :src="props.thumbnail"
-        :height="thumbnailHeight"
-        :width="thumbnailWidth"
-        sizes="(max-width: 766px) 100vw, 280px"
+        :height="coverHeight"
+        :width="coverWidth"
+        :sizes="`(max-width: ${PHONE_BREAKPOINT}px) 100vw, 280px`"
         loading="lazy"
         aria-hidden="true"
         class="w-full"

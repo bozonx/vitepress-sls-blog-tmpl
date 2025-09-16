@@ -17,10 +17,6 @@ const props = defineProps({
   class: { type: String, default: '' },
   // Отключить кнопки
   disabled: { type: Boolean, default: false },
-  // Автоматически воспроизводить при загрузке
-  autoplay: { type: Boolean, default: false },
-  // Показывать контролы плеера
-  showControls: { type: Boolean, default: true },
 })
 
 // Состояние отключения кнопок
@@ -34,6 +30,7 @@ const duration = ref(0)
 const volume = ref(1)
 const isLoading = ref(false)
 const hasError = ref(false)
+const isPlayerVisible = ref(false)
 
 // Обработка URL - добавление hostname для локальных путей
 const processedUrl = computed(() => {
@@ -73,6 +70,19 @@ const togglePlayPause = async () => {
   try {
     if (!audioRef.value) return
 
+    // Если плеер не виден, показываем его и начинаем воспроизведение
+    if (!isPlayerVisible.value) {
+      isPlayerVisible.value = true
+      // Небольшая задержка для анимации появления плеера
+      setTimeout(async () => {
+        if (audioRef.value) {
+          await audioRef.value.play()
+        }
+      }, 100)
+      return
+    }
+
+    // Если плеер виден, переключаем воспроизведение/паузу
     if (isPlaying.value) {
       audioRef.value.pause()
     } else {
@@ -92,6 +102,16 @@ const stopAudio = () => {
   }
 }
 
+// Метод для скрытия плеера
+const hidePlayer = () => {
+  isPlayerVisible.value = false
+  if (audioRef.value) {
+    audioRef.value.pause()
+    audioRef.value.currentTime = 0
+    isPlaying.value = false
+  }
+}
+
 const seekTo = (time) => {
   if (audioRef.value && !isDisabled.value) {
     audioRef.value.currentTime = time
@@ -100,8 +120,10 @@ const seekTo = (time) => {
 
 const setVolume = (newVolume) => {
   if (audioRef.value) {
-    audioRef.value.volume = newVolume
-    volume.value = newVolume
+    const volumeValue = parseFloat(newVolume)
+    audioRef.value.volume = volumeValue
+    volume.value = volumeValue
+    console.log('Volume set to:', volumeValue)
   }
 }
 
@@ -123,12 +145,21 @@ const handleLoadedMetadata = () => {
   if (audioRef.value) {
     duration.value = audioRef.value.duration
     isLoading.value = false
+    // Устанавливаем громкость после загрузки метаданных
+    audioRef.value.volume = volume.value
+    console.log(
+      'Audio metadata loaded, duration:',
+      duration.value,
+      'volume:',
+      volume.value
+    )
   }
 }
 
 const handleTimeUpdate = () => {
   if (audioRef.value) {
     currentTime.value = audioRef.value.currentTime
+    console.log('Time update:', currentTime.value, '/', duration.value)
   }
 }
 
@@ -167,8 +198,20 @@ const formatTime = (time) => {
 
 // Форматирование процентов для прогресс-бара
 const progressPercent = computed(() => {
-  if (!duration.value) return 0
-  return (currentTime.value / duration.value) * 100
+  if (!duration.value || !isFinite(duration.value)) {
+    console.log('Progress: no duration or invalid duration')
+    return 0
+  }
+  const percent = (currentTime.value / duration.value) * 100
+  console.log(
+    'Progress percent:',
+    percent,
+    'currentTime:',
+    currentTime.value,
+    'duration:',
+    duration.value
+  )
+  return percent
 })
 
 const downloadFile = async () => {
@@ -206,11 +249,6 @@ onMounted(() => {
 
     // Устанавливаем громкость
     audioRef.value.volume = volume.value
-
-    // Автовоспроизведение если включено
-    if (props.autoplay) {
-      togglePlayPause()
-    }
   }
 })
 
@@ -296,23 +334,50 @@ const fileIcon = computed(() => {
       @error="handleError"
     />
 
-    <!-- Информация о файле -->
-    <div class="file-info" :class="{ 'has-hint': $slots.default }">
-      <div class="file-icon">
-        <Icon :icon="fileIcon" />
-      </div>
-      <div class="file-details">
-        <div class="file-name muted">
-          {{ downloadFilename }}
+    <!-- Первая строка: кнопка play, название файла, кнопка скачать -->
+    <div class="file-header">
+      <!-- Кнопка воспроизведения -->
+      <button
+        class="play-btn-header"
+        :disabled="isDisabled || hasError"
+        @click="togglePlayPause"
+        :title="isPlaying ? 'Pause' : 'Play'"
+      >
+        <Icon
+          :icon="
+            isLoading ? 'mdi:loading' : isPlaying ? 'mdi:pause' : 'mdi:play'
+          "
+          :class="{ spinning: isLoading }"
+        />
+      </button>
+
+      <!-- Информация о файле -->
+      <div class="file-info" :class="{ 'has-hint': $slots.default }">
+        <div class="file-icon">
+          <Icon :icon="fileIcon" />
         </div>
-        <div v-if="$slots.default" class="file-hint">
-          <slot />
+        <div class="file-details">
+          <div class="file-name muted">
+            {{ downloadFilename }}
+          </div>
+          <div v-if="$slots.default" class="file-hint">
+            <slot />
+          </div>
         </div>
       </div>
+
+      <!-- Кнопка скачивания -->
+      <Btn
+        icon="mdi:download"
+        :disabled="isDisabled"
+        :text="theme.t.downloadFile"
+        class="download-btn-header"
+        @click="downloadFile"
+      />
     </div>
 
-    <!-- Аудио плеер -->
-    <div v-if="showControls" class="audio-player">
+    <!-- Аудио плеер (показывается при нажатии на play) -->
+    <div v-if="isPlayerVisible" class="audio-player">
       <!-- Основные контролы -->
       <div class="player-controls">
         <!-- Кнопка воспроизведения/паузы -->
@@ -340,11 +405,21 @@ const fileIcon = computed(() => {
           <Icon icon="mdi:stop" />
         </button>
 
+        <!-- Кнопка скрытия плеера -->
+        <button class="hide-btn" @click="hidePlayer" title="Hide player">
+          <Icon icon="mdi:chevron-up" />
+        </button>
+
         <!-- Время -->
         <div class="time-display">
           <span class="current-time">{{ formatTime(currentTime) }}</span>
           <span class="time-separator">/</span>
           <span class="total-time">{{ formatTime(duration) }}</span>
+        </div>
+
+        <!-- Отладочная информация -->
+        <div class="debug-info" style="font-size: 0.75rem; color: #666">
+          Progress: {{ progressPercent.toFixed(1) }}% | Volume: {{ volume }}
         </div>
       </div>
 
@@ -358,6 +433,14 @@ const fileIcon = computed(() => {
             ></div>
           </div>
         </div>
+        <!-- Отладочная информация для прогресса -->
+        <div style="font-size: 0.75rem; color: #999; margin-top: 0.25rem">
+          Progress: {{ progressPercent.toFixed(1) }}% ({{
+            currentTime.toFixed(1)
+          }}s / {{ duration.toFixed(1) }}s)
+          <br>
+          Progress fill width: {{ progressPercent }}%
+        </div>
       </div>
 
       <!-- Контрол громкости -->
@@ -368,11 +451,15 @@ const fileIcon = computed(() => {
           min="0"
           max="1"
           step="0.1"
-          :value="volume"
+          v-model="volume"
           @input="setVolume($event.target.value)"
           class="volume-slider"
           :disabled="isDisabled"
         />
+        <!-- Отладочная информация для громкости -->
+        <span style="font-size: 0.75rem; color: #999; margin-left: 0.5rem">
+          {{ (volume * 100).toFixed(0) }}%
+        </span>
       </div>
     </div>
 
@@ -381,15 +468,6 @@ const fileIcon = computed(() => {
       <Icon icon="mdi:alert-circle" />
       <span>Error loading audio file</span>
     </div>
-
-    <!-- Кнопка скачивания -->
-    <Btn
-      icon="mdi:download"
-      :disabled="isDisabled"
-      :text="theme.t.downloadFile"
-      class="download-btn"
-      @click="downloadFile"
-    />
   </div>
 </template>
 
@@ -412,11 +490,50 @@ const fileIcon = computed(() => {
   border-color: var(--border-dark-color);
 }
 
+/* Заголовок файла - первая строка */
+.file-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.play-btn-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.play-btn-header:hover:not(:disabled) {
+  background: var(--primary-color-dark, #2563eb);
+  transform: scale(1.05);
+}
+
+.play-btn-header:disabled {
+  background: var(--gray-400);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dark .play-btn-header:disabled {
+  background: var(--gray-600);
+}
+
 .file-info {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   min-width: 0;
+  flex: 1;
 }
 
 .file-info.has-hint {
@@ -462,6 +579,10 @@ const fileIcon = computed(() => {
   color: var(--gray-400);
 }
 
+.download-btn-header {
+  flex-shrink: 0;
+}
+
 /* Аудио плеер */
 .audio-player {
   display: flex;
@@ -485,7 +606,8 @@ const fileIcon = computed(() => {
 }
 
 .play-btn,
-.stop-btn {
+.stop-btn,
+.hide-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -501,7 +623,8 @@ const fileIcon = computed(() => {
 }
 
 .play-btn:hover:not(:disabled),
-.stop-btn:hover:not(:disabled) {
+.stop-btn:hover:not(:disabled),
+.hide-btn:hover:not(:disabled) {
   background: var(--primary-color-dark, #2563eb);
   transform: scale(1.05);
 }
@@ -516,6 +639,22 @@ const fileIcon = computed(() => {
 .dark .play-btn:disabled,
 .dark .stop-btn:disabled {
   background: var(--gray-600);
+}
+
+.hide-btn {
+  background: var(--gray-500);
+}
+
+.hide-btn:hover {
+  background: var(--gray-600);
+}
+
+.dark .hide-btn {
+  background: var(--gray-600);
+}
+
+.dark .hide-btn:hover {
+  background: var(--gray-500);
 }
 
 .time-display {
@@ -554,21 +693,26 @@ const fileIcon = computed(() => {
 .progress-track {
   width: 100%;
   height: 0.375rem;
-  background: var(--gray-200);
+  background: var(--gray-200, #e5e7eb);
   border-radius: 0.1875rem;
   overflow: hidden;
   position: relative;
+  /* Временная отладка */
+  border: 1px solid blue;
 }
 
 .dark .progress-track {
-  background: var(--gray-700);
+  background: var(--gray-700, #374151);
 }
 
 .progress-fill {
   height: 100%;
-  background: var(--primary-color);
+  background: var(--primary-color, #3b82f6);
   border-radius: 0.1875rem;
   transition: width 0.1s ease;
+  min-width: 0;
+  /* Временная отладка */
+  border: 1px solid red;
 }
 
 /* Контрол громкости */
@@ -592,16 +736,18 @@ const fileIcon = computed(() => {
   flex: 1;
   min-width: 0;
   height: 0.25rem;
-  background: var(--gray-200);
+  background: var(--gray-200, #e5e7eb);
   border-radius: 0.125rem;
   outline: none;
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
+  /* Временная отладка */
+  border: 1px solid green;
 }
 
 .dark .volume-slider {
-  background: var(--gray-700);
+  background: var(--gray-700, #374151);
 }
 
 .volume-slider::-webkit-slider-thumb {
@@ -609,7 +755,7 @@ const fileIcon = computed(() => {
   appearance: none;
   width: 1rem;
   height: 1rem;
-  background: var(--primary-color);
+  background: var(--primary-color, #3b82f6);
   border-radius: 50%;
   cursor: pointer;
 }
@@ -617,7 +763,7 @@ const fileIcon = computed(() => {
 .volume-slider::-moz-range-thumb {
   width: 1rem;
   height: 1rem;
-  background: var(--primary-color);
+  background: var(--primary-color, #3b82f6);
   border-radius: 50%;
   cursor: pointer;
   border: none;
@@ -661,16 +807,28 @@ const fileIcon = computed(() => {
   }
 }
 
-.download-btn {
-  flex-shrink: 0;
-  align-self: flex-end;
-}
-
 /* Адаптивность для мобильных устройств */
 @media (max-width: 640px) {
   .audio-file {
     padding: 0.75rem;
     padding-left: 1.5rem;
+  }
+
+  .file-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .file-info {
+    order: 2;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .download-btn-header {
+    order: 3;
+    width: 100%;
+    justify-content: center;
   }
 
   .player-controls {
@@ -688,11 +846,6 @@ const fileIcon = computed(() => {
     order: 4;
     width: 100%;
   }
-
-  .download-btn {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
 @media (max-width: 480px) {
@@ -701,7 +854,9 @@ const fileIcon = computed(() => {
   }
 
   .play-btn,
-  .stop-btn {
+  .stop-btn,
+  .hide-btn,
+  .play-btn-header {
     width: 2rem;
     height: 2rem;
   }

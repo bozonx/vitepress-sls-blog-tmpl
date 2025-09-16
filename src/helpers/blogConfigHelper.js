@@ -1,24 +1,39 @@
+import path from 'path'
 import { common } from '../configs/blogConfigBase.js'
 import en from '../configs/blogLocalesBase/en.js'
 import ru from '../configs/blogLocalesBase/ru.js'
 import { parseLocaleSite } from './parseSiteFileTranslations.js'
 import { mdToHtml } from './mdWorks.js'
+import { getImageDimensions } from './imageHelpers.js'
 
 const baseLocales = { en, ru }
 
-export function loadBlogLocale(lang, configFilePath, PROPS) {
+export async function loadBlogLocale(lang, configFilePath, PROPS) {
   const baseLocale = baseLocales[lang]
+  const srcDir = path.resolve(configFilePath, '../../')
   const site = parseLocaleSite(lang, configFilePath, {
     ...PROPS,
     theme: common.themeConfig,
     t: baseLocale.t,
   })
   const { title, description, t, ...themeConfig } = site
+  const postDonateCall = mdToHtml(themeConfig.postDonateCall)
 
   const authors = themeConfig.authors?.map((item) => {
-    return { ...item, descr: mdToHtml(item.descr) }
+    let imageDimensions = null
+    if (item.image) {
+      imageDimensions = getImageDimensions(item.image, srcDir)
+      item.imageHeight = imageDimensions?.height
+      item.imageWidth = imageDimensions?.width
+    }
+
+    return {
+      ...item,
+      descr: mdToHtml(item.descr),
+      imageHeight: imageDimensions?.height,
+      imageWidth: imageDimensions?.width,
+    }
   })
-  const postDonateCall = mdToHtml(themeConfig.postDonateCall)
 
   return {
     label: baseLocale.label,

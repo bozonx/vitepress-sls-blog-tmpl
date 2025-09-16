@@ -8,6 +8,8 @@
         :src="author?.image"
         :alt="author?.name"
         :sizes="`(min-width: ${PHONE_BREAKPOINT}px) 280px, 100vw`"
+        :height="author?.imageHeight"
+        :width="author?.imageWidth"
         class="w-full h-auto rounded-lg"
       />
     </div>

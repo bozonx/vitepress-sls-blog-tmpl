@@ -1,14 +1,16 @@
 <script setup>
 import { useData } from 'vitepress'
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, inject } from 'vue'
 
 import { SIDEBAR_WIDTH } from '../../constants.js'
 import SideBarFooter from './SideBarFooter.vue'
 import SideBarGroup from './SideBarGroup.vue'
 import SideBarItems from './SideBarItems.vue'
 import { Icon } from '@iconify/vue'
+import SideBarTags from '../list/SideBarTags.vue'
 
 const { theme, localeIndex } = useData()
+const posts = inject('posts')
 const props = defineProps(['isMobile'])
 const animationTimeMs = 400
 const drawerOpen = ref(!props.isMobile)
@@ -94,6 +96,8 @@ watchEffect(async () => {
               :isMobile="props.isMobile"
             />
           </SideBarGroup>
+
+          <SideBarTags :allPosts="posts[localeIndex]" />
 
           <slot name="sidebar-middle" />
 

@@ -4,7 +4,7 @@ import { arraysIntersection } from 'squidlet-lib'
 import PreviewListItem from './PreviewListItem.vue'
 
 const props = defineProps(['allPosts'])
-const { frontmatter, theme, page } = useData()
+const { frontmatter, theme } = useData()
 const route = useRoute()
 let items = []
 

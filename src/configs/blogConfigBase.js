@@ -51,6 +51,7 @@ export const common = {
   themeConfig: {
     i18nRouting: true,
 
+    sidebarTagsCount: 10,
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
     paginationMaxItems: 7,

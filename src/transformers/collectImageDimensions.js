@@ -8,6 +8,6 @@ export function collectImageDimensions(pageData, { siteConfig }) {
     siteConfig.srcDir
   )
 
-  pageData.frontmatter.coverHeight = imageDimensions.height
-  pageData.frontmatter.coverWidth = imageDimensions.width
+  pageData.frontmatter.coverHeight = imageDimensions?.height
+  pageData.frontmatter.coverWidth = imageDimensions?.width
 }

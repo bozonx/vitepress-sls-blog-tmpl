@@ -12,6 +12,7 @@ import path from 'path'
  */
 export function getImageDimensions(imagePath, srcDir) {
   if (!imagePath) return null
+  else if (imagePath.match(/\/\//)) return null
 
   try {
     // Полный путь к файлу изображения

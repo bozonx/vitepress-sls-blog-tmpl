@@ -1,4 +1,92 @@
-# FileDownload Component
+# DocComponents
+
+Компоненты для работы с файлами в VitePress документации.
+
+## AudioFile Component
+
+Компонент для воспроизведения и скачивания аудио файлов с встроенным HTML5 плеером.
+
+### Использование AudioFile
+
+```vue
+<AudioFile
+  url="/audio/sample.mp3"
+  filename="Sample Audio.mp3"
+  autoplay
+  show-controls
+/>
+```
+
+### Пропсы AudioFile
+
+| Проп           | Тип       | По умолчанию | Описание                                  |
+| -------------- | --------- | ------------ | ----------------------------------------- |
+| `url`          | `String`  | -            | **Обязательный.** URL аудио файла         |
+| `filename`     | `String`  | `''`         | Имя файла для скачивания                  |
+| `class`        | `String`  | `''`         | CSS классы                                |
+| `disabled`     | `Boolean` | `false`      | Отключить кнопки                          |
+| `autoplay`     | `Boolean` | `false`      | Автоматически воспроизводить при загрузке |
+| `showControls` | `Boolean` | `true`       | Показывать контролы плеера                |
+
+### Slots AudioFile
+
+| Slot      | Описание                       |
+| --------- | ------------------------------ |
+| `default` | Кастомное описание аудио файла |
+
+### Примеры AudioFile
+
+#### Базовое использование
+
+```vue
+<AudioFile url="/audio/podcast-episode-1.mp3" />
+```
+
+#### С автовоспроизведением
+
+```vue
+<AudioFile url="/audio/intro.mp3" filename="Introduction.mp3" autoplay />
+```
+
+#### Без контролов плеера
+
+```vue
+<AudioFile url="/audio/background-music.mp3" show-controls="false">
+  Background music for the presentation
+</AudioFile>
+```
+
+#### Отключенный компонент
+
+```vue
+<AudioFile
+  url="/audio/premium-content.mp3"
+  filename="Premium Content.mp3"
+  disabled
+>
+  Premium content - login required
+</AudioFile>
+```
+
+### Особенности AudioFile
+
+- Встроенный HTML5 аудио плеер с полными контролами
+- Кнопки воспроизведения/паузы и остановки
+- Прогресс-бар с возможностью перемотки
+- Контрол громкости
+- Отображение текущего времени и общей длительности
+- Автоматическое определение иконки по расширению файла
+- Анимация загрузки
+- Обработка ошибок воспроизведения
+- Адаптивный дизайн для мобильных устройств
+- Поддержка темной темы
+- Возможность скачивания файла
+
+### Поддерживаемые аудио форматы
+
+- MP3, WAV, OGG, FLAC, AAC, M4A, WMA
+
+## FileDownload Component
 
 Компонент для скачивания приложенных файлов в VitePress документации.
 

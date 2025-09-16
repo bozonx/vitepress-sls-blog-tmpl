@@ -5,6 +5,8 @@ import 'vitepress/dist/client/theme-default/styles/components/vp-code.css'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
 import { YouTubeEmbed } from '@miletorix/vitepress-youtube-embed'
 import FileDownload from './components/docComponents/FileDownload.vue'
+import AudioFile from './components/docComponents/AudioFile.vue'
+import '@miletorix/vitepress-youtube-embed/style.css'
 import './vp-common.css'
 import './vp-icons.css'
 import './styles.css'
@@ -16,5 +18,6 @@ export default {
   enhanceApp(ctx) {
     ctx.app.component('YouTubeEmbed', YouTubeEmbed)
     ctx.app.component('FileDownload', FileDownload)
+    ctx.app.component('AudioFile', AudioFile)
   },
 }

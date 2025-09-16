@@ -15,7 +15,11 @@ const posts = inject('posts')
 
 <template>
   <PostAuthor class="mt-10" />
-  <EditLink class="mt-10" />
+
+  <div class="flex mt-10">
+    <EditLink />
+  </div>
+
   <PostDonateLink class="mt-10" />
   <PostComments class="mt-20" />
   <PostSocialShare class="mt-10" />

@@ -1,22 +1,19 @@
 <template>
-  <SimpleLink
+  <BtnLink
     v-if="allowEditLink"
     :href="editLinkHref"
-    target="_blank"
     rel="nofollow"
-    class="flex items-center gap-x-2"
+    icon="bx:edit"
   >
-    <Icon icon="bx:edit" class="muted" />
     {{ theme.editLink?.text }}
-  </SimpleLink>
+  </BtnLink>
 </template>
 
 <script setup>
-import { Icon } from '@iconify/vue'
 import { useData } from 'vitepress'
 import { computed } from 'vue'
 import { isPost, isPage } from '../helpers/helpers.js'
-import SimpleLink from './SimpleLink.vue'
+import BtnLink from './BtnLink.vue'
 
 const { page, frontmatter, theme } = useData()
 

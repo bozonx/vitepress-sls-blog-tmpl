@@ -22,7 +22,7 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
 </script>
 
 <template>
-  <Author :author="author" class="mb-8" />
+  <Author :author="author" class="mb-15" />
 
   <UtilPageHeader>{{ theme.t.allPostsOfAuthor }}</UtilPageHeader>
 

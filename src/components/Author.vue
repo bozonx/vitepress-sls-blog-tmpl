@@ -3,9 +3,12 @@
     class="author-container flex flex-col md:flex-row gap-x-6 gap-y-1 items-start"
   >
     <!-- Картинка автора -->
-    <div class="author-image-container w-full md:w-[280px] md:flex-shrink-0">
+    <div
+      v-if="author?.image"
+      class="author-image-container w-full md:w-[280px] md:flex-shrink-0"
+    >
       <img
-        :src="author?.image"
+        :src="author.image"
         :alt="author?.name"
         :sizes="`(min-width: ${PHONE_BREAKPOINT}px) 280px, 100vw`"
         :height="author?.imageHeight"

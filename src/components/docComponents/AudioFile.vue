@@ -1,10 +1,11 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, inject } from 'vue'
 import { Icon } from '@iconify/vue'
 import Btn from '../Btn.vue'
 import { useData } from 'vitepress'
 
 const { theme } = useData()
+const hostname = inject('hostname')
 
 // Пропсы компонента
 const props = defineProps({
@@ -33,6 +34,15 @@ const duration = ref(0)
 const volume = ref(1)
 const isLoading = ref(false)
 const hasError = ref(false)
+
+// Обработка URL - добавление hostname для локальных путей
+const processedUrl = computed(() => {
+  // Если URL начинается с /, добавляем hostname
+  if (props.url.startsWith('/') && hostname) {
+    return `${hostname}${props.url}`
+  }
+  return props.url
+})
 
 // Вычисляемое имя файла для скачивания (используется в download атрибуте)
 const downloadFilename = computed(() => {
@@ -167,7 +177,7 @@ const downloadFile = async () => {
   try {
     // Создаем временную ссылку для скачивания
     const link = document.createElement('a')
-    link.href = props.url
+    link.href = processedUrl.value
     link.download = downloadFilename.value
     link.target = '_blank'
 
@@ -178,7 +188,7 @@ const downloadFile = async () => {
   } catch (error) {
     console.error('Error downloading file:', error)
     // В случае ошибки открываем файл в новой вкладке
-    window.open(props.url, '_blank')
+    window.open(processedUrl.value, '_blank')
   }
 }
 
@@ -275,7 +285,7 @@ const fileIcon = computed(() => {
     <!-- Скрытый audio элемент -->
     <audio
       ref="audioRef"
-      :src="url"
+      :src="processedUrl"
       preload="metadata"
       @loadedmetadata="handleLoadedMetadata"
       @timeupdate="handleTimeUpdate"

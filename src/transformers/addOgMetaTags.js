@@ -81,7 +81,7 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
 
   head.push(['meta', { name: 'twitter:card', content: twitterCardType }])
   head.push(['meta', { name: 'twitter:title', content: title }])
-  img && head.push(['meta', { name: 'twitter:image', content: img }])
+  img && head.push(['meta', { name: 'twitter:image', content: img.url }])
   descr && head.push(['meta', { name: 'twitter:description', content: descr }])
   // Twitter Creator (если есть автор)
   author && head.push(['meta', { name: 'twitter:creator', content: author }])
@@ -122,17 +122,4 @@ export function resolveOgImage(
     height: pageData.frontmatter.coverHeight,
     alt: pageData.frontmatter.coverAlt,
   }
-}
-
-export function resolveOgImage1111(page, pageData, siteConfig) {
-  const head = []
-  // // Получаем размеры изображения если оно есть
-  // const imageDimensions =
-  //   pageData.frontmatter.cover &&
-  //   getImageDimensions(pageData.frontmatter.cover, siteConfig.srcDir)
-  // // Размеры изображения (приоритет автоматически полученным размерам)
-  // const imageWidth = imageDimensions?.width
-  // const imageHeight = imageDimensions?.height
-
-  return head
 }

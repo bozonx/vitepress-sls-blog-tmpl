@@ -1,4 +1,5 @@
 import { getImageDimensions } from '../helpers/imageHelpers.js'
+import { isAuthorPage } from '../helpers/helpers.js'
 import { generatePageUrlPath, isHomePage, isPost } from '../helpers/helpers.js'
 
 /** Add OpenGraph metatags to the page */
@@ -23,8 +24,8 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
     langConfig.themeConfig.authors?.find(
       (item) => item.id === pageData.frontmatter.authorId
     )?.name
-  const img =
-    pageData.frontmatter.cover && hostname + pageData.frontmatter.cover
+  const img = resolveOgImage(page, pageData, siteConfig, hostname, langConfig)
+
   // Тип контента
   const ogType = isArticle ? 'article' : 'website'
   // Twitter Card теги
@@ -62,44 +63,76 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
       head.push(['meta', { property: 'article:tag', content: tag.name }])
     })
 
-  // Изображение
   if (img) {
-    // Получаем размеры изображения если оно есть
-    const imageDimensions =
-      pageData.frontmatter.cover &&
-      getImageDimensions(pageData.frontmatter.cover, siteConfig.srcDir)
-    // Размеры изображения (приоритет автоматически полученным размерам)
-    const imageWidth = imageDimensions?.width
-    const imageHeight = imageDimensions?.height
-
-    head.push(['meta', { property: 'og:image', content: img }])
-
-    if (imageWidth) {
+    head.push(['meta', { property: 'og:image', content: img.url }])
+    img.width &&
       head.push([
         'meta',
-        { property: 'og:image:width', content: imageWidth.toString() },
+        { property: 'og:image:width', content: img.width.toString() },
       ])
-    }
-
-    if (imageHeight) {
+    img.height &&
       head.push([
         'meta',
-        { property: 'og:image:height', content: imageHeight.toString() },
+        { property: 'og:image:height', content: img.height.toString() },
       ])
-    }
-
-    // Альтернативный текст для изображения
-    pageData.frontmatter.coverAlt &&
-      head.push([
-        'meta',
-        { property: 'og:image:alt', content: pageData.frontmatter.coverAlt },
-      ])
+    img.alt &&
+      head.push(['meta', { property: 'og:image:alt', content: img.alt }])
   }
 
   head.push(['meta', { name: 'twitter:card', content: twitterCardType }])
   head.push(['meta', { name: 'twitter:title', content: title }])
-  descr && head.push(['meta', { name: 'twitter:description', content: descr }])
   img && head.push(['meta', { name: 'twitter:image', content: img }])
+  descr && head.push(['meta', { name: 'twitter:description', content: descr }])
   // Twitter Creator (если есть автор)
   author && head.push(['meta', { name: 'twitter:creator', content: author }])
+}
+
+export function resolveOgImage(
+  page,
+  pageData,
+  siteConfig,
+  hostname,
+  langConfig
+) {
+  if (isAuthorPage(page, siteConfig)) {
+    const authorId = pageData.params.id
+
+    const author = langConfig.themeConfig.authors.find(
+      (item) => item.id === authorId
+    )
+
+    if (!author?.image) return
+
+    return {
+      url: author.image.match(/\/\//) ? author.image : hostname + author.image,
+      width: author?.imageWidth,
+      height: author?.imageHeight,
+      alt: author?.name,
+    }
+  }
+
+  // post cover
+  if (!pageData.frontmatter.cover) return
+
+  const coverUrl = hostname + pageData.frontmatter.cover
+
+  return {
+    url: coverUrl,
+    width: pageData.frontmatter.coverWidth,
+    height: pageData.frontmatter.coverHeight,
+    alt: pageData.frontmatter.coverAlt,
+  }
+}
+
+export function resolveOgImage1111(page, pageData, siteConfig) {
+  const head = []
+  // // Получаем размеры изображения если оно есть
+  // const imageDimensions =
+  //   pageData.frontmatter.cover &&
+  //   getImageDimensions(pageData.frontmatter.cover, siteConfig.srcDir)
+  // // Размеры изображения (приоритет автоматически полученным размерам)
+  // const imageWidth = imageDimensions?.width
+  // const imageHeight = imageDimensions?.height
+
+  return head
 }

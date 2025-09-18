@@ -17,7 +17,6 @@ export async function loadBlogLocale(lang, configFilePath, PROPS) {
     t: baseLocale.t,
   })
   const { title, description, t, ...themeConfig } = site
-  const postDonateCall = mdToHtml(themeConfig.postDonateCall)
 
   const authors = themeConfig.authors?.map((item) => {
     let imageDimensions = null
@@ -47,7 +46,6 @@ export async function loadBlogLocale(lang, configFilePath, PROPS) {
         ...baseLocale.themeConfig.editLink,
       },
       authors,
-      postDonateCall,
       t: { ...baseLocale.t, ...t },
     },
   }

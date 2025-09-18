@@ -35,8 +35,6 @@ export default {
     closeMenu: 'Закрыть меню',
     allPostsOfYear: 'Все посты за год',
     downloadFile: 'Скачать',
-    postDonateCall:
-      'Если вам нравится этот проект поддержите его пожалуйста финансово.',
     links: {
       // thease links are used in site translations
       aboutBlog: 'Об этом блоге',

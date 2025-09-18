@@ -4,12 +4,16 @@ body: |
   description: ""
   siteTitle: ""
 
-  # Конфигурация издателя для JSON-LD
-  # Раскомментируйте и настройте для вашего сайта
-  # publisher:
-  #   name: "Your Blog Name"
-  #   url: "https://yourblog.com"
-  #   logo: "https://yourblog.com/logo.png"
+  donate:
+    url: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"
+    icon: "${PROPS.theme.donateIcon}"
+    postDonateCall: "If you like this project, please support it financially."
+
+  # Configuration of the publisher for JSON-LD
+  publisher:
+    name: "Your Blog Name"
+    url: "https://yourblog.com"
+    logo: "https://yourblog.com/logo.png"
 
   authors:
     - id: "ivan-k"

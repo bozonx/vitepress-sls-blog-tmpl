@@ -147,7 +147,7 @@ watchEffect(async () => {
         </div>
       </div>
 
-      <SideBarFooter @click="closeDrawer" class="lg:hidden" />
+      <SideBarFooter @click="closeDrawer" />
 
       <div class="sidebar-gradient max-lg:hidden" aria-hidden="true">
         <div></div>

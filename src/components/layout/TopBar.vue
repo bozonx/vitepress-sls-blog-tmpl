@@ -64,8 +64,11 @@ const links = theme.value.topBar
       <SwitchAppearance />
     </div>
 
-    <ul v-if="theme.socialLinks" class="flex max-lg:hidden space-x-1">
-      <li v-for="item in theme.socialLinks">
+    <ul
+      v-if="theme.topBar?.socialLinks?.length"
+      class="flex max-lg:hidden space-x-1"
+    >
+      <li v-for="item in theme.topBar.socialLinks">
         <Btn noBg="true" v-bind="item" />
       </li>
     </ul>

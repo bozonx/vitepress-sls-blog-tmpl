@@ -99,12 +99,6 @@ export default function ({ hostname, repo }, en) {
       },
     },
 
-    themeConfig: {
-      ...common.themeConfig,
-      socialLinks: repo && [
-        { icon: 'fa6-brands:github-alt', href: repo, title: 'Github' },
-      ],
-    },
     transformPageData(pageData, ctx) {
       collectImageDimensions(pageData, ctx)
       transformTitle(pageData, ctx)

@@ -44,6 +44,8 @@ export default {
       links: 'Ссылки',
       authors: 'Авторы',
       aboutUs: 'О нас',
+      rssFeed: 'RSS лента',
+      atomFeed: 'Atom лента',
     },
     months: [
       'Январь',

@@ -10,16 +10,16 @@ const { theme, localeIndex } = useData()
 const socialLinks = [
   ...(theme.value.sideBar.socialLinks || []),
   theme.value.sideBar.rssFeed && {
-    text: theme.value.t.links.rssFeed,
     href: `/feed-${localeIndex.value}.rss`,
-    target: '_blank',
     icon: theme.value.rssIcon,
+    title: theme.value.t.links.rssFeed,
+    target: '_blank',
   },
   theme.value.sideBar.atomFeed && {
-    text: theme.value.t.links.atomFeed,
     href: `/feed-${localeIndex.value}.atom`,
-    target: '_blank',
     icon: theme.value.atomIcon,
+    title: theme.value.t.links.atomFeed,
+    target: '_blank',
   },
 ]
 </script>

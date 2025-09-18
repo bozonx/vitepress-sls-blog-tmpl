@@ -18,9 +18,6 @@ importers:
       '@mdit/plugin-figure':
         specifier: ^0.22.1
         version: 0.22.1
-      '@miletorix/vitepress-youtube-embed':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.5.18)
       '@vueuse/components':
         specifier: ^13.6.0
         version: 13.6.0(vue@3.5.18)
@@ -280,11 +277,6 @@ packages:
     peerDependenciesMeta:
       markdown-it:
         optional: true
-
-  '@miletorix/vitepress-youtube-embed@1.0.2':
-    resolution: {integrity: sha512-/tNIdEjp9+4uZ7jFm5YLnMctuWamHdp4ztzJSgbqZaD6UP4V3wKcgIJ+BTi8BB3Gwo03mbJ17p/KS7XwW7UJWA==}
-    peerDependencies:
-      vue: ^3.0.0
 
   '@rolldown/pluginutils@1.0.0-beta.29':
     resolution: {integrity: sha512-NIJgOsMjbxAXvoGq/X0gD7VPMQ8j9g0BiDaNjVNVjvl+iKXxL3Jre0v31RmBYeLEmkbj2s02v8vFTbUXi5XS2Q==}
@@ -1289,10 +1281,6 @@ snapshots:
   '@mdit/plugin-figure@0.22.1':
     dependencies:
       '@types/markdown-it': 14.1.2
-
-  '@miletorix/vitepress-youtube-embed@1.0.2(vue@3.5.18)':
-    dependencies:
-      vue: 3.5.18
 
   '@rolldown/pluginutils@1.0.0-beta.29': {}
 

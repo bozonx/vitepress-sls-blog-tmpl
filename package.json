@@ -41,7 +41,6 @@
   "dependencies": {
     "@iconify/vue": "^5.0.0",
     "@mdit/plugin-figure": "^0.22.1",
-    "@miletorix/vitepress-youtube-embed": "^1.0.2",
     "@vueuse/components": "^13.6.0",
     "cheerio": "^1.1.2",
     "feed": "^5.1.0",

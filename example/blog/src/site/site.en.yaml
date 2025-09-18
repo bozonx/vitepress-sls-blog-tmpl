@@ -59,6 +59,10 @@ body: |
     rssFeed: true
     # Show atom feed in the bottom of the side bar. Default is false.
     atomFeed: true
+    socialLinks:
+      - icon: 'fa6-brands:github-alt'
+        href: "${PROPS.repo}"
+        title: 'This blog on Github'
     links:
       - text: "${t.links.recent}"
         href: "${theme.recentBaseUrl}/1"

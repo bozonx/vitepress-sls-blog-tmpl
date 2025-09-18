@@ -8,10 +8,10 @@ import SwitchLang from './SwitchLang.vue'
 const { theme } = useData()
 const props = defineProps(['isMobile'])
 const resolveItemShowClass = (item) => {
-  if (item.mobileToo) return ''
+  if (item.desktopOnly) return 'max-lg:hidden'
   else if (item.mobileOnly) return 'lg:hidden'
-  // desktop only
-  return 'max-lg:hidden'
+  // both
+  return ''
 }
 const links = theme.value.topBar
   ? [
@@ -34,7 +34,6 @@ const links = theme.value.topBar
     ]"
   >
     <div class="flex-1 flex">
-      <!-- for mobile -->
       <Btn
         @click="$emit('openDrawer')"
         icon="fa6-solid:bars"
@@ -64,11 +63,11 @@ const links = theme.value.topBar
       <SwitchAppearance />
     </div>
 
-    <ul
-      v-if="theme.topBar?.socialLinks?.length"
-      class="flex max-lg:hidden space-x-1"
-    >
-      <li v-for="item in theme.topBar.socialLinks">
+    <ul v-if="theme.topBar?.socialLinks?.length" class="flex space-x-1">
+      <li
+        v-for="item in theme.topBar.socialLinks"
+        :class="resolveItemShowClass(item)"
+      >
         <Btn noBg="true" v-bind="item" />
       </li>
     </ul>

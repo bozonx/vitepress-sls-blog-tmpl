@@ -46,6 +46,7 @@ body: |
       - icon: 'fa6-brands:github-alt'
         href: "${PROPS.repo}"
         title: 'This blog on Github'
+        desktopOnly: true
   sideBar:
     # Show recent posts in side bar. Default is false.
     recent: true

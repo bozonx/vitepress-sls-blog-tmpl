@@ -39,8 +39,8 @@ body: |
         icon: "${theme.donateIcon}"
         iconClass: donate-icon
         mobileToo: true
-      - text: "${t.links.guide}"
-        href: "${PROPS.siteUrl}/${lang}/${theme.docUrl}"
+      - text: "Guide"
+        href: "${PROPS.siteUrl}/${lang}/doc"
         icon: "${theme.docIcon}"
     socialLinks:
       - icon: 'fa6-brands:github-alt'
@@ -79,7 +79,7 @@ body: |
         icon: "${theme.donateIcon}"
         mobile: true
       - text: "${t.links.guide}"
-        href: "${PROPS.siteUrl}/${lang}/${theme.docUrl}"
+        href: "${PROPS.siteUrl}/${lang}/doc"
         icon: "${theme.docIcon}"
         mobile: true
       - { header: "${t.links.links}" }

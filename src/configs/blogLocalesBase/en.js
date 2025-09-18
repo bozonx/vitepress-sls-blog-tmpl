@@ -45,7 +45,6 @@ export default {
       aboutUs: 'About Us',
       authors: 'Authors',
       weInSocialMedia: 'We on Social Media',
-      guide: 'Guide',
       ourYoutubeChannel: 'Our Youtube Channel',
       ourTelegramChannel: 'Our Telegram Channel',
       ourTelegramChat: 'Our Telegram Chat',

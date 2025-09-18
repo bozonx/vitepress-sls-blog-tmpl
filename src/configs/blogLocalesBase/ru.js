@@ -46,7 +46,6 @@ export default {
       aboutUs: 'О нас',
       // TODO: may be not need
       weInSocialMedia: 'Мы в соц сетях',
-      guide: 'Руководство',
       ourYoutubeChannel: 'Наш Youtube канал',
       ourTelegramChannel: 'Наш Telegram канал',
       ourTelegramChat: 'Наш чат в Telegram',

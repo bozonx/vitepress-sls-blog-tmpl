@@ -24,7 +24,7 @@ const hero = {
     },
 /*    {
       text: theme.value.t.links.wiki,
-      href: `${PROPS.siteUrl}/${localeIndex.value}/${theme.value.docUrl}`,
+      href: `${PROPS.siteUrl}/${localeIndex.value}/doc`,
       icon: theme.value.docIcon,
     },*/
     {

@@ -29,6 +29,8 @@ body: |
   topBar:
     # Show donate button in top bar. Default is false.
     donate: true
+    # Show guide button in top bar. Default is false.
+    guide: true
     links:
       - text: "${PROPS.t.links.donate}"
         href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"

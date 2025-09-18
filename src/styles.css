@@ -4,8 +4,8 @@
   --layout-hue: 213;
   --link-hue: 232;
   --visited-hue: 287;
-  --primary-btn-bg: hsl(var(--primary-hue), 80%, 50%);
-  --primary-btn-bg-active: hsl(var(--primary-hue), 75%, 40%);
+  --primary-btn-bg: hsl(var(--primary-hue), 80%, 40%);
+  --primary-btn-bg-active: hsl(var(--primary-hue), 75%, 32%);
   --gray-50: hsl(var(--layout-hue), 16%, 98%);
   --gray-100: hsl(var(--layout-hue), 14.29%, 95.88%);
   --gray-150: hsl(var(--layout-hue), 14%, 93%);

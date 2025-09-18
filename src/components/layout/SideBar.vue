@@ -21,6 +21,27 @@ let animationTimeout = null
 const links = theme.value.sideBar
   ? [
       ...[theme.value.sideBar.links || []],
+      theme.value.sideBar.recent && {
+        text: theme.value.t.links.recent,
+        href: `${theme.value.recentBaseUrl}/1`,
+        icon: theme.value.recentIcon,
+      },
+      theme.value.sideBar.archive && {
+        text: theme.value.t.links.byDate,
+        href: `${theme.value.archiveBaseUrl}`,
+        icon: theme.value.byDateIcon,
+      },
+      theme.value.sideBar.authors && {
+        text: theme.value.t.links.authors,
+        href: `${theme.value.allAuthorBaseUrl}`,
+        icon: theme.value.authorsIcon,
+      },
+    ].filter(Boolean)
+  : []
+
+const bottomLinks = theme.value.sideBar
+  ? [
+      // ...[theme.value.sideBar.bottomLinks || []],
       theme.value.sideBar.donate && {
         text: theme.value.t.links.donate,
         href: `${theme.value.donate.url}`,
@@ -29,7 +50,6 @@ const links = theme.value.sideBar
       },
     ].filter(Boolean)
   : []
-
 const openDrawer = () => {
   if (!props.isMobile || drawerOpen.value) return
 
@@ -115,10 +135,10 @@ watchEffect(async () => {
 
           <slot name="sidebar-middle" />
 
-          <SideBarGroup v-if="theme.sideBar?.bottomLinks" class="mt-2">
+          <SideBarGroup v-if="bottomLinks.length" class="mt-2">
             <SideBarItems
               @click="closeDrawer"
-              :items="theme.sideBar.bottomLinks"
+              :items="bottomLinks"
               :isMobile="props.isMobile"
             />
           </SideBarGroup>

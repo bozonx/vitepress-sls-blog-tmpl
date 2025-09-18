@@ -51,8 +51,6 @@ body: |
     authors: true
     # Show donate button in the bottom of the side bar. Default is false.
     donate: true
-    # Show guide in the bottom of the side bar. Default is false.
-    guide: true
     # Show rss feed in the bottom of the side bar. Default is false.
     rssFeed: true
     # Show atom feed in the bottom of the side bar. Default is false.

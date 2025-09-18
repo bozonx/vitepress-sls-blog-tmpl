@@ -1,21 +1,20 @@
 <template>
-  <div class="social-media-links">
-    <a
+  <div class="flex gap-x-2">
+    <Btn
       v-for="link in links"
       :key="link.url"
       :href="link.url"
       :title="link.title"
+      :icon="getIconName(link.type)"
+      iconClass="text-2xl"
       target="_blank"
-      rel="noopener noreferrer"
       class="social-link hover-animation-rise"
-    >
-      <Icon :icon="getIconName(link.type)" class="social-icon" />
-    </a>
+    />
   </div>
 </template>
 
 <script setup>
-import { Icon } from '@iconify/vue'
+import Btn from './Btn.vue'
 
 const props = defineProps(['links'])
 
@@ -37,32 +36,3 @@ const getIconName = (type) => {
   return iconMap[type] || iconMap.site // fallback на site если тип не распознан
 }
 </script>
-
-<style scoped>
-.social-media-links {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-}
-
-.social-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.5rem;
-  color: var(--vp-c-text-2);
-  text-decoration: none;
-}
-
-.social-link:hover {
-  color: var(--vp-c-brand-1);
-  background-color: var(--vp-c-bg-soft);
-}
-
-.social-icon {
-  width: 2.25rem;
-  height: 2.25rem;
-}
-</style>

@@ -1,4 +1,4 @@
-import { removeRootItemFromSiteMap } from '../helpers/helpers.js'
+import { filterSitemap } from '../transformers/filterSitemap.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 
 export const common = {
@@ -24,6 +24,7 @@ export const common = {
   metaChunk: true,
   lastUpdated: true,
   cleanUrls: true,
+  appearance: true,
   lang: 'en-US',
   locales: { root: { lang: 'en-US' } },
 
@@ -53,7 +54,7 @@ export default function ({ hostname, repo }, en) {
       hostname,
       // fix sitemap - remove root from it
       transformItems: (items) => {
-        return removeRootItemFromSiteMap(items)
+        return filterSitemap(items)
       },
     },
 
@@ -61,8 +62,9 @@ export default function ({ hostname, repo }, en) {
       ...common.themeConfig,
       socialLinks: repo && [{ icon: 'github', link: repo }],
     },
-    transformPageData(pageData, ctx) {
+    transformHead(pageData, ctx) {
       addOgMetaTags(pageData, ctx)
     },
+    // vite: { ssr: { noExternal: ['vitepress-sls-blog-tmpl'] } },
   }
 }

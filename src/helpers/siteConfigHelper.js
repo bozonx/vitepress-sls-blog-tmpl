@@ -4,18 +4,18 @@ import ru from '../configs/siteLocalesBase/ru.js'
 import {
   loadConfigYamlFile,
   parseLocaleSite,
-} from '../list-helpers/parseSiteFileTranslations.js'
+} from '../helpers/parseSiteFileTranslations.js'
 import { isExternalUrl } from './helpers.js'
 import { standardTemplate } from 'squidlet-lib'
 
 const baseLocales = { en, ru }
 
-export function loadSiteLocale(lang, configFilePath, rawProps) {
+export async function loadSiteLocale(lang, configFilePath, PROPS) {
   const baseLocale = baseLocales[lang]
-  const PROPS = { ...rawProps, theme: common.themeConfig, t: baseLocale.t }
+  const params = { lang, PROPS, theme: common.themeConfig, t: baseLocale.t }
 
-  const site = parseLocaleSite(lang, configFilePath, PROPS)
-  const sidebar = parseLocaleSidebar(configFilePath, lang, PROPS)
+  const site = parseLocaleSite(configFilePath, params)
+  const sidebar = parseLocaleSidebar(configFilePath, params)
   const { title, description, ...themeConfig } = site
 
   return {
@@ -40,16 +40,18 @@ export function loadSiteLocale(lang, configFilePath, rawProps) {
   }
 }
 
-export function parseLocaleSidebar(configFilePath, lang, rawProps) {
-  const PROPS = { ...rawProps, lang }
-  const sidebar = loadConfigYamlFile(configFilePath, `sidebar.${lang}.yaml`)
+export function parseLocaleSidebar(configFilePath, props) {
+  const sidebar = loadConfigYamlFile(
+    configFilePath,
+    `sidebar.${props.lang}.yaml`
+  )
 
   function menuRecursive(items, linkPrePath) {
     for (const item of items) {
-      item.text = standardTemplate(item.text, PROPS)
+      item.text = standardTemplate(item.text, props)
 
       if (typeof item.link === 'string') {
-        item.link = standardTemplate(item.link, PROPS)
+        item.link = standardTemplate(item.link, props)
 
         if (item.link.indexOf('/') !== 0 && !isExternalUrl(item.link)) {
           item.link = linkPrePath + item.link
@@ -67,7 +69,7 @@ export function parseLocaleSidebar(configFilePath, lang, rawProps) {
   const newSidebar = {}
 
   for (const key of Object.keys(sidebar)) {
-    const linkPrePath = `/${lang}/${key}/`
+    const linkPrePath = `/${props.lang}/${key}/`
 
     newSidebar[linkPrePath] = menuRecursive(sidebar[key], linkPrePath)
   }

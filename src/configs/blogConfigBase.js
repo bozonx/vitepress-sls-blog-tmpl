@@ -35,7 +35,6 @@ export const common = {
   ignoreDeadLinks: true,
   lastUpdated: true,
   cleanUrls: true,
-  // TODO:  check
   appearance: true,
   lang: 'en-US',
   locales: { root: { lang: 'en-US' } },
@@ -50,23 +49,26 @@ export const common = {
 
   themeConfig: {
     i18nRouting: true,
+    externalLinkIcon: true,
 
     sidebarTagsCount: 15,
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
     paginationMaxItems: 7,
     showAuthorInPostList: true,
-    externalLinkIcon: true,
     tagsBaseUrl: 'tag',
     allTagsUrl: 'tags',
     archiveBaseUrl: 'archive',
     recentBaseUrl: 'recent',
     allAuthorBaseUrl: 'authors',
     authorBaseUrl: 'author',
+    // TODO: why?
     donateUrl: 'page/donate',
     aboutUrl: 'page/about',
+    // TODO: why?
     linksUrl: 'page/links',
     mainHeroImg: '/img/home-logo.webp',
+
     donateIcon: 'fa6-solid:heart',
     docIcon: 'iconoir:book-solid',
     socialLinksIcon: 'heroicons:megaphone-16-solid',

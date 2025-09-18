@@ -1,5 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
+import { computed } from 'vue'
 
 import Btn from '../Btn.vue'
 import SwitchAppearance from './SwitchAppearance.vue'
@@ -13,6 +14,19 @@ const resolveItemShowClass = (item) => {
   // desktop only
   return 'max-lg:hidden'
 }
+const links = computed(() => {
+  if (!theme.value.topBar) return []
+
+  return [
+    ...[theme.value.topBar.links || []],
+    theme.value.topBar.donate && {
+      text: theme.value.t.links.donate,
+      href: `${theme.value.donate.url}`,
+      icon: theme.value.donateIcon,
+      iconClass: 'donate-icon',
+    },
+  ].filter(Boolean)
+})
 </script>
 
 <template>
@@ -34,11 +48,8 @@ const resolveItemShowClass = (item) => {
       />
     </div>
 
-    <ul v-if="theme.topBar.links" class="flex space-x-1">
-      <li
-        v-for="item in theme.topBar.links"
-        :class="resolveItemShowClass(item)"
-      >
+    <ul v-if="links.length" class="flex space-x-1">
+      <li v-for="item in links" :class="resolveItemShowClass(item)">
         <Btn
           v-bind="item"
           noBg="true"

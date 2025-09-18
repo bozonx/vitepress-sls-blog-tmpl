@@ -7,10 +7,11 @@ import { DEFAULT_ENCODE } from '../constants.js'
 
 export const SITE_DIR_REL_PATH = '../site'
 
-export function parseLocaleSite(lang, configFilePath, rawProps) {
-  const PROPS = { ...rawProps, lang }
-
-  const translations = loadConfigYamlFile(configFilePath, `site.${lang}.yaml`)
+export function parseLocaleSite(configFilePath, props) {
+  const translations = loadConfigYamlFile(
+    configFilePath,
+    `site.${props.lang}.yaml`
+  )
 
   function transRecursive(items) {
     if (Array.isArray(items)) {
@@ -26,7 +27,7 @@ export function parseLocaleSite(lang, configFilePath, rawProps) {
 
       return items
     } else if (typeof items === 'string') {
-      return standardTemplate(items, { PROPS })
+      return standardTemplate(items, props)
     }
 
     return items

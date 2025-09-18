@@ -5,8 +5,8 @@ body: |
   siteTitle: ""
 
   donate:
-    url: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"
-    icon: "${PROPS.theme.donateIcon}"
+    url: "${PROPS.siteUrl}/${lang}/${theme.donateUrl}"
+    icon: "${theme.donateIcon}"
     postDonateCall: "If you like this project, please support it financially."
 
   # Configuration of the publisher for JSON-LD
@@ -28,7 +28,7 @@ body: |
     message: "Copying allowed only with a link to the source."
     copyright: "Copyright © 2024-present ... ."
     links:
-     - text: "${PROPS.t.links.aboutBlog}"
+     - text: "${t.links.aboutBlog}"
        href: "page/about-blog"
   topBar:
     # Show donate button in top bar. Default is false.
@@ -36,14 +36,14 @@ body: |
     # Show guide button in top bar. Default is false.
     guide: true
     links:
-      - text: "${PROPS.t.links.donate}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"
-        icon: "${PROPS.theme.donateIcon}"
+      - text: "${t.links.donate}"
+        href: "${PROPS.siteUrl}/${lang}/${theme.donateUrl}"
+        icon: "${theme.donateIcon}"
         iconClass: donate-icon
         mobileToo: true
-      - text: "${PROPS.t.links.guide}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.docUrl}"
-        icon: "${PROPS.theme.docIcon}"
+      - text: "${t.links.guide}"
+        href: "${PROPS.siteUrl}/${lang}/${theme.docUrl}"
+        icon: "${theme.docIcon}"
   sideBar:
     # Show recent posts in side bar. Default is false.
     recent: true
@@ -60,40 +60,40 @@ body: |
     # Show atom feed in the bottom of the side bar. Default is false.
     atomFeed: true
     links:
-      - text: "${PROPS.t.links.recent}"
-        href: "${PROPS.theme.recentBaseUrl}/1"
-        icon: "${PROPS.theme.recentIcon}"
-      - text: "${PROPS.t.links.byDate}"
-        href: "${PROPS.theme.archiveBaseUrl}"
-        icon: "${PROPS.theme.byDateIcon}"
-      - text: "${PROPS.t.links.authors}"
-        href: "${PROPS.theme.allAuthorBaseUrl}"
-        icon: "${PROPS.theme.authorsIcon}"
+      - text: "${t.links.recent}"
+        href: "${theme.recentBaseUrl}/1"
+        icon: "${theme.recentIcon}"
+      - text: "${t.links.byDate}"
+        href: "${theme.archiveBaseUrl}"
+        icon: "${theme.byDateIcon}"
+      - text: "${t.links.authors}"
+        href: "${theme.allAuthorBaseUrl}"
+        icon: "${theme.authorsIcon}"
     bottomLinks:
-      - text: "${PROPS.t.links.donate}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"
-        icon: "${PROPS.theme.donateIcon}"
+      - text: "${t.links.donate}"
+        href: "${PROPS.siteUrl}/${lang}/${theme.donateUrl}"
+        icon: "${theme.donateIcon}"
         mobile: true
-      - text: "${PROPS.t.links.guide}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.docUrl}"
-        icon: "${PROPS.theme.docIcon}"
+      - text: "${t.links.guide}"
+        href: "${PROPS.siteUrl}/${lang}/${theme.docUrl}"
+        icon: "${theme.docIcon}"
         mobile: true
-      - { header: "${PROPS.t.links.links}" }
-      - text: "${PROPS.t.links.ourYoutubeChannel}"
+      - { header: "${t.links.links}" }
+      - text: "${t.links.ourYoutubeChannel}"
         href: "https://www.youtube.com/@p"
-        icon: "${PROPS.theme.youtubeIcon}"
-      - text: "${PROPS.t.links.ourTelegramChannel}"
+        icon: "${theme.youtubeIcon}"
+      - text: "${t.links.ourTelegramChannel}"
         href: "https://t.me/"
-        icon: "${PROPS.theme.telegramIcon}"
-      - text: "${PROPS.t.links.ourTelegramChat}"
+        icon: "${theme.telegramIcon}"
+      - text: "${t.links.ourTelegramChat}"
         href: "https://t.me/"
-        icon: "${PROPS.theme.chatIcon}"
-      - text: "${PROPS.t.links.weInSocialMedia}"
-        href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.linksUrl}"
-        icon: "${PROPS.theme.socialLinksIcon}"
+        icon: "${theme.chatIcon}"
+      - text: "${t.links.weInSocialMedia}"
+        href: "${PROPS.siteUrl}/${lang}/${theme.linksUrl}"
+        icon: "${theme.socialLinksIcon}"
       - text: "RSS feed"
-        href: "${PROPS.hostname}/feed-${PROPS.lang}.rss"
-        icon: "${PROPS.theme.rssIcon}"
+        href: "${hostname}/feed-${lang}.rss"
+        icon: "${theme.rssIcon}"
       - text: "Atom feed"
-        href: "${PROPS.hostname}/feed-${PROPS.lang}.atom"
-        icon: "${PROPS.theme.atomIcon}"
+        href: "${PROPS.hostname}/feed-${lang}.atom"
+        icon: "${theme.atomIcon}"

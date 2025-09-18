@@ -11,8 +11,9 @@ const baseLocales = { en, ru }
 export async function loadBlogLocale(lang, configFilePath, PROPS) {
   const baseLocale = baseLocales[lang]
   const srcDir = path.resolve(configFilePath, '../../')
-  const site = parseLocaleSite(lang, configFilePath, {
-    ...PROPS,
+  const site = parseLocaleSite(configFilePath, {
+    lang,
+    PROPS,
     theme: common.themeConfig,
     t: baseLocale.t,
   })

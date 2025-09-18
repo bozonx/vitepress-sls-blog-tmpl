@@ -28,7 +28,11 @@ const socialLinks = [
   <div :class="['w-full flex pt-6 pb-3 pr-2 pl-2', props.class]">
     <ul v-if="socialLinks.length" class="flex space-x-1">
       <li v-for="item in socialLinks">
-        <Btn noBg="true" v-bind="item" />
+        <Btn
+          noBg="true"
+          v-bind="item"
+          :class="[item.class, 'hover-animation-rise']"
+        />
       </li>
     </ul>
 

@@ -49,7 +49,7 @@ const links = theme.value.topBar
         <Btn
           v-bind="item"
           noBg="true"
-          class="topbar-item"
+          :class="[item.class, 'topbar-item', 'hover-animation-rise']"
           :iconClass="item.iconClass || 'muted'"
         />
       </li>
@@ -68,7 +68,11 @@ const links = theme.value.topBar
         v-for="item in theme.topBar.socialLinks"
         :class="resolveItemShowClass(item)"
       >
-        <Btn noBg="true" v-bind="item" />
+        <Btn
+          noBg="true"
+          v-bind="item"
+          :class="[item.class, 'hover-animation-rise']"
+        />
       </li>
     </ul>
   </nav>

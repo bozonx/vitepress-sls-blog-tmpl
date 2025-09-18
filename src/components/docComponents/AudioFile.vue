@@ -21,25 +21,6 @@ const props = defineProps({
 // Состояние отключения кнопок
 const isDisabled = ref(props.disabled)
 
-// Состояние аудио плеера
-const audioRef = ref(null)
-const isPlaying = ref(false)
-const currentTime = ref(0)
-const duration = ref(0)
-const volume = ref(1)
-const isLoading = ref(false)
-const hasError = ref(false)
-const isPlayerVisible = ref(false)
-
-// Обработка URL - добавление hostname для локальных путей
-const processedUrl = computed(() => {
-  // Если URL начинается с /, добавляем hostname
-  // if (props.url.startsWith('/') && hostname) {
-  //   return `${hostname}${props.url}`
-  // }
-  return props.url
-})
-
 // Вычисляемое имя файла для скачивания (используется в download атрибуте)
 const downloadFilename = computed(() => {
   if (props.filename) {
@@ -47,7 +28,7 @@ const downloadFilename = computed(() => {
   }
 
   // Извлекаем полное имя файла с расширением из URL
-  return props.url.split('/').pop() || 'file'
+  return props.url.split('/').pop() || 'audio file'
 })
 
 const extensionName = computed(() => {
@@ -61,6 +42,37 @@ const extensionName = computed(() => {
 
   return undefined
 })
+
+const downloadFile = async () => {
+  if (isDisabled.value) return
+
+  try {
+    // Создаем временную ссылку для скачивания
+    const link = document.createElement('a')
+    link.href = props.url
+    link.download = downloadFilename.value
+    link.target = '_blank'
+
+    // Добавляем ссылку в DOM, кликаем и удаляем
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  } catch (error) {
+    console.error('Error downloading file:', error)
+    // В случае ошибки открываем файл в новой вкладке
+    window.open(props.url, '_blank')
+  }
+}
+
+// Состояние аудио плеера
+const audioRef = ref(null)
+const isPlaying = ref(false)
+const currentTime = ref(0)
+const duration = ref(0)
+const volume = ref(1)
+const isLoading = ref(false)
+const hasError = ref(false)
+const isPlayerVisible = ref(false)
 
 // Методы управления аудио плеером
 const togglePlayPause = async () => {
@@ -195,27 +207,6 @@ const progressPercent = computed(() => {
   return (currentTime.value / duration.value) * 100
 })
 
-const downloadFile = async () => {
-  if (isDisabled.value) return
-
-  try {
-    // Создаем временную ссылку для скачивания
-    const link = document.createElement('a')
-    link.href = processedUrl.value
-    link.download = downloadFilename.value
-    link.target = '_blank'
-
-    // Добавляем ссылку в DOM, кликаем и удаляем
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  } catch (error) {
-    console.error('Error downloading file:', error)
-    // В случае ошибки открываем файл в новой вкладке
-    window.open(processedUrl.value, '_blank')
-  }
-}
-
 // Инициализация при монтировании компонента
 onMounted(() => {
   if (audioRef.value) {
@@ -245,58 +236,6 @@ onUnmounted(() => {
     audioRef.value.removeEventListener('error', handleError)
   }
 })
-
-// Получаем иконку для типа файла
-const getFileTypeIcon = (extension) => {
-  // Если расширение не определено, возвращаем иконку по умолчанию
-  if (!extension) {
-    return 'mdi:file'
-  }
-
-  const iconMap = {
-    pdf: 'mdi:file-pdf-box',
-    doc: 'mdi:file-word-box',
-    docx: 'mdi:file-word-box',
-    xls: 'mdi:file-excel-box',
-    xlsx: 'mdi:file-excel-box',
-    ppt: 'mdi:file-powerpoint-box',
-    pptx: 'mdi:file-powerpoint-box',
-    txt: 'mdi:file-document-outline',
-    zip: 'mdi:file-zip-box',
-    rar: 'mdi:file-zip-box',
-    '7z': 'mdi:file-zip-box',
-    jpg: 'mdi:file-image',
-    jpeg: 'mdi:file-image',
-    png: 'mdi:file-image',
-    webp: 'mdi:file-image',
-    avif: 'mdi:file-image',
-    gif: 'mdi:file-image',
-    svg: 'mdi:file-image',
-    mp4: 'mdi:file-video',
-    avi: 'mdi:file-video',
-    mov: 'mdi:file-video',
-    mp3: 'mdi:file-music',
-    wav: 'mdi:file-music',
-    ogg: 'mdi:file-music',
-    flac: 'mdi:file-music',
-    aac: 'mdi:file-music',
-    m4a: 'mdi:file-music',
-    wma: 'mdi:file-music',
-    json: 'mdi:code-json',
-    js: 'mdi:language-javascript',
-    ts: 'mdi:language-typescript',
-    html: 'mdi:language-html5',
-    css: 'mdi:language-css3',
-    xml: 'mdi:file-xml-box',
-  }
-
-  return iconMap[extension] || 'mdi:file'
-}
-
-// Иконка для отображения
-const fileIcon = computed(() => {
-  return getFileTypeIcon(extensionName.value)
-})
 </script>
 
 <template>
@@ -304,7 +243,7 @@ const fileIcon = computed(() => {
     <!-- Скрытый audio элемент -->
     <audio
       ref="audioRef"
-      :src="processedUrl"
+      :src="props.url"
       preload="metadata"
       @loadedmetadata="handleLoadedMetadata"
       @timeupdate="handleTimeUpdate"
@@ -334,9 +273,6 @@ const fileIcon = computed(() => {
 
       <!-- Информация о файле -->
       <div class="file-info" :class="{ 'has-hint': $slots.default }">
-        <div class="file-icon">
-          <Icon :icon="fileIcon" />
-        </div>
         <div class="file-details">
           <div class="file-name muted">
             {{ downloadFilename }}
@@ -507,35 +443,6 @@ const fileIcon = computed(() => {
 
 .file-info.has-hint {
   align-items: flex-start;
-}
-
-.file-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: var(--gray-100, #f3f4f6);
-  border-radius: 0.5rem;
-  color: var(--gray-600, #4b5563);
-  flex-shrink: 0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-}
-
-.file-icon:hover {
-  transform: scale(1.05);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.dark .file-icon {
-  background: var(--gray-800, #1f2937);
-  color: var(--gray-400, #9ca3af);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.dark .file-icon:hover {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .file-details {

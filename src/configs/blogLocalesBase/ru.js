@@ -35,6 +35,8 @@ export default {
     closeMenu: 'Закрыть меню',
     allPostsOfYear: 'Все посты за год',
     downloadFile: 'Скачать',
+    postDonateCall:
+      'Если вам нравится этот проект поддержите его пожалуйста финансово.',
     links: {
       // thease links are used in site translations
       aboutBlog: 'Об этом блоге',
@@ -46,7 +48,7 @@ export default {
       aboutUs: 'О нас',
       // TODO: may be not need
       weInSocialMedia: 'Мы в соц сетях',
-      wiki: 'Вики',
+      guide: 'Руководство',
       ourYoutubeChannel: 'Наш Youtube канал',
       ourTelegramChannel: 'Наш Telegram канал',
       ourTelegramChat: 'Наш чат в Telegram',

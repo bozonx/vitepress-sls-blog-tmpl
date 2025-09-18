@@ -35,6 +35,7 @@ export default {
     closeMenu: 'Close menu',
     allPostsOfYear: 'All posts of the year',
     downloadFile: 'Download',
+    postDonateCall: 'If you like this project, please support it financially.',
     links: {
       // thease links are used in site translations
       aboutBlog: 'About This Blog',
@@ -45,7 +46,7 @@ export default {
       aboutUs: 'About Us',
       authors: 'Authors',
       weInSocialMedia: 'We on Social Media',
-      wiki: 'Wiki',
+      guide: 'Guide',
       ourYoutubeChannel: 'Our Youtube Channel',
       ourTelegramChannel: 'Our Telegram Channel',
       ourTelegramChat: 'Our Telegram Chat',

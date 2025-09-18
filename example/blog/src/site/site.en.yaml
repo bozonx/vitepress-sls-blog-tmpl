@@ -20,24 +20,39 @@ body: |
         - type: "youtube"
           url: "https://www.youtube.com/..."
           title: "YouTube channel ..."
-  postDonateCall: "If you like this project, please support it financially. [Donate](${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl})"
   footer:
     message: "Copying allowed only with a link to the source."
-    # --- After this line all text the same for all the languages
-    copyright: "${PROPS.footerCopyright}"
+    copyright: "Copyright © 2024-present ... ."
     links:
      - text: "${PROPS.t.links.aboutBlog}"
        href: "page/about-blog"
   topBar:
+    # Show donate button in top bar. Default is false.
+    donate: true
     links:
       - text: "${PROPS.t.links.donate}"
         href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"
         icon: "${PROPS.theme.donateIcon}"
+        iconClass: donate-icon
         mobileToo: true
-      - text: "${PROPS.t.links.wiki}"
+      - text: "${PROPS.t.links.guide}"
         href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.docUrl}"
         icon: "${PROPS.theme.docIcon}"
   sideBar:
+    # Show recent posts in side bar. Default is false.
+    recent: true
+    # Show archive in side bar. Default is false.
+    archive: true
+    # Show authors in side bar. Default is false.
+    authors: true
+    # Show donate button in the bottom of the side bar. Default is false.
+    donate: true
+    # Show guide in the bottom of the side bar. Default is false.
+    guide: true
+    # Show rss feed in the bottom of the side bar. Default is false.
+    rssFeed: true
+    # Show atom feed in the bottom of the side bar. Default is false.
+    atomFeed: true
     links:
       - text: "${PROPS.t.links.recent}"
         href: "${PROPS.theme.recentBaseUrl}/1"
@@ -53,7 +68,7 @@ body: |
         href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.donateUrl}"
         icon: "${PROPS.theme.donateIcon}"
         mobile: true
-      - text: "${PROPS.t.links.wiki}"
+      - text: "${PROPS.t.links.guide}"
         href: "${PROPS.siteUrl}/${PROPS.lang}/${PROPS.theme.docUrl}"
         icon: "${PROPS.theme.docIcon}"
         mobile: true

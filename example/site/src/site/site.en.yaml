@@ -5,7 +5,7 @@ body: |
   siteTitle: ""
   footer:
     message: "Copying is allowed only with a link to the source."
-    copyright: "${PROPS.footerCopyright}"
+    copyright: "Copyright © 2024-present ..."
   nav:
     - text: "❤️ ${PROPS.t.donate}"
       link: "/${PROPS.lang}/${PROPS.theme.donateUrl}"

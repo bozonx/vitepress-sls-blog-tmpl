@@ -42,12 +42,8 @@ export default {
       recent: 'Recent',
       byDate: 'By Date',
       links: 'Links',
-      aboutUs: 'About Us',
       authors: 'Authors',
-      weInSocialMedia: 'We on Social Media',
-      ourYoutubeChannel: 'Our Youtube Channel',
-      ourTelegramChannel: 'Our Telegram Channel',
-      ourTelegramChat: 'Our Telegram Chat',
+      aboutUs: 'About Us',
     },
     months: [
       'January',

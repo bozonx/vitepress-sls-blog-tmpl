@@ -44,11 +44,6 @@ export default {
       links: 'Ссылки',
       authors: 'Авторы',
       aboutUs: 'О нас',
-      // TODO: may be not need
-      weInSocialMedia: 'Мы в соц сетях',
-      ourYoutubeChannel: 'Наш Youtube канал',
-      ourTelegramChannel: 'Наш Telegram канал',
-      ourTelegramChat: 'Наш чат в Telegram',
     },
     months: [
       'Январь',

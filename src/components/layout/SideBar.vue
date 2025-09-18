@@ -18,6 +18,18 @@ const animationLeftPx = ref(-SIDEBAR_WIDTH)
 const backdropOpacity = ref(0)
 let animationTimeout = null
 
+const links = theme.value.sideBar
+  ? [
+      ...[theme.value.sideBar.links || []],
+      theme.value.sideBar.donate && {
+        text: theme.value.t.links.donate,
+        href: `${theme.value.donate.url}`,
+        icon: theme.value.donate.icon || theme.value.donateIcon,
+        iconClass: 'donate-icon',
+      },
+    ].filter(Boolean)
+  : []
+
 const openDrawer = () => {
   if (!props.isMobile || drawerOpen.value) return
 
@@ -89,10 +101,10 @@ watchEffect(async () => {
         <div class="sidebar-menu">
           <slot name="sidebar-top" />
 
-          <SideBarGroup v-if="theme.sideBar?.links">
+          <SideBarGroup v-if="links.length">
             <SideBarItems
               @click="closeDrawer"
-              :items="theme.sideBar.links"
+              :items="links"
               :isMobile="props.isMobile"
             />
           </SideBarGroup>

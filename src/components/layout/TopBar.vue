@@ -15,7 +15,7 @@ const resolveItemShowClass = (item) => {
 }
 const links = theme.value.topBar
   ? [
-      ...[theme.value.topBar.links || []],
+      ...(theme.value.topBar.links || []),
       theme.value.topBar.donate && {
         text: theme.value.t.links.donate,
         href: `${theme.value.donate.url}`,

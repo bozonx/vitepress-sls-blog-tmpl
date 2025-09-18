@@ -20,7 +20,7 @@ let animationTimeout = null
 
 const links = theme.value.sideBar
   ? [
-      ...[theme.value.sideBar.links || []],
+      ...(theme.value.sideBar.links || []),
       theme.value.sideBar.recent && {
         text: theme.value.t.links.recent,
         href: `${theme.value.recentBaseUrl}/1`,
@@ -41,7 +41,7 @@ const links = theme.value.sideBar
 
 const bottomLinks = theme.value.sideBar
   ? [
-      // ...[theme.value.sideBar.bottomLinks || []],
+      ...(theme.value.sideBar.bottomLinks || []),
       theme.value.sideBar.donate && {
         text: theme.value.t.links.donate,
         href: `${theme.value.donate.url}`,

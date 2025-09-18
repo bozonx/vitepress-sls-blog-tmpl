@@ -7,7 +7,7 @@
       :title="link.title"
       target="_blank"
       rel="noopener noreferrer"
-      class="social-link"
+      class="social-link hover-animation-rise"
     >
       <Icon :icon="getIconName(link.type)" class="social-icon" />
     </a>
@@ -52,7 +52,6 @@ const getIconName = (type) => {
   width: 3rem;
   height: 3rem;
   border-radius: 0.5rem;
-  transition: all 0.2s ease-in-out;
   color: var(--vp-c-text-2);
   text-decoration: none;
 }
@@ -60,7 +59,6 @@ const getIconName = (type) => {
 .social-link:hover {
   color: var(--vp-c-brand-1);
   background-color: var(--vp-c-bg-soft);
-  transform: translateY(-1px);
 }
 
 .social-icon {

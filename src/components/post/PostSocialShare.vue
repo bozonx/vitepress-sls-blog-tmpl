@@ -75,7 +75,12 @@ onMounted(() => {
     <div class="mr-2 muted">{{ theme.t.shareSocialMedia }}:</div>
     <div class="flex gap-x-2">
       <template v-for="item in items" :key="item.title">
-        <a :href="item.href" :title="item.title" v-bind="item.attrs">
+        <a
+          :href="item.href"
+          :title="item.title"
+          v-bind="item.attrs"
+          class="hover-animation-rise"
+        >
           <Icon :icon="item.icon" aria-hidden="true" />
         </a>
       </template>
@@ -91,7 +96,6 @@ onMounted(() => {
   width: 3rem;
   height: 3rem;
   border-radius: 0.5rem;
-  transition: all 0.2s ease-in-out;
   color: var(--vp-c-text-2);
   text-decoration: none;
 }
@@ -103,7 +107,6 @@ onMounted(() => {
 
 .social-btn:hover {
   color: var(--vp-c-brand-1);
-  transform: translateY(-3px);
   filter: none; /* Убираем старый эффект brightness */
 }
 

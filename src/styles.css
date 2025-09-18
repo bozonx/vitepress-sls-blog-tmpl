@@ -121,6 +121,14 @@ button {
   color: var(--donate-btn);
 }
 
+.hover-animation-rise {
+  transition: all 0.2s ease-in-out;
+}
+
+.hover-animation-rise:hover {
+  transform: translateY(-2px);
+}
+
 /**** Lighter Btn for use on lighter background */
 .btn-lighter:hover {
   background: var(--btn-bg);

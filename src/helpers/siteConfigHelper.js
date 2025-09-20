@@ -21,9 +21,10 @@ export async function loadSiteLocale(localeIndex, configFilePath, config) {
 
   const site = parseLocaleSite(configFilePath, params)
   const sidebar = parseLocaleSidebar(configFilePath, params)
-  const { title, description, ...themeConfig } = site
+  const { lang, title, description, ...themeConfig } = site
 
   return {
+    lang,
     label: baseLocale.label,
     search: baseLocale.search,
     title,

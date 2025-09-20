@@ -3,6 +3,7 @@ import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addJsonLd } from '../transformers/addJsonLd.js'
 import { addHreflang } from '../transformers/addHreflang.js'
 import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
+import { filterSitemap } from '../transformers/filterSitemap.js'
 
 export const common = {
   head: [
@@ -68,7 +69,15 @@ export function mergeSiteConfig(config) {
     },
     locales: { ...common.locales, ...config.locales },
 
-    sitemap: { hostname: config.hostname, ...config.sitemap },
+    sitemap: {
+      hostname: config.hostname,
+      // fix sitemap - remove root from it
+      transformItems: (items) => {
+        return filterSitemap(items)
+      },
+
+      ...config.sitemap,
+    },
 
     async transformPageData(pageData, ctx) {
       resolveDescription(pageData, ctx)

@@ -10,10 +10,10 @@ export function transformTitle(pageData, { siteConfig }) {
 
   if (!pageData.frontmatter.title) return
 
-  const langIndex = pageData.filePath.split('/')[0]
+  const localeIndex = pageData.filePath.split('/')[0]
 
   const options = {
-    theme: siteConfig.site.locales[langIndex].themeConfig,
+    theme: siteConfig.site.locales[localeIndex].themeConfig,
     params: pageData.params || {},
   }
 

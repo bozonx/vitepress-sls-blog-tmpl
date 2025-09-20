@@ -1,5 +1,9 @@
 import { filterSitemap } from '../transformers/filterSitemap.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
+import { resolveDescription } from '../transformers/resolveDescription.js'
+import { addJsonLd } from '../transformers/addJsonLd.js'
+import { addHreflang } from '../transformers/addHreflang.js'
+import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
 
 export const common = {
   head: [
@@ -22,6 +26,7 @@ export const common = {
   cacheDir: '../.cache',
   srcExclude: ['/site'],
   metaChunk: true,
+  ignoreDeadLinks: true,
   lastUpdated: true,
   cleanUrls: true,
   appearance: true,
@@ -44,27 +49,55 @@ export const common = {
   markdown: { image: { lazyLoading: true } },
 }
 
-export default function ({ hostname, repo }, en) {
+export function mergeSiteConfig(config) {
   return {
     ...common,
-    title: en.title,
-    description: en.description,
+    ...config,
+    title: config.title || config.en?.title,
+    description: config.description || config.en?.description,
 
-    sitemap: {
-      hostname,
-      // fix sitemap - remove root from it
-      transformItems: (items) => {
-        return filterSitemap(items)
-      },
-    },
-
+    head: [...common.head, ...(config.head || [])],
     themeConfig: {
       ...common.themeConfig,
-      socialLinks: repo && [{ icon: 'github', link: repo }],
+      ...config.themeConfig,
+      socialLinks: config.repo && [{ icon: 'github', link: config.repo }],
     },
-    transformHead(pageData, ctx) {
-      addOgMetaTags(pageData, ctx)
+    locales: { ...common.locales, ...config.locales },
+
+    sitemap: {
+      hostname: config.hostname,
+      // fix sitemap - remove root from it
+      // transformItems: (items) => {
+      //   return filterSitemap(items)
+      // },
+
+      ...config.sitemap,
     },
-    // vite: { ssr: { noExternal: ['vitepress-sls-blog-tmpl'] } },
+
+    async transformPageData(pageData, ctx) {
+      // resolveDescription(pageData, ctx)
+
+      if (config.transformPageData) {
+        await config.transformPageData(pageData, ctx)
+      }
+    },
+
+    async transformHead(pageData, ctx) {
+      // addOgMetaTags(pageData, ctx)
+      // addJsonLd(ctx)
+      // addHreflang(ctx)
+      // addCanonicalLink(ctx)
+
+      if (config.transformHead) {
+        await config.transformHead(ctx)
+      }
+    },
+
+    // TODO: add md
+
+    vite: {
+      ...config.vite,
+      ssr: { noExternal: ['vitepress-sls-blog-tmpl'], ...config.vite?.ssr },
+    },
   }
 }

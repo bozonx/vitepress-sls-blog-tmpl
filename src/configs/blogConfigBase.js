@@ -116,15 +116,15 @@ export function mergeBlogConfig(config) {
       }
     },
 
-    async transformHead(context) {
-      addOgMetaTags(context)
-      addJsonLd(context)
-      addRssLinks(context)
-      addHreflang(context)
-      addCanonicalLink(context)
+    async transformHead(ctx) {
+      addOgMetaTags(ctx)
+      addJsonLd(ctx)
+      addHreflang(ctx)
+      addCanonicalLink(ctx)
+      addRssLinks(ctx)
 
       if (config.transformHead) {
-        await config.transformHead(context)
+        await config.transformHead(ctx)
       }
     },
 

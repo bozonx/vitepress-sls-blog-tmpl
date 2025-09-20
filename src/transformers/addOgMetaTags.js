@@ -8,8 +8,8 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
 
   const hostname = siteConfig.userConfig.hostname
   const pageUrl = `${hostname}/${generatePageUrlPath(page)}`
-  const langIndex = page.split('/')[0]
-  const langConfig = siteConfig.site.locales[langIndex]
+  const localeIndex = page.split('/')[0]
+  const langConfig = siteConfig.site.locales[localeIndex]
   const locale = langConfig.lang.replace('-', '_')
   const isArticle = isPost(pageData.frontmatter)
   const siteName = langConfig.title

@@ -20,8 +20,8 @@ function createPostJsonLd(
   pageData,
   siteConfig,
   hostname,
-  langIndexUrl,
-  langIndex,
+  localeIndexUrl,
+  localeIndex,
   langConfig,
   pageUrl,
   publisher
@@ -43,7 +43,7 @@ function createPostJsonLd(
   // Собираем альтернативные языковые версии
   if (siteConfig.site.locales) {
     Object.entries(siteConfig.site.locales).forEach(([code, locale]) => {
-      if (code === langIndex || code === ROOT_LANG) return
+      if (code === localeIndex || code === ROOT_LANG) return
       // Генерируем URL для альтернативной языковой версии
       const alternateUrl = generatePageUrlPath(pagePathWithoutLang)
 
@@ -66,7 +66,7 @@ function createPostJsonLd(
     inLanguage: lang,
     isPartOf: {
       '@type': 'CreativeWork',
-      '@id': `${langIndexUrl}/#website`,
+      '@id': `${localeIndexUrl}/#website`,
       inLanguage: lang,
       hasPart: alternateLanguages.map((altLang) => ({
         '@type': 'CreativeWork',
@@ -78,7 +78,7 @@ function createPostJsonLd(
     author: authorName && {
       '@type': 'Person',
       name: authorName,
-      url: `${langIndexUrl}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${pageData.frontmatter.authorId}/1`,
+      url: `${localeIndexUrl}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${pageData.frontmatter.authorId}/1`,
     },
     updatedDate:
       pageData.lastUpdated && new Date(pageData.lastUpdated).toISOString(),
@@ -108,7 +108,7 @@ function createAuthorJsonLd(
   pageData,
   siteConfig,
   hostname,
-  langIndex,
+  localeIndex,
   langConfig
 ) {
   const authors = langConfig.themeConfig?.authors
@@ -123,7 +123,7 @@ function createAuthorJsonLd(
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: authorName,
-    url: `${hostname}/${langIndex}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${authorId}/1`,
+    url: `${hostname}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${authorId}/1`,
     description: author?.descr,
     image: author?.image,
     sameAs: author?.links?.map((link) => link.url),
@@ -133,7 +133,7 @@ function createAuthorJsonLd(
 function createPageJsonLd(
   pageData,
   pageUrl,
-  langIndexUrl,
+  localeIndexUrl,
   publisher,
   siteName
 ) {
@@ -144,9 +144,9 @@ function createPageJsonLd(
     description: pageData.description,
     isPartOf: {
       '@type': 'WebSite',
-      '@id': `${langIndexUrl}/#website`,
+      '@id': `${localeIndexUrl}/#website`,
       name: siteName,
-      url: langIndexUrl,
+      url: localeIndexUrl,
     },
     publisher,
   }
@@ -182,13 +182,13 @@ export function addJsonLd({ page, head, pageData, siteConfig }) {
   }
 
   let jsonLdData = null
-  const langIndex = page.split('/')[0]
-  const langConfig = siteConfig.site.locales[langIndex]
+  const localeIndex = page.split('/')[0]
+  const langConfig = siteConfig.site.locales[localeIndex]
 
   if (!langConfig) return
 
   const hostname = siteConfig.userConfig.hostname
-  const langIndexUrl = `${hostname}/${langIndex}`
+  const localeIndexUrl = `${hostname}/${localeIndex}`
   const pageUrl = `${hostname}/${generatePageUrlPath(page)}`
   // Формируем информацию об издателе для JSON-LD
   const publisher = langConfig.themeConfig.publisher && {
@@ -206,7 +206,7 @@ export function addJsonLd({ page, head, pageData, siteConfig }) {
       pageData,
       siteConfig,
       hostname,
-      langIndex,
+      localeIndex,
       langConfig
     )
   } else if (isPost(pageData.frontmatter)) {
@@ -214,8 +214,8 @@ export function addJsonLd({ page, head, pageData, siteConfig }) {
       pageData,
       siteConfig,
       hostname,
-      langIndexUrl,
-      langIndex,
+      localeIndexUrl,
+      localeIndex,
       langConfig,
       pageUrl,
       publisher
@@ -224,7 +224,7 @@ export function addJsonLd({ page, head, pageData, siteConfig }) {
     jsonLdData = createPageJsonLd(
       pageData,
       pageUrl,
-      langIndexUrl,
+      localeIndexUrl,
       publisher,
       langConfig.title
     )

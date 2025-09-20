@@ -10,12 +10,12 @@ import { standardTemplate } from 'squidlet-lib'
 
 const baseLocales = { en, ru }
 
-export async function loadSiteLocale(localeIndex, configFilePath, PROPS) {
+export async function loadSiteLocale(localeIndex, configFilePath, config) {
   const baseLocale = baseLocales[localeIndex]
   const params = {
     localeIndex,
-    PROPS,
-    theme: common.themeConfig,
+    config,
+    theme: { ...common.themeConfig, ...config.themeConfig },
     t: baseLocale.t,
   }
 
@@ -32,7 +32,7 @@ export async function loadSiteLocale(localeIndex, configFilePath, PROPS) {
       ...baseLocale.themeConfig,
       ...themeConfig,
       editLink: {
-        pattern: `${PROPS.repo}/edit/main/src/:path`,
+        pattern: `${params.config.repo}/edit/main/src/:path`,
         ...baseLocale.themeConfig.editLink,
       },
       lastUpdated: {
@@ -45,18 +45,18 @@ export async function loadSiteLocale(localeIndex, configFilePath, PROPS) {
   }
 }
 
-export function parseLocaleSidebar(configFilePath, props) {
+export function parseLocaleSidebar(configFilePath, params) {
   const sidebar = loadConfigYamlFile(
     configFilePath,
-    `sidebar.${props.langIndex}.yaml`
+    `sidebar.${params.localeIndex}.yaml`
   )
 
   function menuRecursive(items, linkPrePath) {
     for (const item of items) {
-      item.text = standardTemplate(item.text, props)
+      item.text = standardTemplate(item.text, params)
 
       if (typeof item.link === 'string') {
-        item.link = standardTemplate(item.link, props)
+        item.link = standardTemplate(item.link, params)
 
         if (item.link.indexOf('/') !== 0 && !isExternalUrl(item.link)) {
           item.link = linkPrePath + item.link
@@ -74,7 +74,7 @@ export function parseLocaleSidebar(configFilePath, props) {
   const newSidebar = {}
 
   for (const key of Object.keys(sidebar)) {
-    const linkPrePath = `/${props.localeIndex}/${key}/`
+    const linkPrePath = `/${params.localeIndex}/${key}/`
 
     newSidebar[linkPrePath] = menuRecursive(sidebar[key], linkPrePath)
   }

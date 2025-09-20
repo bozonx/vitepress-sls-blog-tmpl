@@ -8,16 +8,17 @@ import { getImageDimensions } from './imageHelpers.js'
 
 const baseLocales = { en, ru }
 
-export async function loadBlogLocale(localeIndex, configFilePath, PROPS) {
+export async function loadBlogLocale(localeIndex, configFilePath, config) {
   const baseLocale = baseLocales[localeIndex]
   const srcDir = path.resolve(configFilePath, '../../')
   const site = parseLocaleSite(configFilePath, {
     localeIndex,
-    PROPS,
-    theme: common.themeConfig,
+    // site config
+    config,
+    theme: { ...common.themeConfig, ...config.themeConfig },
     t: baseLocale.t,
   })
-  const { title, description, t, ...themeConfig } = site
+  const { lang, title, description, t, ...themeConfig } = site
 
   const authors = themeConfig.authors?.map((item) => {
     let imageDimensions = null
@@ -36,6 +37,7 @@ export async function loadBlogLocale(localeIndex, configFilePath, PROPS) {
   })
 
   return {
+    lang,
     label: baseLocale.label,
     title,
     description,
@@ -43,7 +45,7 @@ export async function loadBlogLocale(localeIndex, configFilePath, PROPS) {
       ...baseLocale.themeConfig,
       ...themeConfig,
       editLink: {
-        pattern: `${PROPS.repo}/edit/main/src/:path`,
+        pattern: `${config.repo}/edit/main/src/:path`,
         ...baseLocale.themeConfig.editLink,
       },
       authors,

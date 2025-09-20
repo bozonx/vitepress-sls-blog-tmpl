@@ -87,10 +87,16 @@ export const common = {
 export function mergeBlogConfig(config, extendedConfig) {
   return {
     ...common,
+    ...config,
+    ...extendedConfig,
     title: config.title || extendedConfig.en?.title,
     description: config.description || extendedConfig.en?.description,
 
-    head: [...common.head, ...config.head, ...extendedConfig.head],
+    head: [
+      ...common.head,
+      ...(config.head || []),
+      ...(extendedConfig.head || []),
+    ],
     themeConfig: {
       ...common.themeConfig,
       ...config.themeConfig,
@@ -144,15 +150,15 @@ export function mergeBlogConfig(config, extendedConfig) {
       }
     },
 
-    buildEnd: async (config) => {
-      await generateRssFeed(config)
+    buildEnd: async (cfg) => {
+      await generateRssFeed(cfg)
 
       if (config.buildEnd) {
-        await config.buildEnd(config)
+        await config.buildEnd(cfg)
       }
 
       if (extendedConfig.buildEnd) {
-        await extendedConfig.buildEnd(config)
+        await extendedConfig.buildEnd(cfg)
       }
     },
     markdown: {
@@ -160,17 +166,17 @@ export function mergeBlogConfig(config, extendedConfig) {
       ...extendedConfig.markdown,
       image: {
         lazyLoading: true,
-        ...config.markdown.image,
-        ...extendedConfig.markdown.image,
+        ...config.markdown?.image,
+        ...extendedConfig.markdown?.image,
       },
       config: (md) => {
         md.use(figure)
 
-        if (config.markdown.config) {
+        if (config.markdown?.config) {
           config.markdown.config(md)
         }
 
-        if (extendedConfig.markdown.config) {
+        if (extendedConfig.markdown?.config) {
           extendedConfig.markdown.config(md)
         }
       },
@@ -180,8 +186,8 @@ export function mergeBlogConfig(config, extendedConfig) {
       ...extendedConfig.vite,
       ssr: {
         noExternal: ['vitepress-sls-blog-tmpl'],
-        ...config.vite.ssr,
-        ...extendedConfig.vite.ssr,
+        ...config.vite?.ssr,
+        ...extendedConfig.vite?.ssr,
       },
     },
   }

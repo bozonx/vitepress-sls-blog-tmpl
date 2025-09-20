@@ -1,4 +1,3 @@
-import { getImageDimensions } from '../helpers/imageHelpers.js'
 import { isAuthorPage } from '../helpers/helpers.js'
 import { generatePageUrlPath, isHomePage, isPost } from '../helpers/helpers.js'
 

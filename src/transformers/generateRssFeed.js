@@ -30,12 +30,12 @@ export async function generateRssFeed(config) {
     }
 
     const feeds = {}
+    const hostname = config.userConfig.hostname
 
     for (const localeIndex of Object.keys(config.site.locales)) {
       if (localeIndex === ROOT_LANG) continue
 
       const locale = config.site.locales[localeIndex]
-      const hostname = config.userConfig.hostname
       const siteUrl = `${hostname}/${localeIndex}`
 
       // Создаем базовый feed

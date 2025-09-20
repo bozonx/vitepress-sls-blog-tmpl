@@ -8,7 +8,6 @@ import HomeHero from 'vitepress-sls-blog-tmpl/HomeHero.vue'
 import UtilPageContent from 'vitepress-sls-blog-tmpl/UtilPageContent.vue'
 import { useData } from 'vitepress'
 import { data } from './loadPosts.data.js'
-import { PROPS } from "../.vitepress/props.js";
 
 const { theme, localeIndex } = useData()
 
@@ -24,7 +23,7 @@ const hero = {
     },
 /*    {
       text: theme.value.t.links.wiki,
-      href: `${PROPS.siteUrl}/${localeIndex.value}/doc`,
+      href: `${theme.value.siteUrl}/${localeIndex.value}/doc`,
       icon: theme.value.docIcon,
     },*/
     {

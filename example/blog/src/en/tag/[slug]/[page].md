@@ -11,7 +11,6 @@ head:
 import TagPostsList from 'vitepress-sls-blog-tmpl/TagPostsList.vue'
 import { useData } from 'vitepress'
 import { inject } from 'vue'
-import { PROPS } from "../../../.vitepress/props.js";
 
 const { theme, params, localeIndex, frontmatter } = useData()
 const posts = inject('posts')
@@ -22,7 +21,7 @@ const posts = inject('posts')
 <TagPostsList
   :allPosts="posts[localeIndex]"
   :curPage="params.page"
-  :perPage="PROPS.perPage"
+  :perPage="theme.perPage"
   :paginationMaxItems="theme.paginationMaxItems"
   :tagName="params.name"
   :tagSlug="params.slug"

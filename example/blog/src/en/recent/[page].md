@@ -11,7 +11,6 @@ head:
 import RecentList from 'vitepress-sls-blog-tmpl/RecentList.vue'
 import { useData } from 'vitepress'
 import { inject } from 'vue'
-import { PROPS } from "../../.vitepress/props.js";
 
 const { theme, params, localeIndex, frontmatter } = useData()
 const posts = inject('posts')
@@ -22,6 +21,6 @@ const posts = inject('posts')
 <RecentList
   :allPosts="posts[localeIndex]"
   :curPage="params.page"
-  :perPage="PROPS.perPage"
+  :perPage="theme.perPage"
   :paginationMaxItems="theme.paginationMaxItems"
 />

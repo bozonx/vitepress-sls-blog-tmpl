@@ -8,7 +8,6 @@ layout: util
 import AuthorDetails from 'vitepress-sls-blog-tmpl/AuthorDetails.vue'
 import { useData } from 'vitepress'
 import { inject } from 'vue'
-import { PROPS } from "../../../.vitepress/props.js";
 
 const { theme, params, localeIndex, frontmatter } = useData()
 const posts = inject('posts')
@@ -20,6 +19,6 @@ const posts = inject('posts')
   :allPosts="posts[localeIndex]"
   :authorId="params.id"
   :curPage="params.page"
-  :perPage="PROPS.perPage"
+  :perPage="theme.perPage"
   :paginationMaxItems="theme.paginationMaxItems"
 />

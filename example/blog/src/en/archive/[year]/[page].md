@@ -11,7 +11,6 @@ head:
 import { useData } from 'vitepress'
 import MonthsOfYear from 'vitepress-sls-blog-tmpl/MonthsOfYear.vue'
 import { inject } from 'vue'
-import { PROPS } from "../../../.vitepress/props.js";
 
 const { theme, params, localeIndex, frontmatter } = useData()
 const posts = inject('posts')
@@ -23,6 +22,6 @@ const posts = inject('posts')
   :allPosts="posts[localeIndex]"
   :year="params.year"
   :curPage="params.page"
-  :perPage="PROPS.perPage"
+  :perPage="theme.perPage"
   :paginationMaxItems="theme.paginationMaxItems"
 />

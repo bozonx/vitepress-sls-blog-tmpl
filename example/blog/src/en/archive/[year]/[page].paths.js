@@ -1,9 +1,9 @@
 import { makeYearPostsParams } from "vitepress-sls-blog-tmpl/makeListParams.js";
-import { PROPS } from "../../../.vitepress/props.js";
+import { PER_PAGE } from "../../../.vitepress/config.js";
 import getCachedPosts from "../../cachedPosts.js";
 
 export default {
   async paths() {
-    return makeYearPostsParams(await getCachedPosts(), PROPS.perPage);
+    return makeYearPostsParams(await getCachedPosts(), PER_PAGE);
   },
 };

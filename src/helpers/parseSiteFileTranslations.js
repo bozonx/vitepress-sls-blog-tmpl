@@ -10,7 +10,7 @@ export const SITE_DIR_REL_PATH = '../site'
 export function parseLocaleSite(configFilePath, props) {
   const translations = loadConfigYamlFile(
     configFilePath,
-    `site.${props.lang}.yaml`
+    `site.${props.localeIndex}.yaml`
   )
 
   function transRecursive(items) {

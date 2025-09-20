@@ -10,9 +10,14 @@ import { standardTemplate } from 'squidlet-lib'
 
 const baseLocales = { en, ru }
 
-export async function loadSiteLocale(lang, configFilePath, PROPS) {
-  const baseLocale = baseLocales[lang]
-  const params = { lang, PROPS, theme: common.themeConfig, t: baseLocale.t }
+export async function loadSiteLocale(localeIndex, configFilePath, PROPS) {
+  const baseLocale = baseLocales[localeIndex]
+  const params = {
+    localeIndex,
+    PROPS,
+    theme: common.themeConfig,
+    t: baseLocale.t,
+  }
 
   const site = parseLocaleSite(configFilePath, params)
   const sidebar = parseLocaleSidebar(configFilePath, params)
@@ -43,7 +48,7 @@ export async function loadSiteLocale(lang, configFilePath, PROPS) {
 export function parseLocaleSidebar(configFilePath, props) {
   const sidebar = loadConfigYamlFile(
     configFilePath,
-    `sidebar.${props.lang}.yaml`
+    `sidebar.${props.langIndex}.yaml`
   )
 
   function menuRecursive(items, linkPrePath) {
@@ -69,7 +74,7 @@ export function parseLocaleSidebar(configFilePath, props) {
   const newSidebar = {}
 
   for (const key of Object.keys(sidebar)) {
-    const linkPrePath = `/${props.lang}/${key}/`
+    const linkPrePath = `/${props.localeIndex}/${key}/`
 
     newSidebar[linkPrePath] = menuRecursive(sidebar[key], linkPrePath)
   }

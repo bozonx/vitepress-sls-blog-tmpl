@@ -5,7 +5,7 @@ body: |
   siteTitle: ""
 
   donate:
-    url: "${PROPS.siteUrl}/${lang}/${theme.donateUrl}"
+    url: "${PROPS.siteUrl}/${localeIndex}/${theme.donateUrl}"
     icon: "${theme.donateIcon}"
     postDonateCall: "If you like this project, please support it financially."
 
@@ -35,12 +35,12 @@ body: |
     donate: true
     links:
       - text: "${t.links.donate}"
-        href: "${PROPS.siteUrl}/${lang}/${theme.donateUrl}"
+        href: "${PROPS.siteUrl}/${localeIndex}/${theme.donateUrl}"
         icon: "${theme.donateIcon}"
         iconClass: donate-icon
         mobileToo: true
       - text: "Guide"
-        href: "${PROPS.siteUrl}/${lang}/doc"
+        href: "${PROPS.siteUrl}/${localeIndex}/doc"
         icon: "${theme.docIcon}"
     socialLinks:
       - icon: 'fa6-brands:github-alt'
@@ -76,11 +76,11 @@ body: |
         icon: "${theme.authorsIcon}"
     bottomLinks:
       - text: "${t.links.donate}"
-        href: "${PROPS.siteUrl}/${lang}/${theme.donateUrl}"
+        href: "${PROPS.siteUrl}/${localeIndex}/${theme.donateUrl}"
         icon: "${theme.donateIcon}"
         mobile: true
       - text: "Guide"
-        href: "${PROPS.siteUrl}/${lang}/doc"
+        href: "${PROPS.siteUrl}/${localeIndex}/doc"
         icon: "${theme.docIcon}"
         mobile: true
       - { header: "${t.links.links}" }
@@ -94,11 +94,11 @@ body: |
         href: "https://t.me/"
         icon: "${theme.chatIcon}"
       - text: "We in social media"
-        href: "${PROPS.siteUrl}/${lang}/${theme.linksUrl}"
+        href: "${PROPS.siteUrl}/${localeIndex}/${theme.linksUrl}"
         icon: "${theme.socialLinksIcon}"
       - text: "RSS feed"
-        href: "${hostname}/feed-${lang}.rss"
+        href: "${hostname}/feed-${localeIndex}.rss"
         icon: "${theme.rssIcon}"
       - text: "Atom feed"
-        href: "${PROPS.hostname}/feed-${lang}.atom"
+        href: "${PROPS.hostname}/feed-${localeIndex}.atom"
         icon: "${theme.atomIcon}"

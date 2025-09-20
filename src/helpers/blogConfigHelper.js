@@ -8,11 +8,11 @@ import { getImageDimensions } from './imageHelpers.js'
 
 const baseLocales = { en, ru }
 
-export async function loadBlogLocale(lang, configFilePath, PROPS) {
-  const baseLocale = baseLocales[lang]
+export async function loadBlogLocale(localeIndex, configFilePath, PROPS) {
+  const baseLocale = baseLocales[localeIndex]
   const srcDir = path.resolve(configFilePath, '../../')
   const site = parseLocaleSite(configFilePath, {
-    lang,
+    localeIndex,
     PROPS,
     theme: common.themeConfig,
     t: baseLocale.t,

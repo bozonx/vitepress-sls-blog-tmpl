@@ -84,29 +84,16 @@ export const common = {
   },
 }
 
-export function mergeBlogConfig(config, extendedConfig) {
+export function mergeBlogConfig(config) {
   return {
     ...common,
     ...config,
-    ...extendedConfig,
-    title: config.title || extendedConfig.en?.title,
-    description: config.description || extendedConfig.en?.description,
+    title: config.title || config.en?.title,
+    description: config.description || config.en?.description,
 
-    head: [
-      ...common.head,
-      ...(config.head || []),
-      ...(extendedConfig.head || []),
-    ],
-    themeConfig: {
-      ...common.themeConfig,
-      ...config.themeConfig,
-      ...extendedConfig.themeConfig,
-    },
-    locales: {
-      ...common.locales,
-      ...config.locales,
-      ...extendedConfig.locales,
-    },
+    head: [...common.head, ...(config.head || [])],
+    themeConfig: { ...common.themeConfig, ...config.themeConfig },
+    locales: { ...common.locales, ...config.locales },
 
     sitemap: {
       hostname: config.hostname,
@@ -116,7 +103,6 @@ export function mergeBlogConfig(config, extendedConfig) {
       },
 
       ...config.sitemap,
-      ...extendedConfig.sitemap,
     },
 
     async transformPageData(pageData, ctx) {
@@ -127,10 +113,6 @@ export function mergeBlogConfig(config, extendedConfig) {
 
       if (config.transformPageData) {
         await config.transformPageData(pageData, ctx)
-      }
-
-      if (extendedConfig.transformPageData) {
-        await extendedConfig.transformPageData(pageData, ctx)
       }
     },
 
@@ -144,10 +126,6 @@ export function mergeBlogConfig(config, extendedConfig) {
       if (config.transformHead) {
         await config.transformHead(context)
       }
-
-      if (extendedConfig.transformHead) {
-        extendedConfig.transformHead(context)
-      }
     },
 
     buildEnd: async (cfg) => {
@@ -156,39 +134,21 @@ export function mergeBlogConfig(config, extendedConfig) {
       if (config.buildEnd) {
         await config.buildEnd(cfg)
       }
-
-      if (extendedConfig.buildEnd) {
-        await extendedConfig.buildEnd(cfg)
-      }
     },
     markdown: {
       ...config.markdown,
-      ...extendedConfig.markdown,
-      image: {
-        lazyLoading: true,
-        ...config.markdown?.image,
-        ...extendedConfig.markdown?.image,
-      },
+      image: { lazyLoading: true, ...config.markdown?.image },
       config: (md) => {
         md.use(figure)
 
         if (config.markdown?.config) {
           config.markdown.config(md)
         }
-
-        if (extendedConfig.markdown?.config) {
-          extendedConfig.markdown.config(md)
-        }
       },
     },
     vite: {
       ...config.vite,
-      ...extendedConfig.vite,
-      ssr: {
-        noExternal: ['vitepress-sls-blog-tmpl'],
-        ...config.vite?.ssr,
-        ...extendedConfig.vite?.ssr,
-      },
+      ssr: { noExternal: ['vitepress-sls-blog-tmpl'], ...config.vite?.ssr },
     },
   }
 }

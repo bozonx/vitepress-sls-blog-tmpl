@@ -84,44 +84,105 @@ export const common = {
   },
 }
 
-export default function ({ hostname, repo }, en) {
+export function mergeBlogConfig(config, extendedConfig) {
   return {
     ...common,
-    title: en.title,
-    description: en.description,
-    // it is used in addOgMetaTags
-    hostname,
+    title: config.title || extendedConfig.en?.title,
+    description: config.description || extendedConfig.en?.description,
+
+    head: [...common.head, ...config.head, ...extendedConfig.head],
+    themeConfig: {
+      ...common.themeConfig,
+      ...config.themeConfig,
+      ...extendedConfig.themeConfig,
+    },
+    locales: {
+      ...common.locales,
+      ...config.locales,
+      ...extendedConfig.locales,
+    },
 
     sitemap: {
-      hostname,
+      hostname: config.hostname,
       // fix sitemap - remove root from it
       transformItems: (items) => {
         return filterSitemap(items)
       },
+
+      ...config.sitemap,
+      ...extendedConfig.sitemap,
     },
 
-    transformPageData(pageData, ctx) {
+    async transformPageData(pageData, ctx) {
       collectImageDimensions(pageData, ctx)
       transformTitle(pageData, ctx)
       transformPageMeta(pageData, ctx)
       resolveDescription(pageData, ctx)
+
+      if (config.transformPageData) {
+        await config.transformPageData(pageData, ctx)
+      }
+
+      if (extendedConfig.transformPageData) {
+        await extendedConfig.transformPageData(pageData, ctx)
+      }
     },
+
     async transformHead(context) {
       addOgMetaTags(context)
       addJsonLd(context)
       addRssLinks(context)
       addHreflang(context)
       addCanonicalLink(context)
+
+      if (config.transformHead) {
+        await config.transformHead(context)
+      }
+
+      if (extendedConfig.transformHead) {
+        extendedConfig.transformHead(context)
+      }
     },
+
     buildEnd: async (config) => {
       await generateRssFeed(config)
+
+      if (config.buildEnd) {
+        await config.buildEnd(config)
+      }
+
+      if (extendedConfig.buildEnd) {
+        await extendedConfig.buildEnd(config)
+      }
     },
     markdown: {
-      image: { lazyLoading: true },
+      ...config.markdown,
+      ...extendedConfig.markdown,
+      image: {
+        lazyLoading: true,
+        ...config.markdown.image,
+        ...extendedConfig.markdown.image,
+      },
       config: (md) => {
         md.use(figure)
+
+        if (config.markdown.config) {
+          config.markdown.config(md)
+        }
+
+        if (extendedConfig.markdown.config) {
+          extendedConfig.markdown.config(md)
+        }
       },
     },
-    vite: { ssr: { noExternal: ['vitepress-sls-blog-tmpl'] } },
+    vite: {
+      ...config.vite,
+      ...extendedConfig.vite,
+      ssr: {
+        noExternal: ['vitepress-sls-blog-tmpl'],
+        ...config.vite.ssr,
+        ...extendedConfig.vite.ssr,
+      },
+    },
   }
 }

@@ -27,13 +27,13 @@ const hero = {
       icon: theme.value.docIcon,
     },*/
     {
-      text: `${theme.value.t.links.ourTelegramChannel} (RU)`,
-      href: "https://t.me/antifem_battle",
+      text: `Our Telegram channel`,
+      href: "https://t.me/...",
       icon: theme.value.telegramIcon,
     },
     {
       text: theme.value.t.links.donate,
-      href: `${theme.value.donateUrl}`,
+      href: `${theme.value.donate.url}`,
       icon: theme.value.donateIcon,
     },
   ],

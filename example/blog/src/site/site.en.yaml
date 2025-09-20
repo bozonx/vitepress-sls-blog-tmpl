@@ -1,11 +1,12 @@
 title: site
 body: |
+  lang: "en-US"
   title: ""
   description: ""
   siteTitle: ""
 
   donate:
-    url: "${PROPS.siteUrl}/${localeIndex}/${theme.donateUrl}"
+    url: "${theme.siteUrl}/${localeIndex}/${theme.donateUrl}"
     icon: "${theme.donateIcon}"
     postDonateCall: "If you like this project, please support it financially."
 
@@ -35,16 +36,16 @@ body: |
     donate: true
     links:
       - text: "${t.links.donate}"
-        href: "${PROPS.siteUrl}/${localeIndex}/${theme.donateUrl}"
+        href: "${theme.siteUrl}/${localeIndex}/${theme.donateUrl}"
         icon: "${theme.donateIcon}"
         iconClass: donate-icon
         mobileToo: true
       - text: "Guide"
-        href: "${PROPS.siteUrl}/${localeIndex}/doc"
+        href: "${theme.siteUrl}/${localeIndex}/doc"
         icon: "${theme.docIcon}"
     socialLinks:
       - icon: 'fa6-brands:github-alt'
-        href: "${PROPS.repo}"
+        href: "${theme.repo}"
         title: 'This blog on Github'
         desktopOnly: true
   sideBar:
@@ -62,7 +63,7 @@ body: |
     atomFeed: true
     socialLinks:
       - icon: 'fa6-brands:github-alt'
-        href: "${PROPS.repo}"
+        href: "${theme.repo}"
         title: 'This blog on Github'
     links:
       - text: "${t.links.recent}"
@@ -76,11 +77,11 @@ body: |
         icon: "${theme.authorsIcon}"
     bottomLinks:
       - text: "${t.links.donate}"
-        href: "${PROPS.siteUrl}/${localeIndex}/${theme.donateUrl}"
+        href: "${theme.siteUrl}/${localeIndex}/${theme.donateUrl}"
         icon: "${theme.donateIcon}"
         mobile: true
       - text: "Guide"
-        href: "${PROPS.siteUrl}/${localeIndex}/doc"
+        href: "${theme.siteUrl}/${localeIndex}/doc"
         icon: "${theme.docIcon}"
         mobile: true
       - { header: "${t.links.links}" }
@@ -94,11 +95,11 @@ body: |
         href: "https://t.me/"
         icon: "${theme.chatIcon}"
       - text: "We in social media"
-        href: "${PROPS.siteUrl}/${localeIndex}/${theme.linksUrl}"
+        href: "${theme.siteUrl}/${localeIndex}/${theme.linksUrl}"
         icon: "${theme.socialLinksIcon}"
       - text: "RSS feed"
         href: "${hostname}/feed-${localeIndex}.rss"
         icon: "${theme.rssIcon}"
       - text: "Atom feed"
-        href: "${PROPS.hostname}/feed-${localeIndex}.atom"
+        href: "${theme.hostname}/feed-${localeIndex}.atom"
         icon: "${theme.atomIcon}"

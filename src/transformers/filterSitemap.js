@@ -2,6 +2,12 @@ import { POSTS_DIR } from '../constants.js'
 
 const POSTS_DIR_REGEXP = new RegExp(`^\\w+\/(${POSTS_DIR}|page)`)
 
+/**
+ * Filter sitemap items only for blog config
+ *
+ * @param {Object} items - Sitemap items
+ * @returns {Object} Filtered sitemap items
+ */
 export function filterSitemap(items) {
   return (
     items

@@ -1,4 +1,3 @@
-import { filterSitemap } from '../transformers/filterSitemap.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addJsonLd } from '../transformers/addJsonLd.js'
@@ -69,15 +68,7 @@ export function mergeSiteConfig(config) {
     },
     locales: { ...common.locales, ...config.locales },
 
-    sitemap: {
-      hostname: config.hostname,
-      // fix sitemap - remove root from it
-      // transformItems: (items) => {
-      //   return filterSitemap(items)
-      // },
-
-      ...config.sitemap,
-    },
+    sitemap: { hostname: config.hostname, ...config.sitemap },
 
     async transformPageData(pageData, ctx) {
       resolveDescription(pageData, ctx)
@@ -90,7 +81,7 @@ export function mergeSiteConfig(config) {
     async transformHead(ctx) {
       // addOgMetaTags(pageData, ctx)
       // addJsonLd(ctx)
-      // addHreflang(ctx)
+      addHreflang(ctx)
       addCanonicalLink(ctx)
 
       if (config.transformHead) {

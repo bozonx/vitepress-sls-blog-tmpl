@@ -33,6 +33,11 @@ export const common = {
   lang: 'en-US',
   locales: { root: { lang: 'en-US' } },
 
+  // max description length for description meta tag,
+  //  open graph, json-ld and for rss feed
+  // for RSS max is 500 characters
+  maxDescriptionLength: 300,
+
   themeConfig: {
     externalLinkIcon: true,
     // i18nRouting: true,
@@ -75,7 +80,7 @@ export function mergeSiteConfig(config) {
     },
 
     async transformPageData(pageData, ctx) {
-      // resolveDescription(pageData, ctx)
+      resolveDescription(pageData, ctx)
 
       if (config.transformPageData) {
         await config.transformPageData(pageData, ctx)

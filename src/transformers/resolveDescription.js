@@ -15,11 +15,9 @@ import { extractDescriptionFromMd } from '../helpers/mdWorks.js'
 export function resolveDescription(pageData, { siteConfig }) {
   if (!isPost(pageData.frontmatter) && !isPage(pageData.frontmatter)) return
 
-  if (
-    typeof pageData.frontmatter.description !== 'string' ||
-    pageData.frontmatter.description.trim() !== ''
-  )
-    return
+  const description = pageData.frontmatter.description?.trim() || ''
+  // Skip not empty description
+  if (description) return
 
   try {
     // Читаем содержимое файла

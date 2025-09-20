@@ -87,11 +87,11 @@ export function mergeSiteConfig(config) {
       }
     },
 
-    async transformHead(pageData, ctx) {
+    async transformHead(ctx) {
       // addOgMetaTags(pageData, ctx)
       // addJsonLd(ctx)
       // addHreflang(ctx)
-      // addCanonicalLink(ctx)
+      addCanonicalLink(ctx)
 
       if (config.transformHead) {
         await config.transformHead(ctx)

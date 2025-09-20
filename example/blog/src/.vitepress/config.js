@@ -14,7 +14,6 @@ export default async () => {
       sidebarLogoSrc: '/img/sidebar-logo.webp',
     },
     head: [
-      ...configBase.head,
       // do not recognize telephone numbers on the page
       ['meta', { name: 'format-detection', content: 'telephone=no' }],
     ],

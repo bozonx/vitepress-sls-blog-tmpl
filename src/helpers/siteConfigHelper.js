@@ -1,12 +1,12 @@
-import { common } from '../configs/siteConfigBase.js'
-import en from '../configs/siteLocalesBase/en.js'
-import ru from '../configs/siteLocalesBase/ru.js'
+import { standardTemplate } from 'squidlet-lib'
 import {
   loadConfigYamlFile,
   parseLocaleSite,
 } from '../helpers/parseSiteFileTranslations.js'
 import { isExternalUrl } from './helpers.js'
-import { standardTemplate } from 'squidlet-lib'
+import { common } from '../configs/siteConfigBase.js'
+import en from '../configs/siteLocalesBase/en.js'
+import ru from '../configs/siteLocalesBase/ru.js'
 
 const baseLocales = { en, ru }
 
@@ -18,10 +18,10 @@ export async function loadSiteLocale(localeIndex, configFilePath, config) {
     theme: { ...common.themeConfig, ...config.themeConfig },
     t: baseLocale.t,
   }
-
   const site = parseLocaleSite(configFilePath, params)
-  const sidebar = parseLocaleSidebar(configFilePath, params)
   const { lang, title, description, ...themeConfig } = site
+
+  const sidebar = parseLocaleSidebar(configFilePath, params)
 
   return {
     lang,

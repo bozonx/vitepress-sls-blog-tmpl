@@ -1,24 +1,25 @@
 import path from 'path'
-import { common } from '../configs/blogConfigBase.js'
-import en from '../configs/blogLocalesBase/en.js'
-import ru from '../configs/blogLocalesBase/ru.js'
 import { parseLocaleSite } from './parseSiteFileTranslations.js'
 import { mdToHtml } from './mdWorks.js'
 import { getImageDimensions } from './imageHelpers.js'
+import { common } from '../configs/blogConfigBase.js'
+import en from '../configs/blogLocalesBase/en.js'
+import ru from '../configs/blogLocalesBase/ru.js'
 
 const baseLocales = { en, ru }
 
 export async function loadBlogLocale(localeIndex, configFilePath, config) {
   const baseLocale = baseLocales[localeIndex]
-  const srcDir = path.resolve(configFilePath, '../../')
-  const site = parseLocaleSite(configFilePath, {
+  const params = {
     localeIndex,
-    // site config
     config,
     theme: { ...common.themeConfig, ...config.themeConfig },
     t: baseLocale.t,
-  })
+  }
+  const site = parseLocaleSite(configFilePath, params)
   const { lang, title, description, t, ...themeConfig } = site
+
+  const srcDir = path.resolve(configFilePath, '../../')
 
   const authors = themeConfig.authors?.map((item) => {
     let imageDimensions = null

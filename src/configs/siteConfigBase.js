@@ -39,18 +39,15 @@ export const common = {
   maxDescriptionLength: 300,
 
   themeConfig: {
+    i18nRouting: true,
     externalLinkIcon: true,
-    // i18nRouting: true,
+    mainHeroImg: '/img/home-logo.webp',
 
     search: { provider: 'local' },
-
     lastUpdated: { formatOptions: { dateStyle: 'medium', forceLocale: true } },
-
-    donateUrl: 'page/donate',
-    linksUrl: 'page/links',
-    docUrl: 'doc',
-    mainHeroImg: '/img/home-logo.webp',
   },
+
+  // TODO: review
   markdown: { image: { lazyLoading: true } },
 }
 

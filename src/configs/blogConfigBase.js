@@ -50,6 +50,7 @@ export const common = {
   themeConfig: {
     i18nRouting: true,
     externalLinkIcon: true,
+    mainHeroImg: '/img/home-logo.webp',
 
     sidebarTagsCount: 15,
     similarPostsCount: 5,
@@ -57,18 +58,14 @@ export const common = {
     paginationMaxItems: 7,
     // show author in post list if the blog have authors
     showAuthorInPostList: true,
+
     tagsBaseUrl: 'tag',
     allTagsUrl: 'tags',
     archiveBaseUrl: 'archive',
     recentBaseUrl: 'recent',
     allAuthorBaseUrl: 'authors',
     authorBaseUrl: 'author',
-    // TODO: why?
-    donateUrl: 'page/donate',
     aboutUrl: 'page/about',
-    // TODO: why?
-    linksUrl: 'page/links',
-    mainHeroImg: '/img/home-logo.webp',
 
     donateIcon: 'fa6-solid:heart',
     docIcon: 'iconoir:book-solid',

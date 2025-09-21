@@ -1,3 +1,4 @@
+import { figure } from '@mdit/plugin-figure'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addJsonLd } from '../transformers/addJsonLd.js'
@@ -69,6 +70,17 @@ export function mergeSiteConfig(config) {
 
       ...config.sitemap,
     },
+    markdown: {
+      ...config.markdown,
+      image: { lazyLoading: true, ...config.markdown?.image },
+      config: (md) => {
+        md.use(figure)
+
+        if (config.markdown?.config) {
+          config.markdown.config(md)
+        }
+      },
+    },
 
     themeConfig: {
       ...common.themeConfig,
@@ -93,11 +105,6 @@ export function mergeSiteConfig(config) {
       if (config.transformHead) {
         await config.transformHead(ctx)
       }
-    },
-
-    markdown: {
-      ...config.markdown,
-      image: { lazyLoading: true, ...config.markdown?.image },
     },
   }
 }

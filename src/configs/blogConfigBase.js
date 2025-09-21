@@ -104,6 +104,17 @@ export function mergeBlogConfig(config) {
 
       ...config.sitemap,
     },
+    markdown: {
+      ...config.markdown,
+      image: { lazyLoading: true, ...config.markdown?.image },
+      config: (md) => {
+        md.use(figure)
+
+        if (config.markdown?.config) {
+          config.markdown.config(md)
+        }
+      },
+    },
 
     themeConfig: { ...common.themeConfig, ...config.themeConfig },
 
@@ -136,18 +147,6 @@ export function mergeBlogConfig(config) {
       if (config.buildEnd) {
         await config.buildEnd(cfg)
       }
-    },
-
-    markdown: {
-      ...config.markdown,
-      image: { lazyLoading: true, ...config.markdown?.image },
-      config: (md) => {
-        md.use(figure)
-
-        if (config.markdown?.config) {
-          config.markdown.config(md)
-        }
-      },
     },
   }
 }

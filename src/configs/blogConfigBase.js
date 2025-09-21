@@ -65,20 +65,21 @@ export const common = {
     recentBaseUrl: 'recent',
     allAuthorBaseUrl: 'authors',
     authorBaseUrl: 'author',
-    aboutUrl: 'page/about',
 
     donateIcon: 'fa6-solid:heart',
-    docIcon: 'iconoir:book-solid',
-    socialLinksIcon: 'heroicons:megaphone-16-solid',
     recentIcon: 'fa6-solid:newspaper',
-    // tagsIcon: 'fa6-solid:tag',
     byDateIcon: 'fa6-solid:calendar-days',
     authorsIcon: 'mdi:users',
+    // social icons
+    socialLinksIcon: 'heroicons:megaphone-16-solid',
+    rssIcon: 'bi:rss-fill',
+    atomIcon: 'vscode-icons:file-type-atom',
     youtubeIcon: 'fa6-brands:youtube',
     telegramIcon: 'fa6-brands:telegram',
     chatIcon: 'fa6-solid:message',
-    rssIcon: 'bi:rss-fill',
-    atomIcon: 'vscode-icons:file-type-atom',
+    ///// not used
+    // docIcon: 'iconoir:book-solid',
+    // tagsIcon: 'fa6-solid:tag',
   },
 }
 
@@ -88,11 +89,12 @@ export function mergeBlogConfig(config) {
     ...config,
     title: config.title || config.en?.title,
     description: config.description || config.en?.description,
-
     head: [...common.head, ...(config.head || [])],
-    themeConfig: { ...common.themeConfig, ...config.themeConfig },
     locales: { ...common.locales, ...config.locales },
-
+    vite: {
+      ...config.vite,
+      ssr: { noExternal: ['vitepress-sls-blog-tmpl'], ...config.vite?.ssr },
+    },
     sitemap: {
       hostname: config.hostname,
       // fix sitemap - remove root from it
@@ -102,6 +104,8 @@ export function mergeBlogConfig(config) {
 
       ...config.sitemap,
     },
+
+    themeConfig: { ...common.themeConfig, ...config.themeConfig },
 
     async transformPageData(pageData, ctx) {
       collectImageDimensions(pageData, ctx)
@@ -133,6 +137,7 @@ export function mergeBlogConfig(config) {
         await config.buildEnd(cfg)
       }
     },
+
     markdown: {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
@@ -143,10 +148,6 @@ export function mergeBlogConfig(config) {
           config.markdown.config(md)
         }
       },
-    },
-    vite: {
-      ...config.vite,
-      ssr: { noExternal: ['vitepress-sls-blog-tmpl'], ...config.vite?.ssr },
     },
   }
 }

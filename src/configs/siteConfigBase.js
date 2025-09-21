@@ -46,9 +46,6 @@ export const common = {
     search: { provider: 'local' },
     lastUpdated: { formatOptions: { dateStyle: 'medium', forceLocale: true } },
   },
-
-  // TODO: review
-  markdown: { image: { lazyLoading: true } },
 }
 
 export function mergeSiteConfig(config) {
@@ -57,15 +54,12 @@ export function mergeSiteConfig(config) {
     ...config,
     title: config.title || config.en?.title,
     description: config.description || config.en?.description,
-
     head: [...common.head, ...(config.head || [])],
-    themeConfig: {
-      ...common.themeConfig,
-      ...config.themeConfig,
-      socialLinks: config.repo && [{ icon: 'github', link: config.repo }],
-    },
     locales: { ...common.locales, ...config.locales },
-
+    vite: {
+      ...config.vite,
+      ssr: { noExternal: ['vitepress-sls-blog-tmpl'], ...config.vite?.ssr },
+    },
     sitemap: {
       hostname: config.hostname,
       // fix sitemap - remove root from it
@@ -74,6 +68,12 @@ export function mergeSiteConfig(config) {
       },
 
       ...config.sitemap,
+    },
+
+    themeConfig: {
+      ...common.themeConfig,
+      socialLinks: config.repo && [{ icon: 'github', link: config.repo }],
+      ...config.themeConfig,
     },
 
     async transformPageData(pageData, ctx) {
@@ -95,11 +95,9 @@ export function mergeSiteConfig(config) {
       }
     },
 
-    // TODO: add md
-
-    vite: {
-      ...config.vite,
-      ssr: { noExternal: ['vitepress-sls-blog-tmpl'], ...config.vite?.ssr },
+    markdown: {
+      ...config.markdown,
+      image: { lazyLoading: true, ...config.markdown?.image },
     },
   }
 }

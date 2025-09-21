@@ -12,7 +12,7 @@ export default {
     lastUpdated: { text: 'Updated at' },
     editLink: { text: 'Edit this page on GitHub' },
   },
-  t: { donate: 'Donate', wiki: 'Wiki', socialMedia: 'Social media' },
+  t: { donate: 'Donate' },
   search: {
     options: {
       locales: {

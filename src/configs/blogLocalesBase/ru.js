@@ -7,9 +7,9 @@ export default {
     darkModeSwitchTitle: 'Переключиться на тёмную тему',
     lightModeSwitchTitle: 'Переключиться на светлую тему',
     langMenuLabel: 'Сменить язык',
+    editLink: { text: 'Редактировать эту страницу на GitHub' },
     // you can overwrite it in site config
     socialMediaShares: 'telegram,whatsapp,vk,x,facebook',
-    editLink: { text: 'Редактировать эту страницу на GitHub' },
   },
   t: {
     similarPosts: 'Похожие посты',
@@ -21,6 +21,7 @@ export default {
     paginationToStart: 'На первую страницу',
     paginationToEnd: 'На последнюю страницу',
     toHome: 'На главную',
+    // It is used in the index page of language
     toBlog: 'Перейти к блогу',
     author: 'Автор',
     year: 'Год',
@@ -29,14 +30,12 @@ export default {
     listenPodcast: 'Слушать подкаст',
     commentCall: 'Комментировать в Telegram канале',
     allTagsCall: 'Смотреть все тэги',
-    allTags: 'Все тэги',
     postVideoButton: 'Смотреть видео',
     allPostsOfAuthor: 'Все посты автора',
     closeMenu: 'Закрыть меню',
     allPostsOfYear: 'Все посты за год',
     downloadFile: 'Скачать',
     links: {
-      // thease links are used in site translations
       aboutBlog: 'Об этом блоге',
       donate: 'Донат',
       recent: 'Самые свежие',

@@ -7,9 +7,9 @@ export default {
     darkModeSwitchTitle: 'Switch to Dark Mode',
     lightModeSwitchTitle: 'Switch to Light Mode',
     langMenuLabel: 'Change language',
+    editLink: { text: 'Edit this page on GitHub' },
     // you can overwrite it in site config
     socialMediaShares: 'telegram,whatsapp,vk,x,facebook',
-    editLink: { text: 'Edit this page on GitHub' },
   },
   t: {
     similarPosts: 'Similar Posts',
@@ -21,6 +21,7 @@ export default {
     paginationToStart: 'First Page',
     paginationToEnd: 'Last Page',
     toHome: 'Go to the home page',
+    // It is used in the index page of language
     toBlog: 'Go to blog',
     author: 'Author',
     year: 'Year',
@@ -29,14 +30,12 @@ export default {
     listenPodcast: 'Listen to podcast',
     commentCall: 'Comment on Telegram Channel',
     allTagsCall: 'View All Tags',
-    allTags: 'All Tags',
     postVideoButton: 'Watch Video',
     allPostsOfAuthor: 'All the posts of the author',
     closeMenu: 'Close menu',
     allPostsOfYear: 'All posts of the year',
     downloadFile: 'Download',
     links: {
-      // thease links are used in site translations
       aboutBlog: 'About This Blog',
       donate: 'Donate',
       recent: 'Recent',

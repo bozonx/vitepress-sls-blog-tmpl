@@ -12,12 +12,7 @@ export default {
     lastUpdated: { text: 'Последнее обновление' },
     editLink: { text: 'Редактировать эту страницу на GitHub' },
   },
-  t: {
-    donate: 'Донат',
-    // TODO: не используется
-    wiki: 'Вики',
-    socialMedia: 'Соц сети',
-  },
+  t: { donate: 'Донат' },
   search: {
     options: {
       locales: {

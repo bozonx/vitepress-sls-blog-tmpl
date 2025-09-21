@@ -6,7 +6,7 @@ body: |
   siteTitle: ""
 
   donate:
-    url: "${theme.siteUrl}/${localeIndex}/${theme.donateUrl}"
+    url: "${theme.siteUrl}/${localeIndex}/page/donate"
     icon: "${theme.donateIcon}"
     postDonateCall: "If you like this project, please support it financially."
 
@@ -36,7 +36,7 @@ body: |
     donate: true
     links:
       - text: "${t.links.donate}"
-        href: "${theme.siteUrl}/${localeIndex}/${theme.donateUrl}"
+        href: "${theme.siteUrl}/${localeIndex}/page/donate"
         icon: "${theme.donateIcon}"
         iconClass: donate-icon
         mobileToo: true
@@ -77,7 +77,7 @@ body: |
         icon: "${theme.authorsIcon}"
     bottomLinks:
       - text: "${t.links.donate}"
-        href: "${theme.siteUrl}/${localeIndex}/${theme.donateUrl}"
+        href: "${theme.siteUrl}/${localeIndex}/page/donate"
         icon: "${theme.donateIcon}"
         mobile: true
       - text: "Guide"
@@ -95,7 +95,7 @@ body: |
         href: "https://t.me/"
         icon: "${theme.chatIcon}"
       - text: "We in social media"
-        href: "${theme.siteUrl}/${localeIndex}/${theme.linksUrl}"
+        href: "${theme.siteUrl}/${localeIndex}/page/links"
         icon: "${theme.socialLinksIcon}"
       - text: "RSS feed"
         href: "${hostname}/feed-${localeIndex}.rss"

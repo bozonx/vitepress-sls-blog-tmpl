@@ -9,8 +9,8 @@ body: |
     copyright: "Copyright © 2024-present ..."
   nav:
     - text: "❤️ ${t.donate}"
-      link: "/${localeIndex}/${theme.donateUrl}"
+      link: "/${localeIndex}/page/links"
     - text: "📖 ${t.wiki}"
-      link: "${localeIndex}/${theme.docUrl}"
+      link: "${localeIndex}/doc"
     - text: "📢 ${t.socialMedia}"
-      link: "/${localeIndex}/${theme.linksUrl}"
+      link: "/${localeIndex}/page/donate"

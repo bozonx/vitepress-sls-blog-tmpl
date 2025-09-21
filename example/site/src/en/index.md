@@ -30,7 +30,7 @@ const hero = {
     {
       theme: "alt",
       text: `📢 We in social media`,
-      link: `/${localeIndex.value}/${theme.value.linksUrl}`,
+      link: `/${localeIndex.value}/page/links`,
     },
   ],
 }

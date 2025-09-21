@@ -17,17 +17,14 @@ export async function loadBlogLocale(localeIndex, configFilePath, config) {
     t: baseLocale.t,
   }
   const site = parseLocaleSite(configFilePath, params)
-  const { lang, title, description, t, ...themeConfig } = site
+  const { lang, title, description, t, editLink, ...themeConfig } = site
 
   const srcDir = path.resolve(configFilePath, '../../')
 
   const authors = themeConfig.authors?.map((item) => {
-    let imageDimensions = null
-    if (item.image) {
-      imageDimensions = getImageDimensions(item.image, srcDir)
-      item.imageHeight = imageDimensions?.height
-      item.imageWidth = imageDimensions?.width
-    }
+    let imageDimensions = item.image
+      ? getImageDimensions(item.image, srcDir)
+      : null
 
     return {
       ...item,
@@ -48,9 +45,10 @@ export async function loadBlogLocale(localeIndex, configFilePath, config) {
       editLink: {
         pattern: `${config.repo}/edit/main/src/:path`,
         ...baseLocale.themeConfig.editLink,
+        ...editLink,
       },
-      authors,
       t: { ...baseLocale.t, ...t },
+      authors,
     },
   }
 }

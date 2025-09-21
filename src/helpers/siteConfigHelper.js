@@ -19,29 +19,40 @@ export async function loadSiteLocale(localeIndex, configFilePath, config) {
     t: baseLocale.t,
   }
   const site = parseLocaleSite(configFilePath, params)
-  const { lang, title, description, ...themeConfig } = site
+  const {
+    lang,
+    title,
+    description,
+    t,
+    editLink,
+    lastUpdated,
+    search,
+    ...themeConfig
+  } = site
 
   const sidebar = parseLocaleSidebar(configFilePath, params)
 
   return {
     lang,
     label: baseLocale.label,
-    search: baseLocale.search,
     title,
     description,
+    search: { ...baseLocale.search, ...search },
     themeConfig: {
       ...baseLocale.themeConfig,
       ...themeConfig,
       editLink: {
         pattern: `${params.config.repo}/edit/main/src/:path`,
         ...baseLocale.themeConfig.editLink,
+        ...editLink,
       },
       lastUpdated: {
         ...common.themeConfig.lastUpdated,
         ...baseLocale.themeConfig.lastUpdated,
+        ...lastUpdated,
       },
+      t: { ...baseLocale.t, ...t },
       sidebar,
-      t: baseLocale.t,
     },
   }
 }

@@ -1,15 +1,25 @@
 <script setup>
-import VPHero from "vitepress/dist/client/theme-default/components/VPHero.vue";
-import VPFeatures from "vitepress/dist/client/theme-default/components/VPFeatures.vue";
-import VPHomeContent from "vitepress/dist/client/theme-default/components/VPHomeContent.vue";
+import VPHero from 'vitepress/dist/client/theme-default/components/VPHero.vue'
+import VPFeatures from 'vitepress/dist/client/theme-default/components/VPFeatures.vue'
+import VPHomeContent from 'vitepress/dist/client/theme-default/components/VPHomeContent.vue'
+import { useData } from 'vitepress'
 
-const props = defineProps(["hero", "features"]);
+const props = defineProps(['hero', 'features'])
+const { theme } = useData()
+
+const hero = {
+  ...props.hero,
+  image: {
+    ...props.hero.image,
+    src: props.hero.image?.src || theme.value.mainHeroImg,
+  },
+}
 </script>
 
 <template>
   <div>
     <template v-if="props.hero">
-      <VPHero v-bind="props.hero" />
+      <VPHero v-bind="hero" />
     </template>
     <template v-if="props.features">
       <VPFeatures :features="props.features" />

@@ -85,7 +85,7 @@ export function mergeSiteConfig(config) {
     },
 
     async transformHead(ctx) {
-      // addOgMetaTags(pageData, ctx)
+      addOgMetaTags(ctx)
       // addJsonLd(ctx)
       addHreflang(ctx)
       addCanonicalLink(ctx)

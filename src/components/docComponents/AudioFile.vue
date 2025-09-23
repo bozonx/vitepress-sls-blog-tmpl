@@ -33,11 +33,61 @@ const downloadFilename = computed(() => {
 
 // Валидация URL для безопасности
 const isValidUrl = (url) => {
+  if (!url || typeof url !== 'string') {
+    return false
+  }
+
   try {
+    // Сначала пробуем стандартную валидацию
     new URL(url)
     return true
   } catch {
+    // Если не прошла стандартная валидация, проверяем на относительные пути и URL с пробелами
+    // Разрешаем относительные пути (начинающиеся с /)
+    if (url.startsWith('/')) {
+      return true
+    }
+
+    // Разрешаем URL с пробелами (закодированные или нет)
+    // Проверяем базовую структуру URL
+    const urlPattern = /^(https?:\/\/|\.\/|\/|data:|blob:)/i
+    if (urlPattern.test(url)) {
+      return true
+    }
+
+    // Проверяем, что это не пустая строка и содержит хотя бы точку (для файлов)
+    if (url.includes('.') && url.length > 3) {
+      return true
+    }
+
     return false
+  }
+}
+
+// Кодирование URL для корректной работы с пробелами и специальными символами
+const encodeAudioUrl = (url) => {
+  if (!url) return url
+
+  try {
+    // Если это полный URL, кодируем только имя файла
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      const urlObj = new URL(url)
+      // Кодируем только путь, сохраняя остальные части URL
+      urlObj.pathname = urlObj.pathname
+        .split('/')
+        .map((segment) => (segment ? encodeURIComponent(segment) : segment))
+        .join('/')
+      return urlObj.toString()
+    }
+
+    // Для относительных путей кодируем весь путь
+    return url
+      .split('/')
+      .map((segment) => (segment ? encodeURIComponent(segment) : segment))
+      .join('/')
+  } catch {
+    // Если не удалось разобрать URL, возвращаем исходный
+    return url
   }
 }
 
@@ -55,7 +105,7 @@ const downloadFile = async () => {
 
     // Создаем временную ссылку для скачивания
     const link = document.createElement('a')
-    link.href = props.url
+    link.href = encodeAudioUrl(props.url)
     link.download = downloadFilename.value
     link.target = '_blank'
 
@@ -68,7 +118,7 @@ const downloadFile = async () => {
     errorMessage.value = 'Error downloading file'
     console.error('Error downloading file:', error)
     // В случае ошибки открываем файл в новой вкладке
-    window.open(props.url, '_blank')
+    window.open(encodeAudioUrl(props.url), '_blank')
   }
 }
 
@@ -337,7 +387,7 @@ onUnmounted(() => {
     <!-- Скрытый audio элемент с lazy loading -->
     <audio
       ref="audioRef"
-      :src="isPlayerVisible ? props.url : undefined"
+      :src="isPlayerVisible ? encodeAudioUrl(props.url) : undefined"
       :preload="isPlayerVisible ? 'metadata' : 'none'"
       @loadedmetadata="handleLoadedMetadata"
       @timeupdate="handleTimeUpdate"
@@ -804,17 +854,26 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem;
-  background: var(--red-50);
-  border: 1px solid var(--red-200);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
   border-radius: 0.375rem;
-  color: var(--red-700);
+  color: #dc2626;
   font-size: 0.875rem;
 }
 
+.error-message .iconify {
+  color: #dc2626;
+  flex-shrink: 0;
+}
+
 .dark .error-message {
-  background: var(--red-900);
-  border-color: var(--red-700);
-  color: var(--red-300);
+  background: #7f1d1d;
+  border-color: #dc2626;
+  color: #fca5a5;
+}
+
+.dark .error-message .iconify {
+  color: #fca5a5;
 }
 
 .retry-btn {

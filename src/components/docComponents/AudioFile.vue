@@ -31,18 +31,6 @@ const downloadFilename = computed(() => {
   return props.url.split('/').pop() || 'audio file'
 })
 
-const extensionName = computed(() => {
-  const filename = downloadFilename.value
-  const extension = filename.split('.').pop()
-
-  // Если расширение есть и оно не равно самому имени файла (т.е. есть точка)
-  if (extension && extension !== filename) {
-    return extension.toLowerCase()
-  }
-
-  return undefined
-})
-
 const downloadFile = async () => {
   if (isDisabled.value) return
 
@@ -257,20 +245,16 @@ onUnmounted(() => {
     <!-- Первая строка: кнопка play, название файла, кнопка скачать -->
     <div class="file-header">
       <!-- Кнопка воспроизведения -->
-      <button
+      <Btn
         v-if="!isPlayerVisible"
+        primary="true"
         class="play-btn-header"
         :disabled="isDisabled || hasError"
         @click="togglePlayPause"
         :title="isPlaying ? 'Pause' : 'Play'"
-      >
-        <Icon
-          :icon="
-            isLoading ? 'mdi:loading' : isPlaying ? 'mdi:pause' : 'mdi:play'
-          "
-          :class="{ spinning: isLoading }"
-        />
-      </button>
+        :icon="isLoading ? 'mdi:loading' : 'mdi:play'"
+        :iconClass="{ spinning: isLoading }"
+      />
 
       <!-- Информация о файле -->
       <div class="file-info" :class="{ 'has-hint': $slots.default }">
@@ -289,7 +273,7 @@ onUnmounted(() => {
         icon="mdi:download"
         :disabled="isDisabled"
         :text="theme.t.downloadFile"
-        class="download-btn-header"
+        class="download-btn-header hover-animation-rise"
         @click="downloadFile"
       />
     </div>
@@ -388,8 +372,8 @@ onUnmounted(() => {
 }
 
 .dark .audio-file {
-  background: var(--gray-800);
-  border-color: var(--gray-700);
+  background: var(--gray-850);
+  border-color: var(--gray-800);
   border-left-color: var(--primary-btn-bg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
@@ -403,33 +387,12 @@ onUnmounted(() => {
 }
 
 .play-btn-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: none;
   border-radius: 50%;
-  background: var(--primary-btn-bg);
-  color: white;
-  cursor: pointer;
   transition: all 0.2s ease;
-  flex-shrink: 0;
 }
 
 .play-btn-header:hover:not(:disabled) {
   transform: scale(1.05);
-  filter: brightness(115%);
-}
-
-.play-btn-header:disabled {
-  background: var(--gray-400, #9ca3af);
-  cursor: not-allowed;
-  transform: none;
-}
-
-.dark .play-btn-header:disabled {
-  background: var(--gray-600, #4b5563);
 }
 
 .file-info {

@@ -149,6 +149,7 @@ if (btnProps.href) {
 .btn-base.btn--primary,
 .dark .btn-base.btn--primary {
   background: var(--primary-btn-bg);
+  color: var(--gray-100);
 }
 
 .btn-base.btn--primary:hover,
@@ -168,16 +169,17 @@ if (btnProps.href) {
   filter: brightness(110%);
 }
 
-.btn-base.disabled {
-  background: none !important;
-  cursor: default;
-  color: var(--gray-500);
-  filter: brightness(100%) !important;
+.btn-base.disabled,
+.btn-base.disabled:hover {
+  background: var(--gray-300);
+  cursor: not-allowed;
+  transform: none;
 }
 
 .dark .btn-base.disabled,
+.dark .btn-base.disabled:hover,
 .btn-base.disabled.btn--only-dark {
   color: var(--gray-400);
-  filter: brightness(100%) !important;
+  background: var(--gray-600);
 }
 </style>

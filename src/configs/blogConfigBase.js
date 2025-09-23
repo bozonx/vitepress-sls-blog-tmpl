@@ -1,4 +1,3 @@
-import { figure } from '@mdit/plugin-figure'
 import { addJsonLd } from '../transformers/addJsonLd.js'
 import { addHreflang } from '../transformers/addHreflang.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
@@ -109,8 +108,6 @@ export function mergeBlogConfig(config) {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
       config: (md) => {
-        console.log('config.srcDir', config.srcDir)
-        // md.use(figure)
         md.use(mdImage, { srcDir: config.srcDir })
 
         if (config.markdown?.config) {

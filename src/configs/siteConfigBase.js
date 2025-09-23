@@ -1,10 +1,10 @@
-import { figure } from '@mdit/plugin-figure'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addJsonLd } from '../transformers/addJsonLd.js'
 import { addHreflang } from '../transformers/addHreflang.js'
 import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
 import { filterSitemap } from '../transformers/filterSitemap.js'
+import { mdImage } from '../transformers/mdImage.js'
 
 export const common = {
   head: [
@@ -74,7 +74,7 @@ export function mergeSiteConfig(config) {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
       config: (md) => {
-        md.use(figure)
+        md.use(mdImage, { srcDir: config.srcDir })
 
         if (config.markdown?.config) {
           config.markdown.config(md)

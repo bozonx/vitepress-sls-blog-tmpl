@@ -5,23 +5,13 @@ import { getImageDimensions } from '../helpers/imageHelpers.js'
  * изображения в теги <figure> с подписями Аналогичен @mdit/plugin-figure Также
  * собирает размеры изображений и добавляет их как атрибуты
  *
+ * Got from @mdit/plugin-figure
+ *
  * @param {Object} md - Markdown-it instance
  * @param {Object} options - Опции плагина
  * @param {string} options.srcDir - Путь к директории исходников
  */
 export function mdImage(md, options = {}) {
-  /*
-    [
-  'inline',        'block',
-  'core',          'renderer',
-  'linkify',       'validateLink',
-  'normalizeLink', 'normalizeLinkText',
-  'utils',         'helpers',
-  'options',       'placeholderMap',
-  'disableWarn',   'parse',
-  'render'
-]*/
-  // console.log('111111111', { ...md, linkify: undefined })
   // Обрабатываем изображения, которые стоят отдельно на строке
   md.core.ruler.before('linkify', 'figure', (state) => {
     const tokens = state.tokens

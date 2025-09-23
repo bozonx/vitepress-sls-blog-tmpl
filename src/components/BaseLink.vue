@@ -5,15 +5,7 @@ import { resolveI18Href, isExternalUrl } from '../helpers/helpers.js'
 
 const { theme, localeIndex } = useData()
 const route = useRoute()
-const props = defineProps([
-  'tag',
-  // "id",
-  'class',
-  // "title",
-  'href',
-  'target',
-  // "disabled",
-])
+const props = defineProps(['tag', 'class', 'href', 'target'])
 // Реактивные вычисляемые свойства
 const resolvedHref = computed(() =>
   resolveI18Href(props.href, localeIndex.value, theme.value.i18nRouting)

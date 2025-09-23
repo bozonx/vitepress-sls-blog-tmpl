@@ -439,28 +439,17 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 0.75rem;
   padding: 1rem;
-  background: var(--gray-50, #f9fafb);
+  background: var(--gray-50);
   border-radius: 0.5rem;
-  border: 1px solid var(--border-color, #e5e7eb);
+  border: 1px solid var(--gray-200);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   animation: slideDown 0.3s ease-out;
 }
 
 .dark .audio-player {
-  background: var(--gray-900, #111827);
-  border-color: var(--border-dark-color, #374151);
+  background: var(--gray-950);
+  border-color: var(--gray-800);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .player-controls {
@@ -472,88 +461,45 @@ onUnmounted(() => {
 .play-btn,
 .stop-btn,
 .hide-btn {
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: none; */
   border-radius: 50%;
-  /* background: var(--primary-color, #3b82f6); */
-  /* color: white; */
-  /* cursor: pointer; */
   transition: all 0.2s ease;
-  /* flex-shrink: 0; */
-  /* box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3); */
 }
 
 .play-btn:hover:not(:disabled),
 .stop-btn:hover:not(:disabled),
 .hide-btn:hover:not(:disabled) {
-  /* background: var(--primary-color-dark, #2563eb); */
   transform: scale(1.05);
-  /* box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4); */
-}
-
-/* .play-btn:disabled,
-.stop-btn:disabled {
-  background: var(--gray-400, #9ca3af);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-} */
-
-.dark .play-btn:disabled,
-.dark .stop-btn:disabled {
-  background: var(--gray-600, #4b5563);
-}
-
-.hide-btn {
-  background: var(--gray-500, #6b7280);
-  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
-}
-
-.hide-btn:hover {
-  background: var(--gray-600, #4b5563);
-  box-shadow: 0 4px 8px rgba(107, 114, 128, 0.4);
-}
-
-.dark .hide-btn {
-  background: var(--gray-600, #4b5563);
-}
-
-.dark .hide-btn:hover {
-  background: var(--gray-500, #6b7280);
 }
 
 .time-display {
   display: flex;
   align-items: center;
+  height: 1.75rem;
   gap: 0.25rem;
   font-size: 0.875rem;
-  color: var(--gray-600, #4b5563);
+  color: var(--gray-600);
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
   min-width: 0;
   font-weight: 500;
-  background: var(--gray-100, #f3f4f6);
-  padding: 0.25rem 0.5rem;
+  background: var(--gray-100);
+  padding: 0 0.625rem;
   border-radius: 0.25rem;
-  border: 1px solid var(--gray-200, #e5e7eb);
+  border: 1px solid var(--gray-200);
 }
 
 .dark .time-display {
-  color: var(--gray-400, #9ca3af);
-  background: var(--gray-800, #1f2937);
-  border-color: var(--gray-700, #374151);
+  color: var(--gray-400);
+  background: var(--gray-800);
+  border-color: var(--gray-700);
 }
 
 .time-separator {
-  color: var(--gray-400, #9ca3af);
+  color: var(--gray-400);
   font-weight: 400;
 }
 
 .dark .time-separator {
-  color: var(--gray-500, #6b7280);
+  color: var(--gray-500);
 }
 
 /* Прогресс-бар */
@@ -570,7 +516,7 @@ onUnmounted(() => {
 .progress-track {
   width: 100%;
   height: 0.5rem;
-  background: var(--gray-200, #e5e7eb);
+  background: var(--gray-200);
   border-radius: 0.25rem;
   overflow: hidden;
   position: relative;
@@ -578,17 +524,13 @@ onUnmounted(() => {
 }
 
 .dark .progress-track {
-  background: var(--gray-700, #374151);
+  background: var(--gray-700);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    var(--primary-color, #3b82f6),
-    var(--primary-color-light, #60a5fa)
-  );
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
   border-radius: 0.25rem;
   transition: width 0.2s ease;
   min-width: 0;
@@ -635,7 +577,7 @@ onUnmounted(() => {
   flex: 1;
   min-width: 0;
   height: 0.375rem;
-  background: var(--gray-200, #e5e7eb);
+  background: var(--gray-200);
   border-radius: 0.1875rem;
   outline: none;
   cursor: pointer;
@@ -646,7 +588,7 @@ onUnmounted(() => {
 }
 
 .dark .volume-slider {
-  background: var(--gray-700, #374151);
+  background: var(--gray-700);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -662,71 +604,10 @@ onUnmounted(() => {
     0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 1.25rem;
-  height: 1.25rem;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color, #3b82f6),
-    var(--primary-color-light, #60a5fa)
-  );
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow:
-    0 2px 4px rgba(59, 130, 246, 0.3),
-    0 1px 2px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-  border: 2px solid white;
-}
-
-.volume-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
-  box-shadow:
-    0 4px 8px rgba(59, 130, 246, 0.4),
-    0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.dark .volume-slider::-webkit-slider-thumb {
-  border: 2px solid var(--gray-800, #1f2937);
-}
-
-.volume-slider::-moz-range-thumb {
-  width: 1.25rem;
-  height: 1.25rem;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color, #3b82f6),
-    var(--primary-color-light, #60a5fa)
-  );
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid white;
-  box-shadow:
-    0 2px 4px rgba(59, 130, 246, 0.3),
-    0 1px 2px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-}
-
-.dark .volume-slider::-moz-range-thumb {
-  border: 2px solid var(--gray-800, #1f2937);
-}
-
-.volume-slider:disabled {
+/* .volume-slider:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-
-.volume-slider:disabled::-webkit-slider-thumb {
-  transform: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.volume-slider:disabled::-moz-range-thumb {
-  transform: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
+} */
 
 /* Сообщение об ошибке */
 .error-message {
@@ -745,6 +626,17 @@ onUnmounted(() => {
   background: var(--red-900);
   border-color: var(--red-700);
   color: var(--red-300);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Анимация загрузки */
@@ -783,36 +675,6 @@ onUnmounted(() => {
     order: 3;
     width: 100%;
     justify-content: center;
-  }
-
-  .player-controls {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .time-display {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .volume-control {
-    order: 4;
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .audio-player {
-    padding: 0.5rem;
-  }
-
-  .play-btn,
-  .stop-btn,
-  .hide-btn,
-  .play-btn-header {
-    width: 2rem;
-    height: 2rem;
   }
 }
 </style>

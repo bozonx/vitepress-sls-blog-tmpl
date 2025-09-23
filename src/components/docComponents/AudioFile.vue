@@ -343,7 +343,6 @@ onUnmounted(() => {
           v-model="volume"
           @input="setVolume($event.target.value)"
           class="volume-slider"
-          :disabled="isDisabled"
         />
       </div>
     </div>
@@ -603,11 +602,6 @@ onUnmounted(() => {
     inset 0 1px 2px rgba(0, 0, 0, 0.4),
     0 0 0 3px rgba(59, 130, 246, 0.2);
 }
-
-/* .volume-slider:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-} */
 
 /* Сообщение об ошибке */
 .error-message {

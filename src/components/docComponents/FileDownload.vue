@@ -132,7 +132,7 @@ const fileIcon = computed(() => {
       icon="mdi:download"
       :disabled="isDisabled"
       :text="theme.t.downloadFile"
-      class="download-btn"
+      class="download-btn hover-animation-rise"
       @click="downloadFile"
     />
   </div>

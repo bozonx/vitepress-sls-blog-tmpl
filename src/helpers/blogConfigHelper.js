@@ -8,7 +8,7 @@ import ru from '../configs/blogLocalesBase/ru.js'
 
 const baseLocales = { en, ru }
 
-export async function loadBlogLocale(localeIndex, configFilePath, config) {
+export async function loadBlogLocale(localeIndex, config) {
   const baseLocale = baseLocales[localeIndex]
   const params = {
     localeIndex,
@@ -16,14 +16,12 @@ export async function loadBlogLocale(localeIndex, configFilePath, config) {
     theme: { ...common.themeConfig, ...config.themeConfig },
     t: baseLocale.t,
   }
-  const site = parseLocaleSite(configFilePath, params)
+  const site = parseLocaleSite(config.srcDir, params)
   const { lang, title, description, t, editLink, ...themeConfig } = site
-
-  const srcDir = path.resolve(configFilePath, '../../')
 
   const authors = themeConfig.authors?.map((item) => {
     let imageDimensions = item.image
-      ? getImageDimensions(item.image, srcDir)
+      ? getImageDimensions(item.image, config.srcDir)
       : null
 
     return {

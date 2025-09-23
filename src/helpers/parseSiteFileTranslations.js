@@ -5,11 +5,11 @@ import { standardTemplate } from 'squidlet-lib'
 
 import { DEFAULT_ENCODE } from '../constants.js'
 
-export const SITE_DIR_REL_PATH = '../site'
+export const SITE_DIR_REL_PATH = 'site'
 
-export function parseLocaleSite(configFilePath, props) {
+export function parseLocaleSite(srcDir, props) {
   const translations = loadConfigYamlFile(
-    configFilePath,
+    srcDir,
     `site.${props.localeIndex}.yaml`
   )
 
@@ -36,9 +36,8 @@ export function parseLocaleSite(configFilePath, props) {
   return transRecursive(translations)
 }
 
-export function loadConfigYamlFile(configFilePath, fileName) {
-  const relPath = path.join(SITE_DIR_REL_PATH, fileName)
-  const absPath = path.resolve(path.dirname(configFilePath), relPath)
+export function loadConfigYamlFile(srcDir, fileName) {
+  const absPath = path.join(srcDir, SITE_DIR_REL_PATH, fileName)
   const content = fs.readFileSync(absPath, DEFAULT_ENCODE)
   const obj = yaml.parse(content)
 

@@ -1,13 +1,29 @@
+import { getImageDimensions } from '../helpers/imageHelpers.js'
+
 /**
  * Плагин для обработки изображений в markdown Автоматически оборачивает
- * изображения в теги <figure> с подписями Аналогичен @mdit/plugin-figure
+ * изображения в теги <figure> с подписями Аналогичен @mdit/plugin-figure Также
+ * собирает размеры изображений и добавляет их как атрибуты
+ *
+ * @param {Object} md - Markdown-it instance
+ * @param {Object} options - Опции плагина
+ * @param {string} options.srcDir - Путь к директории исходников
  */
-export function mdImage(md) {
-  console.log('mdImage: Plugin initialized')
-
+export function mdImage(md, options = {}) {
+  /*
+    [
+  'inline',        'block',
+  'core',          'renderer',
+  'linkify',       'validateLink',
+  'normalizeLink', 'normalizeLinkText',
+  'utils',         'helpers',
+  'options',       'placeholderMap',
+  'disableWarn',   'parse',
+  'render'
+]*/
+  // console.log('111111111', { ...md, linkify: undefined })
   // Обрабатываем изображения, которые стоят отдельно на строке
   md.core.ruler.before('linkify', 'figure', (state) => {
-    console.log('mdImage: Processing tokens, count:', state.tokens.length)
     const tokens = state.tokens
 
     // Проходим по всем токенам
@@ -42,6 +58,32 @@ export function mdImage(md) {
           // Получаем токен изображения
           const imageToken = children.length === 1 ? children[0] : children[1]
 
+          // Получаем путь к изображению
+          const imageSrc = imageToken.attrGet('src')
+
+          // Собираем размеры изображения, если есть srcDir в опциях или env
+          const srcDir = options.srcDir || state.env?.srcDir
+          if (imageSrc && srcDir) {
+            try {
+              const dimensions = getImageDimensions(imageSrc, srcDir)
+              if (dimensions) {
+                // Добавляем размеры как data-атрибуты
+                imageToken.attrPush(['data-width', dimensions.width.toString()])
+                imageToken.attrPush([
+                  'data-height',
+                  dimensions.height.toString(),
+                ])
+                // Размеры успешно добавлены
+              }
+            } catch (error) {
+              console.warn(
+                'mdImage: Failed to get dimensions for',
+                imageSrc,
+                error.message
+              )
+            }
+          }
+
           // Преобразуем paragraph_open в figure_open
           prevToken.type = 'figure_open'
           prevToken.tag = 'figure'
@@ -56,7 +98,7 @@ export function mdImage(md) {
           const alt = imageToken.attrGet('alt')
           const caption = title || alt || imageToken.content
 
-          console.log('mdImage: Caption data:', { title, alt, caption })
+          // Получаем данные для подписи
 
           // Удаляем title и alt атрибуты, если они есть (чтобы не дублировать в подписи)
           if (title || alt) {
@@ -68,8 +110,6 @@ export function mdImage(md) {
 
           // Добавляем figcaption если есть подпись
           if (caption) {
-            console.log('mdImage: Adding figcaption with caption:', caption)
-
             // Создаем токены для figcaption
             const figcaptionOpen = new state.Token(
               'figcaption_open',

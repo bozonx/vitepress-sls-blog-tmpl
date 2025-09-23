@@ -197,6 +197,16 @@ button {
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+/* Стили для изображений с data-атрибутами размеров */
+.figure img[data-width][data-height] {
+  /* Можно использовать data-атрибуты для дополнительной стилизации */
+  transition: transform 0.2s ease-in-out;
+}
+
+.figure img[data-width][data-height]:hover {
+  transform: scale(1.02);
+}
+
 .figure-caption {
   display: block;
   margin-top: 0.5rem;

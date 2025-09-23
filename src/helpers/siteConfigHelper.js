@@ -10,7 +10,7 @@ import ru from '../configs/siteLocalesBase/ru.js'
 
 const baseLocales = { en, ru }
 
-export async function loadSiteLocale(localeIndex, configFilePath, config) {
+export async function loadSiteLocale(localeIndex, config) {
   const baseLocale = baseLocales[localeIndex]
   const params = {
     localeIndex,
@@ -18,7 +18,7 @@ export async function loadSiteLocale(localeIndex, configFilePath, config) {
     theme: { ...common.themeConfig, ...config.themeConfig },
     t: baseLocale.t,
   }
-  const site = parseLocaleSite(configFilePath, params)
+  const site = parseLocaleSite(config.srcDir, params)
   const {
     lang,
     title,
@@ -30,7 +30,7 @@ export async function loadSiteLocale(localeIndex, configFilePath, config) {
     ...themeConfig
   } = site
 
-  const sidebar = parseLocaleSidebar(configFilePath, params)
+  const sidebar = parseLocaleSidebar(config.srcDir, params)
 
   return {
     lang,
@@ -57,9 +57,9 @@ export async function loadSiteLocale(localeIndex, configFilePath, config) {
   }
 }
 
-export function parseLocaleSidebar(configFilePath, params) {
+export function parseLocaleSidebar(srcDir, params) {
   const sidebar = loadConfigYamlFile(
-    configFilePath,
+    srcDir,
     `sidebar.${params.localeIndex}.yaml`
   )
 

@@ -109,8 +109,9 @@ export function mergeBlogConfig(config) {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
       config: (md) => {
+        console.log('config.srcDir', config.srcDir)
         // md.use(figure)
-        md.use(mdImage)
+        md.use(mdImage, { srcDir: config.srcDir })
 
         if (config.markdown?.config) {
           config.markdown.config(md)

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, inject } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { Icon } from '@iconify/vue'
 import Btn from '../Btn.vue'
 import { useData } from 'vitepress'
@@ -31,10 +31,28 @@ const downloadFilename = computed(() => {
   return props.url.split('/').pop() || 'audio file'
 })
 
+// Валидация URL для безопасности
+const isValidUrl = (url) => {
+  try {
+    new URL(url)
+    return true
+  } catch {
+    return false
+  }
+}
+
 const downloadFile = async () => {
   if (isDisabled.value) return
 
   try {
+    // Проверяем валидность URL
+    if (!isValidUrl(props.url)) {
+      hasError.value = true
+      errorMessage.value = 'Invalid URL provided'
+      console.error('Invalid URL provided')
+      return
+    }
+
     // Создаем временную ссылку для скачивания
     const link = document.createElement('a')
     link.href = props.url
@@ -46,6 +64,8 @@ const downloadFile = async () => {
     link.click()
     document.body.removeChild(link)
   } catch (error) {
+    hasError.value = true
+    errorMessage.value = 'Error downloading file'
     console.error('Error downloading file:', error)
     // В случае ошибки открываем файл в новой вкладке
     window.open(props.url, '_blank')
@@ -61,23 +81,45 @@ const volume = ref(1)
 const isLoading = ref(false)
 const hasError = ref(false)
 const isPlayerVisible = ref(false)
+const isAudioLoaded = ref(false)
+const errorMessage = ref('')
+
+// Debounce функция для оптимизации производительности
+const debounce = (func, wait) => {
+  let timeout
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}
 
 // Методы управления аудио плеером
 const togglePlayPause = async () => {
   if (isDisabled.value || hasError.value) return
 
   try {
+    // Проверяем валидность URL перед воспроизведением
+    if (!isValidUrl(props.url)) {
+      hasError.value = true
+      errorMessage.value = 'Invalid audio URL provided'
+      console.error('Invalid audio URL provided')
+      return
+    }
+
     if (!audioRef.value) return
 
     // Если плеер не виден, показываем его и начинаем воспроизведение
     if (!isPlayerVisible.value) {
       isPlayerVisible.value = true
-      // Небольшая задержка для анимации появления плеера
-      setTimeout(async () => {
-        if (audioRef.value) {
-          await audioRef.value.play()
-        }
-      }, 100)
+      // Ждем следующий тик для анимации появления плеера
+      await nextTick()
+      if (audioRef.value) {
+        await audioRef.value.play()
+      }
       return
     }
 
@@ -90,6 +132,7 @@ const togglePlayPause = async () => {
   } catch (error) {
     console.error('Error playing audio:', error)
     hasError.value = true
+    errorMessage.value = 'Error playing audio file'
   }
 }
 
@@ -138,20 +181,59 @@ const handleProgressClick = (event) => {
   seekTo(newTime)
 }
 
+// Обработка клавиатуры для прогресс-бара
+const handleProgressKeydown = (event) => {
+  if (isDisabled.value || !duration.value) return
+
+  const step = duration.value * 0.05 // 5% от общей длительности
+  let newTime = currentTime.value
+
+  switch (event.key) {
+    case 'ArrowLeft':
+    case 'ArrowDown':
+      event.preventDefault()
+      newTime = Math.max(0, currentTime.value - step)
+      break
+    case 'ArrowRight':
+    case 'ArrowUp':
+      event.preventDefault()
+      newTime = Math.min(duration.value, currentTime.value + step)
+      break
+    case 'Home':
+      event.preventDefault()
+      newTime = 0
+      break
+    case 'End':
+      event.preventDefault()
+      newTime = duration.value
+      break
+    default:
+      return
+  }
+
+  seekTo(newTime)
+}
+
 // Обработчики событий аудио
 const handleLoadedMetadata = () => {
   if (audioRef.value) {
     duration.value = audioRef.value.duration
     isLoading.value = false
+    isAudioLoaded.value = true
     // Устанавливаем громкость после загрузки метаданных
     audioRef.value.volume = volume.value
   }
 }
 
-const handleTimeUpdate = () => {
+// Debounced версия handleTimeUpdate для оптимизации производительности
+const handleTimeUpdateDebounced = debounce(() => {
   if (audioRef.value) {
     currentTime.value = audioRef.value.currentTime
   }
+}, 100)
+
+const handleTimeUpdate = () => {
+  handleTimeUpdateDebounced()
 }
 
 const handlePlay = () => {
@@ -170,12 +252,43 @@ const handleEnded = () => {
 const handleLoadStart = () => {
   isLoading.value = true
   hasError.value = false
+  isAudioLoaded.value = false
+  errorMessage.value = ''
 }
 
-const handleError = () => {
+const handleError = (event) => {
   hasError.value = true
   isLoading.value = false
   isPlaying.value = false
+  isAudioLoaded.value = false
+
+  // Более детальная обработка ошибок
+  const error = event.target.error
+  if (error) {
+    switch (error.code) {
+      case error.MEDIA_ERR_ABORTED:
+        errorMessage.value = 'Audio playback was aborted'
+        console.error('Audio playback was aborted')
+        break
+      case error.MEDIA_ERR_NETWORK:
+        errorMessage.value = 'Network error occurred while loading audio'
+        console.error('Network error occurred while loading audio')
+        break
+      case error.MEDIA_ERR_DECODE:
+        errorMessage.value = 'Audio decoding error'
+        console.error('Audio decoding error')
+        break
+      case error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+        errorMessage.value = 'Audio format not supported'
+        console.error('Audio format not supported')
+        break
+      default:
+        errorMessage.value = 'Unknown audio error occurred'
+        console.error('Unknown audio error occurred')
+    }
+  } else {
+    errorMessage.value = 'Error loading audio file'
+  }
 }
 
 // Форматирование времени
@@ -197,42 +310,35 @@ const progressPercent = computed(() => {
 
 // Инициализация при монтировании компонента
 onMounted(() => {
+  // Обработчики событий теперь только в template, убираем дублирование
+  // Устанавливаем громкость по умолчанию
   if (audioRef.value) {
-    // Устанавливаем обработчики событий
-    audioRef.value.addEventListener('loadedmetadata', handleLoadedMetadata)
-    audioRef.value.addEventListener('timeupdate', handleTimeUpdate)
-    audioRef.value.addEventListener('play', handlePlay)
-    audioRef.value.addEventListener('pause', handlePause)
-    audioRef.value.addEventListener('ended', handleEnded)
-    audioRef.value.addEventListener('loadstart', handleLoadStart)
-    audioRef.value.addEventListener('error', handleError)
-
-    // Устанавливаем громкость
     audioRef.value.volume = volume.value
   }
 })
 
 // Очистка при размонтировании
 onUnmounted(() => {
+  // Очистка не нужна, так как обработчики только в template
   if (audioRef.value) {
-    audioRef.value.removeEventListener('loadedmetadata', handleLoadedMetadata)
-    audioRef.value.removeEventListener('timeupdate', handleTimeUpdate)
-    audioRef.value.removeEventListener('play', handlePlay)
-    audioRef.value.removeEventListener('pause', handlePause)
-    audioRef.value.removeEventListener('ended', handleEnded)
-    audioRef.value.removeEventListener('loadstart', handleLoadStart)
-    audioRef.value.removeEventListener('error', handleError)
+    audioRef.value.pause()
+    audioRef.value.currentTime = 0
   }
 })
 </script>
 
 <template>
-  <div class="audio-file" :class="class">
-    <!-- Скрытый audio элемент -->
+  <div
+    class="audio-file"
+    :class="class"
+    role="region"
+    :aria-label="`Audio player for ${downloadFilename}`"
+  >
+    <!-- Скрытый audio элемент с lazy loading -->
     <audio
       ref="audioRef"
-      :src="props.url"
-      preload="metadata"
+      :src="isPlayerVisible ? props.url : undefined"
+      :preload="isPlayerVisible ? 'metadata' : 'none'"
       @loadedmetadata="handleLoadedMetadata"
       @timeupdate="handleTimeUpdate"
       @play="handlePlay"
@@ -240,6 +346,7 @@ onUnmounted(() => {
       @ended="handleEnded"
       @loadstart="handleLoadStart"
       @error="handleError"
+      aria-hidden="true"
     />
 
     <!-- Первая строка: кнопка play, название файла, кнопка скачать -->
@@ -251,7 +358,13 @@ onUnmounted(() => {
         class="play-btn-header"
         :disabled="isDisabled || hasError"
         @click="togglePlayPause"
-        :title="isPlaying ? 'Pause' : 'Play'"
+        :title="isPlaying ? 'Pause audio' : 'Play audio'"
+        :aria-label="
+          isPlaying ? 'Pause audio playback' : 'Start audio playback'
+        "
+        :aria-pressed="isPlaying"
+        role="button"
+        tabindex="0"
         :icon="isLoading ? 'mdi:loading' : 'mdi:play'"
         :iconClass="{ spinning: isLoading }"
       />
@@ -259,7 +372,10 @@ onUnmounted(() => {
       <!-- Информация о файле -->
       <div class="file-info" :class="{ 'has-hint': $slots.default }">
         <div class="file-details">
-          <div class="file-name muted">
+          <div
+            class="file-name muted"
+            :aria-label="`Audio file: ${downloadFilename}`"
+          >
             {{ downloadFilename }}
           </div>
           <div v-if="$slots.default" class="file-hint">
@@ -275,20 +391,38 @@ onUnmounted(() => {
         :text="theme.t.downloadFile"
         class="download-btn-header hover-animation-rise"
         @click="downloadFile"
+        :aria-label="`Download ${downloadFilename}`"
+        role="button"
+        tabindex="0"
       />
     </div>
 
     <!-- Аудио плеер (показывается при нажатии на play) -->
-    <div v-if="isPlayerVisible" class="audio-player">
+    <div
+      v-if="isPlayerVisible"
+      class="audio-player"
+      role="group"
+      :aria-label="`Audio player controls for ${downloadFilename}`"
+    >
       <!-- Основные контролы -->
-      <div class="player-controls">
+      <div
+        class="player-controls"
+        role="toolbar"
+        aria-label="Audio playback controls"
+      >
         <!-- Кнопка воспроизведения/паузы -->
         <Btn
           class="play-btn"
           primary="true"
           :disabled="isDisabled || hasError"
           @click="togglePlayPause"
-          :title="isPlaying ? 'Pause' : 'Play'"
+          :title="isPlaying ? 'Pause audio' : 'Play audio'"
+          :aria-label="
+            isPlaying ? 'Pause audio playback' : 'Resume audio playback'
+          "
+          :aria-pressed="isPlaying"
+          role="button"
+          tabindex="0"
           :icon="
             isLoading ? 'mdi:loading' : isPlaying ? 'mdi:pause' : 'mdi:play'
           "
@@ -300,7 +434,10 @@ onUnmounted(() => {
           class="stop-btn"
           :disabled="isDisabled || hasError || !isPlaying"
           @click="stopAudio"
-          title="Stop"
+          title="Stop audio"
+          :aria-label="'Stop audio playback and reset to beginning'"
+          role="button"
+          tabindex="0"
           icon="mdi:stop"
         />
 
@@ -309,20 +446,42 @@ onUnmounted(() => {
           class="hide-btn"
           @click="hidePlayer"
           title="Hide player"
+          :aria-label="'Hide audio player controls'"
+          role="button"
+          tabindex="0"
           icon="mdi:chevron-up"
         />
 
         <!-- Время -->
-        <div class="time-display">
-          <span class="current-time">{{ formatTime(currentTime) }}</span>
-          <span class="time-separator">/</span>
-          <span class="total-time">{{ formatTime(duration) }}</span>
+        <div
+          class="time-display"
+          role="timer"
+          :aria-label="`Current time: ${formatTime(currentTime)} of ${formatTime(duration)}`"
+        >
+          <span class="current-time" aria-hidden="true">{{
+            formatTime(currentTime)
+          }}</span>
+          <span class="time-separator" aria-hidden="true">/</span>
+          <span class="total-time" aria-hidden="true">{{
+            formatTime(duration)
+          }}</span>
         </div>
       </div>
 
       <!-- Прогресс-бар -->
       <div class="progress-container">
-        <div class="progress-bar" @click="handleProgressClick">
+        <div
+          class="progress-bar"
+          @click="handleProgressClick"
+          role="slider"
+          :aria-label="`Audio progress: ${Math.round(progressPercent)}%`"
+          :aria-valuemin="0"
+          :aria-valuemax="100"
+          :aria-valuenow="Math.round(progressPercent)"
+          :aria-valuetext="`${formatTime(currentTime)} of ${formatTime(duration)}`"
+          tabindex="0"
+          @keydown="handleProgressKeydown"
+        >
           <div class="progress-track">
             <div
               class="progress-fill"
@@ -334,7 +493,7 @@ onUnmounted(() => {
 
       <!-- Контрол громкости -->
       <div class="volume-control">
-        <Icon icon="mdi:volume-high" class="volume-icon" />
+        <Icon icon="mdi:volume-high" class="volume-icon" aria-hidden="true" />
         <input
           type="range"
           min="0"
@@ -343,14 +502,33 @@ onUnmounted(() => {
           v-model="volume"
           @input="setVolume($event.target.value)"
           class="volume-slider"
+          :aria-label="`Volume control: ${Math.round(volume * 100)}%`"
+          role="slider"
+          :aria-valuemin="0"
+          :aria-valuemax="100"
+          :aria-valuenow="Math.round(volume * 100)"
+          :aria-valuetext="`${Math.round(volume * 100)}% volume`"
         />
       </div>
     </div>
 
     <!-- Сообщение об ошибке -->
-    <div v-if="hasError" class="error-message">
-      <Icon icon="mdi:alert-circle" />
-      <span>Error loading audio file</span>
+    <div v-if="hasError" class="error-message" role="alert" aria-live="polite">
+      <Icon icon="mdi:alert-circle" aria-hidden="true" />
+      <span>{{ errorMessage || 'Error loading audio file' }}</span>
+      <Btn
+        v-if="!isValidUrl(props.url)"
+        class="retry-btn"
+        @click="
+          () => {
+            hasError.value = false
+            errorMessage.value = ''
+          }
+        "
+        :aria-label="'Retry with valid URL'"
+        icon="mdi:refresh"
+        text="Retry"
+      />
     </div>
   </div>
 </template>
@@ -510,6 +688,18 @@ onUnmounted(() => {
 .progress-bar {
   cursor: pointer;
   padding: 0.75rem 0;
+  outline: none;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.progress-bar:focus {
+  outline: 2px solid var(--primary-btn-bg);
+  outline-offset: 2px;
+}
+
+.progress-bar:hover {
+  background: rgba(59, 130, 246, 0.05);
 }
 
 .progress-track {
@@ -586,6 +776,11 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
+.volume-slider:focus {
+  outline: 2px solid var(--primary-btn-bg);
+  outline-offset: 2px;
+}
+
 .dark .volume-slider {
   background: var(--gray-700);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -620,6 +815,11 @@ onUnmounted(() => {
   background: var(--red-900);
   border-color: var(--red-700);
   color: var(--red-300);
+}
+
+.retry-btn {
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 @keyframes slideDown {

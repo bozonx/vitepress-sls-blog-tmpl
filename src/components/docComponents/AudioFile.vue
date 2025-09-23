@@ -442,7 +442,7 @@ onUnmounted(() => {
       <Btn
         icon="mdi:download"
         :disabled="isDisabled"
-        :text="theme.t.downloadFile"
+        :text="theme.t.audioFile.downloadFile"
         class="download-btn-header hover-animation-rise"
         @click="downloadFile"
         :aria-label="`${theme.t.audioFile.downloadAudioFile} ${downloadFilename}`"
@@ -606,6 +606,7 @@ onUnmounted(() => {
   gap: 1rem;
   border-left: 4px solid var(--primary-btn-bg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 0.325rem;
   margin-bottom: 0.325rem;
 }
 

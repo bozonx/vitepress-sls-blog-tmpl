@@ -34,7 +34,7 @@ export default {
     allPostsOfAuthor: 'All the posts of the author',
     closeMenu: 'Close menu',
     allPostsOfYear: 'All posts of the year',
-    downloadFile: 'Download',
+
     links: {
       aboutBlog: 'About This Blog',
       donate: 'Donate',
@@ -75,6 +75,7 @@ export default {
       podcastaddiction: 'Podcast addiction',
     },
     audioFile: {
+      downloadFile: 'Download',
       playAudio: 'Play audio',
       pauseAudio: 'Pause audio',
       startAudioPlayback: 'Start audio playback',
@@ -103,6 +104,18 @@ export default {
       audioFormatNotSupported: 'Audio format not supported',
       unknownAudioError: 'Unknown audio error occurred',
       errorLoadingAudioFile: 'Error loading audio file',
+    },
+    fileDownload: {
+      fileDownload: 'File download',
+      downloadFile: 'Download file',
+      downloadFileWithName: 'Download file',
+      fileType: 'File type',
+      fileSize: 'File size',
+      downloadStarted: 'File download started',
+      downloadError: 'Error downloading file',
+      invalidUrlProvided: 'Invalid URL provided',
+      retryDownload: 'Retry download',
+      retry: 'Retry',
     },
   },
 }

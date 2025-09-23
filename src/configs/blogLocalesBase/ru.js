@@ -34,7 +34,7 @@ export default {
     allPostsOfAuthor: 'Все посты автора',
     closeMenu: 'Закрыть меню',
     allPostsOfYear: 'Все посты за год',
-    downloadFile: 'Скачать',
+
     links: {
       aboutBlog: 'Об этом блоге',
       donate: 'Донат',
@@ -75,6 +75,7 @@ export default {
       podcastaddiction: 'Podcast addiction',
     },
     audioFile: {
+      downloadFile: 'Скачать',
       playAudio: 'Воспроизвести аудио',
       pauseAudio: 'Приостановить аудио',
       startAudioPlayback: 'Начать воспроизведение аудио',
@@ -104,6 +105,18 @@ export default {
       audioFormatNotSupported: 'Формат аудио не поддерживается',
       unknownAudioError: 'Произошла неизвестная ошибка аудио',
       errorLoadingAudioFile: 'Ошибка загрузки аудио файла',
+    },
+    fileDownload: {
+      fileDownload: 'Скачивание файла',
+      downloadFile: 'Скачать файл',
+      downloadFileWithName: 'Скачать файл',
+      fileType: 'Тип файла',
+      fileSize: 'Размер файла',
+      downloadStarted: 'Начато скачивание файла',
+      downloadError: 'Ошибка при скачивании файла',
+      invalidUrlProvided: 'Предоставлен некорректный URL',
+      retryDownload: 'Повторить скачивание',
+      retry: 'Повторить',
     },
   },
 }

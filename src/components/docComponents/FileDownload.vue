@@ -113,13 +113,25 @@ const fileIcon = computed(() => {
 </script>
 
 <template>
-  <div class="file-download" :class="class">
+  <div
+    class="file-download"
+    :class="class"
+    role="region"
+    :aria-label="`${theme.t.fileDownload.fileDownload}: ${downloadFilename}`"
+  >
     <div class="file-info" :class="{ 'has-hint': $slots.default }">
-      <div class="file-icon">
-        <Icon :icon="fileIcon" />
+      <div
+        class="file-icon"
+        :aria-label="`${theme.t.fileDownload.fileType}: ${extensionName || 'unknown'}`"
+        role="img"
+      >
+        <Icon :icon="fileIcon" aria-hidden="true" />
       </div>
       <div class="file-details">
-        <div class="file-name muted">
+        <div
+          class="file-name muted"
+          :aria-label="`${theme.t.fileDownload.fileDownload}: ${downloadFilename}`"
+        >
           {{ downloadFilename }}
         </div>
         <div v-if="$slots.default" class="file-hint">
@@ -131,9 +143,12 @@ const fileIcon = computed(() => {
     <Btn
       icon="mdi:download"
       :disabled="isDisabled"
-      :text="theme.t.downloadFile"
+      :text="theme.t.fileDownload.downloadFile"
       class="download-btn hover-animation-rise"
       @click="downloadFile"
+      :aria-label="`${theme.t.fileDownload.downloadFileWithName} ${downloadFilename}`"
+      role="button"
+      tabindex="0"
     />
   </div>
 </template>
@@ -152,6 +167,7 @@ const fileIcon = computed(() => {
   gap: 1rem;
   border-left: 4px solid var(--primary-btn-bg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 0.325rem;
   margin-bottom: 0.325rem;
 }
 

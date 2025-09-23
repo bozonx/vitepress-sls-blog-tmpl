@@ -4,7 +4,7 @@
   --layout-hue: 213;
   --link-hue: 232;
   --visited-hue: 287;
-  --primary-btn-bg: hsl(var(--primary-hue), 80%, 40%);
+  --primary-btn-bg: hsl(var(--primary-hue), 66%, 46%);
   --primary-btn-bg-active: hsl(var(--primary-hue), 75%, 32%);
   --gray-50: hsl(var(--layout-hue), 16%, 98%);
   --gray-100: hsl(var(--layout-hue), 14.29%, 95.88%);
@@ -22,6 +22,13 @@
   --gray-900: hsl(var(--layout-hue), 39.29%, 10.98%);
   --gray-900-trans: hsl(var(--layout-hue), 39.29%, 10.98%, 0%);
   --gray-950: hsl(var(--layout-hue), 42%, 10%);
+}
+
+.dark:root {
+  --primary-btn-bg: hsl(var(--primary-hue), 80%, 40%);
+}
+
+:root {
   /**** SimpleLink */
   --color-a-light-link: hsl(var(--link-hue), 74%, 44%);
   --color-a-light-visited: hsl(var(--visited-hue) 50% 44%);
@@ -72,10 +79,6 @@
   --dropdown-list-bg: var(--drawer-bg);
   --dropdown-list-dark-bg: var(--drawer-dark-bg);
 
-  /**** TagItem */
-  --tag-item-bg: var(--primary-btn-bg);
-  --tag-item-bg-active: var(--primary-btn-bg-active);
-
   /**** SwitchAppearance */
   --switch-appearance-border-color: #c2c2c4;
   --switch-appearance-bg-color: rgba(142, 150, 170, 0.14);
@@ -87,6 +90,10 @@
   --switch-appearance-dark-bg-color: rgba(101, 117, 133, 0.16);
   --switch-appearance-dark-border-color-hover: #a8b1ff;
   --switch-appearance-dark-check-bg: #000000;
+
+  /**** TagItem */
+  --tag-item-bg: var(--primary-btn-bg);
+  --tag-item-bg-active: var(--primary-btn-bg-active);
 }
 
 body {

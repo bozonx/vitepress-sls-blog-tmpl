@@ -258,6 +258,7 @@ onUnmounted(() => {
     <div class="file-header">
       <!-- Кнопка воспроизведения -->
       <button
+        v-if="!isPlayerVisible"
         class="play-btn-header"
         :disabled="isDisabled || hasError"
         @click="togglePlayPause"
@@ -377,18 +378,19 @@ onUnmounted(() => {
   flex-direction: column;
   padding: 1rem;
   padding-left: 2rem;
-  border: 1px solid var(--border-color, #e5e7eb);
+  border: 1px solid var(--gray-150);
   border-radius: 0.75rem;
-  background: var(--bg-color, #ffffff);
+  background: #ffffff;
   transition: all 0.2s ease;
   gap: 1rem;
-  border-left: 4px solid var(--primary-color, #3b82f6);
+  border-left: 4px solid var(--primary-btn-bg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .dark .audio-file {
-  background: var(--bg-dark-color, #1f2937);
-  border-color: var(--border-dark-color, #374151);
+  background: var(--gray-800);
+  border-color: var(--gray-700);
+  border-left-color: var(--primary-btn-bg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -408,25 +410,22 @@ onUnmounted(() => {
   height: 2.5rem;
   border: none;
   border-radius: 50%;
-  background: var(--primary-color, #3b82f6);
+  background: var(--primary-btn-bg);
   color: white;
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
 }
 
 .play-btn-header:hover:not(:disabled) {
-  background: var(--primary-color-dark, #2563eb);
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+  filter: brightness(115%);
 }
 
 .play-btn-header:disabled {
   background: var(--gray-400, #9ca3af);
   cursor: not-allowed;
   transform: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .dark .play-btn-header:disabled {

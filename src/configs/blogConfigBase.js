@@ -10,6 +10,7 @@ import { transformTitle } from '../transformers/transformTitle.js'
 import { resolveDescription } from '../transformers/resolveDescription.js'
 import { addCanonicalLink } from '../transformers/addCanonicalLink.js'
 import { collectImageDimensions } from '../transformers/collectImageDimensions.js'
+import { mdImage } from '../transformers/mdImage.js'
 
 export const common = {
   head: [
@@ -108,7 +109,8 @@ export function mergeBlogConfig(config) {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
       config: (md) => {
-        md.use(figure)
+        // md.use(figure)
+        md.use(mdImage)
 
         if (config.markdown?.config) {
           config.markdown.config(md)

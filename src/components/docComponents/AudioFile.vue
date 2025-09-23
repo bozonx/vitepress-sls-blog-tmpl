@@ -98,7 +98,7 @@ const downloadFile = async () => {
     // Проверяем валидность URL
     if (!isValidUrl(props.url)) {
       hasError.value = true
-      errorMessage.value = 'Invalid URL provided'
+      errorMessage.value = theme.value.t.audioFile.invalidUrlProvided
       console.error('Invalid URL provided')
       return
     }
@@ -115,7 +115,7 @@ const downloadFile = async () => {
     document.body.removeChild(link)
   } catch (error) {
     hasError.value = true
-    errorMessage.value = 'Error downloading file'
+    errorMessage.value = theme.value.t.audioFile.errorDownloadingFile
     console.error('Error downloading file:', error)
     // В случае ошибки открываем файл в новой вкладке
     window.open(encodeAudioUrl(props.url), '_blank')
@@ -155,7 +155,7 @@ const togglePlayPause = async () => {
     // Проверяем валидность URL перед воспроизведением
     if (!isValidUrl(props.url)) {
       hasError.value = true
-      errorMessage.value = 'Invalid audio URL provided'
+      errorMessage.value = theme.value.t.audioFile.invalidAudioUrlProvided
       console.error('Invalid audio URL provided')
       return
     }
@@ -182,7 +182,7 @@ const togglePlayPause = async () => {
   } catch (error) {
     console.error('Error playing audio:', error)
     hasError.value = true
-    errorMessage.value = 'Error playing audio file'
+    errorMessage.value = theme.value.t.audioFile.errorPlayingAudioFile
   }
 }
 
@@ -317,27 +317,27 @@ const handleError = (event) => {
   if (error) {
     switch (error.code) {
       case error.MEDIA_ERR_ABORTED:
-        errorMessage.value = 'Audio playback was aborted'
+        errorMessage.value = theme.value.t.audioFile.audioPlaybackAborted
         console.error('Audio playback was aborted')
         break
       case error.MEDIA_ERR_NETWORK:
-        errorMessage.value = 'Network error occurred while loading audio'
+        errorMessage.value = theme.value.t.audioFile.networkErrorLoadingAudio
         console.error('Network error occurred while loading audio')
         break
       case error.MEDIA_ERR_DECODE:
-        errorMessage.value = 'Audio decoding error'
+        errorMessage.value = theme.value.t.audioFile.audioDecodingError
         console.error('Audio decoding error')
         break
       case error.MEDIA_ERR_SRC_NOT_SUPPORTED:
-        errorMessage.value = 'Audio format not supported'
+        errorMessage.value = theme.value.t.audioFile.audioFormatNotSupported
         console.error('Audio format not supported')
         break
       default:
-        errorMessage.value = 'Unknown audio error occurred'
+        errorMessage.value = theme.value.t.audioFile.unknownAudioError
         console.error('Unknown audio error occurred')
     }
   } else {
-    errorMessage.value = 'Error loading audio file'
+    errorMessage.value = theme.value.t.audioFile.errorLoadingAudioFile
   }
 }
 
@@ -382,7 +382,7 @@ onUnmounted(() => {
     class="audio-file"
     :class="class"
     role="region"
-    :aria-label="`Audio player for ${downloadFilename}`"
+    :aria-label="`${theme.t.audioFile.audioFile}: ${downloadFilename}`"
   >
     <!-- Скрытый audio элемент с lazy loading -->
     <audio
@@ -408,9 +408,13 @@ onUnmounted(() => {
         class="play-btn-header"
         :disabled="isDisabled || hasError"
         @click="togglePlayPause"
-        :title="isPlaying ? 'Pause audio' : 'Play audio'"
+        :title="
+          isPlaying ? theme.t.audioFile.pauseAudio : theme.t.audioFile.playAudio
+        "
         :aria-label="
-          isPlaying ? 'Pause audio playback' : 'Start audio playback'
+          isPlaying
+            ? theme.t.audioFile.pauseAudioPlayback
+            : theme.t.audioFile.startAudioPlayback
         "
         :aria-pressed="isPlaying"
         role="button"
@@ -424,7 +428,7 @@ onUnmounted(() => {
         <div class="file-details">
           <div
             class="file-name muted"
-            :aria-label="`Audio file: ${downloadFilename}`"
+            :aria-label="`${theme.t.audioFile.audioFile}: ${downloadFilename}`"
           >
             {{ downloadFilename }}
           </div>
@@ -441,7 +445,7 @@ onUnmounted(() => {
         :text="theme.t.downloadFile"
         class="download-btn-header hover-animation-rise"
         @click="downloadFile"
-        :aria-label="`Download ${downloadFilename}`"
+        :aria-label="`${theme.t.audioFile.downloadAudioFile} ${downloadFilename}`"
         role="button"
         tabindex="0"
       />
@@ -452,13 +456,13 @@ onUnmounted(() => {
       v-if="isPlayerVisible"
       class="audio-player"
       role="group"
-      :aria-label="`Audio player controls for ${downloadFilename}`"
+      :aria-label="`${theme.t.audioFile.audioFile} controls for ${downloadFilename}`"
     >
       <!-- Основные контролы -->
       <div
         class="player-controls"
         role="toolbar"
-        aria-label="Audio playback controls"
+        :aria-label="theme.t.audioFile.audioFile + ' playback controls'"
       >
         <!-- Кнопка воспроизведения/паузы -->
         <Btn
@@ -466,9 +470,15 @@ onUnmounted(() => {
           primary="true"
           :disabled="isDisabled || hasError"
           @click="togglePlayPause"
-          :title="isPlaying ? 'Pause audio' : 'Play audio'"
+          :title="
+            isPlaying
+              ? theme.t.audioFile.pauseAudio
+              : theme.t.audioFile.playAudio
+          "
           :aria-label="
-            isPlaying ? 'Pause audio playback' : 'Resume audio playback'
+            isPlaying
+              ? theme.t.audioFile.pauseAudioPlayback
+              : theme.t.audioFile.resumeAudioPlayback
           "
           :aria-pressed="isPlaying"
           role="button"
@@ -484,8 +494,8 @@ onUnmounted(() => {
           class="stop-btn"
           :disabled="isDisabled || hasError || !isPlaying"
           @click="stopAudio"
-          title="Stop audio"
-          :aria-label="'Stop audio playback and reset to beginning'"
+          :title="theme.t.audioFile.stopAudio"
+          :aria-label="theme.t.audioFile.stopAudioPlayback"
           role="button"
           tabindex="0"
           icon="mdi:stop"
@@ -495,8 +505,8 @@ onUnmounted(() => {
         <Btn
           class="hide-btn"
           @click="hidePlayer"
-          title="Hide player"
-          :aria-label="'Hide audio player controls'"
+          :title="theme.t.audioFile.hidePlayerTitle"
+          :aria-label="theme.t.audioFile.hidePlayer"
           role="button"
           tabindex="0"
           icon="mdi:chevron-up"
@@ -506,7 +516,7 @@ onUnmounted(() => {
         <div
           class="time-display"
           role="timer"
-          :aria-label="`Current time: ${formatTime(currentTime)} of ${formatTime(duration)}`"
+          :aria-label="`${theme.t.audioFile.currentTime}: ${formatTime(currentTime)} of ${formatTime(duration)}`"
         >
           <span class="current-time" aria-hidden="true">{{
             formatTime(currentTime)
@@ -524,7 +534,7 @@ onUnmounted(() => {
           class="progress-bar"
           @click="handleProgressClick"
           role="slider"
-          :aria-label="`Audio progress: ${Math.round(progressPercent)}%`"
+          :aria-label="`${theme.t.audioFile.audioProgress}: ${Math.round(progressPercent)}%`"
           :aria-valuemin="0"
           :aria-valuemax="100"
           :aria-valuenow="Math.round(progressPercent)"
@@ -552,12 +562,12 @@ onUnmounted(() => {
           v-model="volume"
           @input="setVolume($event.target.value)"
           class="volume-slider"
-          :aria-label="`Volume control: ${Math.round(volume * 100)}%`"
+          :aria-label="`${theme.t.audioFile.volumeControl}: ${Math.round(volume * 100)}%`"
           role="slider"
           :aria-valuemin="0"
           :aria-valuemax="100"
           :aria-valuenow="Math.round(volume * 100)"
-          :aria-valuetext="`${Math.round(volume * 100)}% volume`"
+          :aria-valuetext="`${Math.round(volume * 100)}% ${theme.t.audioFile.volumePercent}`"
         />
       </div>
     </div>
@@ -565,7 +575,7 @@ onUnmounted(() => {
     <!-- Сообщение об ошибке -->
     <div v-if="hasError" class="error-message" role="alert" aria-live="polite">
       <Icon icon="mdi:alert-circle" aria-hidden="true" />
-      <span>{{ errorMessage || 'Error loading audio file' }}</span>
+      <span>{{ errorMessage || theme.t.audioFile.errorLoadingAudioFile }}</span>
       <Btn
         v-if="!isValidUrl(props.url)"
         class="retry-btn"
@@ -575,9 +585,9 @@ onUnmounted(() => {
             errorMessage.value = ''
           }
         "
-        :aria-label="'Retry with valid URL'"
+        :aria-label="theme.t.audioFile.retryWithValidUrl"
         icon="mdi:refresh"
-        text="Retry"
+        :text="theme.t.audioFile.retry"
       />
     </div>
   </div>

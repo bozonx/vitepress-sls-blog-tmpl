@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import { useSlots } from 'vue'
+import { useSlots, toRefs, reactive } from 'vue'
 import { Icon } from '@iconify/vue'
 import { isExternalUrl } from '../helpers/helpers.js'
 import BaseLink from './BaseLink.vue'
@@ -22,29 +22,20 @@ const props = defineProps([
   'primary',
   'hideExternalIcon',
 ])
-const {
-  class: className,
-  icon,
-  text,
-  iconClass,
-  noBg,
-  primary,
-  hideExternalIcon,
-  onlyDark,
-  ...btnProps
-} = props
-const isExternal = !hideExternalIcon && isExternalUrl(props.href)
-const hasText = text || slots.default
+const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
+const hasText = props.text || slots.default
 
+// Создаем реактивную копию props для передачи в BaseLink
+const btnProps = reactive({ ...toRefs(props) })
 if (btnProps.href) {
   // means just link
   btnProps.tag = 'a'
-  delete btnProps.disabled
+  btnProps.disabled = undefined
 } else {
   // means Button
   btnProps.tag = 'button'
-  delete btnProps.href
-  delete btnProps.target
+  btnProps.href = undefined
+  btnProps.target = undefined
 }
 </script>
 
@@ -56,18 +47,18 @@ if (btnProps.href) {
       !hasText && 'icon-only',
       'btn-base',
       btnProps.disabled && 'disabled',
-      primary && 'btn--primary',
-      onlyDark && 'btn--only-dark',
-      noBg && 'btn--nobg',
-      className,
+      props.primary && 'btn--primary',
+      props.onlyDark && 'btn--only-dark',
+      props.noBg && 'btn--nobg',
+      props.class,
     ]"
   >
     <span class="flex items-center gap-x-2">
-      <span v-if="icon" aria-hidden="true">
-        <Icon :icon="icon" :class="iconClass" />
+      <span v-if="props.icon" aria-hidden="true">
+        <Icon :icon="props.icon" :class="props.iconClass" />
       </span>
       <span v-if="hasText">
-        <slot>{{ text }}</slot>
+        <slot>{{ props.text }}</slot>
       </span>
     </span>
     <span

@@ -283,34 +283,34 @@ onUnmounted(() => {
       <!-- Основные контролы -->
       <div class="player-controls">
         <!-- Кнопка воспроизведения/паузы -->
-        <button
+        <Btn
           class="play-btn"
+          primary="true"
           :disabled="isDisabled || hasError"
           @click="togglePlayPause"
           :title="isPlaying ? 'Pause' : 'Play'"
-        >
-          <Icon
-            :icon="
-              isLoading ? 'mdi:loading' : isPlaying ? 'mdi:pause' : 'mdi:play'
-            "
-            :class="{ spinning: isLoading }"
-          />
-        </button>
+          :icon="
+            isLoading ? 'mdi:loading' : isPlaying ? 'mdi:pause' : 'mdi:play'
+          "
+          :iconClass="{ spinning: isLoading }"
+        />
 
         <!-- Кнопка остановки -->
-        <button
+        <Btn
           class="stop-btn"
           :disabled="isDisabled || hasError || !isPlaying"
           @click="stopAudio"
           title="Stop"
-        >
-          <Icon icon="mdi:stop" />
-        </button>
+          icon="mdi:stop"
+        />
 
         <!-- Кнопка скрытия плеера -->
-        <button class="hide-btn" @click="hidePlayer" title="Hide player">
-          <Icon icon="mdi:chevron-up" />
-        </button>
+        <Btn
+          class="hide-btn"
+          @click="hidePlayer"
+          title="Hide player"
+          icon="mdi:chevron-up"
+        />
 
         <!-- Время -->
         <div class="time-display">
@@ -472,36 +472,36 @@ onUnmounted(() => {
 .play-btn,
 .stop-btn,
 .hide-btn {
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  border: none;
+  border: none; */
   border-radius: 50%;
-  background: var(--primary-color, #3b82f6);
-  color: white;
-  cursor: pointer;
+  /* background: var(--primary-color, #3b82f6); */
+  /* color: white; */
+  /* cursor: pointer; */
   transition: all 0.2s ease;
-  flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+  /* flex-shrink: 0; */
+  /* box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3); */
 }
 
 .play-btn:hover:not(:disabled),
 .stop-btn:hover:not(:disabled),
 .hide-btn:hover:not(:disabled) {
-  background: var(--primary-color-dark, #2563eb);
+  /* background: var(--primary-color-dark, #2563eb); */
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+  /* box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4); */
 }
 
-.play-btn:disabled,
+/* .play-btn:disabled,
 .stop-btn:disabled {
   background: var(--gray-400, #9ca3af);
   cursor: not-allowed;
   transform: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .dark .play-btn:disabled,
 .dark .stop-btn:disabled {

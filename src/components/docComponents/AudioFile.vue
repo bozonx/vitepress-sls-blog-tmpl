@@ -606,6 +606,7 @@ onUnmounted(() => {
   gap: 1rem;
   border-left: 4px solid var(--primary-btn-bg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.325rem;
 }
 
 .dark .audio-file {

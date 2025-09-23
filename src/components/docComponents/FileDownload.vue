@@ -145,17 +145,21 @@ const fileIcon = computed(() => {
   justify-content: space-between;
   padding: 1rem;
   padding-left: 2rem;
-  border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
-  background: var(--bg-color);
+  border: 1px solid var(--gray-150);
+  border-radius: 0.75rem;
+  background: #ffffff;
   transition: all 0.2s ease;
   gap: 1rem;
-  border-left: 3px solid var(--primary-color);
+  border-left: 4px solid var(--primary-btn-bg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.325rem;
 }
 
 .dark .file-download {
-  background: var(--bg-dark-color);
-  border-color: var(--border-dark-color);
+  background: var(--gray-850);
+  border-color: var(--gray-800);
+  border-left-color: var(--primary-btn-bg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .file-info {
@@ -211,6 +215,12 @@ const fileIcon = computed(() => {
 
 .download-btn {
   flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.download-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Адаптивность для мобильных устройств */
@@ -219,15 +229,20 @@ const fileIcon = computed(() => {
     flex-direction: column;
     align-items: stretch;
     gap: 0.75rem;
+    padding: 0.75rem;
+    padding-left: 1.5rem;
   }
 
   .file-info {
     justify-content: flex-start;
+    order: 1;
+    width: 100%;
   }
 
   .download-btn {
     width: 100%;
     justify-content: center;
+    order: 2;
   }
 }
 </style>

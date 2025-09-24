@@ -1,3 +1,4 @@
+import { omitUndefined } from 'squidlet-lib'
 import { addJsonLd } from '../transformers/addJsonLd.js'
 import { addHreflang } from '../transformers/addHreflang.js'
 import { addOgMetaTags } from '../transformers/addOgMetaTags.js'
@@ -112,11 +113,11 @@ export function mergeBlogConfig(config) {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
       // Отключаем rel="noreferrer" для внешних ссылок
-      externalLinks: {
+      externalLinks: omitUndefined({
         target: '_blank',
-        class: externalLinkIcon ? 'external-link' : '',
+        class: externalLinkIcon ? 'external-link' : undefined,
         rel: [],
-      },
+      }),
       config: (md) => {
         md.use(mdImage, { srcDir: config.srcDir })
 

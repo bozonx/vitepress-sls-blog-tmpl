@@ -35,7 +35,6 @@ export const common = {
   ignoreDeadLinks: true,
   lastUpdated: true,
   cleanUrls: true,
-  appearance: true,
   lang: 'en-US',
   locales: { root: { lang: 'en-US' } },
 

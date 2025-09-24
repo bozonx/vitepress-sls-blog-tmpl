@@ -72,6 +72,8 @@ export function mergeSiteConfig(config) {
     markdown: {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
+      // Отключаем rel="noreferrer" для внешних ссылок
+      externalLinks: { target: '_blank', rel: [] },
       config: (md) => {
         md.use(mdImage, { srcDir: config.srcDir })
 

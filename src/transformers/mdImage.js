@@ -11,7 +11,7 @@ import { getImageDimensions } from '../helpers/imageHelpers.js'
  * @param {Object} options - Опции плагина
  * @param {string} options.srcDir - Путь к директории исходников
  */
-export function mdImage(md, options = {}) {
+export function mdImage(md, { srcDir } = {}) {
   // Обрабатываем изображения, которые стоят отдельно на строке
   md.core.ruler.before('linkify', 'figure', (state) => {
     const tokens = state.tokens
@@ -51,26 +51,14 @@ export function mdImage(md, options = {}) {
           // Получаем путь к изображению
           const imageSrc = imageToken.attrGet('src')
 
-          // Собираем размеры изображения, если есть srcDir в опциях или env
-          const srcDir = options.srcDir || state.env?.srcDir
+          // Собираем размеры изображения
           if (imageSrc && srcDir) {
-            try {
-              const dimensions = getImageDimensions(imageSrc, srcDir)
-              if (dimensions) {
-                // Добавляем размеры как data-атрибуты
-                imageToken.attrPush(['data-width', dimensions.width.toString()])
-                imageToken.attrPush([
-                  'data-height',
-                  dimensions.height.toString(),
-                ])
-                // Размеры успешно добавлены
-              }
-            } catch (error) {
-              console.warn(
-                'mdImage: Failed to get dimensions for',
-                imageSrc,
-                error.message
-              )
+            const dimensions = getImageDimensions(imageSrc, srcDir)
+
+            if (dimensions) {
+              // Добавляем размеры как data-атрибуты
+              imageToken.attrPush(['data-width', dimensions.width.toString()])
+              imageToken.attrPush(['data-height', dimensions.height.toString()])
             }
           }
 
@@ -90,6 +78,7 @@ export function mdImage(md, options = {}) {
 
           // Получаем данные для подписи
 
+          // TODO: review
           // Удаляем title и alt атрибуты, если они есть (чтобы не дублировать в подписи)
           if (title || alt) {
             imageToken.attrs =

@@ -74,17 +74,16 @@ export function mdImage(md, { srcDir } = {}) {
           // Получаем подпись из title или alt
           const title = imageToken.attrGet('title')
           const alt = imageToken.attrGet('alt')
+          // Используем title для подписи, если есть, иначе alt, иначе content
           const caption = title || alt || imageToken.content
 
           // Получаем данные для подписи
 
-          // TODO: review
-          // Удаляем title и alt атрибуты, если они есть (чтобы не дублировать в подписи)
-          if (title || alt) {
+          // Удаляем только title атрибут, так как он дублирует функциональность figcaption
+          // alt атрибут должен оставаться для accessibility (скринридеры и fallback)
+          if (title) {
             imageToken.attrs =
-              imageToken.attrs?.filter(
-                ([key]) => key !== 'title' && key !== 'alt'
-              ) || null
+              imageToken.attrs?.filter(([key]) => key !== 'title') || null
           }
 
           // Добавляем figcaption если есть подпись

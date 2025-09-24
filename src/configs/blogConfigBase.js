@@ -83,6 +83,11 @@ export const common = {
 }
 
 export function mergeBlogConfig(config) {
+  const externalLinkIcon =
+    typeof config.themeConfig.externalLinkIcon === 'boolean'
+      ? config.themeConfig.externalLinkIcon
+      : common.themeConfig.externalLinkIcon
+
   return {
     ...common,
     ...config,
@@ -107,7 +112,11 @@ export function mergeBlogConfig(config) {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
       // Отключаем rel="noreferrer" для внешних ссылок
-      externalLinks: { target: '_blank', rel: [] },
+      externalLinks: {
+        target: '_blank',
+        class: externalLinkIcon ? 'external-link' : '',
+        rel: [],
+      },
       config: (md) => {
         md.use(mdImage, { srcDir: config.srcDir })
 

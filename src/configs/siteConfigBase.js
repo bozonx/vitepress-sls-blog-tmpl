@@ -42,13 +42,17 @@ export const common = {
     i18nRouting: true,
     externalLinkIcon: true,
     mainHeroImg: '/img/home-logo.webp',
-
     search: { provider: 'local' },
     lastUpdated: { formatOptions: { dateStyle: 'medium', forceLocale: true } },
   },
 }
 
 export function mergeSiteConfig(config) {
+  const externalLinkIcon =
+    typeof config.themeConfig.externalLinkIcon === 'boolean'
+      ? config.themeConfig.externalLinkIcon
+      : common.themeConfig.externalLinkIcon
+
   return {
     ...common,
     ...config,
@@ -73,7 +77,11 @@ export function mergeSiteConfig(config) {
       ...config.markdown,
       image: { lazyLoading: true, ...config.markdown?.image },
       // Отключаем rel="noreferrer" для внешних ссылок
-      externalLinks: { target: '_blank', rel: [] },
+      externalLinks: {
+        target: '_blank',
+        class: externalLinkIcon ? 'external-link' : '',
+        rel: [],
+      },
       config: (md) => {
         md.use(mdImage, { srcDir: config.srcDir })
 

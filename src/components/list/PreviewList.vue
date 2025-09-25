@@ -18,7 +18,7 @@ const totalPages = Math.ceil(props.allPosts.length / props.perPage)
   <div>
     <ul>
       <li v-for="item in items">
-        <PreviewListItem :item="item" />
+        <PreviewListItem :item="item" class="hover-animation-rise" />
       </li>
     </ul>
 

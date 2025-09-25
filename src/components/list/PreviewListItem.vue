@@ -18,7 +18,7 @@ const params = {
 </script>
 
 <template>
-  <a :href="props.item.url" class="mb-6 px-5 py-5 preview hover-animation-rise">
+  <a :href="props.item.url" class="mb-6 px-5 py-5 preview">
     <h2 class="mb-3 text-2xl tracking-tight">{{ props.item.title }}</h2>
 
     <PreviewWithImg
@@ -44,7 +44,7 @@ const params = {
 }
 
 .dark .preview {
-  background: var(--gray-850);
+  background: rgba(255, 255, 255, 0.03);
   border-color: var(--gray-800);
 }
 

@@ -54,10 +54,34 @@ export const common = {
 
     sidebarTagsCount: 15,
     similarPostsCount: 5,
+    popularPostsCount: 10,
     homeBgParalaxOffset: 300,
     paginationMaxItems: 7,
     // show author in post list if the blog have authors
     showAuthorInPostList: true,
+
+    // Analytics configuration for popular posts (build-time generation)
+    analytics: {
+      // Включить генерацию популярных постов во время сборки
+      enabled: false,
+      // Тип аналитики: 'google' или 'mock'
+      type: 'mock',
+
+      // Google Analytics настройки
+      google: {
+        enabled: false,
+        version: 'ga4', // 'ga4' или 'ua'
+        propertyId: null,
+        credentialsPath: null,
+        dataPeriodDays: 30,
+      },
+
+      // Общие настройки
+      sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage', 'bounceRate'
+      popularPostsCount: 10,
+      // Путь к выходному JSON файлу (относительно outDir)
+      outputPath: 'popular-posts.json',
+    },
 
     tagsBaseUrl: 'tag',
     allTagsUrl: 'tags',
@@ -154,6 +178,19 @@ export function mergeBlogConfig(config) {
 
     buildEnd: async (cfg) => {
       await generateRssFeed(cfg)
+
+      // Генерируем популярные посты во время сборки
+      try {
+        const { generatePopularPostsAtBuildTime } = await import(
+          '../helpers/buildTimeAnalytics.js'
+        )
+        await generatePopularPostsAtBuildTime(cfg)
+      } catch (error) {
+        console.warn(
+          '⚠️ Не удалось сгенерировать популярные посты:',
+          error.message
+        )
+      }
 
       if (config.buildEnd) {
         await config.buildEnd(cfg)

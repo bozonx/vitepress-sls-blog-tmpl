@@ -12,6 +12,7 @@ export default {
     socialMediaShares: 'telegram,whatsapp,vk,x,facebook',
   },
   t: {
+    popularPosts: 'Популярные посты',
     similarPosts: 'Похожие посты',
     shareSocialMedia: 'Поделиться в соц сетях',
     currentLang: 'Текущий язык',

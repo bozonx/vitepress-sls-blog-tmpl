@@ -1,12 +1,8 @@
-import path from 'path'
 import { parseLocaleSite } from './parseSiteFileTranslations.js'
 import { mdToHtml } from './mdWorks.js'
 import { getImageDimensions } from './imageHelpers.js'
 import { common } from '../configs/blogConfigBase.js'
-import en from '../configs/blogLocalesBase/en.js'
-import ru from '../configs/blogLocalesBase/ru.js'
-
-export const baseLocales = { en, ru }
+import baseLocales from '../configs/blogLocalesBase/index.js'
 
 export async function loadBlogLocale(localeIndex, config) {
   const baseLocale = baseLocales[localeIndex]

@@ -1,12 +1,12 @@
-import { baseLocales } from './blogConfigHelper.js'
+import locales from '../configs/blogLocalesBase/index.js'
 
 export function resolveTranslationsByFilePath(filePath) {
-  if (!filePath) return baseLocales.en
+  if (!filePath) return locales.en
 
   const segments = filePath?.split('/').filter(Boolean)
   const localeIndex = segments[0]
 
-  if (!baseLocales[localeIndex]) return baseLocales.en
+  if (!locales[localeIndex]) return locales.en
 
-  return baseLocales[localeIndex]
+  return locales[localeIndex]
 }

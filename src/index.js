@@ -8,9 +8,11 @@ import AudioFile from './components/docComponents/AudioFile.vue'
 import VideoYoutube from './components/docComponents/VideoYoutube.vue'
 import './vp-common.css'
 import './vp-icons.css'
-import './styles.css'
+import './blogVars.css'
 
 import Layout from './LayoutIndex.vue'
+
+import './blogStyles.css'
 
 export default {
   Layout,

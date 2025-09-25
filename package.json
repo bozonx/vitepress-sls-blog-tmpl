@@ -6,11 +6,11 @@
   "author": "(Ivan Kozyrin <ipkozyrin@gmail.com>)",
   "license": "MIT",
   "scripts": {
-    "tw:build": "pnpm dlx @tailwindcss/cli --minify -i ./src/tailwind.css -o ./dist/styles.css"
+    "tw:build": "pnpm dlx @tailwindcss/cli --minify -i ./src/tailwind.css -o ./dist/tw-styles.css"
   },
   "exports": {
     ".": "./src/index.js",
-    "./styles.css": "./dist/styles.css",
+    "./tw-styles.css": "./dist/tw-styles.css",
     "./site-tmpl-fix.css": "./src/site-tmpl-fix.css",
     "./green-theme.css": "./src/green-theme.css",
     "./constants.js": "./src/constants.js",

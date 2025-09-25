@@ -36,7 +36,7 @@ const params = {
 .preview {
   display: block;
   cursor: pointer;
-  background: white;
+  background: rgba(0, 0, 0, 0.005);
   border: 1px solid var(--gray-200);
   border-radius: 0.6rem;
   line-height: 1.4;
@@ -49,7 +49,7 @@ const params = {
 }
 
 .preview:hover {
-  filter: brightness(99%);
+  filter: brightness(92%);
 }
 
 .dark .preview:hover {

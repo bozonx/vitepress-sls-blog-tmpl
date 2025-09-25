@@ -4,12 +4,14 @@ const props = defineProps(['src', 'descr', 'alt', 'height', 'width'])
 
 <template>
   <figure v-if="props.src">
-    <img
-      :src="props.src"
-      :alt="props.alt || undefined"
-      :height="props.height"
-      :width="props.width"
-    />
+    <a :href="props.src" class="lightbox">
+      <img
+        :src="props.src"
+        :alt="props.alt || undefined"
+        :height="props.height"
+        :width="props.width"
+      />
+    </a>
     <figcaption
       v-if="props.descr"
       v-html="props.descr"

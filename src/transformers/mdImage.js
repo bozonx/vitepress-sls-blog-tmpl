@@ -62,6 +62,22 @@ export function mdImage(md, { srcDir } = {}) {
             }
           }
 
+          // Если изображение уже в ссылке, добавляем класс lightbox к ссылке
+          if (children.length === 3) {
+            const linkToken = children[0]
+            linkToken.attrPush(['class', 'lightbox'])
+          } else {
+            // Если изображение не в ссылке, оборачиваем его в ссылку с классом lightbox
+            const linkOpen = new state.Token('link_open', 'a', 1)
+            linkOpen.attrPush(['href', imageSrc])
+            linkOpen.attrPush(['class', 'lightbox'])
+
+            const linkClose = new state.Token('link_close', 'a', -1)
+
+            // Заменяем изображение на ссылку с изображением
+            children.splice(0, 1, linkOpen, imageToken, linkClose)
+          }
+
           // Преобразуем paragraph_open в figure_open
           prevToken.type = 'figure_open'
           prevToken.tag = 'figure'

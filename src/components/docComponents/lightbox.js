@@ -22,7 +22,7 @@ export function initLightbox() {
     })
   }
 
-  document.addEventListener('DOMContentLoaded', initTobii)
+  // document.addEventListener('DOMContentLoaded', initTobii)
 
   // Обновляем Tobii при загрузке lazy изображений
   document.addEventListener(

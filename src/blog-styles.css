@@ -121,12 +121,12 @@ button {
 }
 
 /* Стили для изображений с data-атрибутами размеров */
-.content-page figure img[width][height] {
+.content-page figure img {
   /* Можно использовать data-атрибуты для дополнительной стилизации */
   transition: transform 0.2s ease-in-out;
 }
 
-.content-page figure img[width][height]:hover {
+.content-page figure img:hover {
   transform: scale(1.02);
   cursor: pointer;
 }

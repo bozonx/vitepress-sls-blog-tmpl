@@ -3,19 +3,21 @@
     class="author-container flex flex-col md:flex-row gap-x-6 gap-y-1 items-start"
   >
     <!-- Картинка автора -->
-    <div
+    <figure
       v-if="author?.image"
-      class="author-image-container w-full md:w-[280px] md:flex-shrink-0"
+      class="author-image-container w-full md:w-[280px] md:flex-shrink-0 m-auto!"
     >
-      <img
-        :src="author.image"
-        :alt="author?.name"
-        :sizes="`(min-width: ${PHONE_BREAKPOINT}px) 280px, 100vw`"
-        :height="author?.imageHeight"
-        :width="author?.imageWidth"
-        class="w-full h-auto rounded-lg"
-      />
-    </div>
+      <a :href="author.image" class="lightbox">
+        <img
+          :src="author.image"
+          :alt="author?.name"
+          :sizes="`(min-width: ${PHONE_BREAKPOINT}px) 280px, 100vw`"
+          :height="author?.imageHeight"
+          :width="author?.imageWidth"
+          class="w-full h-auto rounded-lg"
+        />
+      </a>
+    </figure>
 
     <!-- Контент автора -->
     <div class="author-content flex-1">

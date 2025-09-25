@@ -8,7 +8,7 @@ body {
     padding-right: 18px !important;
   }
 
-  .VPNavBar.top>.wrapper {
+  .VPNavBar.top > .wrapper {
     padding-left: 18px !important;
     padding-right: 0px !important;
   }

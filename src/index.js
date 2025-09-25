@@ -20,8 +20,7 @@ export default {
     ctx.app.component('FileDownload', FileDownload)
     ctx.app.component('AudioFile', AudioFile)
     ctx.app.component('VideoYoutube', VideoYoutube)
-
-    // Инициализация лайтбокса Tobii
-    initLightbox()
+    // Инициализация лайтбокса Tobii с доступом к контексту
+    initLightbox(ctx)
   },
 }

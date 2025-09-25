@@ -118,5 +118,12 @@ export default {
       retryDownload: 'Повторить скачивание',
       retry: 'Повторить',
     },
+    lightbox: {
+      prev: 'Предыдущее',
+      next: 'Следующее',
+      close: 'Закрыть',
+      dialogTitle: 'Изображение',
+      loadingIndicatorLabel: 'Загрузка...',
+    },
   },
 }

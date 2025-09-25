@@ -117,5 +117,12 @@ export default {
       retryDownload: 'Retry download',
       retry: 'Retry',
     },
+    lightbox: {
+      prev: 'Previous',
+      next: 'Next',
+      close: 'Close',
+      dialogTitle: 'Image',
+      loadingIndicatorLabel: 'Loading...',
+    },
   },
 }

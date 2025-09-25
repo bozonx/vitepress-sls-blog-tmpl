@@ -1,20 +1,20 @@
 <script setup>
-import Btn from "./Btn.vue";
+import Btn from './Btn.vue'
 
 const props = defineProps([
-  "id",
-  "class",
-  "href",
-  "title",
-  "target",
-  "icon",
-  "text",
-  "disabled",
-  "iconClass",
-  "hideExternalIcon",
-]);
+  'id',
+  'class',
+  'href',
+  'title',
+  'target',
+  'icon',
+  'text',
+  'disabled',
+  'iconClass',
+  'hideExternalIcon',
+])
 
-const { class: className, ...bindProps } = props;
+const { class: className, ...bindProps } = props
 </script>
 
 <template>

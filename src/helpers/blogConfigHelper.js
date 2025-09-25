@@ -6,7 +6,7 @@ import { common } from '../configs/blogConfigBase.js'
 import en from '../configs/blogLocalesBase/en.js'
 import ru from '../configs/blogLocalesBase/ru.js'
 
-const baseLocales = { en, ru }
+export const baseLocales = { en, ru }
 
 export async function loadBlogLocale(localeIndex, config) {
   const baseLocale = baseLocales[localeIndex]

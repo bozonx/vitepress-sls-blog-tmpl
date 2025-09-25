@@ -62,12 +62,13 @@ export function mdImage(md, { srcDir } = {}) {
             }
           }
 
-          // Если изображение уже в ссылке, добавляем класс lightbox к ссылке
+          // Обрабатываем ссылки для лайтбокса
           if (children.length === 3) {
+            // Изображение уже в ссылке - добавляем класс lightbox
             const linkToken = children[0]
             linkToken.attrPush(['class', 'lightbox'])
           } else {
-            // Если изображение не в ссылке, оборачиваем его в ссылку с классом lightbox
+            // Изображение не в ссылке - оборачиваем в ссылку с классом lightbox
             const linkOpen = new state.Token('link_open', 'a', 1)
             linkOpen.attrPush(['href', imageSrc])
             linkOpen.attrPush(['class', 'lightbox'])

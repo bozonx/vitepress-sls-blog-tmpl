@@ -57,15 +57,15 @@ export function mdImage(md, { srcDir } = {}) {
 
             if (dimensions) {
               // Добавляем размеры как data-атрибуты
-              imageToken.attrPush(['data-width', dimensions.width.toString()])
-              imageToken.attrPush(['data-height', dimensions.height.toString()])
+              imageToken.attrPush(['width', dimensions.width.toString()])
+              imageToken.attrPush(['height', dimensions.height.toString()])
             }
           }
 
           // Преобразуем paragraph_open в figure_open
           prevToken.type = 'figure_open'
           prevToken.tag = 'figure'
-          prevToken.attrSet('class', 'figure')
+          // prevToken.attrSet('class', 'figure')
 
           // Преобразуем paragraph_close в figure_close
           nextToken.type = 'figure_close'
@@ -83,7 +83,7 @@ export function mdImage(md, { srcDir } = {}) {
               'figcaption',
               1
             )
-            figcaptionOpen.attrSet('class', 'figure-caption')
+            // figcaptionOpen.attrSet('class', 'figure-caption')
 
             const figcaptionText = new state.Token('text', '', 0)
             figcaptionText.content = caption

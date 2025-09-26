@@ -11,6 +11,41 @@ const posts = [...(props.allPosts || [])]
   // TODO: sort by theme.popularPosts.sortBy
   .sort((a, b) => new Date(b.date) - new Date(a.date))
   .slice(0, theme.value.perPage)
+
+// Сортируем посты по статистике
+// const popularPosts = sortPostsByAnalyticsAtBuildTime(
+//   allPosts,
+//   stats,
+//   analyticsConfig.sortBy || 'pageviews',
+//   analyticsConfig.popularPostsCount || 10
+// )
+
+/** Сортирует посты по статистике во время сборки */
+function sortPostsByAnalyticsAtBuildTime(posts, stats, sortBy, limit) {
+  return posts
+    .map((post) => ({
+      ...post,
+      analyticsStats: stats[post.url] || {
+        pageviews: 0,
+        uniquePageviews: 0,
+        avgTimeOnPage: 0,
+        bounceRate: 1,
+      },
+    }))
+    .sort((a, b) => {
+      const aValue = a.analyticsStats[sortBy] || 0
+      const bValue = b.analyticsStats[sortBy] || 0
+
+      // Для bounceRate сортируем по возрастанию (меньше = лучше)
+      if (sortBy === 'bounceRate') {
+        return aValue - bValue
+      }
+
+      // Для остальных метрик сортируем по убыванию (больше = лучше)
+      return bValue - aValue
+    })
+    .slice(0, limit)
+}
 </script>
 
 <template>

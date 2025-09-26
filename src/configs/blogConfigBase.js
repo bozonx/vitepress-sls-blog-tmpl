@@ -175,19 +175,6 @@ export function mergeBlogConfig(config) {
     buildEnd: async (cfg) => {
       await generateRssFeed(cfg)
 
-      // // Генерируем популярные посты во время сборки
-      // try {
-      //   const { generatePopularPostsAtBuildTime } = await import(
-      //     '../helpers/buildTimeAnalytics.js'
-      //   )
-      //   await generatePopularPostsAtBuildTime(cfg)
-      // } catch (error) {
-      //   console.warn(
-      //     '⚠️ Не удалось сгенерировать популярные посты:',
-      //     error.message
-      //   )
-      // }
-
       if (config.buildEnd) {
         await config.buildEnd(cfg)
       }

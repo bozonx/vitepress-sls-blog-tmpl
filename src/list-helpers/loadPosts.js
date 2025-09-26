@@ -1,6 +1,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 import { makePreviewItem } from './makePreviewItem.js'
+import { mergeWithAnalytics } from './loadPopularPosts.js'
 import { POSTS_DIR } from '../constants.js'
 
 if (!global.blogCache) {
@@ -43,9 +44,8 @@ export async function loadPostsData(localeDir, config, ignoreCache = false) {
     console.log(`\n...Loaded ${posts.length} posts from ${postsDir}`)
 
     if (config.site.themeConfig.popularPosts?.enabled) {
-      const mergedPosts = await mergeWithAnalytics(localeIndex, posts, config)
-
-      global.blogCache[localeIndex] = mergedPosts
+      const mergedPosts = (global.blogCache[localeIndex] =
+        await mergeWithAnalytics(localeIndex, posts, config))
 
       return mergedPosts
     }

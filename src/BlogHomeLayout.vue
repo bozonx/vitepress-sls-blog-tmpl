@@ -1,30 +1,43 @@
 <script setup>
-import { useData, inBrowser } from "vitepress";
-import { ref, watchEffect } from "vue";
-import SwitchLang from "./components/layout/SwitchLang.vue";
+import { useData, inBrowser } from 'vitepress'
+import { ref, watchEffect } from 'vue'
+import SwitchLang from './components/layout/SwitchLang.vue'
 
-const props = defineProps(["scrollY"]);
-const { theme } = useData();
-const valueY = ref(0);
-const wrapperRef = ref(null);
-const BG_HEIGHT_OFFSET = theme.value.homeBgParalaxOffset || 0;
+const props = defineProps(['scrollY'])
+const { theme } = useData()
+const valueY = ref(0)
+const wrapperRef = ref(null)
+const BG_HEIGHT_OFFSET = theme.value.homeBgParalaxOffset || 0
 
 watchEffect(async () => {
-  if (!inBrowser) return;
+  if (!inBrowser) return
 
-  const totalHeight = wrapperRef.value?.scrollHeight || 0;
-  const windowHeight = window.innerHeight;
-  const totalScroll = totalHeight - windowHeight;
-  // from 0 to 1
-  const scrollProgress = props.scrollY / totalScroll;
+  const totalHeight = wrapperRef.value?.scrollHeight || 0
+  const windowHeight = window.innerHeight
+  const totalScroll = totalHeight - windowHeight
 
-  valueY.value = props.scrollY - BG_HEIGHT_OFFSET * scrollProgress;
-});
+  // Проверяем, что есть прокрутка и избегаем деления на ноль
+  if (totalScroll <= 0) {
+    valueY.value = 0
+    return
+  }
+
+  // Прогресс прокрутки от 0 до 1
+  const scrollProgress = Math.min(Math.max(props.scrollY / totalScroll, 0), 1)
+
+  // Правильная формула параллакса: фон движется медленнее чем контент
+  // Начальная позиция 0, затем сдвигаемся вверх при прокрутке
+  // Используем половину от BG_HEIGHT_OFFSET для более плавного эффекта
+  valueY.value = -(BG_HEIGHT_OFFSET * scrollProgress * 0.5)
+})
 </script>
 
 <template>
-  <div ref="wrapperRef" class="home-layout"
-    :style="`background-position-y: ${valueY}px; background-size: auto calc(100vh + ${BG_HEIGHT_OFFSET}px);`">
+  <div
+    ref="wrapperRef"
+    class="home-layout"
+    :style="`background-position-y: ${valueY}px; background-size: auto calc(100vh + ${BG_HEIGHT_OFFSET}px);`"
+  >
     <div class="home-layout-topbar">
       <SwitchLang dropLeft="true" onlyDark="true" noBg="true" />
     </div>
@@ -44,6 +57,9 @@ watchEffect(async () => {
   min-height: 100vh;
   background-repeat: no-repeat;
   background-position-x: center;
+  background-attachment: fixed;
+  /* Плавная анимация для параллакс эффекта */
+  transition: background-position-y 0.1s ease-out;
 }
 
 .home-layout {

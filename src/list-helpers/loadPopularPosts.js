@@ -11,8 +11,13 @@ export async function mergeWithAnalytics(localeIndex, posts, config) {
   const popularPostsCfg = config.site.themeConfig.popularPosts
   const gaCfg = config.site.themeConfig.googleAnalytics
 
+  // TODO: validate
+  if (!popularPostsCfg?.enabled || !gaCfg) {
+    return posts
+  }
+
   // Получаем статистику
-  const stats = await fetchAnalyticsStatsAtBuildTime(config)
+  const stats = await fetchGoogleAnalytics(popularPostsCfg, gaCfg)
 
   if (!stats || Object.keys(stats).length === 0) {
     return posts
@@ -42,33 +47,13 @@ export async function mergeWithAnalytics(localeIndex, posts, config) {
   return posts
 }
 
-/** Получает статистику аналитики во время сборки */
-async function fetchAnalyticsStatsAtBuildTime(config) {
-  const { userConfig } = config
-  const analyticsConfig = userConfig.themeConfig?.analytics
-
-  switch (analyticsConfig.type) {
-    case 'google':
-      return await fetchGoogleAnalyticsAtBuildTime(analyticsConfig)
-    // case 'mock':
-    // default:
-    //   return await generateMockAnalyticsAtBuildTime(config)
-  }
-}
-
 /** Получает статистику из Google Analytics во время сборки */
-async function fetchGoogleAnalyticsAtBuildTime(analyticsConfig) {
-  const gaConfig = analyticsConfig.google
-
-  if (!gaConfig.enabled || !gaConfig.propertyId || !gaConfig.credentialsPath) {
-    throw new Error('Google Analytics не настроен')
-  }
-
+async function fetchGoogleAnalytics(popularPostsCfg, gaCfg) {
   console.log('🔍 Загружаем статистику из Google Analytics...')
 
   // Загружаем учетные данные
   const credentials = JSON.parse(
-    await fs.readFile(gaConfig.credentialsPath, 'utf-8')
+    await fs.readFile(gaCfg.credentialsPath, 'utf-8')
   )
 
   // Создаем клиент для GA API
@@ -141,52 +126,6 @@ async function fetchGoogleAnalyticsAtBuildTime(analyticsConfig) {
 
     return processGAUAResponseAtBuildTime(response.data)
   }
-}
-
-// /** Генерирует моковые данные во время сборки */
-// async function generateMockAnalyticsAtBuildTime(config) {
-//   console.log('🎭 Генерируем моковые данные аналитики...')
-
-//   const posts = await getAllPostsAtBuildTime(config)
-//   const stats = {}
-
-//   posts.forEach((post, index) => {
-//     // Генерируем более предсказуемые данные для сборки
-//     const baseViews = 100 + index * 50
-//     const views = baseViews + Math.floor(Math.random() * 100)
-
-//     stats[post.url] = {
-//       pageviews: views,
-//       uniquePageviews: Math.floor(views * 0.7),
-//       avgTimeOnPage: 120 + Math.floor(Math.random() * 180),
-//       bounceRate: 0.2 + Math.random() * 0.3,
-//     }
-//   })
-
-//   console.log(`🎭 Сгенерировано ${Object.keys(stats).length} моковых записей`)
-//   return stats
-// }
-
-/** Получает все посты во время сборки */
-async function getAllPostsAtBuildTime(config) {
-  const posts = []
-  const locales = Object.keys(config.locales || { root: {} })
-
-  for (const locale of locales) {
-    try {
-      const { loadPosts } = await import('../list-helpers/loadPosts.js')
-      const localeDir = path.join(config.srcDir, locale)
-      const localePosts = await loadPosts(localeDir)
-      posts.push(...localePosts)
-    } catch (error) {
-      console.warn(
-        `⚠️ Не удалось загрузить посты для локали ${locale}:`,
-        error.message
-      )
-    }
-  }
-
-  return posts
 }
 
 /** Обрабатывает ответ от GA4 API во время сборки */

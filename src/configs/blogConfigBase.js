@@ -72,8 +72,6 @@ export const common = {
     popularPosts: {
       // Включить генерацию популярных постов во время сборки
       enabled: false,
-      // Тип аналитики: 'google' или 'mock'
-      type: 'mock',
       sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage', 'bounceRate'
       // Путь к выходному JSON файлу (относительно outDir)
       outputPath: 'popular-posts.json',

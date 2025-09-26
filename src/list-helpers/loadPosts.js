@@ -11,20 +11,24 @@ if (!global.blogCache) {
  * Загружает все посты из директории postsDir
  *
  * @param {string} localeDir - Путь к директории локали
+ * @param {Object} config - Конфигурация блога нужна для popularPosts
+ * @param {Array} watchedFiles - Список путей всех файлов постов локали, вида
+ *   'src/ru/post/....md'
  * @param {boolean} ignoreCache - Если true, игнорирует кэш и перечитывает посты
  * @returns {Promise<Array>} Массив обработанных постов
  */
-export async function loadPosts(localeDir, ignoreCache = false) {
-  // Извлекаем localIndex из пути (последний элемент пути)
-  const localIndex = path.basename(localeDir)
+export async function loadPostsData(localeDir, config, ignoreCache = false) {
+  const localeIndex = path.basename(localeDir)
+
+  if (!localeIndex) return []
 
   // Проверяем глобальный кэш для текущей локали
   if (
-    global.blogCache[localIndex] &&
-    global.blogCache[localIndex].length > 0 &&
+    global.blogCache[localeIndex] &&
+    global.blogCache[localeIndex].length > 0 &&
     !ignoreCache
   ) {
-    return global.blogCache[localIndex]
+    return global.blogCache[localeIndex]
   }
 
   try {
@@ -34,12 +38,20 @@ export async function loadPosts(localeDir, ignoreCache = false) {
     const fullPaths = mdFiles.map((file) => path.join(postsDir, file))
     const posts = fullPaths.map((filePath) => makePreviewItem(filePath))
     // Сохраняем в глобальный кэш для текущей локали
-    global.blogCache[localIndex] = posts
+    global.blogCache[localeIndex] = posts
 
     console.log(`\n...Loaded ${posts.length} posts from ${postsDir}`)
 
+    if (config.site.themeConfig.popularPosts?.enabled) {
+      const mergedPosts = await mergeWithAnalytics(localeIndex, posts, config)
+
+      global.blogCache[localeIndex] = mergedPosts
+
+      return mergedPosts
+    }
+
     return posts
   } catch (error) {
-    throw new Error(`Error loading posts for locale ${localIndex}:`, error)
+    throw new Error(`Error loading posts for locale ${localeIndex}:`, error)
   }
 }

@@ -73,8 +73,6 @@ export const common = {
       // Включить генерацию популярных постов во время сборки
       enabled: false,
       sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage', 'bounceRate'
-      // Путь к выходному JSON файлу (относительно outDir)
-      outputPath: 'popular-posts.json',
     },
 
     tagsBaseUrl: 'tag',

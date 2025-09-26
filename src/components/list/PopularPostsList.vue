@@ -6,14 +6,12 @@ import UtilPageHeader from '../UtilPageHeader.vue'
 
 const props = defineProps(['allPosts'])
 const { theme } = useData()
-
-console.log(props.allPosts)
+const sortBy = theme.value.popularPosts?.sortBy || 'pageviews'
 
 // Получаем посты с аналитикой и сортируем их
 const posts = [...(props.allPosts || [])]
   // .filter((post) => post.analyticsStats) // Только посты с данными аналитики
   .sort((a, b) => {
-    const sortBy = theme.value.popularPosts?.sortBy || 'pageviews'
     const aValue = a.analyticsStats?.[sortBy] || 0
     const bValue = b.analyticsStats?.[sortBy] || 0
 

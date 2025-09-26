@@ -4,12 +4,12 @@ import { useData } from 'vitepress'
 import PopularPostsList from '../list/PopularPostsList.vue'
 
 const { localeIndex, theme } = useData()
-const popularPosts = inject('popularPosts')
+const allPosts = inject('posts')
 </script>
 
 <template>
   <PopularPostsList
     v-if="theme.popularPosts?.enabled"
-    :popularPosts="popularPosts[localeIndex]"
+    :allPosts="allPosts[localeIndex]"
   />
 </template>

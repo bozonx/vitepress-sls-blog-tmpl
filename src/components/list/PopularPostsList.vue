@@ -4,10 +4,10 @@ import PreviewListItem from './PreviewListItem.vue'
 import BtnLink from '../BtnLink.vue'
 import UtilPageHeader from '../UtilPageHeader.vue'
 
-const props = defineProps(['popularPosts'])
+const props = defineProps(['allPosts'])
 const { theme } = useData()
 
-const posts = [...(props.popularPosts || [])]
+const posts = [...(props.allPosts || [])]
   // TODO: sort by theme.popularPosts.sortBy
   .sort((a, b) => new Date(b.date) - new Date(a.date))
   .slice(0, theme.value.perPage)

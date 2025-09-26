@@ -62,11 +62,9 @@ export const common = {
 
     // use for popular posts
     googleAnalytics: {
-      version: 'ga4',
-      propertyId: null,
-      // TODO: use env variable
-      credentialsPath: null,
-      // TODO: what is this?
+      propertyId: null, // GA4 Property ID (например: "123456789")
+      credentialsPath: null, // Путь к JSON файлу Service Account
+      // period for getting analytics data
       dataPeriodDays: 30,
     },
     popularPosts: {

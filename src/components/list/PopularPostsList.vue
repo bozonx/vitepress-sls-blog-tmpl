@@ -7,6 +7,8 @@ import UtilPageHeader from '../UtilPageHeader.vue'
 const props = defineProps(['allPosts'])
 const { theme } = useData()
 
+console.log(props.allPosts)
+
 // Получаем посты с аналитикой и сортируем их
 const posts = [...(props.allPosts || [])]
   // .filter((post) => post.analyticsStats) // Только посты с данными аналитики

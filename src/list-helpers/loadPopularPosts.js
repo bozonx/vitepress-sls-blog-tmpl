@@ -1,6 +1,13 @@
 import fs from 'fs/promises'
 import { google } from 'googleapis'
 
+if (!global.gaCache) {
+  global.gaCache = {}
+}
+
+// GA4 Data API v1beta
+const GA_VERSION = 'v1beta'
+
 export async function mergeWithAnalytics(localeIndex, posts, config) {
   const popularPostsCfg = config.site.themeConfig.popularPosts
   const gaCfg = config.site.themeConfig.googleAnalytics
@@ -32,17 +39,9 @@ export async function mergeWithAnalytics(localeIndex, posts, config) {
       return { ...post, analyticsStats: analyticsData }
     })
 
-    // Сортируем по выбранной метрике
-    const sortedPosts = postsWithStats.sort((a, b) => {
-      const metric = popularPostsCfg.sortBy || 'pageviews'
-      const aValue = a.analyticsStats?.[metric] || 0
-      const bValue = b.analyticsStats?.[metric] || 0
-      return bValue - aValue
-    })
-
     console.log(`✅ Обработано ${postsWithStats.length} постов с аналитикой`)
 
-    return sortedPosts
+    return postsWithStats
   } catch (error) {
     console.error(
       '❌ Ошибка при загрузке данных из Google Analytics:',
@@ -57,19 +56,24 @@ async function fetchGoogleAnalytics(popularPostsCfg, gaCfg) {
   console.log('🔍 Загружаем статистику из Google Analytics...')
 
   try {
-    // Загружаем учетные данные
+    // Загружаем учетные данные из Service Account JSON файла
+    if (!gaCfg.credentialsPath) {
+      throw new Error(
+        'Не указан путь к файлу с учетными данными Service Account'
+      )
+    }
+
     const credentials = JSON.parse(
       await fs.readFile(gaCfg.credentialsPath, 'utf-8')
     )
 
-    // Создаем клиент для GA API
+    // Создаем клиент для GA4 Data API
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
     })
 
-    // GA4 Data API
-    const analyticsdata = google.analyticsdata({ version: 'v1beta', auth })
+    const analyticsdata = google.analyticsdata({ version: GA_VERSION, auth })
     const endDate = new Date()
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - (gaCfg.dataPeriodDays || 30))
@@ -83,17 +87,21 @@ async function fetchGoogleAnalytics(popularPostsCfg, gaCfg) {
             endDate: endDate.toISOString().split('T')[0],
           },
         ],
+        // Правильные метрики для GA4
         metrics: [
-          { name: 'screenPageViews' },
-          { name: 'totalUsers' },
-          { name: 'averageSessionDuration' },
-          { name: 'bounceRate' },
+          { name: 'screenPageViews' }, // Просмотры страниц
+          { name: 'totalUsers' }, // Общее количество пользователей
+          { name: 'averageSessionDuration' }, // Средняя продолжительность сессии
+          { name: 'bounceRate' }, // Показатель отказов
         ],
+        // Правильные измерения для GA4
         dimensions: [{ name: 'pagePath' }],
         orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
         limit: 1000, // Ограничиваем количество результатов
       },
     })
+
+    console.log(response.data)
 
     const stats = {}
 

@@ -21,7 +21,7 @@ const { class: className, ...bindProps } = props
   <Btn
     v-bind="bindProps"
     noBg="true"
-    :class="['rounded-none btn-lighter', className]"
+    :class="['rounded-none btn-lighter w-full', className]"
   >
     <slot>{{ props.text }}</slot>
   </Btn>

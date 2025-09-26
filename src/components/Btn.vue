@@ -27,7 +27,7 @@ const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
 const hasText = props.text || slots.default
 const btnProps = {}
 
-if (btnProps.href) {
+if (props.href) {
   // means just link
   btnProps.tag = 'a'
   btnProps.href = props.href
@@ -57,22 +57,27 @@ if (btnProps.href) {
       <span v-if="props.icon" aria-hidden="true">
         <Icon :icon="props.icon" :class="props.iconClass" />
       </span>
-      <span v-if="hasText">
+      <span
+        v-if="hasText"
+        :class="
+          theme.externalLinkIcon && isExternal && hasText && 'external-link'
+        "
+      >
         <slot>{{ props.text }}</slot>
       </span>
     </span>
-    <span
+    <!-- <span
       v-if="theme.externalLinkIcon && isExternal && hasText"
       class="btn-base__external"
       aria-hidden="true"
     >
       <Icon icon="mdi:arrow-top-right" />
-    </span>
+    </span> -->
   </BaseLink>
 </template>
 
 <style>
-.btn-base__external {
+/* .btn-base__external {
   padding-left: 0.25rem;
   font-size: 13px;
   margin-right: -0.3rem;
@@ -82,7 +87,7 @@ if (btnProps.href) {
 .dark .btn-base__external,
 .btn-base__external.btn--only-dark {
   color: var(--gray-600);
-}
+} */
 
 .btn-base {
   padding: 0.5rem 1.25rem 0.5rem 1.25rem;

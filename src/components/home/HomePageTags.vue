@@ -5,14 +5,14 @@ import UtilPageHeader from '../UtilPageHeader.vue'
 
 const props = defineProps(['allPosts', 'header'])
 const tagList = makeTagsList(props.allPosts || [])
-const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name))
+// const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name))
 </script>
 
 <template>
   <UtilPageHeader class="home-hero-tags-header">{{
     props.header
   }}</UtilPageHeader>
-  <TagsList :tags="sorted" class="mb-12 home-hero-tags" />
+  <TagsList :tags="tagList" class="mb-12 home-hero-tags" />
 </template>
 
 <style>

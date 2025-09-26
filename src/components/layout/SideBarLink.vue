@@ -18,7 +18,7 @@ const { class: className, ...bindProps } = props
     v-bind="bindProps"
     noBg="true"
     :class="[
-      'pr-2 pl-3 py-3 font-normal rounded-none btn-lighter sidebar-link',
+      'pr-2 pl-3 py-3 font-normal rounded-none btn-lighter w-full sidebar-link',
       className,
     ]"
     iconClass="muted"

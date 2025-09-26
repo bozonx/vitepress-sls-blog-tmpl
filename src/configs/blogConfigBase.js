@@ -54,31 +54,27 @@ export const common = {
 
     sidebarTagsCount: 15,
     similarPostsCount: 5,
-    popularPostsCount: 10,
     homeBgParalaxOffset: 300,
     paginationMaxItems: 7,
     // show author in post list if the blog have authors
     showAuthorInPostList: true,
 
-    // Analytics configuration for popular posts (build-time generation)
-    analytics: {
+    // use for popular posts
+    googleAnalytics: {
+      version: 'ga4',
+      propertyId: null,
+      // TODO: use env variable
+      credentialsPath: null,
+      // TODO: what is this?
+      dataPeriodDays: 30,
+    },
+    popularPosts: {
       // Включить генерацию популярных постов во время сборки
       enabled: false,
       // Тип аналитики: 'google' или 'mock'
       type: 'mock',
-
-      // Google Analytics настройки
-      google: {
-        enabled: false,
-        version: 'ga4', // 'ga4' или 'ua'
-        propertyId: null,
-        credentialsPath: null,
-        dataPeriodDays: 30,
-      },
-
-      // Общие настройки
       sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage', 'bounceRate'
-      popularPostsCount: 10,
+      postsCount: 10,
       // Путь к выходному JSON файлу (относительно outDir)
       outputPath: 'popular-posts.json',
     },

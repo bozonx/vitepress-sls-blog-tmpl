@@ -26,7 +26,7 @@ export async function loadPostsData(localeDir, config, ignoreCache = false) {
   // Проверяем глобальный кэш для текущей локали
   if (
     global.blogCache[localeIndex] &&
-    global.blogCache[localeIndex].length > 0 &&
+    global.blogCache[localeIndex]?.length > 0 &&
     !ignoreCache
   ) {
     return global.blogCache[localeIndex]
@@ -44,13 +44,14 @@ export async function loadPostsData(localeDir, config, ignoreCache = false) {
     console.log(`\n...Loaded ${posts.length} posts from ${postsDir}`)
 
     if (config.site.themeConfig.popularPosts?.enabled) {
-      const mergedPosts = (global.blogCache[localeIndex] =
-        await mergeWithAnalytics(localeIndex, posts, config))
-
-      return mergedPosts
+      global.blogCache[localeIndex] = await mergeWithAnalytics(
+        localeIndex,
+        posts,
+        config
+      )
     }
 
-    return posts
+    return global.blogCache[localeIndex]
   } catch (error) {
     throw new Error(`Error loading posts for locale ${localeIndex}:`, error)
   }

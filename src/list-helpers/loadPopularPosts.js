@@ -53,6 +53,15 @@ export async function mergeWithAnalytics(localeIndex, posts, config) {
 }
 
 async function fetchGoogleAnalytics(popularPostsCfg, gaCfg) {
+  // Создаем ключ кэша на основе конфигурации и периода данных
+  const cacheKey = `ga_${gaCfg.propertyId}`
+
+  // Проверяем кэш
+  if (global.gaCache[cacheKey]) {
+    console.log('📦 Используем кэшированные данные Google Analytics')
+    return global.gaCache[cacheKey]
+  }
+
   console.log('🔍 Загружаем статистику из Google Analytics...')
 
   try {
@@ -101,8 +110,6 @@ async function fetchGoogleAnalytics(popularPostsCfg, gaCfg) {
       },
     })
 
-    console.log(response.data)
-
     const stats = {}
 
     if (!response.data.rows || response.data.rows.length === 0) {
@@ -127,6 +134,11 @@ async function fetchGoogleAnalytics(popularPostsCfg, gaCfg) {
     console.log(
       `✅ Получено ${Object.keys(stats).length} записей из Google Analytics`
     )
+
+    // Сохраняем результат в кэш
+    global.gaCache[cacheKey] = stats
+    console.log('💾 Данные сохранены в кэш')
+
     return stats
   } catch (error) {
     console.error(

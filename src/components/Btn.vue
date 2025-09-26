@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import { useSlots, toRefs, reactive } from 'vue'
+import { useSlots } from 'vue'
 import { Icon } from '@iconify/vue'
 import { isExternalUrl } from '../helpers/helpers.js'
 import BaseLink from './BaseLink.vue'
@@ -8,14 +8,15 @@ import BaseLink from './BaseLink.vue'
 const slots = useSlots()
 const { theme } = useData()
 const props = defineProps([
-  'id',
+  // 'id',
   'class',
   'href',
-  'title',
+  // 'title',
   'target',
+  'disabled',
+
   'icon',
   'text',
-  'disabled',
   'iconClass',
   'noBg',
   'onlyDark',
@@ -24,18 +25,17 @@ const props = defineProps([
 ])
 const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
 const hasText = props.text || slots.default
+const btnProps = {}
 
-// Создаем реактивную копию props для передачи в BaseLink
-const btnProps = reactive({ ...toRefs(props) })
 if (btnProps.href) {
   // means just link
   btnProps.tag = 'a'
-  btnProps.disabled = undefined
+  btnProps.href = props.href
+  btnProps.target = props.target
 } else {
   // means Button
   btnProps.tag = 'button'
-  btnProps.href = undefined
-  btnProps.target = undefined
+  btnProps.disabled = props.disabled
 }
 </script>
 

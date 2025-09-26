@@ -52,6 +52,7 @@ export const common = {
     externalLinkIcon: true,
     mainHeroImg: '/img/home-logo.webp',
 
+    perPage: 10,
     sidebarTagsCount: 15,
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
@@ -74,7 +75,6 @@ export const common = {
       // Тип аналитики: 'google' или 'mock'
       type: 'mock',
       sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage', 'bounceRate'
-      postsCount: 10,
       // Путь к выходному JSON файлу (относительно outDir)
       outputPath: 'popular-posts.json',
     },
@@ -175,18 +175,18 @@ export function mergeBlogConfig(config) {
     buildEnd: async (cfg) => {
       await generateRssFeed(cfg)
 
-      // Генерируем популярные посты во время сборки
-      try {
-        const { generatePopularPostsAtBuildTime } = await import(
-          '../helpers/buildTimeAnalytics.js'
-        )
-        await generatePopularPostsAtBuildTime(cfg)
-      } catch (error) {
-        console.warn(
-          '⚠️ Не удалось сгенерировать популярные посты:',
-          error.message
-        )
-      }
+      // // Генерируем популярные посты во время сборки
+      // try {
+      //   const { generatePopularPostsAtBuildTime } = await import(
+      //     '../helpers/buildTimeAnalytics.js'
+      //   )
+      //   await generatePopularPostsAtBuildTime(cfg)
+      // } catch (error) {
+      //   console.warn(
+      //     '⚠️ Не удалось сгенерировать популярные посты:',
+      //     error.message
+      //   )
+      // }
 
       if (config.buildEnd) {
         await config.buildEnd(cfg)

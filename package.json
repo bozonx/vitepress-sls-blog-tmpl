@@ -21,6 +21,7 @@
     "./siteConfigHelper.js": "./src/helpers/siteConfigHelper.js",
     "./imageHelpers.js": "./src/helpers/imageHelpers.js",
     "./loadPosts.js": "./src/list-helpers/loadPosts.js",
+    "./loadPopularPosts.js": "./src/list-helpers/loadPopularPosts.js",
     "./makeListParams.js": "./src/list-helpers/makeListParams.js",
     "./makePreviewItem.js": "./src/list-helpers/makePreviewItem.js",
     "./generateRssFeed.js": "./src/list-helpers/generateRssFeed.js",

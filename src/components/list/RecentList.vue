@@ -1,9 +1,9 @@
 <script setup>
 import { useData } from 'vitepress'
-
+import UtilPageHeader from '../UtilPageHeader.vue'
 import PreviewList from './PreviewList.vue'
 
-const { theme } = useData()
+const { frontmatter } = useData()
 const props = defineProps([
   'allPosts',
   'curPage',
@@ -17,6 +17,7 @@ const sorted = [...(props.allPosts || [])].sort(
 </script>
 
 <template>
+  <UtilPageHeader>{{ frontmatter.title }}</UtilPageHeader>
   <PreviewList
     :allPosts="sorted"
     :curPage="curPage"

@@ -3,13 +3,15 @@ import { useData } from 'vitepress'
 
 import { makeAuthorsList } from '../../list-helpers/listHelpers.js'
 import ListItemWithBadge from './ListItemWithBadge.vue'
+import UtilPageHeader from '../UtilPageHeader.vue'
 
 const props = defineProps(['allPosts'])
-const { theme } = useData()
+const { frontmatter, theme } = useData()
 const authorsList = makeAuthorsList(props.allPosts, theme.value.authors)
 </script>
 
 <template>
+  <UtilPageHeader>{{ frontmatter.title }}</UtilPageHeader>
   <ul v-if="authorsList.length">
     <template v-for="item in authorsList">
       <li v-if="item.count">

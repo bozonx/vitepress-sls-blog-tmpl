@@ -19,6 +19,7 @@ export default {
     tagBadgeCount: 'The number of posts on this tag',
     tagPageHeader: 'All Posts by Tag',
     tags: 'Tags',
+    allTags: 'All Tags',
     paginationToStart: 'First Page',
     paginationToEnd: 'Last Page',
     toHome: 'Go to the home page',

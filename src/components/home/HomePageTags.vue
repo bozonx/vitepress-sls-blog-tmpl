@@ -1,7 +1,7 @@
 <script setup>
 import { makeTagsList } from '../../list-helpers/listHelpers.js'
 import TagsList from '../TagsList.vue'
-import UtilPageHeader from '../UtilPageHeader.vue'
+import UtilSubPageHeader from '../UtilSubPageHeader.vue'
 
 const props = defineProps(['allPosts', 'header'])
 const tagList = makeTagsList(props.allPosts || [])
@@ -9,9 +9,9 @@ const tagList = makeTagsList(props.allPosts || [])
 </script>
 
 <template>
-  <UtilPageHeader class="home-hero-tags-header">{{
+  <UtilSubPageHeader class="home-hero-tags-header">{{
     props.header
-  }}</UtilPageHeader>
+  }}</UtilSubPageHeader>
   <TagsList :tags="tagList" class="mb-12 home-hero-tags" />
 </template>
 

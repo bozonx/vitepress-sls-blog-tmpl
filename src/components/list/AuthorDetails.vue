@@ -5,8 +5,9 @@ import Author from '../Author.vue'
 import ListPageHeader from '../ListPageHeader.vue'
 import PreviewList from './PreviewList.vue'
 import { sortPosts } from '../../helpers/helpers.js'
+import UtilPageHeader from '../UtilPageHeader.vue'
 
-const { localeIndex, theme } = useData()
+const { localeIndex, theme, frontmatter } = useData()
 const route = useRoute()
 const props = defineProps([
   'allPosts',
@@ -28,6 +29,7 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
 </script>
 
 <template>
+  <UtilPageHeader>{{ frontmatter.title }}</UtilPageHeader>
   <Author :author="author" class="mb-15" />
 
   <ListPageHeader

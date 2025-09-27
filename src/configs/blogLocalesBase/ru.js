@@ -19,6 +19,7 @@ export default {
     tagBadgeCount: 'Количество постов по этому тэгу',
     tagPageHeader: 'Все посты по тэгу',
     tags: 'Тэги',
+    allTags: 'Все тэги',
     paginationToStart: 'На первую страницу',
     paginationToEnd: 'На последнюю страницу',
     toHome: 'На главную',

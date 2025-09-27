@@ -4,7 +4,7 @@ import { useData } from 'vitepress'
 import { makeMonthsList } from '../../list-helpers/listHelpers.js'
 import ListItemWithBadge from './ListItemWithBadge.vue'
 import PreviewList from './PreviewList.vue'
-
+import UtilPageHeader from '../UtilPageHeader.vue'
 const props = defineProps([
   'allPosts',
   'year',
@@ -12,7 +12,7 @@ const props = defineProps([
   'perPage',
   'paginationMaxItems',
 ])
-const { theme } = useData()
+const { theme, frontmatter } = useData()
 const monthsList = makeMonthsList(props.allPosts, props.year)
 
 const curPage = Number(props.curPage || 1)
@@ -26,6 +26,7 @@ const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
 
 <template>
   <div>
+    <UtilPageHeader>{{ frontmatter.title }}</UtilPageHeader>
     <ul v-if="monthsList.length">
       <template v-for="item in monthsList">
         <li v-if="item.count">

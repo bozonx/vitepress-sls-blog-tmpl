@@ -24,7 +24,7 @@ const props = defineProps([
         :sizes="`(max-width: ${PHONE_BREAKPOINT}px) 100vw, 280px`"
         loading="lazy"
         aria-hidden="true"
-        class="w-full"
+        class="w-full rounded"
         alt=""
       />
 

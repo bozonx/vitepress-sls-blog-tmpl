@@ -4,6 +4,7 @@
     :href="editLinkHref"
     rel="nofollow"
     icon="bx:edit"
+    class="hover-animation-rise"
   >
     {{ theme.editLink?.text }}
   </BtnLink>

@@ -32,7 +32,7 @@ export default {
     commentCall: 'Comment on Telegram Channel',
     allTagsCall: 'View All Tags',
     postVideoButton: 'Watch Video',
-    allPostsOfAuthor: 'All the posts of the author',
+    allPostsOfAuthor: 'Posts of the author',
     closeMenu: 'Close menu',
     allPostsOfYear: 'All posts of the year',
 

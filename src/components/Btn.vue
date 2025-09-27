@@ -14,6 +14,7 @@ const props = defineProps([
   // 'title',
   'target',
   'disabled',
+  'activeCompareMethod',
 
   'icon',
   'text',
@@ -52,6 +53,7 @@ if (props.href && !props.disabled) {
       props.noBg && 'btn--nobg',
       props.class,
     ]"
+    :activeCompareMethod="props.activeCompareMethod"
   >
     <span class="flex items-center gap-x-2">
       <span v-if="props.icon" aria-hidden="true">

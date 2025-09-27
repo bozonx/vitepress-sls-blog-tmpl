@@ -8,11 +8,13 @@
       :text="theme.t.sortByDate"
       :href="`${props.baseUrl}/1`"
       class="hover-animation-rise"
+      activeCompareMethod="pagination"
     />
     <Btn
       :text="theme.t.sortByPopularity"
       :href="`${popularBaseUrl}/1`"
       class="hover-animation-rise"
+      activeCompareMethod="pagination"
     />
   </div>
 </template>

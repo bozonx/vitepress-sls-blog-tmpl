@@ -5,7 +5,14 @@ import { resolveI18Href, isExternalUrl } from '../helpers/helpers.js'
 
 const { theme, localeIndex } = useData()
 const route = useRoute()
-const props = defineProps(['class', 'tag', 'href', 'target', 'disabled'])
+const props = defineProps([
+  'class',
+  'tag',
+  'href',
+  'target',
+  'disabled',
+  'activeCompareMethod',
+])
 // Реактивные вычисляемые свойства
 const resolvedHref = computed(() =>
   resolveI18Href(props.href, localeIndex.value, theme.value.i18nRouting)
@@ -23,15 +30,61 @@ const target = computed(() => {
   }
   return undefined
 })
+const activeCompareMethod = computed(
+  () => props.activeCompareMethod || 'strict'
+)
+
+// Функция для нормализации пути - убирает последний элемент если путь заканчивается на /\d+
+const normalizePath = (path = '') => {
+  // Проверяем, заканчивается ли путь на слеш и цифры
+  const match = path.match(/^(.+\/)\d+$/)
+  return match ? match[1] : path
+}
 
 let prevPath = route.path
-const active = ref(prevPath === resolvedHref.value)
+const active = ref(checkActive())
+
+function checkActive() {
+  prevPath = route.path
+
+  switch (activeCompareMethod.value) {
+    case 'strict':
+      // Строгое сравнение один к одному
+      return route.path === resolvedHref.value
+
+    case 'soft':
+      // Используется startsWith()
+      return route.path.startsWith(resolvedHref.value)
+
+    case 'pagination':
+      // Учитывается число на конце
+      const routeEndsWithDigit = /\d+$/.test(route.path)
+
+      if (routeEndsWithDigit) {
+        // Если текущий путь заканчивается цифрой, то href тоже должен заканчиваться цифрой
+        const hrefEndsWithDigit = /\d+$/.test(resolvedHref.value)
+        if (!hrefEndsWithDigit) {
+          return false
+        }
+
+        // Сравниваем пути без цифр на конце
+        const normalizedRoutePath = normalizePath(route.path)
+        const normalizedHref = normalizePath(resolvedHref.value)
+        return normalizedRoutePath === normalizedHref
+      } else {
+        // Если текущий путь не заканчивается цифрой, используем обычное сравнение
+        return route.path.startsWith(resolvedHref.value)
+      }
+
+    default:
+      // По умолчанию используем строгое сравнение
+      return route.path === resolvedHref.value
+  }
+}
 
 watchEffect(async () => {
   if (route.path !== prevPath) {
-    prevPath = route.path
-
-    active.value = route.path.startsWith(resolvedHref.value)
+    active.value = checkActive()
   }
 })
 </script>

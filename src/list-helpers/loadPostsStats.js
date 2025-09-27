@@ -1,5 +1,6 @@
 import fs from 'fs/promises'
 import { google } from 'googleapis'
+import { POSTS_DIR } from '../constants.js'
 
 if (!global.loadingGaStatsPromise) {
   global.loadingGaStatsPromise = null
@@ -120,7 +121,7 @@ export async function loadGoogleAnalytics(gaCfg) {
             fieldName: 'pagePath',
             stringFilter: {
               matchType: 'CONTAINS',
-              value: '/post/', // Простой поиск по подстроке
+              value: `/${POSTS_DIR}/`, // Простой поиск по подстроке
               caseSensitive: false,
             },
           },

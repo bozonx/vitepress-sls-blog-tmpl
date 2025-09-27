@@ -146,7 +146,19 @@ export function mergeBlogConfig(config) {
       },
     },
 
-    themeConfig: { ...common.themeConfig, ...config.themeConfig },
+    themeConfig: {
+      ...common.themeConfig,
+      ...config.themeConfig,
+
+      googleAnalytics: {
+        ...common.themeConfig.googleAnalytics,
+        ...config.themeConfig.googleAnalytics,
+      },
+      popularPosts: {
+        ...common.themeConfig.popularPosts,
+        ...config.themeConfig.popularPosts,
+      },
+    },
 
     async transformPageData(pageData, ctx) {
       collectImageDimensions(pageData, ctx)

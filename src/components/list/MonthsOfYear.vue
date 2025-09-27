@@ -45,7 +45,6 @@ const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
       :curPage="curPage"
       :perPage="props.perPage"
       :paginationMaxItems="props.paginationMaxItems"
-      :paginationBaseUrl="`${theme.archiveBaseUrl}/${props.year}`"
     />
   </div>
 </template>

@@ -37,7 +37,7 @@ const totalPages = Math.ceil(props.allPosts.length / perPage)
         :curPage="props.curPage"
         :totalPages="totalPages"
         :paginationMaxItems="props.paginationMaxItems"
-        :baseUrl="props.paginationBaseUrl"
+        :paginationBaseUrl="props.paginationBaseUrl"
       />
     </div>
   </div>

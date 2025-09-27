@@ -8,14 +8,15 @@ const props = defineProps([
   'paginationMaxItems',
   'curPage',
   'totalPages',
-  'baseUrl',
+  'paginationBaseUrl',
 ])
 const items = []
 
 const curPage = props.curPage
 const maxItems = props.paginationMaxItems || theme.value.paginationMaxItems
 const totalPages = props.totalPages
-const baseUrl = props.baseUrl || route.path.split('/').slice(0, -1).join('/')
+const baseUrl =
+  props.paginationBaseUrl || route.path.split('/').slice(0, -1).join('/')
 
 // const curPage = 4;
 // const maxItems = 7;

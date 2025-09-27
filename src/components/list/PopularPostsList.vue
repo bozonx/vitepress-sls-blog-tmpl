@@ -23,6 +23,5 @@ const sorted = sortPosts(props.allPosts, theme.value.popularPosts?.sortBy, true)
     :curPage="curPage"
     :perPage="perPage"
     :paginationMaxItems="paginationMaxItems"
-    :paginationBaseUrl="theme.popularBaseUrl"
   />
 </template>

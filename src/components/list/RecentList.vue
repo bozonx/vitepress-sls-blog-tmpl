@@ -22,6 +22,5 @@ const sorted = [...(props.allPosts || [])].sort(
     :curPage="curPage"
     :perPage="props.perPage"
     :paginationMaxItems="props.paginationMaxItems"
-    :paginationBaseUrl="theme.recentBaseUrl"
   />
 </template>

@@ -1,8 +1,7 @@
 import fs from 'fs/promises'
 import { google } from 'googleapis'
 
-if (!global.gaCache) {
-  global.gaCache = {}
+if (!global.loadingGaStatsPromise) {
   global.loadingGaStatsPromise = null
 }
 
@@ -23,11 +22,7 @@ export async function mergeWithAnalytics(posts, config) {
 
   try {
     // Получаем статистику из Google Analytics
-    if (!global.loadingGaStatsPromise) {
-      global.loadingGaStatsPromise = fetchGoogleAnalytics(gaCfg)
-    }
-
-    const stats = await global.loadingGaStatsPromise
+    const stats = await fetchGoogleAnalytics(gaCfg)
 
     if (!stats || Object.keys(stats).length === 0) {
       console.warn('⚠️ Нет данных из Google Analytics')
@@ -62,17 +57,25 @@ export async function mergeWithAnalytics(posts, config) {
 }
 
 async function fetchGoogleAnalytics(gaCfg) {
-  // Создаем ключ кэша на основе конфигурации и периода данных
-  const cacheKey = `ga_${gaCfg.propertyId}`
+  // Создаем ключ кэша
+  // const cacheKey = `ga_${gaCfg.propertyId}`
 
-  // Проверяем кэш
-  if (global.gaCache[cacheKey]) {
+  if (global.loadingGaStatsPromise) {
+    const stats = await global.loadingGaStatsPromise
+
     console.log('📦 Используем кэшированные данные Google Analytics')
-    return global.gaCache[cacheKey]
+
+    return stats
   }
+
+  global.loadingGaStatsPromise = doLoadGoogleAnalytics(gaCfg)
 
   console.log('🔍 Загружаем статистику из Google Analytics...')
 
+  return await global.loadingGaStatsPromise
+}
+
+export async function doLoadGoogleAnalytics(gaCfg) {
   try {
     // Загружаем учетные данные из Service Account JSON файла
     if (!gaCfg.credentialsPath) {
@@ -145,7 +148,7 @@ async function fetchGoogleAnalytics(gaCfg) {
     )
 
     // Сохраняем результат в кэш
-    global.gaCache[cacheKey] = stats
+    // global.gaCache[cacheKey] = stats
     console.log('💾 Данные сохранены в кэш')
 
     return stats

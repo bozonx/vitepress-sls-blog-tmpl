@@ -22,7 +22,9 @@ const totalPages = Math.ceil(props.allPosts.length / props.perPage)
       <template v-for="item in items">
         <li
           v-if="item"
-          :data-stat-value="item.analyticsStats?.[theme.popularPosts?.sortBy]"
+          :data-popularity-value="
+            item.analyticsStats?.[theme.popularPosts?.sortBy]
+          "
         >
           <PreviewListItem :item="item" class="hover-animation-rise" />
         </li>

@@ -13,7 +13,7 @@ const showMorePosts = allPosts[localeIndex.value].length > theme.value.perPage
 
 <template>
   <div v-if="theme.popularPosts?.enabled" class="home-popular-posts">
-    <UtilPageHeader class="home-popular-posts-header mb-2">
+    <UtilPageHeader class="home-popular-posts-header mb-3">
       {{ theme.t.popularPosts }}
     </UtilPageHeader>
 

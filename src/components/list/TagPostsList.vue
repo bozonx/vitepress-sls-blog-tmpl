@@ -1,10 +1,12 @@
 <script setup>
-import { useData } from 'vitepress'
+import { useData, useRoute } from 'vitepress'
 
 import PreviewList from './PreviewList.vue'
 import ListPageHeader from '../ListPageHeader.vue'
+import { sortPosts } from '../../helpers/helpers.js'
 
 const { theme, localeIndex, frontmatter } = useData()
+const route = useRoute()
 const props = defineProps([
   'allPosts',
   'curPage',
@@ -17,7 +19,13 @@ const curPage = Number(props.curPage)
 const filtered = props.allPosts.filter((item) =>
   item.tags?.map((item) => item.name).includes(props.tagName)
 )
-const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
+// Проверяем, есть ли в роуте /popular/
+const isPopularRoute = route.path.includes(`/${theme.value.popularBaseUrl}/`)
+const sorted = sortPosts(
+  filtered,
+  theme.value.popularPosts?.sortBy,
+  isPopularRoute
+)
 </script>
 
 <template>

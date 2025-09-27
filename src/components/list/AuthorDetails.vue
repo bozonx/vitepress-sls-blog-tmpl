@@ -2,10 +2,10 @@
 import { useData } from 'vitepress'
 
 import Author from '../Author.vue'
-import UtilPageHeader from '../UtilPageHeader.vue'
+import ListPageHeader from '../ListPageHeader.vue'
 import PreviewList from './PreviewList.vue'
 
-const { theme } = useData()
+const { localeIndex, theme } = useData()
 const props = defineProps([
   'allPosts',
   'curPage',
@@ -24,7 +24,11 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
 <template>
   <Author :author="author" class="mb-15" />
 
-  <UtilPageHeader>{{ theme.t.allPostsOfAuthor }}</UtilPageHeader>
+  <ListPageHeader
+    :baseUrl="`/${localeIndex}/${theme.authorBaseUrl}/${props.authorId}`"
+  >
+    {{ theme.t.allPostsOfAuthor }}
+  </ListPageHeader>
 
   <PreviewList
     :allPosts="sorted"

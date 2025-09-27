@@ -35,6 +35,8 @@ export default {
     allPostsOfAuthor: 'Все посты автора',
     closeMenu: 'Закрыть меню',
     allPostsOfYear: 'Все посты за год',
+    sortByPopularity: 'По популярности',
+    sortByDate: 'По дате',
 
     links: {
       aboutBlog: 'Об этом блоге',

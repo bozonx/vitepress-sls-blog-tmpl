@@ -27,7 +27,7 @@ const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
 const hasText = props.text || slots.default
 const btnProps = {}
 
-if (props.href) {
+if (props.href && !props.disabled) {
   // means just link
   btnProps.tag = 'a'
   btnProps.href = props.href

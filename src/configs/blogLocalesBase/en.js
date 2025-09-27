@@ -35,6 +35,8 @@ export default {
     allPostsOfAuthor: 'All the posts of the author',
     closeMenu: 'Close menu',
     allPostsOfYear: 'All posts of the year',
+    sortByPopularity: 'By Popularity',
+    sortByDate: 'By Date',
 
     links: {
       aboutBlog: 'About This Blog',

@@ -14,7 +14,7 @@ const authorsList = makeAuthorsList(props.allPosts, theme.value.authors)
     <template v-for="item in authorsList">
       <li v-if="item.count">
         <ListItemWithBadge
-          :href="`${theme.authorBaseUrl}/${item.id}/1`"
+          :href="`${theme.authorsBaseUrl}/${item.id}/1`"
           :text="item.name"
           :count="item.count"
         />

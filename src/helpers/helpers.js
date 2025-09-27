@@ -38,9 +38,9 @@ export function isPage(frontmatter) {
 export function isAuthorPage(filePath, siteConfig) {
   if (!filePath) return false
 
-  const authorBaseUrl = siteConfig.userConfig.themeConfig.authorBaseUrl
+  const authorsBaseUrl = siteConfig.userConfig.themeConfig.authorsBaseUrl
 
-  return !!filePath.match(new RegExp(`^\\w+\/${authorBaseUrl}\/`))
+  return !!filePath.match(new RegExp(`^\\w+\/${authorsBaseUrl}\/`))
 }
 
 export function makeHumanDate(rawDate, lang, toTimeZone = 'UTC') {

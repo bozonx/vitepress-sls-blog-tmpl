@@ -78,7 +78,7 @@ function createPostJsonLd(
     author: authorName && {
       '@type': 'Person',
       name: authorName,
-      url: `${localeIndexUrl}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${pageData.frontmatter.authorId}/1`,
+      url: `${localeIndexUrl}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${pageData.frontmatter.authorId}/1`,
     },
     updatedDate:
       pageData.lastUpdated && new Date(pageData.lastUpdated).toISOString(),
@@ -123,7 +123,7 @@ function createAuthorJsonLd(
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: authorName,
-    url: `${hostname}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorBaseUrl}/${authorId}/1`,
+    url: `${hostname}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${authorId}/1`,
     description: author?.descr,
     image: author?.image,
     sameAs: author?.links?.map((link) => link.url),

@@ -155,7 +155,7 @@ export function makeAuthorForRss(config, frontmatter, siteUrl, localeIndex) {
 
   return {
     name: author.name,
-    link: `${siteUrl}/${config.userConfig.themeConfig.authorBaseUrl}/${author.id}/1`,
+    link: `${siteUrl}/${config.userConfig.themeConfig.authorsBaseUrl}/${author.id}/1`,
   }
 }
 

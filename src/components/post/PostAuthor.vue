@@ -9,7 +9,7 @@ const themeAuthor = frontmatter.value.authorId
   : undefined
 const authorUrl = themeAuthor?.link
   ? themeAuthor.link
-  : `${theme.value.authorBaseUrl}/${frontmatter.value.authorId}/1`
+  : `${theme.value.authorsBaseUrl}/${frontmatter.value.authorId}/1`
 </script>
 
 <template>

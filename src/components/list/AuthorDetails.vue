@@ -31,7 +31,7 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
   <Author :author="author" class="mb-15" />
 
   <ListPageHeader
-    :baseUrl="`/${localeIndex}/${theme.authorBaseUrl}/${props.authorId}`"
+    :baseUrl="`/${localeIndex}/${theme.authorsBaseUrl}/${props.authorId}`"
   >
     {{ theme.t.allPostsOfAuthor }}
   </ListPageHeader>

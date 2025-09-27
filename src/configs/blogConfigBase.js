@@ -82,8 +82,7 @@ export const common = {
     archiveBaseUrl: 'archive',
     popularBaseUrl: 'popular',
     recentBaseUrl: 'recent',
-    allAuthorBaseUrl: 'authors',
-    authorBaseUrl: 'author',
+    authorsBaseUrl: 'authors',
 
     donateIcon: 'fa6-solid:heart',
     recentIcon: 'fa6-solid:bolt',

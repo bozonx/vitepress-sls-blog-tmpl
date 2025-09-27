@@ -38,7 +38,7 @@ const links = theme.value.sideBar
       },
       theme.value.sideBar.authors && {
         text: theme.value.t.links.authors,
-        href: `${theme.value.allAuthorBaseUrl}`,
+        href: `${theme.value.authorsBaseUrl}`,
         icon: theme.value.authorsIcon,
       },
     ].filter(Boolean)

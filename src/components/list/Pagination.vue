@@ -1,7 +1,8 @@
 <script setup>
-import { useData } from 'vitepress'
+import { useData, useRoute } from 'vitepress'
 import Btn from '../Btn.vue'
 
+const route = useRoute()
 const { theme } = useData()
 const props = defineProps(['maxItems', 'curPage', 'totalPages', 'baseUrl'])
 const items = []
@@ -9,6 +10,7 @@ const items = []
 const curPage = props.curPage
 const maxItems = props.maxItems
 const totalPages = props.totalPages
+const baseUrl = props.baseUrl || route.path.split('/').slice(0, -1).join('/')
 
 // const curPage = 4;
 // const maxItems = 7;
@@ -38,19 +40,19 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   if (startPage !== 1) {
     items.push({
       name: '<<',
-      href: `${props.baseUrl}/1`,
+      href: `${baseUrl}/1`,
       title: theme.value.t.paginationToStart,
     })
   }
 
   for (let i = startPage; i <= endPage; i++) {
-    items.push({ name: i, href: `${props.baseUrl}/${i}` })
+    items.push({ name: i, href: `${baseUrl}/${i}` })
   }
 
   if (totalPages - endPage > 0) {
     items.push({
       name: '>>',
-      href: `${props.baseUrl}/${totalPages}`,
+      href: `${baseUrl}/${totalPages}`,
       title: theme.value.t.paginationToEnd,
     })
   }

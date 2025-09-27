@@ -31,7 +31,7 @@ watchEffect(async () => {
   if (route.path !== prevPath) {
     prevPath = route.path
 
-    active.value = route.path === resolvedHref
+    active.value = route.path.startsWith(resolvedHref.value)
   }
 })
 </script>

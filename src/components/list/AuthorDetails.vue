@@ -35,6 +35,5 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
     :curPage="curPage"
     :perPage="props.perPage"
     :paginationMaxItems="props.paginationMaxItems"
-    :paginationBaseUrl="`${theme.authorBaseUrl}/${props.authorId}`"
   />
 </template>

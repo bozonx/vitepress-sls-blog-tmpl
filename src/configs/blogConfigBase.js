@@ -76,6 +76,7 @@ export const common = {
     tagsBaseUrl: 'tag',
     allTagsUrl: 'tags',
     archiveBaseUrl: 'archive',
+    popularBaseUrl: 'popular',
     recentBaseUrl: 'recent',
     allAuthorBaseUrl: 'authors',
     authorBaseUrl: 'author',

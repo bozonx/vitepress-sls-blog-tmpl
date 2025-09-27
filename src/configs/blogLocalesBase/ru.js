@@ -41,6 +41,7 @@ export default {
       aboutBlog: 'Об этом блоге',
       donate: 'Донат',
       recent: 'Самые свежие',
+      popular: 'Самые популярные',
       byDate: 'По датам',
       links: 'Ссылки',
       authors: 'Авторы',

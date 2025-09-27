@@ -1,4 +1,4 @@
-export function makeRecentParams(posts, perPage) {
+export function makeAllPostsParams(posts, perPage) {
   const dates = posts.map((item) => item.date)
   const res = []
 

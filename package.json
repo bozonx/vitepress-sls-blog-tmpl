@@ -35,6 +35,7 @@
     "./MonthPostsList.vue": "./src/components/list/MonthPostsList.vue",
     "./MonthsOfYear.vue": "./src/components/list/MonthsOfYear.vue",
     "./RecentList.vue": "./src/components/list/RecentList.vue",
+    "./PopularPostsList.vue": "./src/components/list/PopularPostsList.vue",
     "./TagPostsList.vue": "./src/components/list/TagPostsList.vue",
     "./Years.vue": "./src/components/list/Years.vue",
     "./FileDownload.vue": "./src/components/docComponents/FileDownload.vue",

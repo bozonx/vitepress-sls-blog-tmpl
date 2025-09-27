@@ -41,6 +41,7 @@ export default {
       aboutBlog: 'About This Blog',
       donate: 'Donate',
       recent: 'Recent',
+      popular: 'Popular',
       byDate: 'By Date',
       links: 'Links',
       authors: 'Authors',

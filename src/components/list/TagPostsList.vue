@@ -2,8 +2,9 @@
 import { useData } from 'vitepress'
 
 import PreviewList from './PreviewList.vue'
+import ListPageHeader from '../ListPageHeader.vue'
 
-const { theme } = useData()
+const { theme, localeIndex } = useData()
 const props = defineProps([
   'allPosts',
   'curPage',
@@ -20,6 +21,12 @@ const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
 </script>
 
 <template>
+  <ListPageHeader
+    :baseUrl="`/${localeIndex}/${theme.tagsBaseUrl}/${props.tagSlug}`"
+  >
+    {{ theme.t.allPostsOfTag }}
+  </ListPageHeader>
+
   <PreviewList
     :allPosts="sorted"
     :curPage="curPage"

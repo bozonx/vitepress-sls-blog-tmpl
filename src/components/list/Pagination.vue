@@ -60,8 +60,8 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
 </script>
 
 <template>
-  <ul v-if="items.length" class="flex gap-x-1">
-    <li v-for="item of items">
+  <ul v-if="items.length" class="flex justify-center gap-x-1">
+    <li v-for="item of items" class="flex align-center">
       <Btn
         :href="item.href"
         :title="item.title"

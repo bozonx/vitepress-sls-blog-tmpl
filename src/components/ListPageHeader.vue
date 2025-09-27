@@ -4,20 +4,22 @@
       <slot />
     </h1>
 
-    <Btn
-      :text="theme.t.links.recent"
-      :href="`${props.baseUrl}/1`"
-      :icon="theme.recentIcon"
-      class="hover-animation-rise"
-      activeCompareMethod="pagination"
-    />
-    <Btn
-      :text="theme.t.links.popular"
-      :href="`${popularBaseUrl}/1`"
-      :icon="theme.popularIcon"
-      class="hover-animation-rise"
-      activeCompareMethod="pagination"
-    />
+    <div class="flex sm:items-center sm:flex-row flex-col gap-x-1 gap-y-2">
+      <Btn
+        :text="theme.t.links.recent"
+        :href="`${props.baseUrl}/1`"
+        :icon="theme.recentIcon"
+        class="hover-animation-rise"
+        activeCompareMethod="pagination"
+      />
+      <Btn
+        :text="theme.t.links.popular"
+        :href="`${popularBaseUrl}/1`"
+        :icon="theme.popularIcon"
+        class="hover-animation-rise"
+        activeCompareMethod="pagination"
+      />
+    </div>
   </div>
 </template>
 

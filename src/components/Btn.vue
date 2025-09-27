@@ -125,6 +125,7 @@ if (props.href && !props.disabled) {
 
 .btn-base.active {
   background: var(--btn-bg-active);
+  border: 3px solid var(--gray-400);
 }
 
 .btn-base.active:hover {
@@ -135,6 +136,7 @@ if (props.href && !props.disabled) {
 .dark .btn-base.active,
 .btn-base.active.btn--only-dark {
   background: var(--btn-dark-bg-active);
+  border-color: var(--gray-600);
   color: white;
 }
 

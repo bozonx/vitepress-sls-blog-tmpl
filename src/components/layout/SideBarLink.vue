@@ -29,6 +29,7 @@ const { class: className, ...bindProps } = props
 <style scoped>
 .sidebar-link {
   transition: all 0.2s ease-in-out;
+  border: 0 none;
 }
 
 .sidebar-link :deep(.flex) {

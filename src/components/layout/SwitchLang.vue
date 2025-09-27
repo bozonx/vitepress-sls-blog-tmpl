@@ -17,7 +17,7 @@ const resolveLink = (link) => {
   const splat = link.split('/')
 
   if (splat[2] === theme.value.tagsBaseUrl) {
-    return `/${splat[1]}/${theme.value.allTagsUrl}`
+    return `/${splat[1]}/${theme.value.tagsBaseUrl}`
   }
 
   return link

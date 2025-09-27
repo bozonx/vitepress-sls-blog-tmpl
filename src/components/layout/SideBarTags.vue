@@ -24,7 +24,7 @@ const allTags = makeTagsList(props.allPosts)
 const tags = allTags
   .map(({ count, ...tag }) => tag)
   .slice(0, theme.value.sidebarTagsCount)
-const allTagsUrl = `/${localeIndex.value}/${theme.value.allTagsUrl}`
+const allTagsUrl = `/${localeIndex.value}/${theme.value.tagsBaseUrl}`
 const showAllTags = allTags.length > theme.value.sidebarTagsCount
 </script>
 

@@ -77,8 +77,7 @@ export const common = {
       sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage'
     },
 
-    tagsBaseUrl: 'tag',
-    allTagsUrl: 'tags',
+    tagsBaseUrl: 'tags',
     archiveBaseUrl: 'archive',
     popularBaseUrl: 'popular',
     recentBaseUrl: 'recent',

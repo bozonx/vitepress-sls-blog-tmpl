@@ -18,7 +18,7 @@ const tags = [...(frontmatter.value.tags || [])].sort((a, b) =>
     </div>
 
     <div class="mt-4">
-      <SimpleLink :href="theme.allTagsUrl">{{
+      <SimpleLink :href="theme.tagsBaseUrl">{{
         theme.t.allTagsCall
         }}</SimpleLink>
     </div>

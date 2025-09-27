@@ -67,11 +67,14 @@ export const common = {
       credentialsJson: null, // JSON string Service Account
       // period for getting analytics data
       dataPeriodDays: 30,
+      // limit for getting analytics data.
+      // This data will be fetched once for all the languages.
+      dataLimit: 1000,
     },
     popularPosts: {
       // Включить генерацию популярных постов во время сборки
       enabled: false,
-      sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage', 'bounceRate'
+      sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage'
     },
 
     tagsBaseUrl: 'tag',

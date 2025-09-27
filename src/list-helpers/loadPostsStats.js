@@ -22,7 +22,16 @@ export async function mergeWithAnalytics(posts, config) {
 
   try {
     // Получаем статистику из Google Analytics
-    const stats = await fetchGoogleAnalytics(gaCfg)
+    let stats = null
+
+    if (global.loadingGaStatsPromise) {
+      console.log('📦 Используем кэшированные данные Google Analytics')
+    } else {
+      console.log('🔍 Загружаем статистику из Google Analytics...')
+      global.loadingGaStatsPromise = doLoadGoogleAnalytics(gaCfg)
+    }
+
+    stats = await global.loadingGaStatsPromise
 
     if (!stats || Object.keys(stats).length === 0) {
       console.warn('⚠️ Нет данных из Google Analytics')
@@ -56,37 +65,20 @@ export async function mergeWithAnalytics(posts, config) {
   }
 }
 
-async function fetchGoogleAnalytics(gaCfg) {
-  // Создаем ключ кэша
-  // const cacheKey = `ga_${gaCfg.propertyId}`
-
-  if (global.loadingGaStatsPromise) {
-    const stats = await global.loadingGaStatsPromise
-
-    console.log('📦 Используем кэшированные данные Google Analytics')
-
-    return stats
-  }
-
-  global.loadingGaStatsPromise = doLoadGoogleAnalytics(gaCfg)
-
-  console.log('🔍 Загружаем статистику из Google Analytics...')
-
-  return await global.loadingGaStatsPromise
-}
-
 export async function doLoadGoogleAnalytics(gaCfg) {
   try {
-    // Загружаем учетные данные из Service Account JSON файла
-    if (!gaCfg.credentialsPath) {
-      throw new Error(
-        'Не указан путь к файлу с учетными данными Service Account'
-      )
-    }
+    let credentials = null
 
-    const credentials = JSON.parse(
-      await fs.readFile(gaCfg.credentialsPath, 'utf-8')
-    )
+    // Загружаем учетные данные из Service Account JSON файла
+    if (gaCfg.credentialsPath) {
+      credentials = JSON.parse(
+        await fs.readFile(gaCfg.credentialsPath, 'utf-8')
+      )
+    } else if (gaCfg.credentialsJson) {
+      credentials = JSON.parse(gaCfg.credentialsJson)
+    } else {
+      throw new Error('Не указаны учетные данные Service Account')
+    }
 
     // Создаем клиент для GA4 Data API
     const auth = new google.auth.GoogleAuth({
@@ -97,6 +89,7 @@ export async function doLoadGoogleAnalytics(gaCfg) {
     const analyticsdata = google.analyticsdata({ version: GA_VERSION, auth })
     const endDate = new Date()
     const startDate = new Date()
+
     startDate.setDate(startDate.getDate() - (gaCfg.dataPeriodDays || 30))
 
     const response = await analyticsdata.properties.runReport({
@@ -108,17 +101,15 @@ export async function doLoadGoogleAnalytics(gaCfg) {
             endDate: endDate.toISOString().split('T')[0],
           },
         ],
-        // Правильные метрики для GA4
         metrics: [
           { name: 'screenPageViews' }, // Просмотры страниц
           { name: 'totalUsers' }, // Общее количество пользователей
           { name: 'averageSessionDuration' }, // Средняя продолжительность сессии
-          { name: 'bounceRate' }, // Показатель отказов
+          // { name: 'bounceRate' }, // Показатель отказов
         ],
-        // Правильные измерения для GA4
         dimensions: [{ name: 'pagePath' }],
         orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
-        limit: 1000, // Ограничиваем количество результатов
+        limit: gaCfg.dataLimit, // Ограничиваем количество результатов
       },
     })
 
@@ -139,17 +130,13 @@ export async function doLoadGoogleAnalytics(gaCfg) {
         pageviews: parseInt(metrics[0].value) || 0,
         uniquePageviews: parseInt(metrics[1].value) || 0,
         avgTimeOnPage: parseFloat(metrics[2].value) || 0,
-        bounceRate: parseFloat(metrics[3].value) || 0,
+        // bounceRate: parseFloat(metrics[3].value) || 0,
       }
     })
 
     console.log(
       `✅ Получено ${Object.keys(stats).length} записей из Google Analytics`
     )
-
-    // Сохраняем результат в кэш
-    // global.gaCache[cacheKey] = stats
-    console.log('💾 Данные сохранены в кэш')
 
     return stats
   } catch (error) {

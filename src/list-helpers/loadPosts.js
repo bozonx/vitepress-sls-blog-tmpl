@@ -1,7 +1,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 import { makePreviewItem } from './makePreviewItem.js'
-import { mergeWithAnalytics } from './loadPopularPosts.js'
+import { mergeWithAnalytics } from './loadPostsStats.js'
 import { POSTS_DIR } from '../constants.js'
 
 if (!global.blogCache) {
@@ -24,11 +24,7 @@ export async function loadPostsData(localeDir, config, ignoreCache = false) {
   if (!localeIndex) return []
 
   // Проверяем глобальный кэш для текущей локали
-  if (
-    global.blogCache[localeIndex] &&
-    global.blogCache[localeIndex]?.length > 0 &&
-    !ignoreCache
-  ) {
+  if (global.blogCache[localeIndex]?.length > 0 && !ignoreCache) {
     return global.blogCache[localeIndex]
   }
 

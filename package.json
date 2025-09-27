@@ -6,7 +6,7 @@
   "author": "(Ivan Kozyrin <ipkozyrin@gmail.com>)",
   "license": "MIT",
   "scripts": {
-    "tw:build": "pnpm dlx @tailwindcss/cli --minify -i ./src/tailwind.css -o ./dist/tw-styles.css"
+    "build": "pnpm dlx @tailwindcss/cli --minify -i ./src/tailwind.css -o ./dist/tw-styles.css"
   },
   "exports": {
     ".": "./src/index.js",

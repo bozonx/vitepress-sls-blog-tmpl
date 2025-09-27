@@ -7,47 +7,50 @@ import BtnLink from '../BtnLink.vue'
 
 const { localeIndex, theme } = useData()
 const allPosts = inject('posts')
+const posts = allPosts[localeIndex.value].slice(0, theme.value.perPage)
+const showMorePosts = allPosts[localeIndex.value].length > theme.value.perPage
 </script>
 
 <template>
   <div v-if="theme.popularPosts?.enabled" class="home-popular-posts">
-    <UtilPageHeader class="home-popular-posts-header">
+    <UtilPageHeader class="home-popular-posts-header mb-2">
       {{ theme.t.popularPosts }}
     </UtilPageHeader>
 
-    <PopularPostsList :curPage="1" :allPosts="allPosts[localeIndex]" />
+    <PopularPostsList :curPage="1" :allPosts="posts" />
 
-    <div class="mt-12 flex">
+    <div v-if="showMorePosts" class="mt-8 flex">
       <span class="mr-2">... </span>
       <BtnLink
         :href="`${theme.popularBaseUrl}/2`"
-        :text="theme.t.allPostsCall"
+        :text="theme.t.showMorePosts"
         class="more-posts-btn hover-animation-rise"
       />
     </div>
   </div>
 </template>
 
-<style scoped>
+<style>
 /* Эффект матового стекла для популярных постов */
 .home-popular-posts {
   position: relative;
 }
 
+.dark .home-popular-posts .preview,
 .home-popular-posts .preview {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.27);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  /* Основные свойства матового стекла */
-  backdrop-filter: blur(3px);
-  /* Дополнительные эффекты */
   border-radius: 10px;
+  backdrop-filter: blur(3px);
   transition: all 0.3s ease;
+  animation: glassmorphism-fade-in 0.6s ease-out;
 }
 
 /* Эффекты при наведении */
+.dark .home-popular-posts .preview:hover,
 .home-popular-posts .preview:hover {
   background: rgba(0, 0, 0, 0.45);
   box-shadow:
@@ -57,9 +60,13 @@ const allPosts = inject('posts')
   -webkit-backdrop-filter: blur(15px);
 }
 
-/* Анимация появления */
-.home-popular-posts .preview {
-  animation: glassmorphism-fade-in 0.6s ease-out;
+.home-popular-posts-header {
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+.home-popular-posts .more-posts-btn {
+  color: var(--gray-300);
+  text-decoration: underline;
 }
 
 @keyframes glassmorphism-fade-in {
@@ -71,29 +78,5 @@ const allPosts = inject('posts')
     opacity: 1;
     backdrop-filter: blur(10px);
   }
-}
-
-/* Улучшенная читаемость текста */
-.home-popular-posts-header {
-  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.8);
-}
-
-.home-popular-posts .preview h2 {
-  text-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Стилизация статистики аналитики */
-.home-popular-posts .text-xs {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: 8px;
-  padding: 4px 8px;
-}
-
-.home-popular-posts .more-posts-btn {
-  color: var(--gray-300);
-  text-decoration: underline;
 }
 </style>

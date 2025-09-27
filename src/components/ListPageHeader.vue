@@ -1,10 +1,10 @@
 <template>
-  <div class="flex gap-x-1 items-end mb-5">
+  <div class="flex flex-col md:flex-row gap-x-1 items-baseline gap-y-4 mb-7">
     <h1 class="font-bold flex-1 m-0!">
       <slot />
     </h1>
 
-    <div class="flex sm:items-center sm:flex-row flex-col gap-x-1 gap-y-2">
+    <div class="flex items-center gap-1">
       <Btn
         :text="theme.t.links.recent"
         :href="`${props.baseUrl}/1`"

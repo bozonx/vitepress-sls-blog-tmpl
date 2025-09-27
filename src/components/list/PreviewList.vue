@@ -11,9 +11,10 @@ const props = defineProps([
   'paginationMaxItems',
   'paginationBaseUrl',
 ])
-const start = props.curPage === 1 ? 0 : (props.curPage - 1) * props.perPage
-const items = props.allPosts.slice(start, start + props.perPage)
-const totalPages = Math.ceil(props.allPosts.length / props.perPage)
+const perPage = props.perPage || theme.value.perPage
+const start = props.curPage === 1 ? 0 : (props.curPage - 1) * perPage
+const items = props.allPosts.slice(start, start + perPage)
+const totalPages = Math.ceil(props.allPosts.length / perPage)
 </script>
 
 <template>
@@ -35,7 +36,7 @@ const totalPages = Math.ceil(props.allPosts.length / props.perPage)
       <Pagination
         :curPage="props.curPage"
         :totalPages="totalPages"
-        :maxItems="props.paginationMaxItems"
+        :paginationMaxItems="props.paginationMaxItems"
         :baseUrl="props.paginationBaseUrl"
       />
     </div>

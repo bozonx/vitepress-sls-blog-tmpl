@@ -4,11 +4,16 @@ import Btn from '../Btn.vue'
 
 const route = useRoute()
 const { theme } = useData()
-const props = defineProps(['maxItems', 'curPage', 'totalPages', 'baseUrl'])
+const props = defineProps([
+  'paginationMaxItems',
+  'curPage',
+  'totalPages',
+  'baseUrl',
+])
 const items = []
 
 const curPage = props.curPage
-const maxItems = props.maxItems
+const maxItems = props.paginationMaxItems || theme.value.paginationMaxItems
 const totalPages = props.totalPages
 const baseUrl = props.baseUrl || route.path.split('/').slice(0, -1).join('/')
 

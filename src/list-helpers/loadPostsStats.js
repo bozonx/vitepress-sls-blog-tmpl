@@ -28,7 +28,7 @@ export async function mergeWithAnalytics(posts, config) {
       console.log('📦 Используем кэшированные данные Google Analytics')
     } else {
       console.log('🔍 Загружаем статистику из Google Analytics...')
-      global.loadingGaStatsPromise = doLoadGoogleAnalytics(gaCfg)
+      global.loadingGaStatsPromise = loadGoogleAnalytics(gaCfg)
     }
 
     stats = await global.loadingGaStatsPromise
@@ -65,7 +65,7 @@ export async function mergeWithAnalytics(posts, config) {
   }
 }
 
-export async function doLoadGoogleAnalytics(gaCfg) {
+export async function loadGoogleAnalytics(gaCfg) {
   try {
     let credentials = null
 
@@ -92,6 +92,12 @@ export async function doLoadGoogleAnalytics(gaCfg) {
 
     startDate.setDate(startDate.getDate() - (gaCfg.dataPeriodDays || 30))
 
+    console.log('🔍 Запрашиваем данные из Google Analytics...')
+    console.log(
+      `📅 Период: ${startDate.toISOString().split('T')[0]} - ${endDate.toISOString().split('T')[0]}`
+    )
+
+    // Попробуем сначала с более простым фильтром - CONTAINS
     const response = await analyticsdata.properties.runReport({
       property: `properties/${gaCfg.propertyId}`,
       requestBody: {
@@ -108,6 +114,17 @@ export async function doLoadGoogleAnalytics(gaCfg) {
           // { name: 'bounceRate' }, // Показатель отказов
         ],
         dimensions: [{ name: 'pagePath' }],
+        dimensionFilter: {
+          // Используем CONTAINS вместо REGEXP для начала
+          filter: {
+            fieldName: 'pagePath',
+            stringFilter: {
+              matchType: 'CONTAINS',
+              value: '/post/', // Простой поиск по подстроке
+              caseSensitive: false,
+            },
+          },
+        },
         orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
         limit: gaCfg.dataLimit, // Ограничиваем количество результатов
       },
@@ -117,8 +134,16 @@ export async function doLoadGoogleAnalytics(gaCfg) {
 
     if (!response.data.rows || response.data.rows.length === 0) {
       console.warn('⚠️ Нет данных в ответе от Google Analytics 4')
-      return stats
+      return
     }
+
+    console.log(
+      `📊 Ответ от Google Analytics: Найдено ${response.data.rows?.length || 0} записей`
+    )
+    console.log('🔗 Первые 5 URL:')
+    response.data.rows.slice(0, 5).forEach((row, index) => {
+      console.log(`  ${index + 1}. ${row.dimensionValues[0].value}`)
+    })
 
     // Обрабатываем данные из ответа
     response.data.rows.forEach((row) => {
@@ -133,10 +158,6 @@ export async function doLoadGoogleAnalytics(gaCfg) {
         // bounceRate: parseFloat(metrics[3].value) || 0,
       }
     })
-
-    console.log(
-      `✅ Получено ${Object.keys(stats).length} записей из Google Analytics`
-    )
 
     return stats
   } catch (error) {
@@ -159,6 +180,6 @@ export async function doLoadGoogleAnalytics(gaCfg) {
       console.error('❌ Неверный запрос к Google Analytics API')
     }
 
-    return {}
+    return
   }
 }

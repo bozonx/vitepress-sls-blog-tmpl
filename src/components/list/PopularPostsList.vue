@@ -1,6 +1,7 @@
 <script setup>
 import { useData } from 'vitepress'
 import PreviewList from './PreviewList.vue'
+import { sortPosts } from '../../helpers/helpers.js'
 
 const props = defineProps([
   'allPosts',
@@ -10,44 +11,10 @@ const props = defineProps([
 ])
 const { theme } = useData()
 const curPage = Number(props.curPage)
-const sortBy = theme.value.popularPosts?.sortBy || 'pageviews'
 const perPage = props.perPage || theme.value.perPage
 const paginationMaxItems =
   props.paginationMaxItems || theme.value.paginationMaxItems
-
-// Получаем посты с аналитикой и сортируем их
-const sorted = [...(props.allPosts || [])].sort((a, b) => {
-  const aHasStats =
-    a.analyticsStats?.[sortBy] !== undefined &&
-    a.analyticsStats?.[sortBy] !== null
-  const bHasStats =
-    b.analyticsStats?.[sortBy] !== undefined &&
-    b.analyticsStats?.[sortBy] !== null
-
-  // Если у обоих постов есть статистика, сортируем по ней
-  if (aHasStats && bHasStats) {
-    const aValue = a.analyticsStats[sortBy]
-    const bValue = b.analyticsStats[sortBy]
-
-    // Для bounceRate сортируем по возрастанию (меньше = лучше)
-    // if (sortBy === 'bounceRate') {
-    //   return aValue - bValue
-    // }
-
-    // Для остальных метрик сортируем по убыванию (больше = лучше)
-    return bValue - aValue
-  }
-
-  // Если у одного есть статистика, а у другого нет - приоритет у того, у кого есть
-  if (aHasStats && !bHasStats) return -1
-  if (!aHasStats && bHasStats) return 1
-
-  // Если у обоих нет статистики, сортируем по дате (новые сначала)
-  const aDate = new Date(a.date || 0)
-  const bDate = new Date(b.date || 0)
-  return bDate - aDate
-})
-// .slice(0, theme.value.perPage)
+const sorted = sortPosts(props.allPosts, theme.value.popularPosts?.sortBy, true)
 </script>
 
 <template>

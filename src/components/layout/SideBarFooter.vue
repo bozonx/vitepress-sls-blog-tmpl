@@ -41,7 +41,7 @@ const socialLinks = [
         <SwitchLang @click.stop dropUp="true" noBg="true" />
       </div>
 
-      <div aria-hidden="true" class="lg:hidden">
+      <div class="lg:hidden">
         <SwitchAppearance @click.stop />
       </div>
     </div>

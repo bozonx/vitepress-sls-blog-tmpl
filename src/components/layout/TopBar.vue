@@ -59,7 +59,7 @@ const links = theme.value.topBar
       <SwitchLang noBg="true" />
     </div>
 
-    <div class="max-lg:hidden" aria-hidden="true">
+    <div class="max-lg:hidden">
       <SwitchAppearance />
     </div>
 

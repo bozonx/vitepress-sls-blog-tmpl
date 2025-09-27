@@ -1,8 +1,8 @@
 <template>
   <div class="flex gap-x-1 items-end mb-5">
-    <h2 class="font-bold flex-1">
+    <h1 class="font-bold flex-1 m-0!">
       <slot />
-    </h2>
+    </h1>
 
     <Btn
       :text="theme.t.sortByDate"

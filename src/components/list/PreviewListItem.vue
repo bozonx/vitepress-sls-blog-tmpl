@@ -18,11 +18,7 @@ const params = {
 </script>
 
 <template>
-  <a
-    :href="props.item.url"
-    class="mb-6 px-5 py-5 preview"
-    :data-stat-value="props.item.analyticsStats?.[theme.popularPosts?.sortBy]"
-  >
+  <a :href="props.item.url" class="mb-6 px-5 py-5 preview">
     <h2 class="mb-3 text-2xl tracking-tight">{{ props.item.title }}</h2>
 
     <PreviewWithImg

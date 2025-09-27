@@ -1,7 +1,9 @@
 <script setup>
 import PreviewListItem from './PreviewListItem.vue'
 import Pagination from './Pagination.vue'
+import { useData } from 'vitepress'
 
+const { theme } = useData()
 const props = defineProps([
   'allPosts',
   'curPage',
@@ -15,11 +17,16 @@ const totalPages = Math.ceil(props.allPosts.length / props.perPage)
 </script>
 
 <template>
-  <div>
+  <div v-if="items.length">
     <ul>
-      <li v-for="item in items">
-        <PreviewListItem :item="item" class="hover-animation-rise" />
-      </li>
+      <template v-for="item in items">
+        <li
+          v-if="item"
+          :data-stat-value="item.analyticsStats?.[theme.popularPosts?.sortBy]"
+        >
+          <PreviewListItem :item="item" class="hover-animation-rise" />
+        </li>
+      </template>
     </ul>
 
     <div v-if="props.paginationBaseUrl && totalPages > 1" class="mt-14">

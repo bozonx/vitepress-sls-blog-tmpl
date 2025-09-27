@@ -76,6 +76,11 @@ function checkActive() {
         return route.path.startsWith(resolvedHref.value)
       }
 
+    case 'softPagination':
+      // Убираем цифру в конце path если она есть и сравниваем с route.path
+      const normalizedHrefForSoft = normalizePath(resolvedHref.value)
+      return route.path.startsWith(normalizedHrefForSoft)
+
     default:
       // По умолчанию используем строгое сравнение
       return route.path === resolvedHref.value

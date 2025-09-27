@@ -22,7 +22,7 @@ const { class: className, ...bindProps } = props
       className,
     ]"
     iconClass="muted"
-    activeCompareMethod="soft"
+    activeCompareMethod="softPagination"
   />
 </template>
 

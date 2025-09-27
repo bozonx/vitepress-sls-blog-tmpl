@@ -56,7 +56,11 @@ if (props.href && !props.disabled) {
     :activeCompareMethod="props.activeCompareMethod"
   >
     <span class="flex items-center gap-x-2">
-      <span v-if="props.icon" aria-hidden="true">
+      <span
+        v-if="props.icon"
+        aria-hidden="true"
+        class="btn-base__icon-container"
+      >
         <Icon :icon="props.icon" :class="props.iconClass" />
       </span>
       <span

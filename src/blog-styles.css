@@ -61,6 +61,14 @@ button {
   opacity: 1;
 }
 
+/**** Sidebar */
+.sidebar-link .btn-base__icon-container {
+  min-width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /**** Lighter Btn for use on lighter background */
 .btn-lighter:hover {
   background: var(--btn-bg);

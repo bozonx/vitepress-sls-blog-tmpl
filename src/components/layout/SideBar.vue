@@ -21,15 +21,16 @@ let animationTimeout = null
 const links = theme.value.sideBar
   ? [
       ...(theme.value.sideBar.links || []),
-      theme.value.sideBar.popular && {
-        text: theme.value.t.links.popular,
-        href: `${theme.value.popularBaseUrl}/1`,
-        icon: theme.value.popularIcon,
-      },
+
       theme.value.sideBar.recent && {
         text: theme.value.t.links.recent,
         href: `${theme.value.recentBaseUrl}/1`,
         icon: theme.value.recentIcon,
+      },
+      theme.value.sideBar.popular && {
+        text: theme.value.t.links.popular,
+        href: `${theme.value.popularBaseUrl}/1`,
+        icon: theme.value.popularIcon,
       },
       theme.value.sideBar.archive && {
         text: theme.value.t.links.byDate,

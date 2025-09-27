@@ -43,7 +43,7 @@ const showMorePosts = allPosts[localeIndex.value].length > theme.value.perPage
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  border-radius: 20px;
   backdrop-filter: blur(3px);
   transition: all 0.3s ease;
   animation: glassmorphism-fade-in 0.6s ease-out;

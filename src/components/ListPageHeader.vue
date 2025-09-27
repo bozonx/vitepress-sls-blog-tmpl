@@ -5,14 +5,14 @@
     </h1>
 
     <Btn
-      :text="theme.t.sortByDate"
+      :text="theme.t.links.recent"
       :href="`${props.baseUrl}/1`"
-      :icon="theme.byDateIcon"
+      :icon="theme.recentIcon"
       class="hover-animation-rise"
       activeCompareMethod="pagination"
     />
     <Btn
-      :text="theme.t.sortByPopularity"
+      :text="theme.t.links.popular"
       :href="`${popularBaseUrl}/1`"
       :icon="theme.popularIcon"
       class="hover-animation-rise"

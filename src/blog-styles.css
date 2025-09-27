@@ -61,7 +61,7 @@ button {
   opacity: 1;
 }
 
-/**** Sidebar */
+/**** Sidebar item icon fix */
 .sidebar-link .btn-base__icon-container {
   min-width: 20px;
   display: flex;

@@ -75,6 +75,6 @@ watchEffect(async () => {
 
 .home-layout-page {
   max-width: 800px;
-  margin: 5rem 1rem;
+  margin: 5rem 1.75rem;
 }
 </style>

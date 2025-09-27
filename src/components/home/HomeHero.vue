@@ -6,7 +6,7 @@ const props = defineProps(['firstLine', 'secondLine', 'buttons', 'img'])
 
 <template>
   <div class="mb-14 md:mb-18 home-hero">
-    <div class="flex max-md:flex-col-reverse">
+    <div class="flex max-lg:flex-col-reverse">
       <div class="flex-1">
         <h1
           class="max-md:text-4xl md:text-6xl font-bold mb-4"

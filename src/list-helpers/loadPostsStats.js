@@ -3,43 +3,52 @@ import { google } from 'googleapis'
 
 if (!global.gaCache) {
   global.gaCache = {}
+  global.loadingGaStatsPromise = null
 }
 
 // GA4 Data API v1beta
 const GA_VERSION = 'v1beta'
 
-export async function mergeWithAnalytics(localeIndex, posts, config) {
-  const popularPostsCfg = config.site.themeConfig.popularPosts
+export async function mergeWithAnalytics(posts, config) {
   const gaCfg = config.site.themeConfig.googleAnalytics
 
   // Валидация конфигурации
   if (
-    !popularPostsCfg?.enabled ||
     !gaCfg?.propertyId ||
-    !gaCfg?.credentialsPath
+    !(gaCfg?.credentialsPath || gaCfg?.credentialsJson)
   ) {
-    console.log('⚠️ Google Analytics не настроен или отключен')
+    console.warn('⚠️ Google Analytics не настроен')
     return posts
   }
 
   try {
     // Получаем статистику из Google Analytics
-    const stats = await fetchGoogleAnalytics(popularPostsCfg, gaCfg)
+    if (!global.loadingGaStatsPromise) {
+      global.loadingGaStatsPromise = fetchGoogleAnalytics(gaCfg)
+    }
+
+    const stats = await global.loadingGaStatsPromise
 
     if (!stats || Object.keys(stats).length === 0) {
-      console.log('⚠️ Нет данных из Google Analytics')
+      console.warn('⚠️ Нет данных из Google Analytics')
+
       return posts
     }
 
+    let postsWithStatsCount = 0
+
     // Объединяем посты со статистикой
     const postsWithStats = posts.map((post) => {
-      const postPath = post.url || post.relativePath
-      const analyticsData = stats[postPath] || {}
+      const analyticsData = stats[post.url]
 
-      return { ...post, analyticsStats: analyticsData }
+      if (analyticsData) postsWithStatsCount++
+
+      return { ...post, analyticsStats: analyticsData || {} }
     })
 
-    console.log(`✅ Обработано ${postsWithStats.length} постов с аналитикой`)
+    console.log(
+      `✅ Обработано ${postsWithStatsCount} постов с аналитикой из ${posts.length} постов`
+    )
 
     return postsWithStats
   } catch (error) {
@@ -52,7 +61,7 @@ export async function mergeWithAnalytics(localeIndex, posts, config) {
   }
 }
 
-async function fetchGoogleAnalytics(popularPostsCfg, gaCfg) {
+async function fetchGoogleAnalytics(gaCfg) {
   // Создаем ключ кэша на основе конфигурации и периода данных
   const cacheKey = `ga_${gaCfg.propertyId}`
 

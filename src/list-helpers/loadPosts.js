@@ -40,11 +40,7 @@ export async function loadPostsData(localeDir, config, ignoreCache = false) {
     console.log(`\n...Loaded ${posts.length} posts from ${postsDir}`)
 
     if (config.site.themeConfig.popularPosts?.enabled) {
-      global.blogCache[localeIndex] = await mergeWithAnalytics(
-        localeIndex,
-        posts,
-        config
-      )
+      global.blogCache[localeIndex] = await mergeWithAnalytics(posts, config)
     }
 
     return global.blogCache[localeIndex]

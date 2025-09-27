@@ -4,7 +4,14 @@ import BaseLink from './BaseLink.vue'
 import Badge from './Badge.vue'
 
 const { theme } = useData()
-const props = defineProps(['name', 'count', 'slug', 'sizeXl', 'sizeSm'])
+const props = defineProps([
+  'name',
+  'count',
+  'slug',
+  'sizeXl',
+  'sizeSm',
+  'activeCompareMethod',
+])
 const href = `${theme.value.tagsBaseUrl}/${props.slug}/1`
 const className =
   'text-center rounded-full text-lg py-1 px-4 ' +
@@ -16,7 +23,11 @@ const className =
 </script>
 
 <template>
-  <BaseLink :href="href" :class="className">
+  <BaseLink
+    :href="href"
+    :class="className"
+    :activeCompareMethod="props.activeCompareMethod"
+  >
     <span>{{ props.name }}</span>
     <Badge
       v-if="props.count"

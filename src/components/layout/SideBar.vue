@@ -7,7 +7,7 @@ import SideBarFooter from './SideBarFooter.vue'
 import SideBarGroup from './SideBarGroup.vue'
 import SideBarItems from './SideBarItems.vue'
 import { Icon } from '@iconify/vue'
-import SideBarTags from '../list/SideBarTags.vue'
+import SideBarTags from './SideBarTags.vue'
 
 const { theme, localeIndex } = useData()
 const posts = inject('posts')

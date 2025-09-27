@@ -86,7 +86,8 @@ export const common = {
     authorBaseUrl: 'author',
 
     donateIcon: 'fa6-solid:heart',
-    recentIcon: 'fa6-solid:newspaper',
+    recentIcon: 'fa6-solid:bolt',
+    popularIcon: 'fa6-solid:star',
     byDateIcon: 'fa6-solid:calendar-days',
     authorsIcon: 'mdi:users',
     // social icons

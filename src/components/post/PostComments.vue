@@ -13,7 +13,7 @@ const { theme, frontmatter } = useData()
       :text="theme.t.commentCall"
       target="_blank"
       icon="fa6-solid:comment-dots"
-      class="underline"
+      class="underline hover-animation-rise"
     />
   </div>
 </template>

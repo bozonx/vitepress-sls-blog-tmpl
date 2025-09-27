@@ -24,7 +24,7 @@ const links = theme.value.sideBar
       theme.value.sideBar.popular && {
         text: theme.value.t.links.popular,
         href: `${theme.value.popularBaseUrl}/1`,
-        icon: theme.value.recentIcon,
+        icon: theme.value.popularIcon,
       },
       theme.value.sideBar.recent && {
         text: theme.value.t.links.recent,

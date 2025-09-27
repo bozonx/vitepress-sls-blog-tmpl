@@ -7,12 +7,14 @@
     <Btn
       :text="theme.t.sortByDate"
       :href="`${props.baseUrl}/1`"
+      :icon="theme.byDateIcon"
       class="hover-animation-rise"
       activeCompareMethod="pagination"
     />
     <Btn
       :text="theme.t.sortByPopularity"
       :href="`${popularBaseUrl}/1`"
+      :icon="theme.popularIcon"
       class="hover-animation-rise"
       activeCompareMethod="pagination"
     />

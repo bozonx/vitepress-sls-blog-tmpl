@@ -2,7 +2,7 @@
 import { inject } from 'vue'
 import { useData } from 'vitepress'
 import PopularPostsList from '../forUtilPages/PopularPostsList.vue'
-import UtilSubPageHeader from '../UtilSubPageHeader.vue'
+import UtilSubPageHeader from './UtilSubPageHeader.vue'
 import BtnLink from '../BtnLink.vue'
 
 const { localeIndex, theme } = useData()

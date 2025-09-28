@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import UtilPageHeader from '../UtilPageHeader.vue'
+import UtilPageHeader from './UtilPageHeader.vue'
 import PreviewList from '../PreviewList.vue'
 
 const { frontmatter } = useData()

@@ -5,7 +5,7 @@ import { makeMonthsList } from '../../list-helpers/listHelpers.js'
 import { sortPosts } from '../../helpers/helpers.js'
 import ListItemWithBadge from '../ListItemWithBadge.vue'
 import PreviewList from '../PreviewList.vue'
-import UtilPageHeader from '../UtilPageHeader.vue'
+import UtilPageHeader from './UtilPageHeader.vue'
 import ListPageHeader from '../ListPageHeader.vue'
 
 const props = defineProps([

@@ -2,7 +2,7 @@
 import { useData } from 'vitepress'
 import { makePostOfMonthList } from '../../list-helpers/listHelpers.js'
 import PreviewListItem from '../PreviewListItem.vue'
-import UtilPageHeader from '../UtilPageHeader.vue'
+import UtilPageHeader from './UtilPageHeader.vue'
 
 const { frontmatter } = useData()
 const props = defineProps(['allPosts', 'year', 'month'])

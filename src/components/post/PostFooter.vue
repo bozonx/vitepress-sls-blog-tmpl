@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue'
 import { useData } from 'vitepress'
-import SimilarPostsList from './SimilarPostsList.vue'
+import PostSimilarList from './PostSimilarList.vue'
 import PostAuthor from './PostAuthor.vue'
 import PostComments from './PostComments.vue'
 import PostDonateLink from './PostDonateLink.vue'
@@ -24,5 +24,5 @@ const posts = inject('posts')
   <PostComments class="mt-20" />
   <PostSocialShare class="mt-10" />
   <PostTags class="mt-10" />
-  <SimilarPostsList class="mt-14" :allPosts="posts[localeIndex]" />
+  <PostSimilarList class="mt-14" :allPosts="posts[localeIndex]" />
 </template>

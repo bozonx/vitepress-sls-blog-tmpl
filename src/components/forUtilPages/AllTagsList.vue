@@ -2,7 +2,7 @@
 import { useData } from 'vitepress'
 import { makeTagsList } from '../../list-helpers/listHelpers.js'
 import TagsList from '../TagsList.vue'
-import UtilPageHeader from '../UtilPageHeader.vue'
+import UtilPageHeader from './UtilPageHeader.vue'
 
 const { frontmatter } = useData()
 const props = defineProps(['allPosts'])

@@ -1,7 +1,7 @@
 <script setup>
 import { makeTagsList } from '../../list-helpers/listHelpers.js'
 import TagsList from '../TagsList.vue'
-import UtilSubPageHeader from '../UtilSubPageHeader.vue'
+import UtilSubPageHeader from './UtilSubPageHeader.vue'
 
 const props = defineProps(['allPosts', 'header'])
 const tagList = makeTagsList(props.allPosts || [])

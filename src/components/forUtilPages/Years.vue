@@ -3,7 +3,7 @@ import { useData } from 'vitepress'
 
 import { makeYearsList } from '../../list-helpers/listHelpers.js'
 import ListItemWithBadge from '../ListItemWithBadge.vue'
-import UtilPageHeader from '../UtilPageHeader.vue'
+import UtilPageHeader from './UtilPageHeader.vue'
 
 const props = defineProps(['allPosts'])
 const { theme, frontmatter } = useData()

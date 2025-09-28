@@ -14,6 +14,7 @@ const props = defineProps([
   'curPage',
   'perPage',
   'paginationMaxItems',
+  'showPopularPostsSwitch',
 ])
 const { theme, frontmatter, localeIndex } = useData()
 const route = useRoute()
@@ -52,6 +53,7 @@ const sorted = sortPosts(
     </ul>
 
     <ListPageHeader
+      :showPopularPostsSwitch="showPopularPostsSwitch"
       :baseUrl="`/${localeIndex}/${theme.archiveBaseUrl}/${props.year}`"
       class="mt-10"
     >

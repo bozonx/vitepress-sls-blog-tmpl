@@ -15,6 +15,7 @@ const props = defineProps([
   'perPage',
   'paginationMaxItems',
   'authorId',
+  'showPopularPostsSwitch',
 ])
 const curPage = Number(props.curPage)
 const items = props.allPosts.filter((post) => post.authorId === props.authorId)
@@ -34,6 +35,7 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
 
   <ListPageHeader
     :baseUrl="`/${localeIndex}/${theme.authorsBaseUrl}/${props.authorId}`"
+    :showPopularPostsSwitch="showPopularPostsSwitch"
   >
     {{ theme.t.allPostsOfAuthor }}
   </ListPageHeader>

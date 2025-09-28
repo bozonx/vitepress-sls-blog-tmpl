@@ -4,7 +4,7 @@
       <slot />
     </h1>
 
-    <div class="flex items-center gap-1">
+    <div v-if="showPopularPostsSwitch" class="flex items-center gap-1">
       <Btn
         :text="theme.t.links.recent"
         :href="`${props.baseUrl}/1`"
@@ -30,9 +30,14 @@ import Btn from './Btn.vue'
 
 const { theme } = useData()
 
-const props = defineProps(['baseUrl'])
+const props = defineProps({
+  baseUrl: { type: String, required: true },
+  showPopularPostsSwitch: { type: Boolean, default: false },
+})
 
 const popularBaseUrl = computed(() => {
   return `${props.baseUrl}/${theme.value.popularBaseUrl}`
 })
+const showPopularPostsSwitch =
+  props.showPopularPostsSwitch && theme.value.popularPosts?.enabled
 </script>

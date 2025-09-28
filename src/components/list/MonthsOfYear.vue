@@ -1,7 +1,8 @@
 <script setup>
-import { useData } from 'vitepress'
+import { useData, useRoute } from 'vitepress'
 
 import { makeMonthsList } from '../../list-helpers/listHelpers.js'
+import { sortPosts } from '../../helpers/helpers.js'
 import ListItemWithBadge from './ListItemWithBadge.vue'
 import PreviewList from './PreviewList.vue'
 import UtilPageHeader from '../UtilPageHeader.vue'
@@ -15,6 +16,7 @@ const props = defineProps([
   'paginationMaxItems',
 ])
 const { theme, frontmatter, localeIndex } = useData()
+const route = useRoute()
 const monthsList = makeMonthsList(props.allPosts, props.year)
 
 const curPage = Number(props.curPage || 1)
@@ -23,7 +25,14 @@ const filtered = props.allPosts.filter((item) => {
   const postYear = new Date(item.date).getUTCFullYear()
   return postYear === Number(props.year)
 })
-const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
+
+// Проверяем, есть ли в роуте /popular/
+const isPopularRoute = route.path.includes(`/${theme.value.popularBaseUrl}/`)
+const sorted = sortPosts(
+  filtered,
+  theme.value.popularPosts?.sortBy,
+  isPopularRoute
+)
 </script>
 
 <template>

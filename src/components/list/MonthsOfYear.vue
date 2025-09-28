@@ -5,6 +5,8 @@ import { makeMonthsList } from '../../list-helpers/listHelpers.js'
 import ListItemWithBadge from './ListItemWithBadge.vue'
 import PreviewList from './PreviewList.vue'
 import UtilPageHeader from '../UtilPageHeader.vue'
+import ListPageHeader from '../ListPageHeader.vue'
+
 const props = defineProps([
   'allPosts',
   'year',
@@ -12,7 +14,7 @@ const props = defineProps([
   'perPage',
   'paginationMaxItems',
 ])
-const { theme, frontmatter } = useData()
+const { theme, frontmatter, localeIndex } = useData()
 const monthsList = makeMonthsList(props.allPosts, props.year)
 
 const curPage = Number(props.curPage || 1)
@@ -27,6 +29,7 @@ const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
 <template>
   <div>
     <UtilPageHeader>{{ frontmatter.title }}</UtilPageHeader>
+
     <ul v-if="monthsList.length">
       <template v-for="item in monthsList">
         <li v-if="item.count">
@@ -39,7 +42,12 @@ const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
       </template>
     </ul>
 
-    <h2 class="text-2xl font-bold mb-6 mt-6">{{ theme.t.allPostsOfYear }}</h2>
+    <ListPageHeader
+      :baseUrl="`/${localeIndex}/${theme.archiveBaseUrl}/${props.year}`"
+      class="mt-10"
+    >
+      {{ theme.t.allPostsOfYear }}
+    </ListPageHeader>
 
     <PreviewList
       :allPosts="sorted"

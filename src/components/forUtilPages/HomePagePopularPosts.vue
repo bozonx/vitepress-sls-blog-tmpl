@@ -1,14 +1,16 @@
 <script setup>
 import { inject } from 'vue'
 import { useData } from 'vitepress'
-import PopularPostsList from '../forUtilPages/PopularPostsList.vue'
 import UtilSubPageHeader from './UtilSubPageHeader.vue'
 import BtnLink from '../BtnLink.vue'
+import PreviewList from '../PreviewList.vue'
+import { sortPosts } from '../../helpers/helpers.js'
 
 const { localeIndex, theme } = useData()
-const allPosts = inject('posts')
-const posts = allPosts[localeIndex.value].slice(0, theme.value.perPage)
-const showMorePosts = allPosts[localeIndex.value].length > theme.value.perPage
+const allPosts = inject('posts')[localeIndex.value]
+const sorted = sortPosts(allPosts, theme.value.popularPosts?.sortBy, true)
+const posts = sorted.slice(0, theme.value.perPage)
+const showMorePosts = allPosts.length > theme.value.perPage
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const showMorePosts = allPosts[localeIndex.value].length > theme.value.perPage
       {{ theme.t.popularPosts }}
     </UtilSubPageHeader>
 
-    <PopularPostsList :curPage="1" :allPosts="posts" />
+    <PreviewList :allPosts="posts" :curPage="1" />
 
     <div v-if="showMorePosts" class="mt-8 flex">
       <span class="mr-2">... </span>

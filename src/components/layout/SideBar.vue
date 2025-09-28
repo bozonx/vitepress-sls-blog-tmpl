@@ -190,11 +190,6 @@ watchEffect(async () => {
   bottom: 0;
 }
 
-.dark .app-drawer {
-  background: var(--drawer-dark-bg);
-  border-right-color: var(--drawer-dark-border-color);
-}
-
 .app-drawer-backdrop {
   position: fixed;
   top: 0;

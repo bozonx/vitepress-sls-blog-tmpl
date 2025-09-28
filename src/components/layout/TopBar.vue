@@ -89,8 +89,6 @@ const links = theme.value.topBar
 }
 
 .dark .topbar--mobile {
-  background: var(--topbar-mobile-dark-bg);
-  border-color: var(--topbar-mobile-dark-border);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 

@@ -96,17 +96,8 @@ watchPostEffect(() => {
   transition: border-color 0.25s !important;
 }
 
-.dark .VPSwitch {
-  border: 1px solid var(--switch-appearance-dark-border-color);
-  background-color: var(--switch-appearance-dark-bg-color);
-}
-
 .VPSwitch:hover {
   border-color: var(--switch-appearance-border-color-hover);
-}
-
-.VPSwitch:hover {
-  border-color: var(--switch-appearance-dark-border-color-hover);
 }
 
 .check {
@@ -122,10 +113,6 @@ watchPostEffect(() => {
     0 1px 2px rgba(0, 0, 0, 0.04),
     0 1px 2px rgba(0, 0, 0, 0.06);
   transition: transform 0.25s !important;
-}
-
-.dark .check {
-  background-color: var(--switch-appearance-dark-check-bg);
 }
 
 .icon {
@@ -149,7 +136,6 @@ watchPostEffect(() => {
 
 /* .dark .icon .icon-var { */
 .dark .icon :deep([class^='vpi-']) {
-  color: var(--switch-appearance-dark-icon-color);
   transition: opacity 0.25s !important;
 }
 </style>

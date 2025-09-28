@@ -1,68 +1,68 @@
 <script setup>
-import { ref } from "vue";
-import { vOnClickOutside } from "@vueuse/components";
-import { Icon } from "@iconify/vue";
-import Btn from "./Btn.vue";
+import { ref } from 'vue'
+import { vOnClickOutside } from '@vueuse/components'
+import { Icon } from '@iconify/vue'
+import Btn from './Btn.vue'
 
-const props = defineProps(["dropUp", "dropLeft", "title", "noBg", "onlyDark"]);
-const animationTimeMs = 400;
-const mouseLeaveDelayMs = 400;
-const listOpen = ref(false);
-const opacity = ref(0);
-const mouseOverWholeEl = ref(false);
-let animationTimeout = null;
-let leaveTimeout = null;
+const props = defineProps(['dropUp', 'dropLeft', 'title', 'noBg', 'onlyDark'])
+const animationTimeMs = 400
+const mouseLeaveDelayMs = 400
+const listOpen = ref(false)
+const opacity = ref(0)
+const mouseOverWholeEl = ref(false)
+let animationTimeout = null
+let leaveTimeout = null
 
 const toggleList = () => {
   if (listOpen.value) {
-    closeList();
+    closeList()
   } else {
-    openList();
+    openList()
   }
-};
+}
 
 const openList = () => {
-  if (listOpen.value) return;
+  if (listOpen.value) return
 
-  listOpen.value = true;
+  listOpen.value = true
   // run on the next tick
-  setTimeout(() => (opacity.value = Number(listOpen.value)), 50);
-};
+  setTimeout(() => (opacity.value = Number(listOpen.value)), 50)
+}
 
 const closeList = () => {
-  if (!listOpen.value) return;
+  if (!listOpen.value) return
 
-  opacity.value = 0;
+  opacity.value = 0
 
-  clearTimeout(animationTimeout);
+  clearTimeout(animationTimeout)
 
   animationTimeout = setTimeout(() => {
-    listOpen.value = false;
-    animationTimeout = null;
-  }, animationTimeMs);
-};
+    listOpen.value = false
+    animationTimeout = null
+  }, animationTimeMs)
+}
 
 const handleWholeMouseEnter = () => {
-  mouseOverWholeEl.value = true;
+  mouseOverWholeEl.value = true
 
-  clearTimeout(leaveTimeout);
+  clearTimeout(leaveTimeout)
 
-  leaveTimeout = null;
+  leaveTimeout = null
   // run on the next tick
-  setTimeout(openList);
-};
+  setTimeout(openList)
+}
 
 const handleWholeMouseLeave = () => {
-  mouseOverWholeEl.value = false;
+  mouseOverWholeEl.value = false
 
-  clearTimeout(leaveTimeout);
+  clearTimeout(leaveTimeout)
 
   leaveTimeout = setTimeout(() => {
-    leaveTimeout = null;
+    leaveTimeout = null
 
-    if (!mouseOverWholeEl.value) closeList();
-  }, mouseLeaveDelayMs);
-};
+    if (!mouseOverWholeEl.value) closeList()
+  }, mouseLeaveDelayMs)
+}
 </script>
 
 <template>
@@ -95,10 +95,7 @@ const handleWholeMouseLeave = () => {
     </Btn>
     <div
       @click="closeList"
-      :style="{
-        opacity,
-        'transition-duration': `${animationTimeMs}ms`,
-      }"
+      :style="{ opacity, 'transition-duration': `${animationTimeMs}ms` }"
       :class="[
         `dropdown-list space-y-1 transition-opacity`,
         props.onlyDark && 'dropdown-only-dark',
@@ -136,7 +133,6 @@ const handleWholeMouseLeave = () => {
 
 .dark .dropdown-list,
 .dropdown-list.dropdown-only-dark {
-  background: var(--dropdown-list-dark-bg);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
 }
 

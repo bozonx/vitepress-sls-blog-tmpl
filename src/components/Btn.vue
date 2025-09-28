@@ -103,7 +103,6 @@ if (props.href && !props.disabled) {
 
 .dark .btn-base,
 .btn-base.btn--only-dark {
-  background: var(--btn-dark-bg);
   color: var(--gray-200);
 }
 
@@ -117,13 +116,11 @@ if (props.href && !props.disabled) {
 }
 
 .btn-base:hover {
-  background: var(--btn-bg);
   filter: brightness(103%);
 }
 
 .dark .btn-base:hover,
 .btn-base.btn--only-dark:hover {
-  background: var(--btn-dark-bg);
   filter: brightness(110%);
 }
 
@@ -133,20 +130,17 @@ if (props.href && !props.disabled) {
 }
 
 .btn-base.active:hover {
-  background: var(--btn-bg-active);
   filter: brightness(105%);
 }
 
 .dark .btn-base.active,
 .btn-base.active.btn--only-dark {
-  background: var(--btn-dark-bg-active);
   border-color: var(--gray-600);
   color: white;
 }
 
 .dark .btn-base.active:hover,
 .btn-base.active.btn--only-dark:hover {
-  background: var(--btn-dark-bg-active);
   filter: brightness(110%);
 }
 

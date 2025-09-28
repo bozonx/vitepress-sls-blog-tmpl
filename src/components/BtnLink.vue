@@ -42,9 +42,6 @@ const { class: className, ...bindProps } = props
   color: var(--gray-300);
 }
 
-.dark .btn-link.active {
-  color: var(--btn-link-dark-text-active);
-}
 
 .dark .btn-link.active:hover {
   color: var(--btn-dark-text-hover);

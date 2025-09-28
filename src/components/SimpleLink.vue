@@ -1,8 +1,8 @@
 <script setup>
-import BaseLink from "./BaseLink.vue";
+import BaseLink from './BaseLink.vue'
 
-const props = defineProps(["id", "class", "title", "href", "target", "rel"]);
-const { class: className, ...bindProps } = props;
+const props = defineProps(['id', 'class', 'title', 'href', 'target', 'rel'])
+const { class: className, ...bindProps } = props
 </script>
 
 <template>
@@ -19,14 +19,6 @@ const { class: className, ...bindProps } = props;
 
 .simple-link:visited {
   color: var(--color-a-light-visited);
-}
-
-.dark .simple-link {
-  color: var(--color-a-dark-link);
-}
-
-.dark .simple-link:visited {
-  color: var(--color-a-dark-visited);
 }
 
 .simple-link:hover {

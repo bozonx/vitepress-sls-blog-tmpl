@@ -8,10 +8,10 @@ body {
   background: var(--body-bg);
 }
 
-.dark body {
+/* .dark body {
   color: var(--body-dark-text-color);
   background: var(--body-dark-bg);
-}
+} */
 
 svg,
 button {
@@ -70,12 +70,14 @@ button {
 }
 
 /**** Lighter Btn for use on lighter background */
-.btn-lighter:hover {
+.btn-lighter:hover,
+.btn-lighter.btn--nobg:hover {
   background: var(--btn-bg);
   filter: brightness(99%);
 }
 
-.btn-lighter.active {
+.btn-lighter.active,
+.btn-lighter.btn--nobg.active {
   background: var(--btn-bg-active);
 }
 
@@ -85,13 +87,7 @@ button {
 
 .dark .btn-lighter:hover,
 .btn-lighter.btn--only-dark:hover {
-  background: var(--btn-dark-bg);
   filter: brightness(125%);
-}
-
-.dark .btn-lighter.active,
-.btn-lighter.active.btn--only-dark {
-  background: var(--btn-dark-bg-active);
 }
 
 .dark .btn-lighter.active:hover,
@@ -180,9 +176,9 @@ button {
   color: var(--util-page-header-color);
 }
 
-.dark .simple-page h1 {
+/* .dark .simple-page h1 {
   color: var(--util-page-dark-header-color);
-}
+} */
 
 /******* Doc page overwrite */
 .vp-doc {
@@ -212,13 +208,13 @@ button {
   color: var(--color-a-light-visited);
 }
 
-.dark .vp-doc a {
+/* .dark .vp-doc a {
   color: var(--color-a-dark-link);
-}
+} */
 
-.dark .vp-doc a:visited {
-  color: var(--color-a-dark-visited);
-}
+/* .dark .vp-doc a:visited {
+    color: var(--color-a-dark-visited);
+  } */
 
 .vp-doc a:hover {
   filter: brightness(130%);

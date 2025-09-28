@@ -32,8 +32,7 @@
   /**** SimpleLink */
   --color-a-light-link: hsl(var(--link-hue), 74%, 44%);
   --color-a-light-visited: hsl(var(--visited-hue) 50% 44%);
-  --color-a-dark-link: hsl(var(--link-hue), 100%, 76%);
-  --color-a-dark-visited: hsl(var(--visited-hue) 50% 65%);
+
   /**** Podcast btn */
   --podcast-btn-bg: hsl(263, 60%, 40%);
   /**** VideoLink */
@@ -50,34 +49,23 @@
   --line-height-mobile: 1.75rem;
   --body-bg: #fff;
   --body-text-color: var(--gray-800);
-  --body-dark-bg: var(--gray-900);
-  --body-dark-text-color: var(--gray-200);
   --util-page-header-color: var(--gray-500);
-  --util-page-dark-header-color: var(--gray-400);
   /**** TopBar */
   --topbar-mobile-bg: var(--gray-100);
   --topbar-mobile-border: var(--gray-300);
-  --topbar-mobile-dark-bg: var(--gray-950);
-  --topbar-mobile-dark-border: #000;
 
   /**** Buttons */
   --btn-bg: var(--gray-150);
   --btn-bg-active: var(--gray-270);
-  --btn-dark-bg: var(--gray-800);
-  --btn-dark-bg-active: var(--gray-770);
   --btn-link-text-active: var(--gray-600);
-  --btn-link-dark-text-active: var(--gray-400);
 
   /**** Sidebar */
   --drawer-bg: var(--gray-50);
   --drawer-border-color: var(--gray-200);
-  --drawer-dark-border-color: #000;
-  --drawer-dark-bg: var(--gray-800);
   --backdrop-bg: rgba(0, 0, 0, 0.85);
 
   /**** DropdownButton */
   --dropdown-list-bg: var(--drawer-bg);
-  --dropdown-list-dark-bg: var(--drawer-dark-bg);
 
   /**** SwitchAppearance */
   --switch-appearance-border-color: #c2c2c4;
@@ -85,13 +73,42 @@
   --switch-appearance-border-color-hover: #3451b2;
   --switch-appearance-check-bg: #ffffff;
   --switch-appearance-icon-color: rgba(60, 60, 67, 0.78);
-  --switch-appearance-dark-icon-color: rgba(255, 255, 245, 0.86);
-  --switch-appearance-dark-border-color: #3c3f44;
-  --switch-appearance-dark-bg-color: rgba(101, 117, 133, 0.16);
-  --switch-appearance-dark-border-color-hover: #a8b1ff;
-  --switch-appearance-dark-check-bg: #000000;
 
   /**** TagItem */
   --tag-item-bg: var(--primary-btn-bg);
   --tag-item-bg-active: var(--primary-btn-bg-active);
+}
+
+.dark:root {
+  /**** SimpleLink */
+  --color-a-link: hsl(var(--link-hue), 100%, 76%);
+  --color-a-visited: hsl(var(--visited-hue) 50% 65%);
+
+  /**** Layout */
+  --body-bg: var(--gray-900);
+  --body-text-color: var(--gray-200);
+  --util-page-header-color: var(--gray-400);
+
+  /**** TopBar */
+  --topbar-mobile-bg: var(--gray-950);
+  --topbar-mobile-border: #000;
+
+  /**** Buttons */
+  --btn-bg: var(--gray-800);
+  --btn-bg-active: var(--gray-770);
+  --btn-link-text-active: var(--gray-400);
+
+  /**** Sidebar */
+  --drawer-border-color: #000;
+  --drawer-bg: var(--gray-800);
+
+  /**** DropdownButton */
+  --dropdown-list-bg: var(--drawer-bg);
+
+  /**** SwitchAppearance */
+  --switch-appearance-icon-color: rgba(255, 255, 245, 0.86);
+  --switch-appearance-border-color: #3c3f44;
+  --switch-appearance-bg-color: rgba(101, 117, 133, 0.16);
+  --switch-appearance-border-color-hover: #a8b1ff;
+  --switch-appearance-check-bg: #000000;
 }

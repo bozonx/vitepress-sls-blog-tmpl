@@ -1,8 +1,7 @@
 <script setup>
 import { useData, useRoute } from 'vitepress'
-
 import { makeMonthsList } from '../../list-helpers/listHelpers.js'
-import { sortPosts } from '../../helpers/helpers.js'
+import { sortPosts, isPopularRoute } from '../../helpers/helpers.js'
 import ListItemWithBadge from '../ListItemWithBadge.vue'
 import PreviewList from '../PreviewList.vue'
 import UtilPageHeader from './UtilPageHeader.vue'
@@ -27,12 +26,10 @@ const filtered = props.allPosts.filter((item) => {
   return postYear === Number(props.year)
 })
 
-// Проверяем, есть ли в роуте /popular/
-const isPopularRoute = route.path.includes(`/${theme.value.popularBaseUrl}/`)
 const sorted = sortPosts(
   filtered,
   theme.value.popularPosts?.sortBy,
-  isPopularRoute
+  isPopularRoute(route.path, theme)
 )
 </script>
 

@@ -1,10 +1,9 @@
 <script setup>
 import { useData, useRoute } from 'vitepress'
-
 import Author from '../Author.vue'
 import ListPageHeader from '../ListPageHeader.vue'
 import PreviewList from '../PreviewList.vue'
-import { sortPosts } from '../../helpers/helpers.js'
+import { sortPosts, isPopularRoute } from '../../helpers/helpers.js'
 import UtilPageHeader from './UtilPageHeader.vue'
 
 const { localeIndex, theme, frontmatter } = useData()
@@ -18,13 +17,14 @@ const props = defineProps([
   'showPopularPostsSwitch',
 ])
 const curPage = Number(props.curPage)
-const items = props.allPosts.filter((post) => post.authorId === props.authorId)
-// Проверяем, есть ли в роуте /popular/
-const isPopularRoute = route.path.includes(`/${theme.value.popularBaseUrl}/`)
+// Фильтруем посты по автору
+const filtered = props.allPosts.filter(
+  (post) => post.authorId === props.authorId
+)
 const sorted = sortPosts(
-  items,
+  filtered,
   theme.value.popularPosts?.sortBy,
-  isPopularRoute
+  isPopularRoute(route.path, theme)
 )
 const author = theme.value.authors.find((item) => item.id === props.authorId)
 </script>

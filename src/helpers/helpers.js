@@ -35,6 +35,10 @@ export function isPage(frontmatter) {
   return typeof frontmatter.layout === 'undefined' && !frontmatter.date
 }
 
+export function isPopularRoute(routPath, theme) {
+  return routPath.includes(`/${theme.value.popularBaseUrl}/`)
+}
+
 export function isAuthorPage(filePath, siteConfig) {
   if (!filePath) return false
 

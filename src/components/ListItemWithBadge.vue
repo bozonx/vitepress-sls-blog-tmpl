@@ -1,6 +1,6 @@
 <script setup>
-import Badge from '../Badge.vue'
-import SimpleLink from '../SimpleLink.vue'
+import Badge from './Badge.vue'
+import SimpleLink from './SimpleLink.vue'
 
 const props = defineProps(['href', 'text', 'count'])
 </script>

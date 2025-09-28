@@ -3,7 +3,7 @@ import { useData, useRoute } from 'vitepress'
 
 import Author from '../Author.vue'
 import ListPageHeader from '../ListPageHeader.vue'
-import PreviewList from './PreviewList.vue'
+import PreviewList from '../PreviewList.vue'
 import { sortPosts } from '../../helpers/helpers.js'
 import UtilPageHeader from '../UtilPageHeader.vue'
 

@@ -1,6 +1,6 @@
 <script setup>
-import TagsList from '../TagsList.vue'
-import { PHONE_BREAKPOINT } from '../../constants.js'
+import TagsList from './TagsList.vue'
+import { PHONE_BREAKPOINT } from '../constants.js'
 
 const props = defineProps([
   'date',

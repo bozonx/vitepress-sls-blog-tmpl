@@ -1,8 +1,7 @@
 <script setup>
 import { useData, useRoute } from 'vitepress'
 import { arraysIntersection } from 'squidlet-lib'
-import PreviewListItem from './PreviewListItem.vue'
-import PreviewList from './PreviewList.vue'
+import PreviewList from '../PreviewList.vue'
 
 const props = defineProps(['allPosts'])
 const { frontmatter, theme } = useData()

@@ -1,6 +1,6 @@
 <script setup>
 import { useData, useRoute } from 'vitepress'
-import Btn from '../Btn.vue'
+import Btn from './Btn.vue'
 
 const route = useRoute()
 const { theme } = useData()

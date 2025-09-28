@@ -1,7 +1,7 @@
 <script setup>
 import { useData, useRoute } from 'vitepress'
 
-import PreviewList from './PreviewList.vue'
+import PreviewList from '../PreviewList.vue'
 import ListPageHeader from '../ListPageHeader.vue'
 import { sortPosts } from '../../helpers/helpers.js'
 

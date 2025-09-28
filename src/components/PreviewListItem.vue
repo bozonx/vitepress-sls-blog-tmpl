@@ -1,6 +1,6 @@
 <script setup>
 import { useData } from 'vitepress'
-import { makeHumanDate } from '../../helpers/helpers.js'
+import { makeHumanDate } from '../helpers/helpers.js'
 import PreviewWithImg from './PreviewWithImg.vue'
 import PreviewNoImg from './PreviewNoImg.vue'
 

@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue'
 import { useData } from 'vitepress'
-import SimilarPostsList from '../list/SimilarPostsList.vue'
+import SimilarPostsList from './SimilarPostsList.vue'
 import PostAuthor from './PostAuthor.vue'
 import PostComments from './PostComments.vue'
 import PostDonateLink from './PostDonateLink.vue'

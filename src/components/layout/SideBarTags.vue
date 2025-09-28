@@ -4,7 +4,7 @@
       :tags="tags"
       sizeSm="true"
       class="mb-2 side-bar-tags-list"
-      activeCompareMethod="pagination"
+      activeCompareMethod="softPagination"
     />
     <SimpleLink v-if="showAllTags" :href="allTagsUrl" class="text-sm">{{
       theme.t.allTagsCall

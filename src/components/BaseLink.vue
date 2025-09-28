@@ -81,6 +81,10 @@ function checkActive() {
       const normalizedHrefForSoft = normalizePath(resolvedHref.value)
       return route.path.startsWith(normalizedHrefForSoft)
 
+    case 'none':
+      // Отключает определение активного элемента
+      return false
+
     default:
       // По умолчанию используем строгое сравнение
       return route.path === resolvedHref.value

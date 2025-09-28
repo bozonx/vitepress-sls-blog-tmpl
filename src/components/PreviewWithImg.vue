@@ -35,7 +35,12 @@ const props = defineProps([
         </time>
       </div>
 
-      <TagsList :tags="tags" class="mt-2" :sizeSm="true" />
+      <TagsList
+        :tags="tags"
+        class="mt-2"
+        :sizeSm="true"
+        activeCompareMethod="none"
+      />
     </div>
 
     <p class="max-md:mt-5 flex-1 preview-text">

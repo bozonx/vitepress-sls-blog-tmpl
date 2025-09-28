@@ -14,7 +14,12 @@ const props = defineProps([
   <p class="preview-text">{{ props.preview }}</p>
 
   <div class="flex max-sm:flex-col-reverse sm:items-end sm:mt-4 gap-x-1">
-    <TagsList :tags="props.tags" class="flex-1" :sizeSm="true" />
+    <TagsList
+      :tags="props.tags"
+      class="flex-1"
+      :sizeSm="true"
+      activeCompareMethod="none"
+    />
 
     <div
       class="space-x-2 max-sm:mt-2 max-sm:mb-4 text-right muted preview-author-date"

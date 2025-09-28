@@ -134,19 +134,16 @@ export function sortPosts(posts, sortBy, sortByPopularity = false) {
   return [...posts].sort((a, b) => {
     if (sortByPopularity) {
       // Сортировка по популярности
-      const aHasStats =
-        a.analyticsStats?.[sortBy] !== undefined &&
-        a.analyticsStats?.[sortBy] !== null
-      const bHasStats =
-        b.analyticsStats?.[sortBy] !== undefined &&
-        b.analyticsStats?.[sortBy] !== null
+      // Проверяем наличие статистики (конечное число)
+      const aHasStats = Number.isFinite(a.analyticsStats?.[sortBy])
+      const bHasStats = Number.isFinite(b.analyticsStats?.[sortBy])
 
       // Если у обоих постов есть статистика, сортируем по ней
       if (aHasStats && bHasStats) {
         const aValue = a.analyticsStats[sortBy]
         const bValue = b.analyticsStats[sortBy]
 
-        // Для остальных метрик сортируем по убыванию (больше = лучше)
+        // сортируем по убыванию (больше = лучше)
         return bValue - aValue
       }
 
@@ -155,9 +152,7 @@ export function sortPosts(posts, sortBy, sortByPopularity = false) {
       if (!aHasStats && bHasStats) return 1
 
       // Если у обоих нет статистики, сортируем по дате (новые сначала)
-      const aDate = new Date(a.date || 0)
-      const bDate = new Date(b.date || 0)
-      return bDate - aDate
+      return new Date(b.date || 0) - new Date(a.date || 0)
     } else {
       // Обычная сортировка по дате (новые сначала)
       return new Date(b.date) - new Date(a.date)

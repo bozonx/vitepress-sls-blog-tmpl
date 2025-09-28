@@ -18,6 +18,7 @@ const totalPages = props.totalPages
 const baseUrl =
   props.paginationBaseUrl || route.path.split('/').slice(0, -1).join('/')
 
+// example
 // const curPage = 4;
 // const maxItems = 7;
 // const totalPages = 4;
@@ -27,6 +28,7 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   let minusPages = halfPages
   let plusPages = halfPages
 
+  // Распределяем нечетное количество страниц: больше страниц справа от текущей
   if (halfPages !== Math.ceil(halfPages)) {
     minusPages = Math.floor(halfPages)
     plusPages = Math.ceil(halfPages)
@@ -35,15 +37,21 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   let startPage = curPage - minusPages
   let endPage = curPage + plusPages
 
-  if (startPage <= 1) {
+  // Корректируем границы если выходим за пределы
+  if (startPage < 1) {
+    // Если начинаем раньше первой страницы, сдвигаем вправо
+    const shift = 1 - startPage
     startPage = 1
-    endPage = totalPages < maxItems ? totalPages : maxItems
+    endPage = Math.min(endPage + shift, totalPages)
   } else if (endPage > totalPages) {
-    startPage = totalPages - maxItems + 1
+    // Если заканчиваем после последней страницы, сдвигаем влево
+    const shift = endPage - totalPages
     endPage = totalPages
+    startPage = Math.max(startPage - shift, 1)
   }
 
-  if (startPage !== 1) {
+  // Показываем кнопку "в начало" если не показываем первую страницу
+  if (startPage > 1) {
     items.push({
       name: '<<',
       href: `${baseUrl}/1`,
@@ -51,11 +59,13 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
     })
   }
 
+  // Добавляем номера страниц
   for (let i = startPage; i <= endPage; i++) {
     items.push({ name: i, href: `${baseUrl}/${i}` })
   }
 
-  if (totalPages - endPage > 0) {
+  // Показываем кнопку "в конец" если не показываем последнюю страницу
+  if (endPage < totalPages) {
     items.push({
       name: '>>',
       href: `${baseUrl}/${totalPages}`,

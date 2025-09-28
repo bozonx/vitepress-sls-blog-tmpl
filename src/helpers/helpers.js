@@ -1,4 +1,4 @@
-import { pathTrimExt } from 'squidlet-lib'
+import { pathTrimExt, arraysIntersection } from 'squidlet-lib'
 
 // /**
 //  * Returns [640, 320] from "some-file-name--640x320.avif"
@@ -158,4 +158,82 @@ export function sortPosts(posts, sortBy, sortByPopularity = false) {
       return new Date(b.date) - new Date(a.date)
     }
   })
+}
+
+/**
+ * Сортирует посты для отображения похожих постов Приоритет: количество
+ * совпадающих тегов > популярность > дата
+ *
+ * @param {Array} posts - Массив всех постов
+ * @param {Array} currentPostTags - Теги текущего поста
+ * @param {string} currentPostUrl - URL текущего поста (для исключения)
+ * @param {string} sortBy - Метрика для сортировки по популярности
+ * @param {number} limit - Максимальное количество постов для возврата
+ * @returns {Array} Отсортированный массив похожих постов
+ */
+export function sortSimilarPosts(
+  posts,
+  currentPostTags,
+  currentPostUrl,
+  sortBy,
+  limit = 5
+) {
+  if (!posts || !Array.isArray(posts)) return []
+  if (!currentPostTags || !Array.isArray(currentPostTags)) return []
+
+  // Функция для получения пересечения тегов по slug
+  const getTagsIntersection = (tags1, tags2) => {
+    // Проверяем, что оба массива существуют и являются массивами
+    if (!Array.isArray(tags1) || !Array.isArray(tags2)) {
+      return []
+    }
+
+    const slugs1 = tags1.map((tag) => tag?.slug).filter(Boolean)
+    const slugs2 = tags2.map((tag) => tag?.slug).filter(Boolean)
+
+    return arraysIntersection(slugs1, slugs2)
+  }
+
+  // Функция для получения значения популярности поста
+  const getPopularityValue = (post) => {
+    if (!sortBy) return 0
+
+    const stats = post.analyticsStats?.[sortBy]
+    return stats !== undefined && stats !== null ? stats : 0
+  }
+
+  return [...posts]
+    .filter((item) => {
+      // Исключаем текущий пост
+      const isCurrentPost = item.url === currentPostUrl
+      if (isCurrentPost) return false
+
+      // Проверяем наличие тегов у поста
+      if (!item.tags || !Array.isArray(item.tags)) return false
+
+      // Проверяем пересечение тегов
+      const intersection = getTagsIntersection(item.tags, currentPostTags)
+      return intersection.length > 0
+    })
+    .sort((a, b) => {
+      // Сортируем по количеству совпадающих тегов (больше совпадений - выше)
+      const aIntersection = getTagsIntersection(a.tags, currentPostTags).length
+      const bIntersection = getTagsIntersection(b.tags, currentPostTags).length
+
+      if (aIntersection !== bIntersection) {
+        return bIntersection - aIntersection
+      }
+
+      // Если количество совпадений одинаковое, сортируем по популярности
+      const aPopularity = getPopularityValue(a)
+      const bPopularity = getPopularityValue(b)
+
+      if (aPopularity !== bPopularity) {
+        return bPopularity - aPopularity
+      }
+
+      // Если популярность одинаковая, сортируем по дате (новые сверху)
+      return new Date(b.date) - new Date(a.date)
+    })
+    .slice(0, limit)
 }

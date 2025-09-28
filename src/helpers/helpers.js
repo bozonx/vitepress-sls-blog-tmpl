@@ -40,7 +40,10 @@ export function isAuthorPage(filePath, siteConfig) {
 
   const authorsBaseUrl = siteConfig.userConfig.themeConfig.authorsBaseUrl
 
-  return !!filePath.match(new RegExp(`^\\w+\/${authorsBaseUrl}\/`))
+  return (
+    !!filePath.match(new RegExp(`^\\w+\/${authorsBaseUrl}\/`)) &&
+    !filePath.endsWith(`${authorsBaseUrl}/index.md`)
+  )
 }
 
 export function makeHumanDate(rawDate, lang, toTimeZone = 'UTC') {

@@ -95,7 +95,6 @@ export function resolveOgImage(
 ) {
   if (isAuthorPage(page, siteConfig)) {
     const authorId = pageData.params.id
-
     const author = langConfig.themeConfig.authors.find(
       (item) => item.id === authorId
     )

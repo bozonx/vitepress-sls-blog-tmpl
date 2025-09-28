@@ -14,6 +14,7 @@ const props = defineProps([
   'paginationMaxItems',
   'tagSlug',
   'tagName',
+  'showPopularPostsSwitch',
 ])
 const curPage = Number(props.curPage)
 const filtered = props.allPosts.filter((item) =>
@@ -31,6 +32,7 @@ const sorted = sortPosts(
 <template>
   <ListPageHeader
     :baseUrl="`/${localeIndex}/${theme.tagsBaseUrl}/${props.tagSlug}`"
+    :showPopularPostsSwitch="showPopularPostsSwitch"
   >
     {{ frontmatter.title }}
   </ListPageHeader>

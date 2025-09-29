@@ -27,7 +27,6 @@ export default {
     toBlog: 'Go to blog',
     author: 'Author',
     year: 'Year',
-    allPosts: 'All Posts',
     showMorePosts: 'Load More',
     listenPodcast: 'Listen to podcast',
     commentCall: 'Comment on Telegram Channel',

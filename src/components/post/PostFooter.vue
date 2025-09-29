@@ -9,8 +9,10 @@ import PostSocialShare from './PostSocialShare.vue'
 import PostTags from './PostTags.vue'
 import EditLink from '../EditLink.vue'
 
+const props = defineProps(['localePosts'])
 const { localeIndex } = useData()
-const posts = inject('posts')
+const allPosts = inject('posts')
+const localePosts = props.localePosts || allPosts[localeIndex.value]
 </script>
 
 <template>
@@ -24,5 +26,5 @@ const posts = inject('posts')
   <PostComments class="mt-20" />
   <PostSocialShare class="mt-10" />
   <PostTags class="mt-10" />
-  <PostSimilarList class="mt-14" :allPosts="posts[localeIndex]" />
+  <PostSimilarList class="mt-14" :localePosts="localePosts" />
 </template>

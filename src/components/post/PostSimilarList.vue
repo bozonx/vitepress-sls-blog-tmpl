@@ -3,14 +3,14 @@ import { useData, useRoute } from 'vitepress'
 import PreviewList from '../PreviewList.vue'
 import { sortSimilarPosts } from '../../helpers/helpers.js'
 
-const props = defineProps(['allPosts'])
+const props = defineProps(['localePosts'])
 const { frontmatter, theme } = useData()
 const route = useRoute()
 
 // Получаем похожие посты используя хэлпер
 const items = frontmatter.value.tags
   ? sortSimilarPosts(
-      props.allPosts || [],
+      props.localePosts || [],
       frontmatter.value.tags,
       route.path,
       theme.value.popularPosts?.sortBy,

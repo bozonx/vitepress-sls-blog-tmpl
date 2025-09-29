@@ -18,9 +18,9 @@ import SimpleLink from '../SimpleLink.vue'
 import TagsList from '../TagsList.vue'
 import { useData } from 'vitepress'
 
-const props = defineProps(['allPosts'])
+const props = defineProps(['localePosts'])
 const { theme, localeIndex } = useData()
-const allTags = makeTagsList(props.allPosts)
+const allTags = makeTagsList(props.localePosts)
 const tags = allTags
   .map(({ count, ...tag }) => tag)
   .slice(0, theme.value.sidebarTagsCount)

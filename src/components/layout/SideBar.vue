@@ -9,9 +9,10 @@ import SideBarItems from './SideBarItems.vue'
 import { Icon } from '@iconify/vue'
 import SideBarTags from './SideBarTags.vue'
 
+const props = defineProps(['isMobile', 'localePosts'])
 const { theme, localeIndex } = useData()
-const posts = inject('posts')
-const props = defineProps(['isMobile'])
+const allPosts = inject('posts')
+const localePosts = props.localePosts || allPosts[localeIndex.value]
 const animationTimeMs = 400
 const drawerOpen = ref(!props.isMobile)
 const animationLeftPx = ref(-SIDEBAR_WIDTH)
@@ -136,7 +137,7 @@ watchEffect(async () => {
           </SideBarGroup>
 
           <SideBarGroup>
-            <SideBarTags :allPosts="posts[localeIndex]" />
+            <SideBarTags :localePosts="localePosts" />
           </SideBarGroup>
 
           <slot name="sidebar-middle" />

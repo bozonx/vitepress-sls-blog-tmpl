@@ -8,11 +8,6 @@ body {
   background: var(--body-bg);
 }
 
-/* .dark body {
-  color: var(--body-dark-text-color);
-  background: var(--body-dark-bg);
-} */
-
 svg,
 button {
   outline: 0;
@@ -176,10 +171,6 @@ button {
   color: var(--util-page-header-color);
 }
 
-/* .dark .simple-page h1 {
-  color: var(--util-page-dark-header-color);
-} */
-
 /******* Doc page overwrite */
 .vp-doc {
   font-weight: 400;
@@ -207,14 +198,6 @@ button {
 .vp-doc a:visited {
   color: var(--color-a-light-visited);
 }
-
-/* .dark .vp-doc a {
-  color: var(--color-a-dark-link);
-} */
-
-/* .dark .vp-doc a:visited {
-    color: var(--color-a-dark-visited);
-  } */
 
 .vp-doc a:hover {
   filter: brightness(130%);

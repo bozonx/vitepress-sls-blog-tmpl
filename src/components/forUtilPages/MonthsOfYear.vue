@@ -61,7 +61,7 @@ const sorted = sortPosts(
     </ListPageHeader>
 
     <PreviewList
-      :allPosts="sorted"
+      :localePosts="sorted"
       :curPage="curPage"
       :perPage="props.perPage"
       :paginationMaxItems="props.paginationMaxItems"

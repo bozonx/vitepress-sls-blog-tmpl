@@ -24,7 +24,7 @@ const items = frontmatter.value.tags
     <h2 class="text-xl font-bold mb-4">{{ theme.t.similarPosts }}</h2>
 
     <PreviewList
-      :allPosts="items"
+      :localePosts="items"
       :curPage="1"
       :perPage="theme.similarPostsCount"
       :paginationMaxItems="theme.paginationMaxItems"

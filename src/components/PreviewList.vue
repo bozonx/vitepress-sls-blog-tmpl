@@ -5,7 +5,7 @@ import { useData } from 'vitepress'
 
 const { theme } = useData()
 const props = defineProps([
-  'allPosts',
+  'localePosts',
   'curPage',
   'perPage',
   'paginationMaxItems',
@@ -13,8 +13,8 @@ const props = defineProps([
 ])
 const perPage = props.perPage || theme.value.perPage
 const start = props.curPage === 1 ? 0 : (props.curPage - 1) * perPage
-const items = props.allPosts.slice(start, start + perPage)
-const totalPages = Math.ceil(props.allPosts.length / perPage)
+const items = props.localePosts.slice(start, start + perPage)
+const totalPages = Math.ceil(props.localePosts.length / perPage)
 </script>
 
 <template>

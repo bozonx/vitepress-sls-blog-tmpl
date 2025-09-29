@@ -42,7 +42,7 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
   </ListPageHeader>
 
   <PreviewList
-    :allPosts="sorted"
+    :localePosts="sorted"
     :curPage="curPage"
     :perPage="props.perPage"
     :paginationMaxItems="props.paginationMaxItems"

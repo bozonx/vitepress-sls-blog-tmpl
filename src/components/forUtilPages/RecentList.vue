@@ -22,7 +22,7 @@ const sorted = [...(localePosts || [])].sort(
 <template>
   <UtilPageHeader>{{ frontmatter.title }}</UtilPageHeader>
   <PreviewList
-    :allPosts="sorted"
+    :localePosts="sorted"
     :curPage="curPage"
     :perPage="props.perPage"
     :paginationMaxItems="props.paginationMaxItems"

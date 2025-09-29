@@ -4,7 +4,7 @@
       {{ theme.t.popularPosts }}
     </UtilSubPageHeader>
 
-    <PreviewList :allPosts="posts" :curPage="1" />
+    <PreviewList :localePosts="posts" :curPage="1" />
 
     <div v-if="showMorePosts" class="mt-8 flex">
       <span class="mr-2">... </span>

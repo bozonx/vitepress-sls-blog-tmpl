@@ -1,12 +1,13 @@
 <script setup>
 import { useData } from 'vitepress'
+import { computed } from 'vue'
 import { makeHumanDate } from '../helpers/helpers.js'
 import PreviewWithImg from './PreviewWithImg.vue'
 import PreviewNoImg from './PreviewNoImg.vue'
 
 const { lang, theme } = useData()
 const props = defineProps(['item'])
-const params = {
+const params = computed(() => ({
   tags: props.item.tags,
   date: props.item.date,
   localeDate: makeHumanDate(props.item.date, lang.value),
@@ -14,7 +15,7 @@ const params = {
   authorName:
     theme.value.showAuthorInPostList &&
     theme.value.authors?.find((item) => item.id === props.item.authorId)?.name,
-}
+}))
 </script>
 
 <template>

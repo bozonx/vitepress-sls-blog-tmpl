@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue'
 
 import { Icon } from '@iconify/vue'
 
-const { theme, frontmatter, title } = useData()
+const { theme, title } = useData()
 const siteFullTitle = encodeURIComponent(title.value)
 const items = ref([])
 const attrs = {

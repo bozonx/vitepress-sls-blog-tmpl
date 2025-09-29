@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import Btn from './Btn.vue'
 
 const props = defineProps([
@@ -14,11 +15,13 @@ const props = defineProps([
   'hideExternalIcon',
 ])
 
-const { class: className, ...bindProps } = props
+const bindProps = computed(() => {
+  return { ...props, class: ['btn-link', props.class] }
+})
 </script>
 
 <template>
-  <Btn v-bind="bindProps" :class="['btn-link', className]">
+  <Btn v-bind="bindProps">
     <slot />
   </Btn>
 </template>
@@ -41,7 +44,6 @@ const { class: className, ...bindProps } = props
 .dark .btn-link {
   color: var(--gray-300);
 }
-
 
 .dark .btn-link.active:hover {
   color: var(--btn-dark-text-hover);

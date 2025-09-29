@@ -19,7 +19,6 @@ const resolvedHref = computed(() =>
 )
 const isExternal = computed(() => isExternalUrl(props.href))
 const tag = computed(() => props.tag || 'a')
-const className = computed(() => props.class)
 const target = computed(() => {
   if (tag.value === 'a') {
     if (typeof props.target === 'undefined') {
@@ -33,7 +32,6 @@ const target = computed(() => {
 const activeCompareMethod = computed(
   () => props.activeCompareMethod || 'strict'
 )
-
 // Функция для нормализации пути - убирает последний элемент если путь заканчивается на /\d+
 const normalizePath = (path = '') => {
   // Проверяем, заканчивается ли путь на слеш и цифры
@@ -101,10 +99,10 @@ watchEffect(async () => {
 <template>
   <component
     :is="tag"
-    v-bind="props"
     :target="target"
     :href="resolvedHref"
-    :class="[active && 'active', className]"
+    :disabled="props.disabled"
+    :class="[active && 'active', props.class]"
   >
     <slot />
   </component>

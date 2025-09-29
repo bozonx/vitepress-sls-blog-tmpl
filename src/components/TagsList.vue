@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import TagItem from './TagItem.vue'
 
 const props = defineProps([
@@ -13,8 +14,9 @@ const sizeClasses = {
   md: 'gap-x-2 gap-y-3',
   sm: 'gap-x-2 gap-y-3',
 }
-const sizeClass =
-  sizeClasses[(props.sizeXl && 'xl') || (props.sizeSm && 'sm') || 'md']
+const sizeClass = computed(() => {
+  return sizeClasses[(props.sizeXl && 'xl') || (props.sizeSm && 'sm') || 'md']
+})
 </script>
 
 <template>

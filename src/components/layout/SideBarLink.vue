@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import Btn from '../Btn.vue'
 
 const props = defineProps([
@@ -10,17 +11,21 @@ const props = defineProps([
   'icon',
   'mobileOnly',
 ])
-const { class: className, ...bindProps } = props
+const bindProps = computed(() => {
+  return {
+    ...props,
+    class: [
+      'pr-2 pl-3 py-3 font-normal rounded-none btn-lighter w-full sidebar-link',
+      props.class,
+    ],
+  }
+})
 </script>
 
 <template>
   <Btn
     v-bind="bindProps"
     noBg="true"
-    :class="[
-      'pr-2 pl-3 py-3 font-normal rounded-none btn-lighter w-full sidebar-link',
-      className,
-    ]"
     iconClass="muted"
     activeCompareMethod="softPagination"
   />

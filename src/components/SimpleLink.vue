@@ -1,12 +1,15 @@
 <script setup>
+import { computed } from 'vue'
 import BaseLink from './BaseLink.vue'
 
 const props = defineProps(['id', 'class', 'title', 'href', 'target', 'rel'])
-const { class: className, ...bindProps } = props
+const bindProps = computed(() => {
+  return { ...props, class: ['simple-link', props.class] }
+})
 </script>
 
 <template>
-  <BaseLink v-bind="bindProps" :class="['simple-link', className]">
+  <BaseLink v-bind="bindProps">
     <slot />
   </BaseLink>
 </template>

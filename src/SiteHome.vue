@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import VPHero from 'vitepress/dist/client/theme-default/components/VPHero.vue'
 import VPFeatures from 'vitepress/dist/client/theme-default/components/VPFeatures.vue'
 import VPHomeContent from 'vitepress/dist/client/theme-default/components/VPHomeContent.vue'
@@ -7,13 +8,13 @@ import { useData } from 'vitepress'
 const props = defineProps(['hero', 'features'])
 const { theme } = useData()
 
-const hero = {
+const hero = computed(() => ({
   ...props.hero,
   image: {
     ...props.hero.image,
     src: props.hero.image?.src || theme.value.mainHeroImg,
   },
-}
+}))
 </script>
 
 <template>

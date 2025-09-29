@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import Btn from './Btn.vue'
 
 const props = defineProps([
@@ -14,15 +15,13 @@ const props = defineProps([
   'onlyDark',
   'hideExternalIcon',
 ])
-const { class: className, ...bindProps } = props
+const bindProps = computed(() => {
+  return { ...props, class: ['rounded-none btn-lighter w-full', props.class] }
+})
 </script>
 
 <template>
-  <Btn
-    v-bind="bindProps"
-    noBg="true"
-    :class="['rounded-none btn-lighter w-full', className]"
-  >
+  <Btn v-bind="bindProps" noBg="true">
     <slot>{{ props.text }}</slot>
   </Btn>
 </template>

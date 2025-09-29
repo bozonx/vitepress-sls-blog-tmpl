@@ -13,7 +13,7 @@ const items = frontmatter.value.tags
       props.localePosts || [],
       frontmatter.value.tags,
       route.path,
-      theme.value.popularPosts?.sortBy,
+      theme.value.popularPosts?.enabled && theme.value.popularPosts?.sortBy,
       theme.value.similarPostsCount
     )
   : []

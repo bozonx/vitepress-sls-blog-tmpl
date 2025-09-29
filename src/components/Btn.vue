@@ -8,10 +8,8 @@ import BaseLink from './BaseLink.vue'
 const slots = useSlots()
 const { theme } = useData()
 const props = defineProps([
-  // 'id',
   'class',
   'href',
-  // 'title',
   'target',
   'disabled',
   'activeCompareMethod',

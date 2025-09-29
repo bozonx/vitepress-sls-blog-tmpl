@@ -1,4 +1,5 @@
 <script setup>
+///// Не используется как отдельный компонент, используется в других компонентах
 import { useData, useRoute } from 'vitepress'
 import { ref, watchEffect, computed } from 'vue'
 import { resolveI18Href, isExternalUrl } from '../helpers/helpers.js'
@@ -29,9 +30,6 @@ const target = computed(() => {
   }
   return undefined
 })
-const activeCompareMethod = computed(
-  () => props.activeCompareMethod || 'strict'
-)
 // Функция для нормализации пути - убирает последний элемент если путь заканчивается на /\d+
 const normalizePath = (path = '') => {
   // Проверяем, заканчивается ли путь на слеш и цифры
@@ -45,11 +43,7 @@ const active = ref(checkActive())
 function checkActive() {
   prevPath = route.path
 
-  switch (activeCompareMethod.value) {
-    case 'strict':
-      // Строгое сравнение один к одному
-      return route.path === resolvedHref.value
-
+  switch (props.activeCompareMethod) {
     case 'soft':
       // Используется startsWith()
       return route.path.startsWith(resolvedHref.value)
@@ -82,6 +76,10 @@ function checkActive() {
     case 'none':
       // Отключает определение активного элемента
       return false
+
+    case 'strict':
+      // Строгое сравнение один к одному
+      return route.path === resolvedHref.value
 
     default:
       // По умолчанию используем строгое сравнение

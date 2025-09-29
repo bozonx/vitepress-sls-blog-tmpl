@@ -1,10 +1,29 @@
 <script setup>
 import { computed } from 'vue'
+import { useData } from 'vitepress'
+import { isExternalUrl } from '../helpers/helpers.js'
 import BaseLink from './BaseLink.vue'
 
-const props = defineProps(['id', 'class', 'title', 'href', 'target', 'rel'])
+const props = defineProps([
+  'id',
+  'class',
+  'title',
+  'href',
+  'target',
+  'rel',
+  'hideExternalIcon',
+])
+const { theme } = useData()
+const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
 const bindProps = computed(() => {
-  return { ...props, class: ['simple-link', props.class] }
+  return {
+    ...props,
+    class: [
+      'simple-link',
+      theme.externalLinkIcon && isExternal && 'external-link',
+      props.class,
+    ],
+  }
 })
 </script>
 

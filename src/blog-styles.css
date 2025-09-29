@@ -80,13 +80,11 @@ button {
   filter: brightness(103%);
 }
 
-.dark .btn-lighter:hover,
-.btn-lighter.btn--only-dark:hover {
+.dark .btn-lighter:hover {
   filter: brightness(125%);
 }
 
-.dark .btn-lighter.active:hover,
-.btn-lighter.active.btn--only-dark:hover {
+.dark .btn-lighter.active:hover {
   filter: brightness(110%);
 }
 

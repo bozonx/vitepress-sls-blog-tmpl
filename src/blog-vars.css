@@ -24,7 +24,7 @@
   --gray-950: hsl(var(--layout-hue), 42%, 10%);
 }
 
-.dark:root {
+.dark {
   --primary-btn-bg: hsl(var(--primary-hue), 80%, 40%);
 }
 
@@ -58,14 +58,16 @@
   --btn-bg: var(--gray-150);
   --btn-bg-active: var(--gray-270);
   --btn-link-text: var(--gray-700);
+  /**** DropdownButton */
+  --dropdown-list-bg: var(--drawer-bg);
+  /**** TagItem */
+  --tag-item-bg: var(--primary-btn-bg);
+  --tag-item-bg-active: var(--primary-btn-bg-active);
 
   /**** Sidebar */
   --drawer-bg: var(--gray-50);
   --drawer-border-color: var(--gray-200);
   --backdrop-bg: rgba(0, 0, 0, 0.85);
-
-  /**** DropdownButton */
-  --dropdown-list-bg: var(--drawer-bg);
 
   /**** SwitchAppearance */
   --switch-appearance-border-color: #c2c2c4;
@@ -73,21 +75,17 @@
   --switch-appearance-border-color-hover: #3451b2;
   --switch-appearance-check-bg: #ffffff;
   --switch-appearance-icon-color: rgba(60, 60, 67, 0.78);
-
-  /**** TagItem */
-  --tag-item-bg: var(--primary-btn-bg);
-  --tag-item-bg-active: var(--primary-btn-bg-active);
 }
 
-.dark:root {
+.dark {
   /**** SimpleLink */
   --link-a-text: hsl(var(--link-hue), 100%, 76%);
+  --link-a-visited: hsl(var(--visited-hue) 50% 59%);
 
   /**** Layout */
   --body-bg: var(--gray-900);
   --body-text-color: var(--gray-200);
   --util-page-header-color: var(--gray-400);
-
   /**** TopBar */
   --topbar-mobile-bg: var(--gray-950);
   --topbar-mobile-border: #000;
@@ -96,13 +94,12 @@
   --btn-bg: var(--gray-800);
   --btn-bg-active: var(--gray-770);
   --btn-link-text: var(--gray-300);
+  /**** DropdownButton */
+  --dropdown-list-bg: var(--drawer-bg);
 
   /**** Sidebar */
   --drawer-border-color: #000;
   --drawer-bg: var(--gray-800);
-
-  /**** DropdownButton */
-  --dropdown-list-bg: var(--drawer-bg);
 
   /**** SwitchAppearance */
   --switch-appearance-icon-color: rgba(255, 255, 245, 0.86);

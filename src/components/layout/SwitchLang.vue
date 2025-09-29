@@ -9,7 +9,7 @@ import { Icon } from '@iconify/vue'
 
 const { theme } = useData()
 const { localeLinks, currentLang } = useLangs({ correspondingLink: true })
-const props = defineProps(['noBg', 'onlyDark'])
+const props = defineProps(['noBg'])
 // redirect from specific tag to tags list
 const resolveLink = (link) => {
   if (!link) return link
@@ -28,7 +28,6 @@ const resolveLink = (link) => {
   <DropdownButton
     v-if="localeLinks.length && currentLang.label"
     :noBg="props.noBg"
-    :onlyDark="props.onlyDark"
     :title="theme.langMenuLabel || 'Change language'"
     class="switch-lang-btn"
   >
@@ -47,7 +46,6 @@ const resolveLink = (link) => {
         v-if="!locale.text"
         :key="locale.link + 'disabled'"
         disabled="true"
-        :onlyDark="props.onlyDark"
         :title="theme.t.currentLang"
       >
         {{ currentLang.label }}
@@ -57,7 +55,6 @@ const resolveLink = (link) => {
         target="_self"
         :key="locale.link"
         :href="resolveLink(locale.link)"
-        :onlyDark="props.onlyDark"
       >
         {{ locale.text }}
       </DropdownItem>

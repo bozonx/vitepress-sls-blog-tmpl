@@ -12,7 +12,6 @@ const props = defineProps([
   'text',
   'disabled',
   'iconClass',
-  'onlyDark',
   'hideExternalIcon',
 ])
 const bindProps = computed(() => {

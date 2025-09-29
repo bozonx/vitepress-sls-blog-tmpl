@@ -23,7 +23,6 @@
       <li v-for="item in props.buttons">
         <Btn
           v-bind="item"
-          onlyDark="true"
           class="rounded-full! px-7! w-fit hover-animation-rise"
         />
       </li>

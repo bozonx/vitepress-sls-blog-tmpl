@@ -18,7 +18,6 @@ const props = defineProps([
   'text',
   'iconClass',
   'noBg',
-  'onlyDark',
   'primary',
   'hideExternalIcon',
 ])
@@ -47,7 +46,6 @@ if (props.href && !props.disabled) {
       'btn-base',
       btnProps.disabled && 'disabled',
       props.primary && 'btn--primary',
-      props.onlyDark && 'btn--only-dark',
       props.noBg && 'btn--nobg',
       props.class,
     ]"
@@ -99,10 +97,10 @@ if (props.href && !props.disabled) {
   background: var(--btn-bg);
 }
 
-.dark .btn-base,
+/* .dark .btn-base,
 .btn-base.btn--only-dark {
   color: var(--gray-200);
-}
+} */
 
 .btn-base.icon-only {
   padding: 0.75rem;
@@ -117,8 +115,7 @@ if (props.href && !props.disabled) {
   filter: brightness(103%);
 }
 
-.dark .btn-base:hover,
-.btn-base.btn--only-dark:hover {
+.dark .btn-base:hover {
   filter: brightness(110%);
 }
 
@@ -132,14 +129,12 @@ if (props.href && !props.disabled) {
   filter: brightness(105%);
 }
 
-.dark .btn-base.active,
-.btn-base.active.btn--only-dark {
+.dark .btn-base.active {
   border-color: var(--gray-600);
   color: white;
 }
 
-.dark .btn-base.active:hover,
-.btn-base.active.btn--only-dark:hover {
+.dark .btn-base.active:hover {
   filter: brightness(110%);
 }
 
@@ -174,8 +169,7 @@ if (props.href && !props.disabled) {
 }
 
 .dark .btn-base.disabled,
-.dark .btn-base.disabled:hover,
-.btn-base.disabled.btn--only-dark {
+.dark .btn-base.disabled:hover {
   color: var(--gray-400);
   background: var(--gray-600);
 }

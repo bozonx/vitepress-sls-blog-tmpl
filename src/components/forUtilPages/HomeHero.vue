@@ -1,9 +1,3 @@
-<script setup>
-import Btn from '../Btn.vue'
-
-const props = defineProps(['firstLine', 'secondLine', 'buttons', 'img'])
-</script>
-
 <template>
   <div class="mb-14 md:mb-18 home-hero">
     <div class="flex max-lg:flex-col-reverse">
@@ -36,6 +30,12 @@ const props = defineProps(['firstLine', 'secondLine', 'buttons', 'img'])
     </ul>
   </div>
 </template>
+
+<script setup>
+import Btn from '../Btn.vue'
+
+const props = defineProps(['firstLine', 'secondLine', 'buttons', 'img'])
+</script>
 
 <style>
 .home-logo {

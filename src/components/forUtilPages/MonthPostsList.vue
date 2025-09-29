@@ -1,12 +1,15 @@
 <script setup>
 import { useData } from 'vitepress'
+import { inject } from 'vue'
 import { makePostOfMonthList } from '../../list-helpers/listHelpers.js'
 import PreviewListItem from '../PreviewListItem.vue'
 import UtilPageHeader from './UtilPageHeader.vue'
 
-const { frontmatter } = useData()
-const props = defineProps(['allPosts', 'year', 'month'])
-const items = makePostOfMonthList(props.allPosts, props.year, props.month)
+const props = defineProps(['localePosts', 'year', 'month'])
+const { frontmatter, localeIndex } = useData()
+const allPosts = inject('posts')
+const localePosts = props.localePosts || allPosts[localeIndex.value]
+const items = makePostOfMonthList(localePosts, props.year, props.month)
 </script>
 
 <template>

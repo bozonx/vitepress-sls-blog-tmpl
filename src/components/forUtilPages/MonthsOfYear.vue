@@ -1,5 +1,6 @@
 <script setup>
 import { useData, useRoute } from 'vitepress'
+import { inject } from 'vue'
 import { makeMonthsList } from '../../list-helpers/listHelpers.js'
 import { sortPosts, isPopularRoute } from '../../helpers/helpers.js'
 import ListItemWithBadge from '../ListItemWithBadge.vue'
@@ -8,7 +9,7 @@ import UtilPageHeader from './UtilPageHeader.vue'
 import ListPageHeader from '../ListPageHeader.vue'
 
 const props = defineProps([
-  'allPosts',
+  'localePosts',
   'year',
   'curPage',
   'perPage',
@@ -17,11 +18,13 @@ const props = defineProps([
 ])
 const { theme, frontmatter, localeIndex } = useData()
 const route = useRoute()
-const monthsList = makeMonthsList(props.allPosts, props.year)
+const allPosts = inject('posts')
+const localePosts = props.localePosts || allPosts[localeIndex.value]
+const monthsList = makeMonthsList(localePosts, props.year)
 
 const curPage = Number(props.curPage || 1)
 // Фильтруем посты по году
-const filtered = props.allPosts.filter((item) => {
+const filtered = localePosts.filter((item) => {
   const postYear = new Date(item.date).getUTCFullYear()
   return postYear === Number(props.year)
 })

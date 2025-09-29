@@ -1,10 +1,15 @@
 <script setup>
+import { inject } from 'vue'
+import { useData } from 'vitepress'
 import { makeTagsList } from '../../list-helpers/listHelpers.js'
 import TagsList from '../TagsList.vue'
 import UtilSubPageHeader from './UtilSubPageHeader.vue'
 
-const props = defineProps(['allPosts', 'header'])
-const tagList = makeTagsList(props.allPosts || [])
+const props = defineProps(['localePosts', 'header'])
+const { localeIndex } = useData()
+const allPosts = inject('posts')
+const localePosts = props.localePosts || allPosts[localeIndex.value]
+const tagList = makeTagsList(localePosts)
 // const sorted = tagList.sort((a, b) => String(a.name).localeCompare(b.name))
 </script>
 

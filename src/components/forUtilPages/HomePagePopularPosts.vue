@@ -1,18 +1,3 @@
-<script setup>
-import { inject } from 'vue'
-import { useData } from 'vitepress'
-import UtilSubPageHeader from './UtilSubPageHeader.vue'
-import BtnLink from '../BtnLink.vue'
-import PreviewList from '../PreviewList.vue'
-import { sortPosts } from '../../helpers/helpers.js'
-
-const { localeIndex, theme } = useData()
-const allPosts = inject('posts')[localeIndex.value]
-const sorted = sortPosts(allPosts, theme.value.popularPosts?.sortBy, true)
-const posts = sorted.slice(0, theme.value.perPage)
-const showMorePosts = allPosts.length > theme.value.perPage
-</script>
-
 <template>
   <div v-if="theme.popularPosts?.enabled" class="home-popular-posts">
     <UtilSubPageHeader class="home-popular-posts-header mb-3">
@@ -31,6 +16,23 @@ const showMorePosts = allPosts.length > theme.value.perPage
     </div>
   </div>
 </template>
+
+<script setup>
+import { inject } from 'vue'
+import { useData } from 'vitepress'
+import UtilSubPageHeader from './UtilSubPageHeader.vue'
+import BtnLink from '../BtnLink.vue'
+import PreviewList from '../PreviewList.vue'
+import { sortPosts } from '../../helpers/helpers.js'
+
+const props = defineProps(['localePosts'])
+const { localeIndex, theme } = useData()
+const allPosts = inject('posts')
+const localePosts = props.localePosts || allPosts[localeIndex.value]
+const sorted = sortPosts(localePosts, theme.value.popularPosts?.sortBy, true)
+const posts = sorted.slice(0, theme.value.perPage)
+const showMorePosts = localePosts.length > theme.value.perPage
+</script>
 
 <style>
 /* Эффект матового стекла для популярных постов */

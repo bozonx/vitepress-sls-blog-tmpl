@@ -1,13 +1,12 @@
 <script setup>
 import { useData, useRoute } from 'vitepress'
+import { inject } from 'vue'
 import PreviewList from '../PreviewList.vue'
 import ListPageHeader from '../ListPageHeader.vue'
 import { sortPosts, isPopularRoute } from '../../helpers/helpers.js'
 
-const { theme, localeIndex, frontmatter } = useData()
-const route = useRoute()
 const props = defineProps([
-  'allPosts',
+  'localePosts',
   'curPage',
   'perPage',
   'paginationMaxItems',
@@ -15,9 +14,13 @@ const props = defineProps([
   'tagName',
   'showPopularPostsSwitch',
 ])
+const { theme, localeIndex, frontmatter } = useData()
+const route = useRoute()
+const allPosts = inject('posts')
+const localePosts = props.localePosts || allPosts[localeIndex.value]
 const curPage = Number(props.curPage)
 // Фильтруем посты по тегу
-const filtered = props.allPosts.filter((item) =>
+const filtered = localePosts.filter((item) =>
   item.tags?.map((item) => item.name).includes(props.tagName)
 )
 const sorted = sortPosts(

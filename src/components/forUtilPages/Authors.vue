@@ -1,13 +1,15 @@
 <script setup>
 import { useData } from 'vitepress'
-
+import { inject } from 'vue'
 import { makeAuthorsList } from '../../list-helpers/listHelpers.js'
 import ListItemWithBadge from '../ListItemWithBadge.vue'
 import UtilPageHeader from './UtilPageHeader.vue'
 
-const props = defineProps(['allPosts'])
-const { frontmatter, theme } = useData()
-const authorsList = makeAuthorsList(props.allPosts, theme.value.authors)
+const props = defineProps(['localePosts'])
+const { frontmatter, theme, localeIndex } = useData()
+const allPosts = inject('posts')
+const localePosts = props.localePosts || allPosts[localeIndex.value]
+const authorsList = makeAuthorsList(localePosts, theme.value.authors)
 </script>
 
 <template>

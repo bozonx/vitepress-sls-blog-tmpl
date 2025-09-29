@@ -30,6 +30,5 @@ const bindProps = computed(() => {
 .btn-link {
   padding: 0;
   background: transparent !important;
-  color: var(--btn-link-text);
 }
 </style>

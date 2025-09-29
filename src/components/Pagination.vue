@@ -87,9 +87,3 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
     </li>
   </ul>
 </template>
-
-<style scoped>
-.pagination-btn.active {
-  text-decoration: underline;
-}
-</style>

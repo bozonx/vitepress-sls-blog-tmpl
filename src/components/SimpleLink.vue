@@ -36,11 +36,11 @@ const bindProps = computed(() => {
 <style>
 .simple-link {
   text-decoration: underline;
-  color: var(--color-a-light-link);
+  color: var(--link-a-text);
 }
 
 .simple-link:visited {
-  color: var(--color-a-light-visited);
+  color: var(--link-a-visited);
 }
 
 .simple-link:hover {

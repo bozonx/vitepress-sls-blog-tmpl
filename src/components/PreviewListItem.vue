@@ -62,6 +62,6 @@ const params = computed(() => ({
 }
 
 .preview:visited h2 {
-  color: var(--color-a-light-visited);
+  color: var(--link-a-visited);
 }
 </style>

@@ -192,11 +192,11 @@ button {
 }
 
 .vp-doc a {
-  color: var(--color-a-light-link);
+  color: var(--link-a-text);
 }
 
 .vp-doc a:visited {
-  color: var(--color-a-light-visited);
+  color: var(--link-a-visited);
 }
 
 .vp-doc a:hover {

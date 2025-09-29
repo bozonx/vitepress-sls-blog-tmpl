@@ -30,8 +30,8 @@
 
 :root {
   /**** SimpleLink */
-  --color-a-light-link: hsl(var(--link-hue), 74%, 44%);
-  --color-a-light-visited: hsl(var(--visited-hue) 50% 44%);
+  --link-a-text: hsl(var(--link-hue), 74%, 44%);
+  --link-a-visited: hsl(var(--visited-hue) 50% 44%);
 
   /**** Podcast btn */
   --podcast-btn-bg: hsl(263, 60%, 40%);
@@ -81,8 +81,7 @@
 
 .dark:root {
   /**** SimpleLink */
-  --color-a-link: hsl(var(--link-hue), 100%, 76%);
-  --color-a-visited: hsl(var(--visited-hue) 50% 65%);
+  --link-a-text: hsl(var(--link-hue), 100%, 76%);
 
   /**** Layout */
   --body-bg: var(--gray-900);

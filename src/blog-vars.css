@@ -57,7 +57,7 @@
   /**** Buttons */
   --btn-bg: var(--gray-150);
   --btn-bg-active: var(--gray-270);
-  --btn-link-text-active: var(--gray-600);
+  --btn-link-text: var(--gray-700);
 
   /**** Sidebar */
   --drawer-bg: var(--gray-50);
@@ -96,7 +96,7 @@
   /**** Buttons */
   --btn-bg: var(--gray-800);
   --btn-bg-active: var(--gray-770);
-  --btn-link-text-active: var(--gray-400);
+  --btn-link-text: var(--gray-300);
 
   /**** Sidebar */
   --drawer-border-color: #000;

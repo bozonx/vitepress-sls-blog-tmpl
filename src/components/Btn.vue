@@ -123,6 +123,7 @@ if (props.href && !props.disabled) {
 }
 
 .btn-base.active {
+  color: black;
   background: var(--btn-bg-active);
   border: 3px solid var(--gray-400);
 }

@@ -126,7 +126,7 @@ export function generatePageUrlPath(relativePath) {
 export function sortPosts(posts, sortBy, sortByPopularity = false) {
   if (!posts || !Array.isArray(posts)) return []
 
-  if (!sortBy) {
+  if (sortByPopularity && !sortBy) {
     console.warn('⚠️ Warning: function sortPosts: sortBy is not defined')
     return posts
   }

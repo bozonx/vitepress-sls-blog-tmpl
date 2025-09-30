@@ -45,7 +45,7 @@ const showMorePosts = localePosts.length > theme.value.perPage
   background: rgba(0, 0, 0, 0.27);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.7),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   backdrop-filter: blur(8px);
@@ -56,7 +56,7 @@ const showMorePosts = localePosts.length > theme.value.perPage
 /* Эффекты при наведении */
 .dark .home-popular-posts .preview:hover,
 .home-popular-posts .preview:hover {
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.4);
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);

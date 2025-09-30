@@ -31,6 +31,7 @@ export default {
     listenPodcast: 'Listen to podcast',
     commentCall: 'Comment on Telegram Channel',
     allTagsCall: 'View All Tags',
+    popularPostsCall: 'View All Popular Posts',
     postVideoButton: 'Watch Video',
     allPostsOfAuthor: 'Posts of the author',
     closeMenu: 'Close menu',

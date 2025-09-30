@@ -4,8 +4,8 @@ layout: home
 
 <script setup>
 import HomeHero from 'vitepress-sls-blog-tmpl/HomeHero.vue'
-import HomeTags from 'vitepress-sls-blog-tmpl/HomePageTags.vue'
-import HomePopularPosts from 'vitepress-sls-blog-tmpl/HomePagePopularPosts.vue'
+import HomeTags from 'vitepress-sls-blog-tmpl/HomeTags.vue'
+import HomePopularPosts from 'vitepress-sls-blog-tmpl/HomePopularPosts.vue'
 import UtilPageContent from 'vitepress-sls-blog-tmpl/UtilPageContent.vue'
 import { useData } from 'vitepress'
 

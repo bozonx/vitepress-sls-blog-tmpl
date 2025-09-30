@@ -8,9 +8,10 @@ import PostDonateLink from './PostDonateLink.vue'
 import PostSocialShare from './PostSocialShare.vue'
 import PostTags from './PostTags.vue'
 import EditLink from '../EditLink.vue'
+import BtnLink from '../BtnLink.vue'
 
 const props = defineProps(['localePosts'])
-const { localeIndex } = useData()
+const { localeIndex, theme } = useData()
 const allPosts = inject('posts')
 const localePosts = props.localePosts || allPosts[localeIndex.value]
 </script>
@@ -27,4 +28,14 @@ const localePosts = props.localePosts || allPosts[localeIndex.value]
   <PostSocialShare class="mt-10" />
   <PostTags class="mt-10" />
   <PostSimilarList class="mt-14" :localePosts="localePosts" />
+
+  <div class="mt-12">
+    <BtnLink
+      v-if="theme.popularPosts?.enabled"
+      :href="`${theme.popularBaseUrl}/1`"
+      :text="theme.t.popularPostsCall"
+      :icon="theme.popularIcon"
+      class="hover-animation-rise"
+    />
+  </div>
 </template>

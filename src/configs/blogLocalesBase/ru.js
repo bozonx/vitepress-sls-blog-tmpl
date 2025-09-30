@@ -32,6 +32,7 @@ export default {
     listenPodcast: 'Слушать подкаст',
     commentCall: 'Комментировать в Telegram канале',
     allTagsCall: 'Смотреть все тэги',
+    popularPostsCall: 'Смотреть все популярные посты',
     postVideoButton: 'Смотреть видео',
     allPostsOfAuthor: 'Посты автора',
     closeMenu: 'Закрыть меню',

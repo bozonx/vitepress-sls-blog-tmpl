@@ -22,16 +22,16 @@ export function addCanonicalLink({ page, head, pageData, siteConfig }) {
 
     // Проверяем специальные значения для ссылки на саму страницу
     if (canonicalValue === 'self') {
-      const hostname = siteConfig.userConfig.hostname
+      const siteUrl = siteConfig.userConfig.siteUrl
 
-      if (!hostname) {
+      if (!siteUrl) {
         console.warn(
-          'Canonical link not added: hostname not configured in siteConfig'
+          'Canonical link not added: siteUrl not configured in siteConfig'
         )
         return
       }
       // Генерируем URL для текущей страницы
-      canonicalUrl = `${hostname}/${generatePageUrlPath(page)}`
+      canonicalUrl = `${siteUrl}/${generatePageUrlPath(page)}`
     } else if (typeof canonicalValue === 'string') {
       // Проверяем, что URL валидный
       try {

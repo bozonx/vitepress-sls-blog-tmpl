@@ -16,9 +16,9 @@ export function addHreflang({ page, head, siteConfig }) {
 
   // Получаем доступные языки из конфигурации, исключая root
   const availableLocales = siteConfig.site.locales
-  const hostname = siteConfig.userConfig.hostname
+  const siteUrl = siteConfig.userConfig.siteUrl
 
-  if (!hostname || !availableLocales) return
+  if (!siteUrl || !availableLocales) return
 
   // Фильтруем языки, исключая root
   const localesIndexes = Object.keys(availableLocales).filter(
@@ -43,7 +43,7 @@ export function addHreflang({ page, head, siteConfig }) {
       {
         rel: 'alternate',
         hreflang: langCode,
-        href: `${hostname}/${lang}${finalPath}`,
+        href: `${siteUrl}/${lang}${finalPath}`,
       },
     ])
   })
@@ -69,7 +69,7 @@ export function addHreflang({ page, head, siteConfig }) {
     {
       rel: 'alternate',
       hreflang: 'x-default',
-      href: `${hostname}/${mainLang}${finalPath}`,
+      href: `${siteUrl}/${mainLang}${finalPath}`,
     },
   ])
 }

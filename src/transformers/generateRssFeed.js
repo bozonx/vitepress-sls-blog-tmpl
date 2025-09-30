@@ -30,13 +30,13 @@ export async function generateRssFeed(config) {
     }
 
     const feeds = {}
-    const hostname = config.userConfig.hostname
+    const siteUrl = config.userConfig.siteUrl
 
     for (const localeIndex of Object.keys(config.site.locales)) {
       if (localeIndex === ROOT_LANG) continue
 
       const locale = config.site.locales[localeIndex]
-      const siteUrl = `${hostname}/${localeIndex}`
+      const localeSiteUrl = `${siteUrl}/${localeIndex}`
 
       // Создаем базовый feed
       feeds[localeIndex] = new Feed({
@@ -44,15 +44,15 @@ export async function generateRssFeed(config) {
         title: locale.title,
         description: locale.description,
         copyright: locale.themeConfig.footer.copyright,
-        id: siteUrl,
-        link: siteUrl,
-        favicon: `${hostname}/img/favicon-32x32.png`,
-        image: `${hostname}${config.userConfig.themeConfig.sidebarLogoSrc}`,
+        id: localeSiteUrl,
+        link: localeSiteUrl,
+        favicon: `${siteUrl}/img/favicon-32x32.png`,
+        image: `${siteUrl}${config.userConfig.themeConfig.sidebarLogoSrc}`,
         generator: 'VitePress SLS Blog Template',
         updated: new Date(),
         feedLinks: {
-          rss: `${hostname}/feed-${localeIndex}.rss`,
-          atom: `${hostname}/feed-${localeIndex}.atom`,
+          rss: `${siteUrl}/feed-${localeIndex}.rss`,
+          atom: `${siteUrl}/feed-${localeIndex}.atom`,
         },
       })
 
@@ -86,23 +86,23 @@ export async function generateRssFeed(config) {
                   config.userConfig.maxDescriptionLength
                 )
             // Создаем уникальный GUID для поста
-            const guid = createPostGuid(hostname, url, frontmatter.date)
+            const guid = createPostGuid(siteUrl, url, frontmatter.date)
             // Подготавливаем категории из тегов
-            const categories = formatTagsForRss(frontmatter.tags, hostname)
+            const categories = formatTagsForRss(frontmatter.tags, siteUrl)
 
             // Добавляем пост в feed
             feeds[localeIndex].addItem({
               title: frontmatter.title,
               description,
               id: guid,
-              link: `${hostname}${url}`,
+              link: `${siteUrl}${url}`,
               date: frontmatter.date && new Date(frontmatter.date),
-              image: frontmatter.cover && `${hostname}${frontmatter.cover}`,
+              image: frontmatter.cover && `${siteUrl}${frontmatter.cover}`,
               // Добавляем автора если есть
               author: makeAuthorForRss(
                 config,
                 frontmatter,
-                siteUrl,
+                localeSiteUrl,
                 localeIndex
               ),
               // Добавляем категории

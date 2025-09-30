@@ -41,32 +41,32 @@ export function validatePostForRss(frontmatter, url) {
 /**
  * Создает уникальный GUID для поста
  *
- * @param {string} hostname - Хост сайта
+ * @param {string} siteUrl - Хост сайта
  * @param {string} url - URL поста
  * @param {string} date - Дата поста
  * @returns {string} - Уникальный GUID
  */
-export function createPostGuid(hostname, url, date) {
+export function createPostGuid(siteUrl, url, date) {
   // Используем URL и дату для создания более уникального GUID
   const dateStr = date ? new Date(date).toISOString().split('T')[0] : ''
-  return `${hostname}${url}${dateStr ? `#${dateStr}` : ''}`
+  return `${siteUrl}${url}${dateStr ? `#${dateStr}` : ''}`
 }
 
 /**
  * Форматирует теги для использования в RSS категориях
  *
  * @param {Array} tags - Массив тегов
- * @param {string} hostname - Хост сайта
+ * @param {string} siteUrl - Хост сайта
  * @returns {Array} - Массив объектов категорий
  */
-export function formatTagsForRss(tags, hostname) {
+export function formatTagsForRss(tags, siteUrl) {
   if (!tags || !Array.isArray(tags)) return []
 
   return tags
     .filter((tag) => tag && typeof tag === 'string' && tag.trim()) // Фильтруем пустые теги
     .map((tag) => ({
       name: tag.trim(),
-      domain: `${hostname}/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`,
+      domain: `${siteUrl}/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`,
     }))
 }
 
@@ -83,8 +83,8 @@ export function validateRssConfig(config) {
     errors.push('missing site.locales configuration')
   }
 
-  if (!config.userConfig?.hostname) {
-    errors.push('missing hostname configuration')
+  if (!config.userConfig?.siteUrl) {
+    errors.push('missing siteUrl configuration')
   }
 
   if (!config.outDir) {

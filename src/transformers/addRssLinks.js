@@ -11,7 +11,7 @@ export function addRssLinks({ page, head, pageData, siteConfig }) {
   // only for index pages line ru/, en/
   if (!isHomePage(pageData.frontmatter)) return
 
-  const hostname = siteConfig.userConfig.hostname
+  const siteUrl = siteConfig.userConfig.siteUrl
   const localeIndex = page.split('/')[0]
   const supportedLocales = Object.keys(siteConfig.site.locales).filter(
     (locale) => locale !== ROOT_LANG
@@ -22,7 +22,7 @@ export function addRssLinks({ page, head, pageData, siteConfig }) {
 
   // Добавляем RSS ссылки для текущего языка
   for (const format of rssFormats) {
-    const feedUrl = `${hostname}/feed-${localeIndex}.${format}`
+    const feedUrl = `${siteUrl}/feed-${localeIndex}.${format}`
     const formatInfo = getFormatInfo(format)
 
     head.push([
@@ -41,7 +41,7 @@ export function addRssLinks({ page, head, pageData, siteConfig }) {
   for (const locale of supportedLocales) {
     if (locale !== localeIndex) {
       // Добавляем только основной формат для альтернативных языков
-      const feedUrl = `${hostname}/feed-${locale}.rss`
+      const feedUrl = `${siteUrl}/feed-${locale}.rss`
 
       head.push([
         'link',

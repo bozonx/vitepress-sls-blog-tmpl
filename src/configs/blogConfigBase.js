@@ -13,6 +13,12 @@ import { collectImageDimensions } from '../transformers/collectImageDimensions.j
 import { mdImage } from '../transformers/mdImage.js'
 
 export const common = {
+  //// You have to set an absolute path to the "src" directory of your blog
+  // srcDir: path.resolve(__dirname, '../'),
+  //// You have to set the url with protocol, hostname and port of
+  //// your site
+  // siteUrl: 'https://example.com',
+
   head: [
     // tell IE to use the most modern engine
     ['meta', { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
@@ -119,7 +125,7 @@ export function mergeBlogConfig(config) {
       ssr: { noExternal: ['vitepress-sls-blog-tmpl'], ...config.vite?.ssr },
     },
     sitemap: {
-      hostname: config.hostname,
+      hostname: config.siteUrl,
       // fix sitemap - remove root from it
       transformItems: (items) => {
         return filterSitemap(items)

@@ -19,7 +19,7 @@ function parseYamlToJsonLd(strYaml) {
 function createPostJsonLd(
   pageData,
   siteConfig,
-  hostname,
+  siteUrl,
   localeIndexUrl,
   localeIndex,
   langConfig,
@@ -49,7 +49,7 @@ function createPostJsonLd(
 
       alternateLanguages.push({
         code: locale.lang || code,
-        url: `${hostname}/${code}/${alternateUrl}`,
+        url: `${siteUrl}/${code}/${alternateUrl}`,
       })
     })
   }
@@ -88,7 +88,7 @@ function createPostJsonLd(
         : undefined,
     image: cover && {
       '@type': 'ImageObject',
-      url: cover.startsWith('http') ? cover : `${hostname}${cover}`,
+      url: cover.startsWith('http') ? cover : `${siteUrl}${cover}`,
     },
   }
 
@@ -107,7 +107,7 @@ function createPostJsonLd(
 function createAuthorJsonLd(
   pageData,
   siteConfig,
-  hostname,
+  siteUrl,
   localeIndex,
   langConfig
 ) {
@@ -123,7 +123,7 @@ function createAuthorJsonLd(
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: authorName,
-    url: `${hostname}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${authorId}/1`,
+    url: `${siteUrl}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${authorId}/1`,
     description: author?.descr,
     image: author?.image,
     sameAs: author?.links?.map((link) => link.url),
@@ -187,14 +187,14 @@ export function addJsonLd({ page, head, pageData, siteConfig }) {
 
   if (!langConfig) return
 
-  const hostname = siteConfig.userConfig.hostname
-  const localeIndexUrl = `${hostname}/${localeIndex}`
-  const pageUrl = `${hostname}/${generatePageUrlPath(page)}`
+  const siteUrl = siteConfig.userConfig.siteUrl
+  const localeIndexUrl = `${siteUrl}/${localeIndex}`
+  const pageUrl = `${siteUrl}/${generatePageUrlPath(page)}`
   // Формируем информацию об издателе для JSON-LD
   const publisher = langConfig.themeConfig.publisher && {
     '@type': 'Organization',
     name: langConfig.themeConfig.publisher?.name || siteName,
-    url: langConfig.themeConfig.publisher?.url || hostname,
+    url: langConfig.themeConfig.publisher?.url || siteUrl,
     logo: langConfig.themeConfig.publisher?.logo && {
       '@type': 'ImageObject',
       url: langConfig.themeConfig.publisher.logo,
@@ -205,7 +205,7 @@ export function addJsonLd({ page, head, pageData, siteConfig }) {
     jsonLdData = createAuthorJsonLd(
       pageData,
       siteConfig,
-      hostname,
+      siteUrl,
       localeIndex,
       langConfig
     )
@@ -213,7 +213,7 @@ export function addJsonLd({ page, head, pageData, siteConfig }) {
     jsonLdData = createPostJsonLd(
       pageData,
       siteConfig,
-      hostname,
+      siteUrl,
       localeIndexUrl,
       localeIndex,
       langConfig,

@@ -6,8 +6,8 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
   // skip root pages
   if (!page || page.indexOf('/') < 0) return
 
-  const hostname = siteConfig.userConfig.hostname
-  const pageUrl = `${hostname}/${generatePageUrlPath(page)}`
+  const siteUrl = siteConfig.userConfig.siteUrl
+  const pageUrl = `${siteUrl}/${generatePageUrlPath(page)}`
   const localeIndex = page.split('/')[0]
   const langConfig = siteConfig.site.locales[localeIndex]
   const locale = langConfig.lang.replace('-', '_')
@@ -23,7 +23,7 @@ export function addOgMetaTags({ page, head, pageData, siteConfig }) {
     langConfig.themeConfig.authors?.find(
       (item) => item.id === pageData.frontmatter.authorId
     )?.name
-  const img = resolveOgImage(page, pageData, siteConfig, hostname, langConfig)
+  const img = resolveOgImage(page, pageData, siteConfig, siteUrl, langConfig)
 
   // Тип контента
   const ogType = isArticle ? 'article' : 'website'
@@ -90,7 +90,7 @@ export function resolveOgImage(
   page,
   pageData,
   siteConfig,
-  hostname,
+  siteUrl,
   langConfig
 ) {
   if (isAuthorPage(page, siteConfig)) {
@@ -102,7 +102,7 @@ export function resolveOgImage(
     if (!author?.image) return
 
     return {
-      url: author.image.match(/\/\//) ? author.image : hostname + author.image,
+      url: author.image.match(/\/\//) ? author.image : siteUrl + author.image,
       width: author?.imageWidth,
       height: author?.imageHeight,
       alt: author?.name,
@@ -112,7 +112,7 @@ export function resolveOgImage(
   // post cover
   if (!pageData.frontmatter.cover) return
 
-  const coverUrl = hostname + pageData.frontmatter.cover
+  const coverUrl = siteUrl + pageData.frontmatter.cover
 
   return {
     url: coverUrl,

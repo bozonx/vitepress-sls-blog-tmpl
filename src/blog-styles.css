@@ -33,6 +33,10 @@ button {
   transform: translateY(-2px);
 }
 
+.VPSwitchAppearance {
+  cursor: pointer;
+}
+
 .external-link {
   position: relative;
 }

@@ -38,7 +38,7 @@ const author = theme.value.authors.find((item) => item.id === props.authorId)
     :baseUrl="`/${localeIndex}/${theme.authorsBaseUrl}/${props.authorId}`"
     :showPopularPostsSwitch="showPopularPostsSwitch"
   >
-    {{ theme.t.allPostsOfAuthor }}
+    {{ theme.t.allPostsOfAuthor }} ({{ sorted.length }})
   </ListPageHeader>
 
   <PreviewList

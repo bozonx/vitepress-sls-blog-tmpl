@@ -48,7 +48,7 @@ body: |
         icon: "${theme.docIcon}"
     socialLinks:
       - icon: 'fa6-brands:github-alt'
-        href: "${theme.repo}"
+        href: "${config.repo}"
         title: 'This blog on Github'
         desktopOnly: true
   sideBar:
@@ -68,7 +68,7 @@ body: |
     atomFeed: true
     socialLinks:
       - icon: 'fa6-brands:github-alt'
-        href: "${theme.repo}"
+        href: "${config.repo}"
         title: 'This blog on Github'
     links:
       - text: "${t.links.recent}"

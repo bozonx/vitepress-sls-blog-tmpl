@@ -93,6 +93,6 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
 
 <style>
 .pagination-btn {
-  padding: 0.25rem 1rem;
+  padding: 0.35rem 1rem;
 }
 </style>

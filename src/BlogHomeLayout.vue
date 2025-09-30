@@ -27,8 +27,13 @@ watchEffect(async () => {
 
   // Правильная формула параллакса: фон движется медленнее чем контент
   // Начальная позиция 0, затем сдвигаемся вверх при прокрутке
-  // Используем половину от BG_HEIGHT_OFFSET для более плавного эффекта
-  valueY.value = -(BG_HEIGHT_OFFSET * scrollProgress * 0.5)
+  // При полной прокрутке фон должен сдвинуться на полный BG_HEIGHT_OFFSET
+  // чтобы показать всю картинку (размер фона: 100vh + BG_HEIGHT_OFFSET)
+  //
+  // Логика:
+  // - scrollProgress = 0: фон в позиции 0 (показываем верх фона)
+  // - scrollProgress = 1: фон в позиции -BG_HEIGHT_OFFSET (показываем низ фона)
+  valueY.value = -(BG_HEIGHT_OFFSET * scrollProgress)
 })
 </script>
 

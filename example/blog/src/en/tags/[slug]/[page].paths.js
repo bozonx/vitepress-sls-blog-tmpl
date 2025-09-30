@@ -1,9 +1,9 @@
 import { makeTagsParams } from "vitepress-sls-blog-tmpl/makeListParams.js";
 import { PER_PAGE } from "../../../.vitepress/config.js";
-import getCachedPosts from "../../cachedPosts.js";
+import getAllPosts from "../../getAllPosts.js";
 
 export default {
   async paths() {
-    return makeTagsParams(await getCachedPosts(), PER_PAGE);
+    return makeTagsParams(await getAllPosts(), PER_PAGE);
   },
 };

@@ -1,5 +1,5 @@
 ---
-title: "{{theme.t.recentPosts}}"
+title: "{{theme.t.popularPosts}}"
 layout: util
 head:
   - - meta
@@ -8,12 +8,12 @@ head:
 ---
 
 <script setup>
-import RecentList from 'vitepress-sls-blog-tmpl/RecentList.vue'
+import PopularPostsList from 'vitepress-sls-blog-tmpl/PopularPostsList.vue'
 import { useData } from 'vitepress'
 
 const { params } = useData()
 </script>
 
-<RecentList
+<PopularPostsList
   :curPage="params.page"
 />

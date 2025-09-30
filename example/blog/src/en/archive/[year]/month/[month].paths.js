@@ -1,8 +1,8 @@
 import { makeMonthsParams } from "vitepress-sls-blog-tmpl/makeListParams.js";
-import getCachedPosts from "../../../cachedPosts.js";
+import getAllPosts from "../../../getAllPosts.js";
 
 export default {
   async paths() {
-    return makeMonthsParams(await getCachedPosts());
+    return makeMonthsParams(await getAllPosts());
   },
 };

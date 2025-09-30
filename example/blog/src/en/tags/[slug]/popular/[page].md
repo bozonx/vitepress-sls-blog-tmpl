@@ -1,5 +1,5 @@
 ---
-title: "{{params.year}} {{theme.t.year}}"
+title: "{{theme.t.tagPageHeader}}: {{params.name}}"
 layout: util
 head:
   - - meta
@@ -8,14 +8,15 @@ head:
 ---
 
 <script setup>
+import TagPostsList from 'vitepress-sls-blog-tmpl/TagPostsList.vue'
 import { useData } from 'vitepress'
-import MonthsOfYear from 'vitepress-sls-blog-tmpl/MonthsOfYear.vue'
 
 const { params } = useData()
 </script>
 
-<MonthsOfYear
-  :year="params.year"
+<TagPostsList
   :curPage="params.page"
+  :tagName="params.name"
+  :tagSlug="params.slug"
   :showPopularPostsSwitch="true"
 />

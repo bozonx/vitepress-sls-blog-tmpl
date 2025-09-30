@@ -8,13 +8,14 @@
         ></h1>
         <p class="max-md:text-2xl md:text-4xl" v-html="props.secondLine"></p>
       </div>
-      <div
+      <a
         v-if="props.img"
         aria-hidden="true"
         class="home-logo md:ml-4 max-md:mb-9"
+        :href="`/${localeIndex}/${theme.recentBaseUrl}/1`"
       >
         <img :src="props.img" />
-      </div>
+      </a>
     </div>
     <ul
       v-if="props.buttons"
@@ -32,7 +33,9 @@
 
 <script setup>
 import Btn from '../Btn.vue'
+import { useData } from 'vitepress'
 
+const { theme, localeIndex } = useData()
 const props = defineProps(['firstLine', 'secondLine', 'buttons', 'img'])
 </script>
 

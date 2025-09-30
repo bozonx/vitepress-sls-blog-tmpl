@@ -1,51 +1,51 @@
+import path from 'node:path'
 import { defineConfig } from 'vitepress'
-import { mergeBlogConfig } from 'vitepress-sls-blog-tmpl'
+import { mergeBlogConfig } from 'vitepress-sls-blog-tmpl/blogConfigBase.js'
+import { loadBlogLocale } from 'vitepress-sls-blog-tmpl/blogConfigHelper.js'
 
-export default defineConfig(
-  mergeBlogConfig({
-    title: 'My Blog',
-    description: 'A modern blog built with VitePress',
-    hostname: 'https://myblog.com',
-    repo: 'https://github.com/username/myblog',
-    srcDir: './src',
+export const PER_PAGE = 20
 
-    // Локализация
-    locales: {
-      root: { label: 'English', lang: 'en-US' },
-      ru: { label: 'Русский', lang: 'ru-RU' },
-    },
-
+export default async () => {
+  const config = defineConfig({
+    srcDir: path.resolve(__dirname, '../'),
+    siteUrl: 'https://myblog.org',
     themeConfig: {
-      // ... другие настройки темы
+      repo: 'https://github.com/...',
+      perPage: PER_PAGE,
+      sidebarLogoSrc: '/img/sidebar-logo.webp',
 
-      // Аналитика для популярных постов (build-time generation)
-      analytics: {
-        // Включить генерацию популярных постов во время сборки
-        enabled: true, // Установите true для включения
-
-        // Тип аналитики: 'google' или 'mock'
-        type: 'mock', // Измените на нужный тип
-
-        // Google Analytics настройки
-        google: {
-          enabled: false,
-          version: 'ga4', // 'ga4' или 'ua'
-          propertyId: null, // Например: '123456789'
-          credentialsPath: null, // Например: './credentials/ga-service-account.json'
-          dataPeriodDays: 30,
-        },
-
-        // Общие настройки
-        sortBy: 'pageviews', // 'pageviews', 'uniquePageviews', 'avgTimeOnPage', 'bounceRate'
-        popularPostsCount: 10,
-        // Путь к выходному JSON файлу (относительно outDir)
-        outputPath: 'popular-posts.json',
+      googleAnalytics: {
+        propertyId: '123456789',
+        credentialsPath: '.../ga-credentials.json',
       },
 
-      // Количество популярных постов для отображения
-      popularPostsCount: 10,
+      popularPosts: {
+        enabled: true,
+        sortBy: 'pageviews', // 'pageviews', 'uniquePageviews'
+      },
+    },
+    head: [
+      // do not recognize telephone numbers on the page
+      ['meta', { name: 'format-detection', content: 'telephone=no' }],
 
-      // ... остальные настройки
+      [
+        'script',
+        { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-...' },
+      ],
+      [
+        'script',
+        {},
+        `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
+       gtag('config', 'G-...');`,
+      ],
+    ],
+  })
+
+  return mergeBlogConfig({
+    ...config,
+    locales: {
+      en: await loadBlogLocale('en', config),
+      ru: await loadBlogLocale('ru', config),
     },
   })
-)
+}

@@ -2,6 +2,7 @@
   <div class="side-bar-tags">
     <TagsList
       :tags="tags"
+      @itemClick="emit('itemClick')"
       sizeSm="true"
       class="mb-2 side-bar-tags-list"
       activeCompareMethod="softPagination"
@@ -26,6 +27,7 @@ const tags = allTags
   .slice(0, theme.value.sidebarTagsCount)
 const allTagsUrl = `/${localeIndex.value}/${theme.value.tagsBaseUrl}`
 const showAllTags = allTags.length > theme.value.sidebarTagsCount
+const emit = defineEmits(['itemClick'])
 </script>
 
 <style>

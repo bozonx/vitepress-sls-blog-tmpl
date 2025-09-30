@@ -137,7 +137,7 @@ watchEffect(async () => {
           </SideBarGroup>
 
           <SideBarGroup>
-            <SideBarTags :localePosts="localePosts" />
+            <SideBarTags :localePosts="localePosts" @itemClick="closeDrawer" />
           </SideBarGroup>
 
           <slot name="sidebar-middle" />

@@ -9,6 +9,7 @@ const props = defineProps([
   'class',
   'activeCompareMethod',
 ])
+const emit = defineEmits(['itemClick'])
 const sizeClasses = {
   xl: 'gap-x-3 gap-y-4',
   md: 'gap-x-2 gap-y-3',
@@ -30,6 +31,7 @@ const sizeClass = computed(() => {
         :sizeXl="props.sizeXl"
         :sizeSm="props.sizeSm"
         :activeCompareMethod="props.activeCompareMethod"
+        @click="emit('itemClick')"
       />
     </li>
   </ul>

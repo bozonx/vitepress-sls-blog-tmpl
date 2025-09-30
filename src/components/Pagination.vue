@@ -53,7 +53,8 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   // Показываем кнопку "в начало" если не показываем первую страницу
   if (startPage > 1) {
     items.push({
-      name: '<<',
+      // name: '<<',
+      icon: 'mdi:page-first',
       href: `${baseUrl}/1`,
       title: theme.value.t.paginationToStart,
     })
@@ -67,7 +68,8 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   // Показываем кнопку "в конец" если не показываем последнюю страницу
   if (endPage < totalPages) {
     items.push({
-      name: '>>',
+      // name: '>>',
+      icon: 'mdi:page-last',
       href: `${baseUrl}/${totalPages}`,
       title: theme.value.t.paginationToEnd,
     })
@@ -82,8 +84,15 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
         :href="item.href"
         :title="item.title"
         :text="item.name"
+        :icon="item.icon"
         class="px-3 pagination-btn hover-animation-rise"
       />
     </li>
   </ul>
 </template>
+
+<style>
+.pagination-btn {
+  padding: 0.25rem 1rem;
+}
+</style>

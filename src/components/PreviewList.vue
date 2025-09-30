@@ -32,7 +32,7 @@ const totalPages = Math.ceil(props.localePosts.length / perPage)
       </template>
     </ul>
 
-    <div v-if="totalPages > 1" class="mt-12">
+    <div v-if="totalPages > 1" class="mt-10">
       <Pagination
         :curPage="props.curPage"
         :totalPages="totalPages"

@@ -62,7 +62,7 @@ export const common = {
     sidebarTagsCount: 15,
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
-    paginationMaxItems: 7,
+    paginationMaxItems: 5,
     // show author in post list
     showAuthorInPostList: true,
 

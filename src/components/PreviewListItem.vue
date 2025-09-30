@@ -38,7 +38,7 @@ const params = computed(() => ({
   display: block;
   cursor: pointer;
   background: rgba(0, 0, 0, 0.005);
-  border: 1px solid var(--gray-200);
+  border: 2px solid var(--gray-200);
   border-radius: 0.6rem;
   line-height: 1.4;
   font-weight: 400;

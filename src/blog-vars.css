@@ -18,6 +18,7 @@
   --gray-600: hsl(var(--layout-hue), 13.79%, 34.12%);
   --gray-700: hsl(var(--layout-hue), 19.12%, 26.67%);
   --gray-770: hsl(var(--layout-hue), 24%, 22%);
+  --gray-790: hsl(var(--layout-hue), 25.6%, 18.4%);
   --gray-800: hsl(var(--layout-hue), 27.91%, 16.86%);
   --gray-850: hsl(var(--layout-hue), 33%, 13.4%);
   --gray-900: hsl(var(--layout-hue), 39.29%, 10.98%);
@@ -59,6 +60,7 @@
   --btn-bg: var(--gray-150);
   --btn-text: var(--gray-700);
   --btn-bg-active: var(--gray-270);
+  --btn-bg-disabled: var(--gray-300);
   /**** DropdownButton */
   --dropdown-list-bg: var(--drawer-bg);
   /**** TagItem */
@@ -92,9 +94,10 @@
   --topbar-mobile-border: #000;
 
   /**** Buttons */
-  --btn-bg: var(--gray-800);
+  --btn-bg: var(--gray-790);
   --btn-text: var(--gray-300);
   --btn-bg-active: var(--gray-770);
+  --btn-bg-disabled: var(--gray-600);
   /**** DropdownButton */
   --dropdown-list-bg: var(--drawer-bg);
 

@@ -128,32 +128,18 @@ if (props.href && !props.disabled) {
   color: white;
 }
 
-.btn-base.btn--primary,
-.dark .btn-base.btn--primary {
+.btn-base.btn--primary {
   background: var(--primary-btn-bg);
   color: var(--gray-100);
 }
 
-.btn-base.btn--primary:hover,
-.dark .btn-base.btn--primary:hover {
-  background: var(--primary-btn-bg);
-  filter: brightness(110%);
-}
-
-.btn-base.btn--primary.active,
-.dark .btn-base.btn--primary.active {
+.btn-base.btn--primary.active {
   background: var(--primary-btn-bg-active);
-}
-
-.btn-base.btn--primary.active:hover,
-.dark .btn-base.btn--primary.active:hover {
-  background: var(--primary-btn-bg-active);
-  filter: brightness(110%);
 }
 
 .btn-base.disabled,
 .btn-base.disabled:hover {
-  background: var(--gray-300);
+  background: var(--btn-bg-disabled);
   cursor: not-allowed;
   transform: none;
 }
@@ -161,6 +147,5 @@ if (props.href && !props.disabled) {
 .dark .btn-base.disabled,
 .dark .btn-base.disabled:hover {
   color: var(--gray-400);
-  background: var(--gray-600);
 }
 </style>

@@ -4,13 +4,17 @@ body: |
   title: ""
   description: ""
   siteTitle: ""
+  publisher:
+    name: "..."
+    url: "${config.siteUrl}/${localeIndex}"
+    logo: "${config.siteUrl}/img/home-logo.webp"
   footer:
     message: "Copying is allowed only with a link to the source."
     copyright: "Copyright © 2024-present ..."
   nav:
     - text: "❤️ ${t.donate}"
-      link: "/${localeIndex}/page/links"
-    - text: "📖 ${t.wiki}"
-      link: "${localeIndex}/doc"
-    - text: "📢 ${t.socialMedia}"
       link: "/${localeIndex}/page/donate"
+    - text: "📖 Project"
+      link: "${localeIndex}/doc"
+    - text: "📢 Social media"
+      link: "/${localeIndex}/page/links"

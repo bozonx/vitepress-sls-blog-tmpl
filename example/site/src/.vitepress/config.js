@@ -1,13 +1,17 @@
+import path from 'node:path'
 import { defineConfig } from 'vitepress'
 import { mergeSiteConfig } from 'vitepress-sls-blog-tmpl/siteConfigBase.js'
 import { loadSiteLocale } from 'vitepress-sls-blog-tmpl/siteConfigHelper.js'
 
 export default async () => {
   const config = defineConfig({
-    hostname: 'https://',
+    srcDir: path.resolve(__dirname, '../'),
+    siteUrl: 'https://...',
+    repo: 'https://github.com/...',
     themeConfig: {
-      repo: 'https://github.com/',
       logo: '/img/logo.svg',
+
+      // specific for this site
       blogUrl: '',
     },
     head: [
@@ -16,7 +20,8 @@ export default async () => {
     ],
   })
 
-  const en = await loadSiteLocale('en', __filename, config)
-
-  return mergeSiteConfig({ ...config, locales: { en } })
+  return mergeSiteConfig({
+    ...config,
+    locales: { en: await loadSiteLocale('en', config) },
+  })
 }

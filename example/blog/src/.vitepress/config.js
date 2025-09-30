@@ -9,8 +9,8 @@ export default async () => {
   const config = defineConfig({
     srcDir: path.resolve(__dirname, '../'),
     siteUrl: 'https://myblog.org',
+    repo: 'https://github.com/...',
     themeConfig: {
-      repo: 'https://github.com/...',
       perPage: PER_PAGE,
       sidebarLogoSrc: '/img/sidebar-logo.webp',
 

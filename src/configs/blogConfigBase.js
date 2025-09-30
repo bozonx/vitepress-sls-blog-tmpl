@@ -63,7 +63,7 @@ export const common = {
     similarPostsCount: 5,
     homeBgParalaxOffset: 300,
     paginationMaxItems: 7,
-    // show author in post list if the blog have authors
+    // show author in post list
     showAuthorInPostList: true,
 
     // use for popular posts

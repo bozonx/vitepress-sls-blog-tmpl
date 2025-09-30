@@ -7,8 +7,8 @@ const { frontmatter, theme } = useData()
 const themeAuthor = frontmatter.value.authorId
   ? theme.value.authors?.find((item) => item.id === frontmatter.value.authorId)
   : undefined
-const authorUrl = themeAuthor?.link
-  ? themeAuthor.link
+const authorUrl = themeAuthor?.aboutUrl
+  ? themeAuthor.aboutUrl
   : `${theme.value.authorsBaseUrl}/${frontmatter.value.authorId}/1`
 </script>
 

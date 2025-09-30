@@ -19,11 +19,13 @@ const scrollY = ref(0)
 const touchInitialX = ref(null)
 const touchInitialY = ref(null)
 const sidebarRef = ref(null)
+const gestureProcessed = ref(false)
 let resizeListener
 let scrollListener
 let touchStartListener
 let touchMoveListener
 let touchEndListener
+let touchCancelListener
 
 function onOpenDrawer() {
   sidebarRef.value.openDrawer()
@@ -33,38 +35,26 @@ function startTouch(e) {
   // Обрабатываем жесты только на мобильных устройствах
   if (!isMobile.value) return
 
-  const touchX = e.touches[0].clientX
-
-  // Для открытия меню свайпом вправо - обрабатываем только касания с левого края экрана
-  // Для закрытия меню свайпом влево - обрабатываем любые касания
-  if (touchX > 50) {
-    // Если касание не с левого края, обрабатываем только для закрытия меню
-    touchInitialX.value = e.touches[0].clientX
-    touchInitialY.value = e.touches[0].clientY
-  } else {
-    // Если касание с левого края - обрабатываем для открытия и закрытия
-    touchInitialX.value = e.touches[0].clientX
-    touchInitialY.value = e.touches[0].clientY
-  }
+  const touch = e.touches[0]
+  touchInitialX.value = touch.clientX
+  touchInitialY.value = touch.clientY
+  gestureProcessed.value = false
 }
 
 function moveTouch(e) {
   // Обрабатываем жесты только на мобильных устройствах
-  if (!isMobile.value) return
-
-  if (touchInitialX.value === null) {
+  if (!isMobile.value || touchInitialX.value === null || gestureProcessed.value)
     return
-  }
 
-  const currentX = e.touches[0].clientX
-  const currentY = e.touches[0].clientY
+  const touch = e.touches[0]
+  const currentX = touch.clientX
+  const currentY = touch.clientY
   const dx = currentX - touchInitialX.value
   const dy = currentY - touchInitialY.value
 
   // Проверяем, что движение достаточно горизонтальное (не вертикальное)
   if (Math.abs(dy) > Math.abs(dx)) {
-    touchInitialX.value = null
-    touchInitialY.value = null
+    resetTouch()
     return
   }
 
@@ -72,25 +62,37 @@ function moveTouch(e) {
     return
   }
 
+  // Помечаем жест как обработанный, чтобы избежать повторных вызовов
+  gestureProcessed.value = true
+
   // Определяем направление свайпа
   if (dx > 0) {
-    // Свайп вправо - открываем меню только если начали с левого края
+    // Свайп вправо - открываем меню только если начали с левого края экрана
     if (touchInitialX.value <= 50 && sidebarRef.value) {
-      // Предотвращаем прокрутку страницы только при успешном свайпе для открытия меню
-      e.preventDefault()
+      // Проверяем, можно ли отменить событие
+      if (e.cancelable) {
+        e.preventDefault()
+      }
       sidebarRef.value.openDrawer()
+      resetTouch()
     }
   } else {
     // Свайп влево - закрываем меню
     if (sidebarRef.value) {
-      // Предотвращаем прокрутку страницы только при успешном свайпе для закрытия меню
-      e.preventDefault()
+      // Проверяем, можно ли отменить событие
+      if (e.cancelable) {
+        e.preventDefault()
+      }
       sidebarRef.value.handleLeftSwipe()
+      resetTouch()
     }
   }
+}
 
+function resetTouch() {
   touchInitialX.value = null
   touchInitialY.value = null
+  gestureProcessed.value = false
 }
 
 onMounted(() => {
@@ -109,19 +111,17 @@ onMounted(() => {
   })
 
   touchStartListener = window.addEventListener('touchstart', startTouch, {
-    passive: false,
+    passive: true,
   })
   touchMoveListener = window.addEventListener('touchmove', moveTouch, {
     passive: false,
   })
-  touchEndListener = window.addEventListener(
-    'touchend',
-    () => {
-      touchInitialX.value = null
-      touchInitialY.value = null
-    },
-    { passive: false }
-  )
+  touchEndListener = window.addEventListener('touchend', resetTouch, {
+    passive: true,
+  })
+  touchCancelListener = window.addEventListener('touchcancel', resetTouch, {
+    passive: true,
+  })
 })
 onUnmounted(() => {
   if (!inBrowser) return
@@ -131,6 +131,7 @@ onUnmounted(() => {
   window.removeEventListener('touchstart', touchStartListener)
   window.removeEventListener('touchmove', touchMoveListener)
   window.removeEventListener('touchend', touchEndListener)
+  window.removeEventListener('touchcancel', touchCancelListener)
 })
 </script>
 

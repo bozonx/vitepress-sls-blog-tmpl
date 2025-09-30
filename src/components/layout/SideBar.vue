@@ -62,10 +62,11 @@ const openDrawer = () => {
 
   drawerOpen.value = true
 
+  // Используем небольшую задержку для гарантированной анимации
   setTimeout(() => {
     animationLeftPx.value = 0
     backdropOpacity.value = 1
-  })
+  }, 10)
 }
 
 const closeDrawer = () => {
@@ -99,10 +100,9 @@ watchEffect(async () => {
     <div
       :style="{
         left: props.isMobile ? `${animationLeftPx}px` : '0',
-        'transition-duration': `${animationTimeMs}ms`,
         width: `${SIDEBAR_WIDTH}px`,
       }"
-      class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit transition-left app-drawer"
+      class="max-lg:overflow-y-auto max-lg:overflow-x-clip max-lg:fixed lg:h-fit app-drawer"
     >
       <div>
         <a
@@ -162,11 +162,8 @@ watchEffect(async () => {
     </div>
     <div
       @click="closeDrawer"
-      :style="{
-        opacity: backdropOpacity,
-        'transition-duration': `${animationTimeMs}ms`,
-      }"
-      class="transition-opacity lg:hidden app-drawer-backdrop"
+      :style="{ opacity: backdropOpacity }"
+      class="lg:hidden app-drawer-backdrop"
     >
       <div class="sidebar-closebtn-wrapper">
         <button
@@ -189,6 +186,7 @@ watchEffect(async () => {
   z-index: 10;
   top: 0;
   bottom: 0;
+  transition: left 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .app-drawer-backdrop {
@@ -200,6 +198,7 @@ watchEffect(async () => {
   background: var(--backdrop-bg);
   z-index: 9;
   cursor: pointer;
+  transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-closebtn-wrapper {

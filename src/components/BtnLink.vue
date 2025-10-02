@@ -1,27 +1,11 @@
 <script setup>
-import { computed } from 'vue'
 import Btn from './Btn.vue'
 
-const props = defineProps([
-  'id',
-  'class',
-  'href',
-  'title',
-  'target',
-  'icon',
-  'text',
-  'disabled',
-  'iconClass',
-  'hideExternalIcon',
-])
-
-const bindProps = computed(() => {
-  return { ...props, class: ['btn-link', props.class] }
-})
+const props = defineProps(['class'])
 </script>
 
 <template>
-  <Btn v-bind="bindProps">
+  <Btn v-bind="$attrs" :class="['btn-link', props.class]">
     <slot />
   </Btn>
 </template>

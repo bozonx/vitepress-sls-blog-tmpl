@@ -4,31 +4,21 @@ import { useData } from 'vitepress'
 import { isExternalUrl } from '../helpers/helpers.js'
 import BaseLink from './BaseLink.vue'
 
-const props = defineProps([
-  'id',
-  'class',
-  'title',
-  'href',
-  'target',
-  'rel',
-  'hideExternalIcon',
-])
+const props = defineProps(['class', 'href', 'hideExternalIcon'])
+
 const { theme } = useData()
 const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
-const bindProps = computed(() => {
-  return {
-    ...props,
-    class: [
-      'simple-link',
-      theme.externalLinkIcon && isExternal && 'external-link',
-      props.class,
-    ],
-  }
-})
 </script>
 
 <template>
-  <BaseLink v-bind="bindProps">
+  <BaseLink
+    v-bind="$attrs"
+    :class="[
+      'simple-link',
+      theme.externalLinkIcon && isExternal && 'external-link',
+      props.class,
+    ]"
+  >
     <slot />
   </BaseLink>
 </template>

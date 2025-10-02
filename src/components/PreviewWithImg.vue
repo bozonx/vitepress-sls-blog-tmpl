@@ -16,10 +16,7 @@ const props = defineProps([
 
 <template>
   <div class="md:flex w-full">
-    <div
-      v-if="props.thumbnail"
-      class="md:mr-4 card-item-img-col max-md:w-full!"
-    >
+    <div v-if="props.thumbnail" class="card-item-img-col">
       <img
         :src="props.thumbnail"
         :height="coverHeight"

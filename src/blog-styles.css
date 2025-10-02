@@ -73,9 +73,23 @@ button {
   color: var(--link-a-visited);
 }
 
+.card-item-author-date {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .card-item-img-col {
   width: var(--list-item-thumb-width);
   flex-shrink: 0;
+  /* Стили для больших экранов (md и выше) */
+  margin-right: 1rem; /* md:mr-4 */
+}
+
+/* На мобильных устройствах (max-md) */
+@media (max-width: 767px) {
+  .card-item-img-col {
+    width: 100% !important; /* max-md:w-full! */
+  }
 }
 
 .card-item-img-col img {
@@ -102,12 +116,6 @@ button {
     width: 280px;
     /* Высота будет установлена через атрибут height */
   }
-}
-
-/**** Preview item */
-.card-item-author-date {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 /**** Sidebar item icon fix */

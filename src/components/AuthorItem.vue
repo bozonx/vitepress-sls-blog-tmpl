@@ -7,10 +7,7 @@
 
     <div class="md:flex w-full">
       <!-- Картинка автора -->
-      <div
-        v-if="props.item.image"
-        class="md:mr-4 card-item-img-col max-md:w-full!"
-      >
+      <div v-if="props.item.image" class="card-item-img-col">
         <img
           :src="props.item.image"
           :height="props.item.imageHeight"
@@ -23,7 +20,7 @@
       </div>
 
       <!-- Описание автора -->
-      <div class="max-md:mt-5 flex-1 card-item-content">
+      <div class="max-md:mt-5 flex-1 author-content">
         <p v-if="props.item.description" class="card-item-description">
           {{ props.item.description }}
         </p>

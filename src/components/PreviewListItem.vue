@@ -54,7 +54,7 @@ const params = computed(() => ({
 }
 
 .dark .preview:hover {
-  filter: brightness(110%);
+  filter: brightness(107%);
 }
 
 .preview h2 {

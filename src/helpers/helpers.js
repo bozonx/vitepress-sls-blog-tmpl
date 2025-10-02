@@ -63,6 +63,38 @@ export function makeHumanDate(rawDate, lang, toTimeZone = 'UTC') {
   return new Date(rawDate).toLocaleDateString(lang, options)
 }
 
+/**
+ * Обрабатывает URL-адреса для многоязычных сайтов, добавляя префикс языка к
+ * внутренним ссылкам
+ *
+ * Функция анализирует входящую ссылку и в зависимости от её типа:
+ *
+ * - Для главной страницы (/) возвращает /{localeIndex}
+ * - Для внешних ссылок возвращает исходную ссылку без изменений
+ * - Для внутренних ссылок добавляет префикс языка в формате /{localeIndex}/{path}
+ * - Для ссылок, уже содержащих префикс языка, возвращает без изменений
+ *
+ * @example
+ *   // Главная страница
+ *   resolveI18Href('/', 'en', true) // → '/en'
+ *
+ * @example
+ *   // Внутренняя ссылка
+ *   resolveI18Href('about', 'ru', true) // → '/ru/about'
+ *
+ * @example
+ *   // Внешняя ссылка
+ *   resolveI18Href('https://example.com', 'en', true) // → 'https://example.com'
+ *
+ * @example
+ *   // Ссылка уже с префиксом
+ *   resolveI18Href('/contact', 'en', true) // → '/contact'
+ *
+ * @param {string} rawHref - Исходная ссылка для обработки
+ * @param {string} localeIndex - Индекс языка (например, 'en', 'ru')
+ * @param {boolean} i18nRouting - Включена ли интернационализация маршрутизации
+ * @returns {string} Обработанная ссылка с учетом языка или исходная ссылка
+ */
 export function resolveI18Href(rawHref, localeIndex, i18nRouting) {
   const trimmed = String(rawHref).trim()
 

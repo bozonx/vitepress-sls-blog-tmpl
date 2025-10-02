@@ -37,6 +37,7 @@ export default {
     allPostsOfAuthor: 'Посты автора',
     closeMenu: 'Закрыть меню',
     allPostsOfYear: 'Все посты за год',
+    postsCount: 'Постов',
 
     links: {
       aboutBlog: 'Об этом блоге',

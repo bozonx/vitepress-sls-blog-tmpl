@@ -20,13 +20,6 @@
           :alt="props.item.name"
           class="w-full rounded"
         />
-
-        <div class="mt-2 space-x-2 muted author-count">
-          <span
-            >{{ props.item.count }}
-            {{ props.item.count === 1 ? 'post' : 'posts' }}</span
-          >
-        </div>
       </div>
 
       <!-- Описание автора -->
@@ -36,11 +29,8 @@
         </p>
 
         <!-- Счетчик постов для случая без картинки -->
-        <div v-if="!props.item.image" class="mt-4 space-x-2 muted author-count">
-          <span
-            >{{ props.item.count }}
-            {{ props.item.count === 1 ? 'post' : 'posts' }}</span
-          >
+        <div class="mt-4 space-x-2 muted author-count">
+          <span>{{ theme.t.postsCount }}: {{ props.item.count }}</span>
         </div>
       </div>
     </div>

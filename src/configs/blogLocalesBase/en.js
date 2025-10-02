@@ -36,6 +36,7 @@ export default {
     allPostsOfAuthor: 'Posts of the author',
     closeMenu: 'Close menu',
     allPostsOfYear: 'All posts of the year',
+    postsCount: 'Posts',
 
     links: {
       aboutBlog: 'About This Blog',

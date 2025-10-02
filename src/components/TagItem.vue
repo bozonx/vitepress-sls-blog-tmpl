@@ -49,4 +49,8 @@ const className =
 .tag-item:hover {
   filter: brightness(115%);
 }
+
+.dark .tag-item:hover {
+  filter: brightness(110%);
+}
 </style>

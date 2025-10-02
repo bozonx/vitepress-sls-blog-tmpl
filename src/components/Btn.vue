@@ -78,7 +78,7 @@ if (props.href && !props.disabled) {
   </BaseLink>
 </template>
 
-<style scoped>
+<style>
 /* .btn-base__external {
   padding-left: 0.25rem;
   font-size: 13px;

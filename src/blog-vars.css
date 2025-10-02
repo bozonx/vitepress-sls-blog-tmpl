@@ -17,6 +17,7 @@
   --gray-500: hsl(var(--layout-hue), 8.94%, 46.08%);
   --gray-600: hsl(var(--layout-hue), 13.79%, 34.12%);
   --gray-700: hsl(var(--layout-hue), 19.12%, 26.67%);
+  /* --gray-750: hsl(var(--layout-hue), 21%, 24%); */
   --gray-770: hsl(var(--layout-hue), 24%, 22%);
   --gray-790: hsl(var(--layout-hue), 25.6%, 18.4%);
   --gray-800: hsl(var(--layout-hue), 27.91%, 16.86%);

@@ -18,7 +18,7 @@ const props = defineProps(['class'])
 <style scoped>
 /**** Lighter Btn for use on lighter background */
 .menu-item {
-  border: 0 none;
+  border: 0 none !important;
   padding: 0.625rem 1.125rem;
   border-radius: 0;
   width: 100%;
@@ -29,7 +29,7 @@ const props = defineProps(['class'])
 }
 
 .dark .menu-item:hover {
-  filter: brightness(115%);
+  filter: brightness(110%);
 }
 
 .menu-item.active {
@@ -41,7 +41,7 @@ const props = defineProps(['class'])
 }
 
 .dark .menu-item.active:hover {
-  filter: brightness(110%);
+  filter: brightness(107%);
 }
 
 .menu-item :deep(.btn-base-inner) {

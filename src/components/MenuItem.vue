@@ -16,13 +16,7 @@ const props = defineProps([
   'activeCompareMethod',
 ])
 const bindProps = computed(() => {
-  return {
-    ...props,
-    class: [
-      'pr-2 pl-3 py-3 font-normal  rounded-none menu-item w-full',
-      props.class,
-    ],
-  }
+  return { ...props, class: ['menu-item', props.class] }
 })
 </script>
 
@@ -36,6 +30,9 @@ const bindProps = computed(() => {
 /**** Lighter Btn for use on lighter background */
 .menu-item {
   border: 0 none;
+  padding: 0.625rem 1.125rem;
+  border-radius: 0;
+  width: 100%;
 }
 
 .menu-item:hover,

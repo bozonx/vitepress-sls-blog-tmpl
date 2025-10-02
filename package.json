@@ -19,6 +19,7 @@
     "./utils.js": "./src/helpers/utils.js",
     "./blogConfigHelper.js": "./src/helpers/blogConfigHelper.js",
     "./siteConfigHelper.js": "./src/helpers/siteConfigHelper.js",
+    "./resolveTranslations.js": "./src/helpers/resolveTranslations.js",
     "./imageHelpers.js": "./src/helpers/imageHelpers.js",
     "./loadPosts.js": "./src/list-helpers/loadPosts.js",
     "./makeListParams.js": "./src/list-helpers/makeListParams.js",

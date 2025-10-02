@@ -132,6 +132,16 @@ button {
 }
 
 /* Стили для figure элементов, созданных плагином mdImage */
+.lightbox img {
+  /* Можно использовать data-атрибуты для дополнительной стилизации */
+  transition: transform 0.2s ease-in-out;
+}
+
+.lightbox img:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
 .content-page figure {
   /* margin-top: 1.5rem;
   margin-bottom: 1.7rem; */
@@ -147,17 +157,6 @@ button {
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-/* Стили для изображений с data-атрибутами размеров */
-.content-page figure img {
-  /* Можно использовать data-атрибуты для дополнительной стилизации */
-  transition: transform 0.2s ease-in-out;
-}
-
-.content-page figure img:hover {
-  transform: scale(1.02);
-  cursor: pointer;
 }
 
 .content-page figure figcaption {

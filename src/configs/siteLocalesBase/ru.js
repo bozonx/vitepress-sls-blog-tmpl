@@ -12,7 +12,16 @@ export default {
     lastUpdated: { text: 'Последнее обновление' },
     editLink: { text: 'Редактировать эту страницу на GitHub' },
   },
-  t: { donate: 'Донат' },
+  t: {
+    donate: 'Донат',
+    lightbox: {
+      prev: 'Предыдущее',
+      next: 'Следующее',
+      close: 'Закрыть',
+      dialogTitle: 'Изображение',
+      loadingIndicatorLabel: 'Загрузка...',
+    },
+  },
   search: {
     options: {
       locales: {

@@ -1,9 +1,9 @@
 <template>
   <a
     :href="`/${localeIndex}/${theme.authorsBaseUrl}/${props.item.id}/1`"
-    class="mb-5 px-5 py-5 author-preview"
+    class="mb-5 px-5 py-5 card-item author-preview"
   >
-    <h2 class="mb-3 text-2xl tracking-tight">{{ props.item.name }}</h2>
+    <h2 class="card-item-header">{{ props.item.name }}</h2>
 
     <div class="md:flex w-full">
       <!-- Картинка автора -->
@@ -56,37 +56,6 @@ const { theme, localeIndex } = useData()
 </script>
 
 <style scoped>
-.author-preview {
-  display: block;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.005);
-  border: 2px solid var(--gray-200);
-  border-radius: 0.6rem;
-  line-height: 1.4;
-  font-weight: 400;
-}
-
-.dark .author-preview {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: var(--gray-800);
-}
-
-.author-preview:hover {
-  filter: brightness(92%);
-}
-
-.dark .author-preview:hover {
-  filter: brightness(107%);
-}
-
-.author-preview h2 {
-  font-weight: bold;
-}
-
-.author-preview:visited h2 {
-  color: var(--link-a-visited);
-}
-
 .author-img-col {
   width: var(--list-item-thumb-width);
   flex-shrink: 0;

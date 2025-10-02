@@ -37,6 +37,42 @@ button {
   cursor: pointer;
 }
 
+/**** Card item */
+.card-item {
+  display: block;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.005);
+  border: 2px solid var(--gray-200);
+  border-radius: 0.6rem;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.dark .card-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--gray-800);
+}
+
+.card-item:hover {
+  filter: brightness(92%);
+}
+
+.dark .card-item:hover {
+  filter: brightness(107%);
+}
+
+.card-item .card-item-header {
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: -0.025em;
+}
+
+.card-item:visited .card-item-header {
+  color: var(--link-a-visited);
+}
+
 /**** Sidebar item icon fix */
 .sidebar-link .btn-base__icon-container {
   min-width: 20px;

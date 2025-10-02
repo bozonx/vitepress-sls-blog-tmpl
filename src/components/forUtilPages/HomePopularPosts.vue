@@ -40,8 +40,8 @@ const showMorePosts = localePosts.length > theme.value.perPage
   position: relative;
 }
 
-.dark .home-popular-posts .preview,
-.home-popular-posts .preview {
+.dark .home-popular-posts .card-item,
+.home-popular-posts .card-item {
   background: rgba(0, 0, 0, 0.27);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
@@ -54,8 +54,8 @@ const showMorePosts = localePosts.length > theme.value.perPage
 }
 
 /* Эффекты при наведении */
-.dark .home-popular-posts .preview:hover,
-.home-popular-posts .preview:hover {
+.dark .home-popular-posts .card-item:hover,
+.home-popular-posts .card-item:hover {
   background: rgba(0, 0, 0, 0.4);
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.4),

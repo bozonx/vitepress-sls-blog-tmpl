@@ -19,8 +19,8 @@ const params = computed(() => ({
 </script>
 
 <template>
-  <a :href="props.item.url" class="mb-5 px-5 py-5 preview">
-    <h2 class="mb-3 text-2xl tracking-tight">{{ props.item.title }}</h2>
+  <a :href="props.item.url" class="mb-5 px-5 py-5 card-item preview">
+    <h2 class="card-item-header">{{ props.item.title }}</h2>
 
     <PreviewWithImg
       v-if="item.thumbnail"
@@ -32,36 +32,3 @@ const params = computed(() => ({
     <PreviewNoImg v-else v-bind="params" />
   </a>
 </template>
-
-<style scoped>
-.preview {
-  display: block;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.005);
-  border: 2px solid var(--gray-200);
-  border-radius: 0.6rem;
-  line-height: 1.4;
-  font-weight: 400;
-}
-
-.dark .preview {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: var(--gray-800);
-}
-
-.preview:hover {
-  filter: brightness(92%);
-}
-
-.dark .preview:hover {
-  filter: brightness(107%);
-}
-
-.preview h2 {
-  font-weight: bold;
-}
-
-.preview:visited h2 {
-  color: var(--link-a-visited);
-}
-</style>

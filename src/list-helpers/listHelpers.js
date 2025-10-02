@@ -93,24 +93,26 @@ export function makePostOfMonthList(allPosts = [], year, month) {
 export function makeAuthorsList(allPosts = [], allAuthors = []) {
   const authorPosts = {}
 
+  // Инициализируем счетчики постов для всех авторов
   for (const item of allAuthors) {
     authorPosts[item.id] = 0
   }
 
+  // Подсчитываем количество постов для каждого автора
   for (const item of allPosts) {
     if (typeof authorPosts[item.authorId] === 'number') {
       authorPosts[item.authorId]++
     }
   }
 
-  const res = Object.keys(authorPosts).map((id) => ({
-    id,
-    name: allAuthors.find((item) => item.id === id)?.name,
-    count: authorPosts[id],
-  }))
+  // Создаем результирующий массив с полной информацией об авторах
+  const res = Object.keys(authorPosts).map((id) => {
+    const author = allAuthors.find((item) => item.id === id)
+    return { ...author, count: authorPosts[id] }
+  })
 
-  // sort by name
-  res.sort((a, b) => b.name - a.name)
+  // Сортируем по имени (по алфавиту)
+  res.sort((a, b) => (a.name || '').localeCompare(b.name || ''))
 
   return res
 }

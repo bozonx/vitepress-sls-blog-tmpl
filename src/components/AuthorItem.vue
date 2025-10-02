@@ -53,6 +53,8 @@ import { PHONE_BREAKPOINT } from '../constants.js'
 
 const props = defineProps(['item'])
 const { theme, localeIndex } = useData()
+
+console.log(props.item)
 </script>
 
 <style scoped>

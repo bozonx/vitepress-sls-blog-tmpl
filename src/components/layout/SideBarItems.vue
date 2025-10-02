@@ -1,8 +1,8 @@
 <script setup>
-import SideBarHeader from "./SideBarHeader.vue";
-import SideBarLink from "./SideBarLink.vue";
+import SideBarHeader from './SideBarHeader.vue'
+import MenuItem from '../MenuItem.vue'
 
-const props = defineProps(["items", "isMobile"]);
+const props = defineProps(['items', 'isMobile'])
 </script>
 
 <template>
@@ -16,7 +16,12 @@ const props = defineProps(["items", "isMobile"]);
           :icon="item.icon"
           :class="item.class"
         />
-        <SideBarLink v-else v-bind="item" />
+        <MenuItem
+          v-else
+          v-bind="item"
+          iconClass="muted"
+          activeCompareMethod="softPagination"
+        />
       </li>
     </template>
   </ul>

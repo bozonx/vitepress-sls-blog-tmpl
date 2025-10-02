@@ -37,6 +37,8 @@ button {
   cursor: pointer;
 }
 
+/**** External link icon */
+
 .external-link {
   position: relative;
 }
@@ -66,30 +68,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/**** Lighter Btn for use on lighter background */
-.btn-lighter:hover,
-.btn-lighter.btn--nobg:hover {
-  background: var(--btn-bg);
-  filter: brightness(99%);
-}
-
-.btn-lighter.active,
-.btn-lighter.btn--nobg.active {
-  background: var(--btn-bg-active);
-}
-
-.btn-lighter.active:hover {
-  filter: brightness(103%);
-}
-
-.dark .btn-lighter:hover {
-  filter: brightness(125%);
-}
-
-.dark .btn-lighter.active:hover {
-  filter: brightness(110%);
 }
 
 /**** Preview item */

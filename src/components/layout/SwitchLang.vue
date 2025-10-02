@@ -4,7 +4,7 @@ import { useData } from 'vitepress'
 import { useLangs } from 'vitepress/dist/client/theme-default/composables/langs.js'
 
 import DropdownButton from '../DropdownButton.vue'
-import DropdownItem from '../DropdownItem.vue'
+import MenuItem from '../MenuItem.vue'
 import { Icon } from '@iconify/vue'
 
 const { theme } = useData()
@@ -42,22 +42,22 @@ const resolveLink = (link) => {
       </span>
     </template>
     <template v-for="locale in localeLinks">
-      <DropdownItem
+      <MenuItem
         v-if="!locale.text"
         :key="locale.link + 'disabled'"
         disabled="true"
         :title="theme.t.currentLang"
       >
         {{ currentLang.label }}
-      </DropdownItem>
-      <DropdownItem
+      </MenuItem>
+      <MenuItem
         v-else
         target="_self"
         :key="locale.link"
         :href="resolveLink(locale.link)"
       >
         {{ locale.text }}
-      </DropdownItem>
+      </MenuItem>
     </template>
   </DropdownButton>
 </template>

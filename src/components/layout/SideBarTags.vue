@@ -30,7 +30,7 @@ const showAllTags = allTags.length > theme.value.sidebarTagsCount
 const emit = defineEmits(['itemClick'])
 </script>
 
-<style>
+<style scoped>
 .side-bar-tags {
   padding: 0 0.25rem 0 0.75rem;
 }
@@ -39,7 +39,9 @@ const emit = defineEmits(['itemClick'])
   column-gap: 4px;
   row-gap: 12px;
 }
+</style>
 
+<style>
 .side-bar-tags .tag-item {
   padding: 3px 9px;
 }

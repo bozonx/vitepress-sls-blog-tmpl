@@ -39,7 +39,7 @@ const { theme, localeIndex } = useData()
 const props = defineProps(['firstLine', 'secondLine', 'buttons', 'img'])
 </script>
 
-<style>
+<style scoped>
 .home-logo {
   display: flex;
   justify-content: center;

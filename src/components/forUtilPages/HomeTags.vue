@@ -20,11 +20,13 @@ const tagList = makeTagsList(localePosts)
   <TagsList :tags="tagList" class="mb-12 home-hero-tags" />
 </template>
 
-<style>
+<style scoped>
 .home-hero-tags-header {
   text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.8);
 }
+</style>
 
+<style>
 .home-hero-tags .tag-item {
   box-shadow: 8px 8px 20px 0px rgba(0, 0, 0, 0.3);
 }

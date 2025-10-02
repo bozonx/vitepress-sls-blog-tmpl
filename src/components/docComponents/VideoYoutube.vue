@@ -22,7 +22,7 @@ const props = defineProps({ id: { type: String, required: true } })
 const url = computed(() => `https://www.youtube.com/embed/${props.id}`)
 </script>
 
-<style>
+<style scoped>
 .video-responsive {
   margin-top: 1em;
   overflow: hidden;
@@ -30,6 +30,7 @@ const url = computed(() => `https://www.youtube.com/embed/${props.id}`)
   position: relative;
   height: 0;
 }
+
 .video-responsive iframe {
   left: 0;
   top: 0;

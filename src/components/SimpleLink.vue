@@ -23,7 +23,7 @@ const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
   </BaseLink>
 </template>
 
-<style>
+<style scoped>
 .simple-link {
   text-decoration: underline;
   color: var(--link-a-text);

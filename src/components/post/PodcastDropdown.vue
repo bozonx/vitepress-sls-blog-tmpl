@@ -37,11 +37,13 @@ const btnText =
   </DropdownButton>
 </template>
 
-<style>
+<style scoped>
 .podcasts-btn {
   width: fit-content;
 }
+</style>
 
+<style>
 .podcasts-btn > .btn-base {
   background: var(--podcast-btn-bg) !important;
   color: white;

@@ -91,7 +91,7 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
   </ul>
 </template>
 
-<style>
+<style scoped>
 .pagination-btn {
   padding: 0.35rem 1rem;
 }

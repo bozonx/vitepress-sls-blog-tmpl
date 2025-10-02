@@ -10,7 +10,7 @@ const props = defineProps(['class'])
   </Btn>
 </template>
 
-<style>
+<style scoped>
 .btn-link {
   padding: 0;
   background: transparent !important;

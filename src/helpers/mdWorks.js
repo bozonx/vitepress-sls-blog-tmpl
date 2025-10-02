@@ -15,12 +15,27 @@ export function stripMd(mdContent) {
 export function mdToHtml(mdContent) {
   if (!mdContent) return mdContent
 
-  return remark()
+  // Проверяем, содержит ли markdown только один абзац
+  const paragraphs = mdContent
+    .trim()
+    .split(/\n\s*\n/)
+    .filter((p) => p.trim())
+
+  // Обрабатываем markdown в HTML
+  const processed = remark()
     .use(remarkRehype)
     .use(rehypeExternalLinks, { target: '_blank', rel: [] })
     .use(html)
     .processSync(mdContent)
     .toString()
+
+  // Если только один абзац, убираем теги <p> и </p>
+  if (paragraphs.length === 1) {
+    return processed.replace(/^<p>|<\/p>$/g, '')
+  }
+
+  // Возвращаем стандартную обработку для нескольких абзацев
+  return processed
 }
 
 export function parseMdFile(rawContent) {

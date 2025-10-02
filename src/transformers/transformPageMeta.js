@@ -7,8 +7,6 @@ export function transformPageMeta(pageData, ctx) {
   if (!isPost(pageData.frontmatter)) return
 
   pageData.frontmatter.coverDescr = mdToHtml(pageData.frontmatter.coverDescr)
-    ?.replace(/^\<p\>/, '')
-    .replace(/\<\/p\>$/, '')
 
   pageData.frontmatter.tags = pageData.frontmatter.tags?.map((item) => ({
     name: item,

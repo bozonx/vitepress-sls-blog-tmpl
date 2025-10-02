@@ -136,7 +136,7 @@ watchEffect(async () => {
             />
           </SideBarGroup>
 
-          <SideBarGroup>
+          <SideBarGroup v-if="theme.sideBar.tags">
             <SideBarTags :localePosts="localePosts" @itemClick="closeDrawer" />
           </SideBarGroup>
 

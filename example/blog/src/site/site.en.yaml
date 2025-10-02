@@ -66,6 +66,8 @@ body: |
     rssFeed: true
     # Show atom feed in the bottom of the side bar. Default is false.
     atomFeed: true
+    # Show tags in the side bar. Default is false.
+    tags: true
     socialLinks:
       - icon: 'fa6-brands:github-alt'
         href: "${config.repo}"

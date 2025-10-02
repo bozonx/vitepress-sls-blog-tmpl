@@ -51,7 +51,7 @@ if (props.href && !props.disabled) {
     ]"
     :activeCompareMethod="props.activeCompareMethod"
   >
-    <span class="flex items-center gap-x-2">
+    <span class="flex items-center gap-x-2 btn-base-inner">
       <span
         v-if="props.icon"
         aria-hidden="true"

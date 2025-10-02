@@ -20,7 +20,8 @@ export function makePreviewItem(filePath) {
   const { frontmatter, content } = parseMdFile(rawContent)
   let preview = resolvePreview(frontmatter, content)
   // make preview from content as description
-  if (!preview) preview = extractDescriptionFromMd(content, PREVIEW_LENGTH)
+  if (!preview)
+    preview = extractDescriptionFromMd(content, PREVIEW_LENGTH, false)
 
   // Получаем размеры изображения если оно есть
   let coverDimensions = null

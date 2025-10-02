@@ -29,10 +29,10 @@ export function parseMdFile(rawContent) {
   return { frontmatter: data, content }
 }
 
-export function extractDescriptionFromMd(rawContent, maxLength) {
+export function extractDescriptionFromMd(rawContent, maxLength, markAtTheEnd) {
   const { content } = parseMdFile(rawContent)
   const mdContentNoHeader = removeTitleFromMd(content)
   const striped = stripMd(mdContentNoHeader)
 
-  return smartTruncate(striped, maxLength, { respectWords: true })
+  return smartTruncate(striped, maxLength, { respectWords: true, markAtTheEnd })
 }

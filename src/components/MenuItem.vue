@@ -44,15 +44,11 @@ const props = defineProps(['class'])
   filter: brightness(110%);
 }
 
-.menu-item {
-  transition: all 0.2s ease-in-out;
-}
-
 .menu-item :deep(.flex) {
   transition: transform 0.2s ease-in-out;
 }
 
-.menu-item:hover :deep(.flex) {
+.menu-item:not([disabled]):hover :deep(.flex) {
   transform: translateX(4px);
 }
 </style>

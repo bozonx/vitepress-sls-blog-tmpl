@@ -2,7 +2,7 @@
 import { useData } from 'vitepress'
 import { inject } from 'vue'
 import { makeAuthorsList } from '../../list-helpers/listHelpers.js'
-import ListItemWithBadge from '../ListItemWithBadge.vue'
+import AuthorItem from '../AuthorItem.vue'
 import UtilPageHeader from './UtilPageHeader.vue'
 
 const props = defineProps(['localePosts'])
@@ -17,11 +17,7 @@ const authorsList = makeAuthorsList(localePosts, theme.value.authors)
   <ul v-if="authorsList.length">
     <template v-for="item in authorsList">
       <li v-if="item.count">
-        <ListItemWithBadge
-          :href="`${theme.authorsBaseUrl}/${item.id}/1`"
-          :text="item.name"
-          :count="item.count"
-        />
+        <AuthorItem :item="item" />
       </li>
     </template>
   </ul>

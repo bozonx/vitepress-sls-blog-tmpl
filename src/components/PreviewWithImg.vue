@@ -16,7 +16,10 @@ const props = defineProps([
 
 <template>
   <div class="md:flex w-full">
-    <div v-if="props.thumbnail" class="md:mr-4 preview-img-col max-md:w-full!">
+    <div
+      v-if="props.thumbnail"
+      class="md:mr-4 card-item-img-col max-md:w-full!"
+    >
       <img
         :src="props.thumbnail"
         :height="coverHeight"
@@ -28,7 +31,7 @@ const props = defineProps([
         alt=""
       />
 
-      <div class="mt-2 space-x-2 muted preview-author-date">
+      <div class="mt-2 space-x-2 muted card-item-author-date">
         <span v-if="props.authorName">{{ props.authorName }}.</span>
         <time v-if="props.date" :datetime="props.date">
           {{ props.localeDate }}
@@ -48,36 +51,3 @@ const props = defineProps([
     </p>
   </div>
 </template>
-
-<style scoped>
-.preview-img-col {
-  width: var(--list-item-thumb-width);
-  flex-shrink: 0;
-}
-
-.preview-img-col img {
-  object-fit: cover;
-  display: block;
-  max-width: 100%;
-}
-
-/* На экранах меньше 766px изображение занимает всю ширину */
-@media (max-width: 766px) {
-  .preview-img-col {
-    width: 100%;
-  }
-
-  .preview-img-col img {
-    width: 100%;
-    /* Высота будет установлена через атрибут height */
-  }
-}
-
-/* На экранах больше 766px изображение имеет фиксированную ширину */
-@media (min-width: 767px) {
-  .preview-img-col img {
-    width: 280px;
-    /* Высота будет установлена через атрибут height */
-  }
-}
-</style>

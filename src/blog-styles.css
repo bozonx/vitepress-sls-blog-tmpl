@@ -73,18 +73,49 @@ button {
   color: var(--link-a-visited);
 }
 
+.card-item-img-col {
+  width: var(--list-item-thumb-width);
+  flex-shrink: 0;
+}
+
+.card-item-img-col img {
+  object-fit: cover;
+  display: block;
+  max-width: 100%;
+}
+
+/* На экранах меньше 766px изображение занимает всю ширину */
+@media (max-width: 766px) {
+  .card-item-img-col {
+    width: 100%;
+  }
+
+  .card-item-img-col img {
+    width: 100%;
+    /* Высота будет установлена через атрибут height */
+  }
+}
+
+/* На экранах больше 766px изображение имеет фиксированную ширину */
+@media (min-width: 767px) {
+  .card-item-img-col img {
+    width: 280px;
+    /* Высота будет установлена через атрибут height */
+  }
+}
+
+/**** Preview item */
+.card-item-author-date {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 /**** Sidebar item icon fix */
 .sidebar-link .btn-base__icon-container {
   min-width: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/**** Preview item */
-.preview-author-date {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 /**** Content page */

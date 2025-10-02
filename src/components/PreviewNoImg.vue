@@ -22,7 +22,7 @@ const props = defineProps([
     />
 
     <div
-      class="space-x-2 max-sm:mt-2 max-sm:mb-4 text-right muted preview-author-date"
+      class="space-x-2 max-sm:mt-2 max-sm:mb-4 text-right muted card-item-author-date"
     >
       <span v-if="props.authorName">{{ props.authorName }}.</span>
       <time v-if="props.date" :datetime="props.date">

@@ -9,7 +9,7 @@
       <!-- Картинка автора -->
       <div
         v-if="props.item.image"
-        class="md:mr-4 author-img-col max-md:w-full!"
+        class="md:mr-4 card-item-img-col max-md:w-full!"
       >
         <img
           :src="props.item.image"
@@ -23,13 +23,12 @@
       </div>
 
       <!-- Описание автора -->
-      <div class="max-md:mt-5 flex-1 author-content">
-        <p v-if="props.item.description" class="author-description">
+      <div class="max-md:mt-5 flex-1 card-item-content">
+        <p v-if="props.item.description" class="card-item-description">
           {{ props.item.description }}
         </p>
 
-        <!-- Счетчик постов для случая без картинки -->
-        <div class="mt-4 space-x-2 muted author-count">
+        <div class="mt-4 muted">
           <span>{{ theme.t.postsCount }}: {{ props.item.count }}</span>
         </div>
       </div>
@@ -46,44 +45,3 @@ const { theme, localeIndex } = useData()
 
 console.log(props.item)
 </script>
-
-<style scoped>
-.author-img-col {
-  width: var(--list-item-thumb-width);
-  flex-shrink: 0;
-}
-
-.author-img-col img {
-  object-fit: cover;
-  display: block;
-  max-width: 100%;
-}
-
-.author-description {
-  color: var(--text-color);
-  line-height: 1.6;
-}
-
-.author-count {
-  font-size: 0.9em;
-  color: var(--text-color-muted);
-}
-
-/* На экранах меньше 766px изображение занимает всю ширину */
-@media (max-width: 766px) {
-  .author-img-col {
-    width: 100%;
-  }
-
-  .author-img-col img {
-    width: 100%;
-  }
-}
-
-/* На экранах больше 766px изображение имеет фиксированную ширину */
-@media (min-width: 767px) {
-  .author-img-col img {
-    width: 280px;
-  }
-}
-</style>

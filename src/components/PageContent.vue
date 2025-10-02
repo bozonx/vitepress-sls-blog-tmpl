@@ -44,7 +44,7 @@ watchEffect(async () => {
 
     <PostImage
       :src="frontmatter.cover"
-      :descr="frontmatter.coverDescr"
+      :description="frontmatter.coverDescr"
       :alt="frontmatter.coverAlt"
       :height="frontmatter.coverHeight"
       :width="frontmatter.coverWidth"

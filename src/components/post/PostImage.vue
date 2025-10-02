@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(['src', 'descr', 'alt', 'height', 'width'])
+const props = defineProps(['src', 'description', 'alt', 'height', 'width'])
 </script>
 
 <template>
@@ -13,8 +13,8 @@ const props = defineProps(['src', 'descr', 'alt', 'height', 'width'])
       />
     </a>
     <figcaption
-      v-if="props.descr"
-      v-html="props.descr"
+      v-if="props.description"
+      v-html="props.description"
       class="vp-doc"
     ></figcaption>
   </figure>

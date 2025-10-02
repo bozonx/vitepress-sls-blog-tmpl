@@ -124,7 +124,7 @@ function createAuthorJsonLd(
     '@type': 'Person',
     name: authorName,
     url: `${siteUrl}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${authorId}/1`,
-    description: author?.descr,
+    description: author?.description,
     image: author?.image && { '@type': 'ImageObject', url: author?.image },
     sameAs: author?.links?.map((link) => link.url),
   }

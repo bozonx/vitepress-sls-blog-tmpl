@@ -20,7 +20,7 @@ body: |
   authors:
     - id: "ivan-k"
       name: "Ivan K"
-      descr: "some descr"
+      description: "some descr"
       image: "https://....webp"
       # optional. If set then it will be used instead of author page link
       # aboutUrl: "https://....com"

@@ -21,7 +21,7 @@
 
     <!-- Контент автора -->
     <div class="author-content flex-1">
-      <div class="mb-6 vp-doc" v-html="author?.descr"></div>
+      <div class="mb-6 vp-doc" v-html="author?.description"></div>
       <SocialMediaLinks v-if="author?.links" :links="author.links" />
     </div>
   </div>

@@ -22,7 +22,7 @@ export async function loadBlogLocale(localeIndex, config) {
 
     return {
       ...item,
-      descr: mdToHtml(item.descr),
+      description: mdToHtml(item.description),
       imageHeight: imageDimensions?.height,
       imageWidth: imageDimensions?.width,
     }

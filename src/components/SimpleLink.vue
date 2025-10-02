@@ -1,13 +1,14 @@
 <script setup>
-import { computed } from 'vue'
 import { useData } from 'vitepress'
+import { useAttrs } from 'vue'
 import { isExternalUrl } from '../helpers/helpers.js'
 import BaseLink from './BaseLink.vue'
 
-const props = defineProps(['class', 'href', 'hideExternalIcon'])
+const props = defineProps(['class', 'hideExternalIcon'])
+const $attrs = useAttrs()
 
 const { theme } = useData()
-const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
+const isExternal = !props.hideExternalIcon && isExternalUrl($attrs.href)
 </script>
 
 <template>

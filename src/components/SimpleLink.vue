@@ -15,7 +15,7 @@ const isExternal = !props.hideExternalIcon && isExternalUrl(props.href)
     v-bind="$attrs"
     :class="[
       'simple-link',
-      theme.externalLinkIcon && isExternal && 'external-link',
+      theme.externalLinkIcon && isExternal && 'vp-external-link-icon',
       props.class,
     ]"
   >

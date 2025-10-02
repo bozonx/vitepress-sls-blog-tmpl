@@ -85,7 +85,7 @@ export function mergeSiteConfig(config) {
       // Отключаем rel="noreferrer" для внешних ссылок
       externalLinks: omitUndefined({
         target: '_blank',
-        class: externalLinkIcon ? 'external-link' : undefined,
+        class: externalLinkIcon ? 'vp-external-link-icon' : undefined,
         rel: [],
       }),
       config: (md) => {

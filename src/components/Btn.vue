@@ -62,7 +62,10 @@ if (props.href && !props.disabled) {
       <span
         v-if="hasText"
         :class="
-          theme.externalLinkIcon && isExternal && hasText && 'external-link'
+          theme.externalLinkIcon &&
+          isExternal &&
+          hasText &&
+          'vp-external-link-icon'
         "
       >
         <slot>{{ props.text }}</slot>

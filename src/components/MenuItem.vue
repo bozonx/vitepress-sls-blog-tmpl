@@ -24,23 +24,20 @@ const props = defineProps(['class'])
   width: 100%;
 }
 
-.menu-item:hover,
-.menu-item.btn--nobg:hover {
-  background: var(--btn-bg);
+.menu-item:hover {
   filter: brightness(99%);
 }
 
-.menu-item.active,
-.menu-item.btn--nobg.active {
+.dark .menu-item:hover {
+  filter: brightness(115%);
+}
+
+.menu-item.active {
   background: var(--btn-bg-active);
 }
 
 .menu-item.active:hover {
   filter: brightness(103%);
-}
-
-.dark .menu-item:hover {
-  filter: brightness(125%);
 }
 
 .dark .menu-item.active:hover {

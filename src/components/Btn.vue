@@ -158,6 +158,7 @@ if (props.href && !props.disabled) {
 .btn-base.disabled,
 .btn-base.disabled:hover {
   background: var(--btn-bg-disabled);
+  color: var(--gray-500);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;

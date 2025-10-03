@@ -22,6 +22,9 @@ const props = defineProps(['class'])
   padding: 0.625rem 1.125rem;
   border-radius: 0;
   width: 100%;
+  box-shadow: none !important;
+  transition: none !important;
+  transform: none !important;
 }
 
 .menu-item:hover {

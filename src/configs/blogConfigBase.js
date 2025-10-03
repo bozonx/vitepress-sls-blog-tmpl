@@ -101,9 +101,9 @@ export const common = {
     youtubeIcon: 'fa6-brands:youtube',
     telegramIcon: 'fa6-brands:telegram',
     chatIcon: 'fa6-solid:message',
+    tagsIcon: 'fa6-solid:tag',
     ///// not used
     // docIcon: 'iconoir:book-solid',
-    // tagsIcon: 'fa6-solid:tag',
   },
 }
 

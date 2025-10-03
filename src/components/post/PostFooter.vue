@@ -19,17 +19,18 @@ const localePosts = props.localePosts || allPosts[localeIndex.value]
 <template>
   <PostAuthor class="mt-10" />
 
+  <PostDonateLink class="mt-10" />
+  <PostComments class="mt-10" />
+  <PostSocialShare class="mt-2" />
+
   <div class="flex mt-10">
     <EditLink />
   </div>
 
-  <PostDonateLink class="mt-10" />
-  <PostComments class="mt-20" />
-  <PostSocialShare class="mt-10" />
   <PostTags class="mt-10" />
   <PostSimilarList class="mt-14" :localePosts="localePosts" />
 
-  <div class="mt-12">
+  <div class="mt-10">
     <BtnLink
       v-if="theme.popularPosts?.enabled"
       :href="`${theme.popularBaseUrl}/1`"

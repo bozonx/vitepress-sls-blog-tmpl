@@ -1,12 +1,12 @@
 <script setup>
-import { useData } from "vitepress";
-import TagsList from "../TagsList.vue";
-import SimpleLink from "../SimpleLink.vue";
+import { useData } from 'vitepress'
+import TagsList from '../TagsList.vue'
+import BtnLink from '../BtnLink.vue'
 
-const { theme, frontmatter } = useData();
+const { theme, frontmatter } = useData()
 const tags = [...(frontmatter.value.tags || [])].sort((a, b) =>
-  String(a.name).localeCompare(b.name),
-);
+  String(a.name).localeCompare(b.name)
+)
 </script>
 
 <template>
@@ -17,10 +17,10 @@ const tags = [...(frontmatter.value.tags || [])].sort((a, b) =>
       <TagsList :tags="tags" />
     </div>
 
-    <div class="mt-4">
-      <SimpleLink :href="theme.tagsBaseUrl">{{
+    <div class="mt-3">
+      <BtnLink :href="theme.tagsBaseUrl" :icon="theme.tagsIcon">{{
         theme.t.allTagsCall
-        }}</SimpleLink>
+      }}</BtnLink>
     </div>
   </div>
 </template>

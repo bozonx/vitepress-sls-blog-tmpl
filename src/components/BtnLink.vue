@@ -14,5 +14,6 @@ const props = defineProps(['class'])
 .btn-link {
   padding: 0;
   background: transparent !important;
+  box-shadow: none !important;
 }
 </style>

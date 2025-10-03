@@ -35,7 +35,6 @@ const localePosts = props.localePosts || allPosts[localeIndex.value]
       :href="`${theme.popularBaseUrl}/1`"
       :text="theme.t.popularPostsCall"
       :icon="theme.popularIcon"
-      class="hover-animation-rise"
     />
   </div>
 </template>

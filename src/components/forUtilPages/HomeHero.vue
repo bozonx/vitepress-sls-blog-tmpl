@@ -22,10 +22,7 @@
       class="sm:flex sm:gap-x-3 max-sm:space-y-6 mt-10 home-hero-buttons"
     >
       <li v-for="item in props.buttons">
-        <Btn
-          v-bind="item"
-          class="rounded-full! px-7! w-fit hover-animation-rise"
-        />
+        <Btn v-bind="item" class="rounded-full! px-7! w-fit" />
       </li>
     </ul>
   </div>

@@ -8,7 +8,7 @@
       :icon="getIconName(link.type)"
       iconClass="text-2xl"
       target="_blank"
-      class="social-link hover-animation-rise"
+      class="social-link"
     />
   </div>
 </template>

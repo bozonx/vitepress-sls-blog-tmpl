@@ -9,14 +9,12 @@
         :text="theme.t.links.recent"
         :href="`${props.baseUrl}/1`"
         :icon="theme.recentIcon"
-        class="hover-animation-rise"
         activeCompareMethod="pagination"
       />
       <Btn
         :text="theme.t.links.popular"
         :href="`${popularBaseUrl}/1`"
         :icon="theme.popularIcon"
-        class="hover-animation-rise"
         activeCompareMethod="pagination"
       />
     </div>

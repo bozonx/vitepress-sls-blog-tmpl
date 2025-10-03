@@ -144,7 +144,7 @@ const fileIcon = computed(() => {
       icon="mdi:download"
       :disabled="isDisabled"
       :text="theme.t.fileDownload.downloadFile"
-      class="download-btn hover-animation-rise"
+      class="download-btn"
       @click="downloadFile"
       :aria-label="`${theme.t.fileDownload.downloadFileWithName} ${downloadFilename}`"
       role="button"

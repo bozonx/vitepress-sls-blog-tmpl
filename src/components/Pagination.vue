@@ -85,7 +85,7 @@ if (curPage >= 1 && totalPages > 1 && curPage <= totalPages) {
         :title="item.title"
         :text="item.name"
         :icon="item.icon"
-        class="px-3 pagination-btn hover-animation-rise"
+        class="px-3 pagination-btn"
       />
     </li>
   </ul>

@@ -99,13 +99,21 @@ if (props.href && !props.disabled) {
   line-height: 1.5rem;
   background: var(--btn-bg);
   color: var(--btn-text);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
 .btn-base:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   filter: brightness(97%);
 }
 
 .dark .btn-base:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   filter: brightness(110%);
 }
 
@@ -118,7 +126,14 @@ if (props.href && !props.disabled) {
 }
 
 .btn-base.btn--nobg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   background: var(--btn-bg);
+}
+
+.dark .btn-base.btn--nobg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-base.active {
@@ -145,6 +160,7 @@ if (props.href && !props.disabled) {
   background: var(--btn-bg-disabled);
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 .dark .btn-base.disabled,

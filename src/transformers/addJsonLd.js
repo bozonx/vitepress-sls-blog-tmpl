@@ -112,21 +112,30 @@ function createAuthorJsonLd(
   langConfig
 ) {
   const authors = langConfig.themeConfig?.authors
-  const authorId = pageData.params.id
-  const author = authors?.find((item) => item.id === authorId)
+  const author = authors?.find((item) => item.id === pageData.params.id)
 
   if (!author) return
 
-  const authorName = author?.name || authorId
+  const { id, name, description, image, aboutUrl, links, ...rest } = author
+  const authorName = name || id
+  const authorUrl = aboutUrl
+    ? aboutUrl
+    : `${siteUrl}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${id}/1`
+  let imgUrl = image
+
+  if (imgUrl && !imgUrl.includes('://')) {
+    imgUrl = `${siteUrl}${imgUrl}`
+  }
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: authorName,
-    url: `${siteUrl}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${authorId}/1`,
-    description: author?.description,
-    image: author?.image && { '@type': 'ImageObject', url: author?.image },
-    sameAs: author?.links?.map((link) => link.url),
+    url: authorUrl,
+    description,
+    image: imgUrl && { '@type': 'ImageObject', url: imgUrl },
+    sameAs: links?.map((link) => link.url),
+    ...rest,
   }
 }
 

@@ -3,18 +3,15 @@
     class="author-container flex flex-col md:flex-row gap-x-6 gap-y-1 items-start"
   >
     <!-- Картинка автора -->
-    <figure
-      v-if="author?.image"
-      class="author-image-container w-full md:w-[280px] md:flex-shrink-0 m-auto!"
-    >
+    <figure v-if="author?.image" class="author-image-container">
       <a :href="author.image" class="lightbox">
         <img
           :src="author.image"
           :alt="author?.name"
-          :sizes="`(min-width: ${PHONE_BREAKPOINT}px) 280px, 100vw`"
+          :sizes="`(min-width: ${LIST_ITEM_THUMB_WIDTH}px) ${LIST_ITEM_THUMB_WIDTH}px, 100vw`"
           :height="author?.imageHeight"
           :width="author?.imageWidth"
-          class="w-full h-auto rounded-lg"
+          class="w-full"
         />
       </a>
     </figure>
@@ -29,7 +26,22 @@
 
 <script setup>
 import SocialMediaLinks from './SocialMediaLinks.vue'
-import { PHONE_BREAKPOINT } from '../constants.js'
+import { LIST_ITEM_THUMB_WIDTH } from '../constants.js'
 
 const props = defineProps(['author'])
 </script>
+
+<style scoped>
+.author-image-container {
+  width: 100%;
+  margin: auto;
+}
+
+/* На экранах md и больше */
+@media (min-width: 768px) {
+  .author-image-container {
+    width: 280px;
+    flex-shrink: 0;
+  }
+}
+</style>

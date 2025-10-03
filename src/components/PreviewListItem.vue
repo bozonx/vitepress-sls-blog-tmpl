@@ -19,7 +19,7 @@ const params = computed(() => ({
 </script>
 
 <template>
-  <a :href="props.item.url" class="mb-5 px-5 py-5 card-item preview">
+  <a :href="props.item.url" class="card-item preview">
     <h2 class="card-item-header">{{ props.item.title }}</h2>
 
     <PreviewWithImg

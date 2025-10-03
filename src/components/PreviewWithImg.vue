@@ -1,6 +1,6 @@
 <script setup>
 import TagsList from './TagsList.vue'
-import { PHONE_BREAKPOINT } from '../constants.js'
+import { LIST_ITEM_THUMB_WIDTH } from '../constants.js'
 
 const props = defineProps([
   'date',
@@ -21,10 +21,10 @@ const props = defineProps([
         :src="props.thumbnail"
         :height="coverHeight"
         :width="coverWidth"
-        :sizes="`(max-width: ${PHONE_BREAKPOINT}px) 100vw, 280px`"
+        :sizes="`(max-width: ${LIST_ITEM_THUMB_WIDTH}px) 100vw, ${LIST_ITEM_THUMB_WIDTH}px`"
         loading="lazy"
         aria-hidden="true"
-        class="w-full rounded"
+        class="card-item-img"
         alt=""
       />
 
@@ -43,7 +43,7 @@ const props = defineProps([
       />
     </div>
 
-    <p class="max-md:mt-5 flex-1 preview-text">
+    <p class="max-md:mt-5 flex-1 card-item-description">
       {{ props.preview }}
     </p>
   </div>

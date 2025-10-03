@@ -27,7 +27,7 @@ const totalPages = Math.ceil(props.localePosts.length / perPage)
             item.analyticsStats?.[theme.popularPosts?.sortBy]
           "
         >
-          <PreviewListItem :item="item" class="hover-animation-rise" />
+          <PreviewListItem :item="item" />
         </li>
       </template>
     </ul>

@@ -11,7 +11,7 @@
       <BtnLink
         :href="`${theme.popularBaseUrl}/2`"
         :text="theme.t.showMorePosts"
-        class="more-posts-btn hover-animation-rise"
+        class="more-posts-btn"
       />
     </div>
   </div>

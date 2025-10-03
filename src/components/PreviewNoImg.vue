@@ -11,7 +11,7 @@ const props = defineProps([
 </script>
 
 <template>
-  <p class="preview-text">{{ props.preview }}</p>
+  <p class="card-item-description">{{ props.preview }}</p>
 
   <div class="flex max-sm:flex-col-reverse sm:items-end sm:mt-4 gap-x-1">
     <TagsList

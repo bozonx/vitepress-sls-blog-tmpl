@@ -1,7 +1,7 @@
 <template>
   <a
     :href="`/${localeIndex}/${theme.authorsBaseUrl}/${props.item.id}/1`"
-    class="mb-5 px-5 py-5 card-item author-preview"
+    class="card-item author-preview"
   >
     <h2 class="card-item-header">{{ props.item.name }}</h2>
 
@@ -12,10 +12,10 @@
           :src="props.item.image"
           :height="props.item.imageHeight"
           :width="props.item.imageWidth"
-          :sizes="`(max-width: ${PHONE_BREAKPOINT}px) 100vw, 280px`"
-          loading="lazy"
+          :sizes="`(max-width: ${LIST_ITEM_THUMB_WIDTH}px) 100vw, ${LIST_ITEM_THUMB_WIDTH}px`"
           :alt="props.item.name"
-          class="w-full rounded"
+          loading="lazy"
+          class="card-item-img"
         />
       </div>
 
@@ -35,10 +35,8 @@
 
 <script setup>
 import { useData } from 'vitepress'
-import { PHONE_BREAKPOINT } from '../constants.js'
+import { LIST_ITEM_THUMB_WIDTH } from '../constants.js'
 
 const props = defineProps(['item'])
 const { theme, localeIndex } = useData()
-
-console.log(props.item)
 </script>

@@ -1,4 +1,5 @@
 import yaml from 'yaml'
+import { omitUndefined } from 'squidlet-lib'
 import { ROOT_LANG } from '../constants.js'
 import {
   isPost,
@@ -28,11 +29,16 @@ function createPostJsonLd(
 ) {
   const title = pageData.title
   const description = pageData.description
-  const authorName =
+  const author =
     pageData.frontmatter.authorId &&
     langConfig.themeConfig.authors?.find(
       (item) => item.id === pageData.frontmatter.authorId
-    )?.name
+    )
+
+  const authorName = author?.name || author?.id
+  const authorUrl = author?.aboutUrl
+    ? author.aboutUrl
+    : `${siteUrl}/${localeIndex}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${pageData.frontmatter.authorId}/1`
   const cover = pageData.frontmatter.cover
   const tags = pageData.frontmatter.tags
   const lang = langConfig.lang
@@ -78,7 +84,7 @@ function createPostJsonLd(
     author: authorName && {
       '@type': 'Person',
       name: authorName,
-      url: `${localeIndexUrl}/${siteConfig.userConfig.themeConfig.authorsBaseUrl}/${pageData.frontmatter.authorId}/1`,
+      url: authorUrl,
     },
     updatedDate:
       pageData.lastUpdated && new Date(pageData.lastUpdated).toISOString(),
@@ -86,10 +92,18 @@ function createPostJsonLd(
       tags && tags.length > 0
         ? tags.map((tag) => tag.name).join(', ')
         : undefined,
-    image: cover && {
-      '@type': 'ImageObject',
-      url: cover.startsWith('http') ? cover : `${siteUrl}${cover}`,
-    },
+    image:
+      cover &&
+      omitUndefined({
+        '@type': 'ImageObject',
+        url: cover.includes('://') ? cover : `${siteUrl}${cover}`,
+        height: pageData.frontmatter.coverHeight,
+        width: pageData.frontmatter.coverWidth,
+        caption:
+          pageData.frontmatter.coverDescr ||
+          pageData.frontmatter.coverAlt ||
+          undefined,
+      }),
   }
 
   // Если указан frontmatter.jsonLd, парсим его и переопределяем поля
@@ -116,7 +130,17 @@ function createAuthorJsonLd(
 
   if (!author) return
 
-  const { id, name, description, image, aboutUrl, links, ...rest } = author
+  const {
+    id,
+    name,
+    description,
+    image,
+    aboutUrl,
+    links,
+    imageHeight,
+    imageWidth,
+    ...rest
+  } = author
   const authorName = name || id
   const authorUrl = aboutUrl
     ? aboutUrl
@@ -133,7 +157,13 @@ function createAuthorJsonLd(
     name: authorName,
     url: authorUrl,
     description,
-    image: imgUrl && { '@type': 'ImageObject', url: imgUrl },
+    image: imgUrl && {
+      '@type': 'ImageObject',
+      url: imgUrl,
+      height: imageHeight,
+      width: imageWidth,
+      caption: authorName,
+    },
     sameAs: links?.map((link) => link.url),
     ...rest,
   }

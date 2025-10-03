@@ -28,6 +28,7 @@ body: |
         - type: "youtube"
           url: "https://www.youtube.com/..."
           title: "YouTube channel ..."
+      # put here any other params of the @type: Person, 
   footer:
     message: "Copying allowed only with a link to the source."
     copyright: "Copyright © 2024-present ... ."

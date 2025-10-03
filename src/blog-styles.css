@@ -47,7 +47,10 @@ button {
   height: 100%;
   z-index: 1000;
   justify-content: center;
+  align-items: flex-start;
   overflow-y: auto;
+  padding: 4rem 1rem;
+  box-sizing: border-box;
 }
 
 .search-modal-backdrop {
@@ -57,14 +60,56 @@ button {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 .search-modal-content {
-  background: red;
-  width: 500px;
-  height: 5000px;
+  background: var(--vp-c-bg);
+  max-width: 760px;
+  max-height: calc(100vh - 8rem);
   z-index: 1001;
-  margin: 4rem 1rem 8rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  box-sizing: border-box;
+  /* Плавная анимация появления */
+  animation: modalSlideIn 0.2s ease-out;
+}
+
+/* Анимация появления модального окна */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Активное состояние модального окна */
+.search-modal.active {
+  display: flex;
+}
+
+/* Предотвращение скролла body когда модальное окно открыто */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 640px) {
+  .search-modal {
+    padding: 1rem;
+  }
+
+  .search-modal-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100vh - 2rem);
+    margin: 0;
+  }
 }
 
 /**** Card item */

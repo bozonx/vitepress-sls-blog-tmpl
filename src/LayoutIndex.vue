@@ -27,6 +27,7 @@ let touchStartListener
 let touchMoveListener
 let touchEndListener
 let touchCancelListener
+let keydownListener
 
 function onOpenDrawer() {
   sidebarRef.value.openDrawer()
@@ -34,6 +35,21 @@ function onOpenDrawer() {
 
 function onOpenSearch() {
   searchModal.value = true
+  // Предотвращаем скролл body когда модальное окно открыто
+  document.body.classList.add('modal-open')
+}
+
+function onCloseSearch() {
+  searchModal.value = false
+  // Возвращаем скролл body когда модальное окно закрыто
+  document.body.classList.remove('modal-open')
+}
+
+// Обработка клавиши Escape для закрытия модального окна
+function handleKeydown(e) {
+  if (e.key === 'Escape' && searchModal.value) {
+    onCloseSearch()
+  }
 }
 
 function startTouch(e) {
@@ -127,6 +143,9 @@ onMounted(() => {
   touchCancelListener = window.addEventListener('touchcancel', resetTouch, {
     passive: true,
   })
+
+  // Обработчик клавиши Escape для закрытия модального окна
+  keydownListener = window.addEventListener('keydown', handleKeydown)
 })
 onUnmounted(() => {
   if (!inBrowser) return
@@ -137,6 +156,7 @@ onUnmounted(() => {
   window.removeEventListener('touchmove', touchMoveListener)
   window.removeEventListener('touchend', touchEndListener)
   window.removeEventListener('touchcancel', touchCancelListener)
+  window.removeEventListener('keydown', keydownListener)
 })
 </script>
 
@@ -144,11 +164,10 @@ onUnmounted(() => {
   <div
     v-if="theme.search"
     class="search-modal"
-    :style="{ display: searchModal ? 'flex' : 'none' }"
+    :class="{ active: searchModal }"
   >
-    <div class="search-modal-backdrop" @click="searchModal = false"></div>
+    <div class="search-modal-backdrop" @click="onCloseSearch"></div>
     <div class="search-modal-content">
-      ddd
       <div id="search"></div>
     </div>
   </div>

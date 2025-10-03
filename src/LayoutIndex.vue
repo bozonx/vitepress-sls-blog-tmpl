@@ -20,6 +20,7 @@ const touchInitialX = ref(null)
 const touchInitialY = ref(null)
 const sidebarRef = ref(null)
 const gestureProcessed = ref(false)
+const searchModal = ref(false)
 let resizeListener
 let scrollListener
 let touchStartListener
@@ -29,6 +30,10 @@ let touchCancelListener
 
 function onOpenDrawer() {
   sidebarRef.value.openDrawer()
+}
+
+function onOpenSearch() {
+  searchModal.value = true
 }
 
 function startTouch(e) {
@@ -136,6 +141,18 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <div
+    v-if="theme.search"
+    class="search-modal"
+    :style="{ display: searchModal ? 'flex' : 'none' }"
+  >
+    <div class="search-modal-backdrop" @click="searchModal = false"></div>
+    <div class="search-modal-content">
+      ddd
+      <div id="search"></div>
+    </div>
+  </div>
+
   <div v-if="page.isNotFound">
     <NotFound />
   </div>
@@ -161,7 +178,11 @@ onUnmounted(() => {
     <!-- right col-->
     <div class="flex-1 flex flex-col min-h-screen">
       <header>
-        <TopBar @open-drawer="onOpenDrawer" :isMobile="isMobile" />
+        <TopBar
+          @open-drawer="onOpenDrawer"
+          @open-search="onOpenSearch"
+          :isMobile="isMobile"
+        />
       </header>
 
       <div class="flex flex-1">

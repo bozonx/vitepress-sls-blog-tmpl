@@ -7,6 +7,7 @@ import SwitchLang from './SwitchLang.vue'
 
 const { theme } = useData()
 const props = defineProps(['isMobile'])
+const emit = defineEmits(['openSearch'])
 const resolveItemShowClass = (item) => {
   if (item.desktopOnly) return 'max-lg:hidden'
   else if (item.mobileOnly) return 'lg:hidden'
@@ -45,6 +46,16 @@ const links = theme.value.topBar
     </div>
 
     <ul v-if="links.length" class="flex space-x-1">
+      <li v-if="theme.search">
+        <Btn
+          icon="fa6-solid:search"
+          noBg="true"
+          class="topbar-item"
+          iconClass="muted"
+          :title="theme.t.search"
+          @click="$emit('openSearch')"
+        />
+      </li>
       <li v-for="item in links" :class="resolveItemShowClass(item)">
         <Btn
           v-bind="item"
@@ -68,11 +79,7 @@ const links = theme.value.topBar
         v-for="item in theme.topBar.socialLinks"
         :class="resolveItemShowClass(item)"
       >
-        <Btn
-          noBg="true"
-          v-bind="item"
-          :class="[item.class]"
-        />
+        <Btn noBg="true" v-bind="item" :class="[item.class]" />
       </li>
     </ul>
   </nav>

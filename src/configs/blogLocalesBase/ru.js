@@ -38,6 +38,7 @@ export default {
     closeMenu: 'Закрыть меню',
     allPostsOfYear: 'Все посты за год',
     postsCount: 'Публикаций',
+    search: 'Поиск',
 
     links: {
       aboutBlog: 'Об этом блоге',

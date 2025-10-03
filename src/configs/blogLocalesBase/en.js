@@ -37,6 +37,7 @@ export default {
     closeMenu: 'Close menu',
     allPostsOfYear: 'All posts of the year',
     postsCount: 'Publications',
+    search: 'Search',
 
     links: {
       aboutBlog: 'About This Blog',

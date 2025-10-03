@@ -65,6 +65,7 @@ export const common = {
     paginationMaxItems: 5,
     // show author in post list
     showAuthorInPostList: true,
+    //search: { provider: 'pagefind' },
 
     // use for popular posts
     googleAnalytics: {

@@ -40,7 +40,7 @@ const sorted = sortPosts(
   <div>
     <UtilPageHeader>{{ frontmatter.title }}</UtilPageHeader>
 
-    <ul v-if="monthsList.length">
+    <ul v-if="monthsList.length" class="flex flex-wrap gap-x-8">
       <template v-for="item in monthsList">
         <li v-if="item.count">
           <ListItemWithBadge

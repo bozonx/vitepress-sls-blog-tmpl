@@ -4,6 +4,7 @@ import { inject } from 'vue'
 import PreviewList from '../PreviewList.vue'
 import ListPageHeader from '../ListPageHeader.vue'
 import { sortPosts, isPopularRoute } from '../../helpers/helpers.js'
+import BtnLink from '../BtnLink.vue'
 
 const props = defineProps([
   'localePosts',
@@ -44,4 +45,10 @@ const sorted = sortPosts(
     :perPage="props.perPage"
     :paginationMaxItems="props.paginationMaxItems"
   />
+
+  <div class="mt-8">
+    <BtnLink :href="theme.tagsBaseUrl" :icon="theme.tagsIcon">{{
+      theme.t.allTagsCall
+    }}</BtnLink>
+  </div>
 </template>

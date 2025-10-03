@@ -45,6 +45,13 @@ function onCloseSearch() {
   document.body.classList.remove('modal-open')
 }
 
+// Обработка клика по модальному окну (закрытие при клике вне контента)
+function onModalClick(e) {
+  // Клик произошел по самому модальному окну, а не по контенту
+  // благодаря @click.stop на search-modal-content
+  onCloseSearch()
+}
+
 // Обработка клавиши Escape для закрытия модального окна
 function handleKeydown(e) {
   if (e.key === 'Escape' && searchModal.value) {
@@ -165,9 +172,9 @@ onUnmounted(() => {
     v-if="theme.search"
     class="search-modal"
     :class="{ active: searchModal }"
+    @click="onModalClick"
   >
-    <div class="search-modal-backdrop" @click="onCloseSearch"></div>
-    <div class="search-modal-content">
+    <div class="search-modal-content" @click.stop>
       <div id="search"></div>
     </div>
   </div>

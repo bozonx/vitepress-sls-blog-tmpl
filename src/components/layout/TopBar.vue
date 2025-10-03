@@ -48,7 +48,7 @@ const links = theme.value.topBar
     <ul v-if="links.length" class="flex space-x-1">
       <li v-if="theme.search">
         <Btn
-          icon="fa6-solid:search"
+          icon="fa6-solid:magnifying-glass"
           noBg="true"
           class="topbar-item"
           iconClass="muted"

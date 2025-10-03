@@ -19,7 +19,7 @@ const className =
   (props.sizeXl ? `text-xl ` : '') +
   (props.sizeSm ? `text-sm ` : '') +
   (props.count ? 'pr-2 ' : '') +
-  `tag-item hover-animation-rise`
+  `tag-item`
 </script>
 
 <template>
@@ -40,6 +40,10 @@ const className =
 <style scoped>
 .tag-item {
   background: var(--tag-item-bg);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
 .tag-item.active {
@@ -47,10 +51,14 @@ const className =
 }
 
 .tag-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   filter: brightness(115%);
 }
 
 .dark .tag-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   filter: brightness(110%);
 }
 </style>

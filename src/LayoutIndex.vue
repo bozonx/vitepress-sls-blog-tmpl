@@ -159,16 +159,20 @@ onUnmounted(() => {
       </template>
     </SideBar>
     <!-- right col-->
-    <div class="flex-1">
+    <div class="flex-1 flex flex-col min-h-screen">
       <header>
         <TopBar @open-drawer="onOpenDrawer" :isMobile="isMobile" />
       </header>
 
-      <div :class="['flex']">
-        <main class="lg:ml-4 xl:ml-24 mt-20 lg:mt-4 px-4 sm:px-8 app-page">
-          <PageContent />
+      <div class="flex flex-1">
+        <main
+          class="lg:ml-4 xl:ml-24 mt-20 lg:mt-4 px-4 sm:px-8 app-page flex flex-col"
+        >
+          <div class="flex-1">
+            <PageContent />
+          </div>
 
-          <div class="mt-40 pb-12">
+          <div class="mt-30 pb-12">
             <Footer>
               <template #footer-before>
                 <slot name="footer-before" />

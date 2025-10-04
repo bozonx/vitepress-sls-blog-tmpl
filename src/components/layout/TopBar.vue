@@ -48,7 +48,7 @@ const links = theme.value.topBar
     </div>
 
     <ul v-if="links.length" class="flex space-x-1">
-      <li v-if="theme.search">
+      <!-- <li v-if="theme.search">
         <Btn
           icon="fa6-solid:magnifying-glass"
           noBg="true"
@@ -57,7 +57,7 @@ const links = theme.value.topBar
           :title="theme.t.search"
           @click="$emit('openSearch')"
         />
-      </li>
+      </li> -->
       <li v-for="item in links" :class="resolveItemShowClass(item)">
         <Btn
           v-bind="item"

@@ -57,7 +57,9 @@ button {
 
 .search-modal-content {
   background: var(--vp-c-bg);
-  max-width: 760px;
+  width: 760px;
+  min-height: 100px;
+  /* max-width: 760px; */
   max-height: calc(100vh - 8rem);
   z-index: 1001;
   border-radius: 8px;
@@ -67,6 +69,12 @@ button {
   cursor: default;
   /* Плавная анимация появления */
   animation: modalSlideIn 0.2s ease-out;
+}
+
+@media (max-width: 768px) {
+  .search-modal-content {
+    width: 100%;
+  }
 }
 
 /* Анимация появления модального окна */

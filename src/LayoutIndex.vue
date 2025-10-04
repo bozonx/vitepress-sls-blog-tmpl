@@ -208,7 +208,11 @@ onUnmounted(() => {
           @open-drawer="onOpenDrawer"
           @open-search="onOpenSearch"
           :isMobile="isMobile"
-        />
+        >
+          <template #nav-bar-content-before>
+            <slot name="nav-bar-content-before" />
+          </template>
+        </TopBar>
       </header>
 
       <div class="flex flex-1">

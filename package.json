@@ -28,6 +28,7 @@
     "./SiteHome.vue": "./src/SiteHome.vue",
     "./FileDownload.vue": "./src/components/docComponents/FileDownload.vue",
     "./lightbox.js": "./src/components/docComponents/lightbox.js",
+    "./NavSearchButton.vue": "./src/components/forUtilPages/NavSearchButton.vue",
     "./UtilPageContent.vue": "./src/components/forUtilPages/UtilPageContent.vue",
     "./UtilPageHeader.vue": "./src/components/forUtilPages/UtilPageHeader.vue",
     "./UtilSubPageHeader.vue": "./src/components/forUtilPages/UtilSubPageHeader.vue",

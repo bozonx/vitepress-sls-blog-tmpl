@@ -48,7 +48,6 @@ export const common = {
     i18nRouting: true,
     externalLinkIcon: true,
     mainHeroImg: '/img/home-logo.webp',
-    search: { provider: 'local' },
     lastUpdated: { formatOptions: { dateStyle: 'medium', forceLocale: true } },
   },
 }

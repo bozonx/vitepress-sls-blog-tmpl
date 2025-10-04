@@ -43,6 +43,8 @@ const links = theme.value.topBar
         iconClass="muted"
         :text="theme.sidebarMenuLabel"
       />
+
+      <slot name="nav-bar-content-before" />
     </div>
 
     <ul v-if="links.length" class="flex space-x-1">

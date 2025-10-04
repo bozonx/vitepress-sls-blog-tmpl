@@ -12,6 +12,7 @@
     ".": "./src/index.js",
     "./tw-styles.css": "./dist/tw-styles.css",
     "./site-tmpl-fix.css": "./src/site-tmpl-fix.css",
+    "./search-modal.css": "./src/search-modal.css",
     "./green-theme.css": "./src/green-theme.css",
     "./constants.js": "./src/constants.js",
     "./blogConfigBase.js": "./src/configs/blogConfigBase.js",

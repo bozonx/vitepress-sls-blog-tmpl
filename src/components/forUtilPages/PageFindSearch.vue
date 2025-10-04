@@ -1,11 +1,12 @@
 <template>
-  <div @click="handleSlotClick">
+  <div @click="showSearchModal">
     <slot />
   </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
+import { GLOBAL_MODALS_CONTAINER_ID } from '../../constants.js'
 
 const MODAL_ID = 'search-modal'
 const CLOSE_BUTTON_CLASS = 'search-modal-close-button'
@@ -18,9 +19,9 @@ const isSearchModalShown = () => {
 
 const showSearchModal = () => {
   const searchModal = document.getElementById(MODAL_ID)
+
   if (searchModal) {
     searchModal.style.display = 'flex'
-    console.log('Search modal shown')
 
     if (window.PagefindUI) {
       pageFind.value = new window.PagefindUI({
@@ -34,27 +35,21 @@ const showSearchModal = () => {
   }
 }
 
-// Функция для скрытия модального окна
 const hideSearchModal = () => {
   const searchModal = document.getElementById(MODAL_ID)
+
   if (searchModal) {
     searchModal.style.display = 'none'
   }
-}
 
-// Обработчик клика на слот
-const handleSlotClick = (event) => {
-  // Показываем модальное окно поиска
-  showSearchModal()
-
-  // Дополнительная логика обработки клика
-  console.log('Slot clicked:', event.target)
+  if (pageFind.value) {
+    pageFind.value.destroy()
+  }
 }
 
 const createSearchModal = () => {
   if (document.getElementById(MODAL_ID)) return
 
-  const modalsContainer = document.getElementById('modals')
   const searchModal = document.createElement('div')
   searchModal.id = MODAL_ID
   searchModal.className = 'search-modal'
@@ -64,23 +59,20 @@ const createSearchModal = () => {
   <div class="search-modal-content">
     <div id="pagefind-search"></div>
 
-    <button onclick="window.hideSearchModal()" class="${CLOSE_BUTTON_CLASS}">×</button>
+    <button class="${CLOSE_BUTTON_CLASS}">×</button>
   </div>
   `
 
-  // Добавляем обработчик клика на фон для закрытия модального окна
   searchModal.addEventListener('click', (e) => {
-    if (e.target === searchModal) {
+    if (
+      e.target === searchModal ||
+      e.target.classList.contains(CLOSE_BUTTON_CLASS)
+    ) {
       hideSearchModal()
     }
   })
 
-  // Делаем функцию hideSearchModal доступной глобально для кнопки закрытия
-  window.hideSearchModal = hideSearchModal
-
-  // Добавляем модальное окно в контейнер
-  modalsContainer.appendChild(searchModal)
-  console.log('Created search-modal element')
+  document.getElementById(GLOBAL_MODALS_CONTAINER_ID).appendChild(searchModal)
 }
 
 const handleKeydown = (e) => {

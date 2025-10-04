@@ -11,3 +11,4 @@ export const ROOT_LANG = 'root'
 export const SWIPE_OFFSET = 50
 // length of preview of list item when it gets from content
 export const PREVIEW_LENGTH = 300
+export const GLOBAL_MODALS_CONTAINER_ID = 'modals'

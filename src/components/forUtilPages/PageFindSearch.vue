@@ -30,6 +30,13 @@ const showSearchModal = () => {
         showImages: true,
       })
     }
+
+    setTimeout(() => {
+      const searchInput = searchModal.querySelector(
+        '.pagefind-ui__search-input'
+      )
+      searchInput.focus()
+    }, 100)
   } else {
     console.warn('Search modal not found')
   }
@@ -66,7 +73,8 @@ const createSearchModal = () => {
   searchModal.addEventListener('click', (e) => {
     if (
       e.target === searchModal ||
-      e.target.classList.contains(CLOSE_BUTTON_CLASS)
+      e.target.classList.contains(CLOSE_BUTTON_CLASS) ||
+      e.target.classList.contains('pagefind-ui__result-link')
     ) {
       hideSearchModal()
     }

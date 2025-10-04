@@ -169,16 +169,6 @@ onUnmounted(() => {
 
 <template>
   <div id="modals"></div>
-  <!-- <div
-    v-if="theme.search"
-    class="search-modal"
-    :class="{ active: searchModal }"
-    @click="onModalClick"
-  >
-    <div class="search-modal-content" @click.stop>
-      <div id="search"></div>
-    </div>
-  </div> -->
 
   <div v-if="page.isNotFound">
     <NotFound />

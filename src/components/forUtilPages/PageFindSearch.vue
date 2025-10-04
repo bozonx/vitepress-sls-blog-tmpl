@@ -12,16 +12,18 @@ const MODAL_ID = 'search-modal'
 const CLOSE_BUTTON_CLASS = 'search-modal-close-button'
 const pageFind = ref(null)
 
-const isSearchModalShown = () => {
-  const searchModal = document.getElementById(MODAL_ID)
-  return searchModal && searchModal.style.display === 'flex'
-}
+// Флаг для отслеживания состояния модального окна
+const isModalOpen = ref(false)
 
 const showSearchModal = () => {
   const searchModal = document.getElementById(MODAL_ID)
 
   if (searchModal) {
     searchModal.style.display = 'flex'
+    isModalOpen.value = true
+
+    // Добавляем запись в историю браузера для обработки кнопки "Назад"
+    history.pushState({ modalOpen: true }, '', window.location.href)
 
     if (window.PagefindUI) {
       pageFind.value = new window.PagefindUI({
@@ -47,6 +49,12 @@ const hideSearchModal = () => {
 
   if (searchModal) {
     searchModal.style.display = 'none'
+    isModalOpen.value = false
+
+    // Удаляем запись из истории браузера, если модальное окно было открыто
+    if (history.state && history.state.modalOpen) {
+      history.back()
+    }
   }
 
   if (pageFind.value) {
@@ -85,16 +93,26 @@ const createSearchModal = () => {
 
 const handleKeydown = (e) => {
   if (e.key === 'Escape') {
-    if (isSearchModalShown()) hideSearchModal()
+    if (isModalOpen.value) hideSearchModal()
+  }
+}
+
+// Обработчик события popstate для кнопки "Назад" браузера
+const handlePopState = (event) => {
+  // Если модальное окно открыто и пользователь нажал "Назад"
+  if (isModalOpen.value && (!event.state || !event.state.modalOpen)) {
+    hideSearchModal()
   }
 }
 
 onMounted(() => {
   createSearchModal()
   document.addEventListener('keydown', handleKeydown)
+  window.addEventListener('popstate', handlePopState)
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown)
+  window.removeEventListener('popstate', handlePopState)
 })
 </script>

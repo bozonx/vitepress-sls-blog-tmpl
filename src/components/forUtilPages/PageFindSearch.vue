@@ -1,11 +1,11 @@
 <template>
-  <div @click="showSearchModal">
+  <div @click="showSearchModal" class="pagefind-search-wrapper">
     <slot />
   </div>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, defineExpose } from 'vue'
 import { GLOBAL_MODALS_CONTAINER_ID } from '../../constants.js'
 
 const MODAL_ID = 'search-modal'
@@ -14,6 +14,14 @@ const pageFind = ref(null)
 
 // Флаг для отслеживания состояния модального окна
 const isModalOpen = ref(false)
+
+// Внешняя функция для показа модального окна поиска
+const show = () => {
+  showSearchModal()
+}
+
+// Экспортируем функцию show для использования извне
+defineExpose({ show })
 
 const showSearchModal = () => {
   const searchModal = document.getElementById(MODAL_ID)

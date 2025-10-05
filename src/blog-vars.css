@@ -128,6 +128,8 @@
   --vp-c-brand-1: var(--primary-btn-bg);
   --vp-c-bg: var(--gray-850);
   --vp-c-text-2: var(--gray-400);
+
+  --search-modal-content-bg: var(--gray-950);
   /**** Search modal */
   --vp-c-bg: var(--gray-850);
   /**** Used in pagefind */

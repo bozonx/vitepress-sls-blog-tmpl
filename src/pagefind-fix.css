@@ -1,7 +1,7 @@
 :root,
 :root.dark,
 :root.dark :before {
-  --pagefind-ui-primary: var(--vp-c-brand-1);
+  --pagefind-ui-primary: var(--vp-c-text-2);
   --pagefind-ui-text: var(--vp-c-text-2);
   --pagefind-ui-background: var(--vp-c-bg);
   --pagefind-ui-border: var(--vp-c-divider);

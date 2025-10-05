@@ -10,6 +10,7 @@ import { initLightbox } from './components/docComponents/lightbox.js'
 import { resolveTranslationsByFilePath } from './helpers/resolveTranslations.js'
 import './vp-common.css'
 import './vp-icons.css'
+import './search-modal.css'
 import './blog-vars.css'
 import './blog-styles.css'
 

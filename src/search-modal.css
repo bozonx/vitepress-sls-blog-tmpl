@@ -1,3 +1,8 @@
+:root,
+.dark {
+  --search-modal-content-bg: var(--vp-c-bg);
+}
+
 /**** Search modal */
 .search-modal {
   display: none;
@@ -20,7 +25,7 @@
 .search-modal-inner-wrapper {
   cursor: default;
   margin-top: 5rem;
-  background: var(--vp-c-bg);
+  background: var(--search-modal-content-bg);
   width: 760px;
   min-height: 6rem;
   max-height: calc(100vh - 8rem);

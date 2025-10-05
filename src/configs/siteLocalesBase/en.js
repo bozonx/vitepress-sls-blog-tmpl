@@ -14,6 +14,8 @@ export default {
   },
   t: {
     donate: 'Donate',
+    search: 'Search',
+    searchInBlog: 'Search in this blog',
     lightbox: {
       prev: 'Previous',
       next: 'Next',

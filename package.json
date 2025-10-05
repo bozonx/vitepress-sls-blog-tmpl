@@ -14,6 +14,7 @@
     "./site-tmpl-fix.css": "./src/site-tmpl-fix.css",
     "./search-modal.css": "./src/search-modal.css",
     "./green-theme.css": "./src/green-theme.css",
+    "./pagefind-fix.css": "./src/pagefind-fix.css",
     "./constants.js": "./src/constants.js",
     "./blogConfigBase.js": "./src/configs/blogConfigBase.js",
     "./siteConfigBase.js": "./src/configs/siteConfigBase.js",

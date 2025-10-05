@@ -14,6 +14,8 @@ export default {
   },
   t: {
     donate: 'Донат',
+    search: 'Поиск',
+    searchInBlog: 'Искать в этом блоге',
     lightbox: {
       prev: 'Предыдущее',
       next: 'Следующее',

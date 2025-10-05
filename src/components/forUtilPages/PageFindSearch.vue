@@ -10,6 +10,7 @@ import { GLOBAL_MODALS_CONTAINER_ID } from '../../constants.js'
 
 const MODAL_ID = 'search-modal'
 const CLOSE_BUTTON_CLASS = 'search-modal-close-button'
+const MOBILE_CLOSE_BUTTON_CLASS = 'search-modal-mobile-close-button'
 const pageFind = ref(null)
 // Флаг для отслеживания состояния модального окна
 const isModalOpen = ref(false)
@@ -81,6 +82,9 @@ const createSearchModal = () => {
   <div class="search-modal-inner-wrapper">
     <button class="${CLOSE_BUTTON_CLASS}">×</button>
     <div class="search-modal-content">
+      <div class="search-modal-top-bar">
+        <button class="${MOBILE_CLOSE_BUTTON_CLASS}">×</button>
+      </div>
       <div id="pagefind-search"></div>
     </div>
   </div>
@@ -90,6 +94,7 @@ const createSearchModal = () => {
     if (
       e.target === searchModal ||
       e.target.classList.contains(CLOSE_BUTTON_CLASS) ||
+      e.target.classList.contains(MOBILE_CLOSE_BUTTON_CLASS) ||
       e.target.classList.contains('pagefind-ui__result-link')
     ) {
       hideSearchModal()

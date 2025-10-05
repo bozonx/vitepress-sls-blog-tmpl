@@ -1,0 +1,15 @@
+:root {
+  --pagefind-ui-primary: var(--vp-c-text-2);
+  --pagefind-ui-text: blue;
+  --pagefind-ui-background: transparent;
+  --pagefind-ui-border: var(--vp-c-divider);
+  --pagefind-ui-tag: var(--vp-c-divider);
+}
+
+body.dark {
+  --pagefind-ui-primary: var(--vp-c-text-2);
+  --pagefind-ui-text: var(--vp-c-text-2);
+  /* --pagefind-ui-background: var(--vp-c-bg); */
+  --pagefind-ui-border: var(--vp-c-divider);
+  --pagefind-ui-tag: var(--vp-c-divider);
+}

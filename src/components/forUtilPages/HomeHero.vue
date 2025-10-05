@@ -1,6 +1,6 @@
 <template>
   <div class="mb-14 md:mb-18 home-hero">
-    <div class="flex w-full max-lg:flex-col-reverse gap-x-2 gap-y-4">
+    <div class="flex w-full max-lg:flex-col-reverse gap-x-2 gap-y-6">
       <div class="flex-1 max-lg:text-center">
         <h1
           class="max-md:text-4xl md:text-6xl font-bold mb-4"
@@ -11,7 +11,7 @@
       <a
         v-if="props.img"
         aria-hidden="true"
-        class="home-logo max-md:mb-9"
+        class="home-logo"
         :href="`/${localeIndex}/${theme.recentBaseUrl}/1`"
       >
         <img :src="props.img" />

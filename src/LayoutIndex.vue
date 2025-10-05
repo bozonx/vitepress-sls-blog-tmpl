@@ -4,6 +4,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 import BlogHomeLayout from './BlogHomeLayout.vue'
 import PageContent from './components/PageContent.vue'
+import Aside from './components/layout/Aside.vue'
 import Footer from './components/layout/Footer.vue'
 import NotFound from './components/layout/NotFound.vue'
 import SideBar from './components/layout/SideBar.vue'
@@ -223,9 +224,9 @@ onUnmounted(() => {
           </div>
         </main>
 
-        <aside v-if="theme.aside" class="max-xl:hidden">
+        <Aside>
           <slot name="aside" />
-        </aside>
+        </Aside>
       </div>
     </div>
 

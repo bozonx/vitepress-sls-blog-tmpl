@@ -131,13 +131,6 @@ button {
   }
 }
 
-/**** TopBar */
-@media (min-width: 1024px) {
-  .top-bar {
-    padding-left: 0.675rem;
-  }
-}
-
 /**** Sidebar item icon fix */
 .sidebar-link .btn-base__icon-container {
   min-width: 20px;
@@ -219,13 +212,6 @@ button {
   line-height: 1.5rem;
   margin-bottom: 1.5rem;
   color: var(--util-page-header-color);
-}
-
-/**** Styles of default vitepress template. It is used in search button */
-@media (max-width: 768px) {
-  .search-input-wrapper {
-    /* min-width: 150px; */
-  }
 }
 
 /******* Doc page overwrite */

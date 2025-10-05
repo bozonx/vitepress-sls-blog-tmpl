@@ -52,4 +52,24 @@ const { theme } = useData()
   font-size: 14px;
   flex: 1;
 }
+
+@media (max-width: 490px) {
+  .nav-search-button {
+    width: 120px;
+  }
+}
+
+@media (max-width: 439px) {
+  .nav-search-button {
+    width: 100%;
+  }
+
+  .search-input-wrapper {
+    padding: 8px 10px;
+  }
+
+  .search-placeholder {
+    display: none;
+  }
+}
 </style>

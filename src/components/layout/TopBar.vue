@@ -78,6 +78,10 @@ const links = theme.value.topBar
 </template>
 
 <style scoped>
+.top-bar {
+  padding-left: 1.675rem;
+}
+
 .topbar--mobile {
   display: flex;
   position: fixed;

@@ -27,7 +27,9 @@ const showSearchModal = () => {
   const searchModal = document.getElementById(MODAL_ID)
 
   if (searchModal) {
+    // Показываем модальное окно и добавляем классы для анимации
     searchModal.style.display = 'flex'
+    searchModal.classList.add('active', 'fade-in')
     isModalOpen.value = true
 
     // Добавляем запись в историю браузера для обработки кнопки "Назад"
@@ -56,8 +58,16 @@ const hideSearchModal = () => {
   const searchModal = document.getElementById(MODAL_ID)
 
   if (searchModal) {
-    searchModal.style.display = 'none'
-    isModalOpen.value = false
+    // Добавляем анимацию исчезновения
+    searchModal.classList.remove('fade-in')
+    searchModal.classList.add('fade-out')
+
+    // Ждем завершения анимации перед скрытием
+    setTimeout(() => {
+      searchModal.style.display = 'none'
+      searchModal.classList.remove('active', 'fade-out')
+      isModalOpen.value = false
+    }, 300) // 300ms = длительность анимации
 
     // Удаляем запись из истории браузера, если модальное окно было открыто
     if (history.state && history.state.modalOpen) {

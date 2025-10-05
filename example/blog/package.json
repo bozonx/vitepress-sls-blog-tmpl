@@ -7,10 +7,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "vitepress dev src",
-    "build": "vitepress build src",
+    "pagefind": "pagefind --verbose --site ./docs --glob '**/{post,page}*/*.html'",
+    "build": "vitepress build src && pnpm pagefind",
     "preview": "vitepress preview src"
   },
   "dependencies": {
+    "pagefind": "^1.4.0",
     "vitepress": "^1.3.0",
     "vitepress-sls-blog-tmpl": "^0.9.4"
   }

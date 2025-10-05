@@ -14,6 +14,8 @@ export default async () => {
       perPage: PER_PAGE,
       sidebarLogoSrc: '/img/sidebar-logo.webp',
 
+      search: { provider: 'pagefind' },
+
       googleAnalytics: {
         propertyId: '123456789',
         credentialsPath: '.../ga-credentials.json',
@@ -28,6 +30,7 @@ export default async () => {
       // do not recognize telephone numbers on the page
       ['meta', { name: 'format-detection', content: 'telephone=no' }],
 
+      // google analytics
       [
         'script',
         { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-...' },
@@ -38,6 +41,10 @@ export default async () => {
         `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
        gtag('config', 'G-...');`,
       ],
+
+      // pagefind
+      ['link', { rel: 'stylesheet', href: '/pagefind/pagefind-ui.css' }],
+      ['script', { src: '/pagefind/pagefind-ui.js' }],
     ],
   })
 

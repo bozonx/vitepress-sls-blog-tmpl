@@ -1,6 +1,7 @@
 import Layout from './Layout.vue'
 import Theme from 'vitepress-sls-blog-tmpl'
 import 'vitepress-sls-blog-tmpl/tw-styles.css'
+import 'vitepress-sls-blog-tmpl/search-modal.css'
 import './styles.css'
 
 export default { Layout, extends: Theme }

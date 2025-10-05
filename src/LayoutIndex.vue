@@ -183,14 +183,17 @@ onUnmounted(() => {
   <div v-else class="min-h-screen lg:flex w-full">
     <!--  left col-->
     <SideBar ref="sidebarRef" :isMobile="isMobile">
-      <template #sidebar-top>
+      <template #sidebar-top v-if="$slots['sidebar-top']">
         <slot name="sidebar-top" />
       </template>
-      <template #sidebar-middle>
+      <template #sidebar-middle v-if="$slots['sidebar-middle']">
         <slot name="sidebar-middle" />
       </template>
-      <template #sidebar-bottom>
+      <template #sidebar-bottom v-if="$slots['sidebar-bottom']">
         <slot name="sidebar-bottom" />
+      </template>
+      <template #sub-sidebar v-if="$slots['sub-sidebar']">
+        <slot name="sub-sidebar" />
       </template>
     </SideBar>
     <!-- right col-->
@@ -217,7 +220,7 @@ onUnmounted(() => {
 
           <div class="mt-30 pb-12">
             <Footer>
-              <template #footer-before>
+              <template #footer-before v-if="$slots['footer-before']">
                 <slot name="footer-before" />
               </template>
             </Footer>

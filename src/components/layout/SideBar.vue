@@ -175,6 +175,11 @@ watchEffect(async () => {
         </button>
       </div>
     </div>
+
+    <!-- Проверяем наличие контента в слоте sub-sidebar -->
+    <div v-if="$slots['sub-sidebar']" class="max-lg:hidden mt-4 sub-sidebar">
+      <slot name="sub-sidebar" />
+    </div>
   </div>
 </template>
 

@@ -2,6 +2,10 @@ body {
   font-size: 18px;
 }
 
+.VPNavBarTitle {
+  padding-right: 1rem;
+}
+
 @media only screen and (max-width: 640px) {
   .VPDoc {
     padding-left: 18px !important;

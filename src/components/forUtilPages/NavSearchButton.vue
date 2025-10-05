@@ -1,8 +1,8 @@
 <template>
   <div class="nav-search-button">
-    <button class="search-input-wrapper" :title="theme.t.searchInBlog">
+    <button class="search-input-wrapper" :title="theme.t?.searchInBlog">
       <Icon icon="fa6-solid:magnifying-glass" class="search-icon" />
-      <span class="search-placeholder">{{ theme.t.search }}...</span>
+      <span class="search-placeholder">{{ theme.t?.search }}...</span>
     </button>
   </div>
 </template>

@@ -7,9 +7,10 @@
   width: 100%;
   height: 100%;
   /* overflow-y: auto; */
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   justify-content: center;
   align-items: flex-start;
+  backdrop-filter: blur(8px);
 }
 
 .search-modal-inner-wrapper {
@@ -38,12 +39,18 @@
   position: fixed;
   top: 16px;
   right: 16px;
+  font-size: 22px;
   background: #222;
   border: none;
   border-radius: 20px;
   padding: 4px 12px;
   cursor: pointer;
-  color: var(--vp-c-text-2);
+  color: #bbb;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
+}
+
+.search-modal-close-button:hover {
+  filter: brightness(115%);
 }
 
 .search-modal-top-bar {

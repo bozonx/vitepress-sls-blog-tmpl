@@ -39,6 +39,7 @@ export default {
     allPostsOfYear: 'Все посты за год',
     postsCount: 'Публикаций',
     search: 'Поиск',
+    searchInBlog: 'Искать в этом блоге',
 
     links: {
       aboutBlog: 'Об этом блоге',

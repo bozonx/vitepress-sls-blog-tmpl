@@ -38,6 +38,7 @@ export default {
     allPostsOfYear: 'All posts of the year',
     postsCount: 'Publications',
     search: 'Search',
+    searchInBlog: 'Search in this blog',
 
     links: {
       aboutBlog: 'About This Blog',

@@ -1,9 +1,9 @@
 <template>
   <div class="nav-search-button">
-    <div class="search-input-wrapper">
+    <button class="search-input-wrapper" :title="theme.t.searchInBlog">
       <Icon icon="fa6-solid:magnifying-glass" class="search-icon" />
       <span class="search-placeholder">{{ theme.t.search }}...</span>
-    </div>
+    </button>
   </div>
 </template>
 
@@ -16,8 +16,6 @@ const { theme } = useData()
 
 <style scoped>
 .nav-search-button {
-  cursor: pointer;
-  user-select: none;
   display: flex;
   align-items: center;
   height: 100%;
@@ -25,6 +23,8 @@ const { theme } = useData()
 }
 
 .search-input-wrapper {
+  text-align: left;
+  cursor: pointer;
   width: 100%;
   display: flex;
   align-items: center;

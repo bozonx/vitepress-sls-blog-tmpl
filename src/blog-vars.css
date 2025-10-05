@@ -17,7 +17,6 @@
   --gray-500: hsl(var(--layout-hue), 8.94%, 46.08%);
   --gray-600: hsl(var(--layout-hue), 13.79%, 34.12%);
   --gray-700: hsl(var(--layout-hue), 19.12%, 26.67%);
-  /* --gray-750: hsl(var(--layout-hue), 21%, 24%); */
   --gray-770: hsl(var(--layout-hue), 24%, 22%);
   --gray-790: hsl(var(--layout-hue), 25.6%, 18.4%);
   --gray-800: hsl(var(--layout-hue), 27.91%, 16.86%);
@@ -25,16 +24,10 @@
   --gray-900: hsl(var(--layout-hue), 39.29%, 10.98%);
   --gray-900-trans: hsl(var(--layout-hue), 39.29%, 10.98%, 0%);
   --gray-950: hsl(var(--layout-hue), 42%, 10%);
-}
 
-.dark {
-  --primary-btn-bg: hsl(var(--primary-hue), 80%, 40%);
-}
-
-:root {
   /**** SimpleLink */
   --link-a-text: hsl(var(--link-hue), 74%, 44%);
-  --link-a-visited: hsl(var(--visited-hue) 50% 44%);
+  --link-a-visited: hsl(var(--visited-hue) 50%, 44%);
 
   /**** Podcast btn */
   --podcast-btn-bg: hsl(263, 60%, 40%);
@@ -82,6 +75,8 @@
 }
 
 .dark {
+  --primary-btn-bg: hsl(var(--primary-hue), 80%, 40%);
+
   /**** SimpleLink */
   --link-a-text: hsl(var(--link-hue), 100%, 76%);
   --link-a-visited: hsl(var(--visited-hue) 50% 59%);
@@ -101,6 +96,9 @@
   --btn-bg-disabled: var(--gray-600);
   /**** DropdownButton */
   --dropdown-list-bg: var(--drawer-bg);
+  /**** TagItem */
+  --tag-item-bg: var(--primary-btn-bg);
+  --tag-item-bg-active: var(--primary-btn-bg-active);
 
   /**** Sidebar */
   --drawer-border-color: #000;

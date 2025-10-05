@@ -66,7 +66,7 @@ button {
 .dark .card-item:hover {
   filter: brightness(107%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .card-item-header {

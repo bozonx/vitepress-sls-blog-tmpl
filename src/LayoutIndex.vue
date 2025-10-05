@@ -21,7 +21,6 @@ const touchInitialX = ref(null)
 const touchInitialY = ref(null)
 const sidebarRef = ref(null)
 const gestureProcessed = ref(false)
-const searchModal = ref(false)
 let resizeListener
 let scrollListener
 let touchStartListener
@@ -32,32 +31,6 @@ let keydownListener
 
 function onOpenDrawer() {
   sidebarRef.value.openDrawer()
-}
-
-function onOpenSearch() {
-  searchModal.value = true
-  // Предотвращаем скролл body когда модальное окно открыто
-  document.body.classList.add('modal-open')
-}
-
-function onCloseSearch() {
-  searchModal.value = false
-  // Возвращаем скролл body когда модальное окно закрыто
-  document.body.classList.remove('modal-open')
-}
-
-// Обработка клика по модальному окну (закрытие при клике вне контента)
-function onModalClick(e) {
-  // Клик произошел по самому модальному окну, а не по контенту
-  // благодаря @click.stop на search-modal-content
-  onCloseSearch()
-}
-
-// Обработка клавиши Escape для закрытия модального окна
-function handleKeydown(e) {
-  if (e.key === 'Escape' && searchModal.value) {
-    onCloseSearch()
-  }
 }
 
 function startTouch(e) {
@@ -151,9 +124,6 @@ onMounted(() => {
   touchCancelListener = window.addEventListener('touchcancel', resetTouch, {
     passive: true,
   })
-
-  // Обработчик клавиши Escape для закрытия модального окна
-  keydownListener = window.addEventListener('keydown', handleKeydown)
 })
 onUnmounted(() => {
   if (!inBrowser) return
@@ -199,11 +169,7 @@ onUnmounted(() => {
     <!-- right col-->
     <div class="flex-1 flex flex-col min-h-screen">
       <header>
-        <TopBar
-          @open-drawer="onOpenDrawer"
-          @open-search="onOpenSearch"
-          :isMobile="isMobile"
-        >
+        <TopBar @open-drawer="onOpenDrawer" :isMobile="isMobile">
           <template #nav-bar-content-before>
             <slot name="nav-bar-content-before" />
           </template>

@@ -11,7 +11,6 @@ import { GLOBAL_MODALS_CONTAINER_ID } from '../../constants.js'
 const MODAL_ID = 'search-modal'
 const CLOSE_BUTTON_CLASS = 'search-modal-close-button'
 const pageFind = ref(null)
-
 // Флаг для отслеживания состояния модального окна
 const isModalOpen = ref(false)
 
@@ -79,10 +78,11 @@ const createSearchModal = () => {
 
   // Добавляем содержимое модального окна
   searchModal.innerHTML = `
-  <div class="search-modal-content">
-    <div id="pagefind-search"></div>
-
+  <div class="search-modal-inner-wrapper">
     <button class="${CLOSE_BUTTON_CLASS}">×</button>
+    <div class="search-modal-content">
+      <div id="pagefind-search"></div>
+    </div>
   </div>
   `
 

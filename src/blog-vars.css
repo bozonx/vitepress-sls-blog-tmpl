@@ -79,6 +79,8 @@
   --vp-c-brand-1: var(--primary-btn-bg);
   --vp-c-bg: var(--gray-50);
   --vp-c-text-2: var(--gray-500);
+  /**** Search modal */
+  --vp-c-bg: var(--gray-50);
 }
 
 .dark {
@@ -124,4 +126,6 @@
   --vp-c-brand-1: var(--primary-btn-bg);
   --vp-c-bg: var(--gray-850);
   --vp-c-text-2: var(--gray-400);
+  /**** Search modal */
+  --vp-c-bg: var(--gray-850);
 }

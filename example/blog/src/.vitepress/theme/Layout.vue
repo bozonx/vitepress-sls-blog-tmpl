@@ -14,7 +14,8 @@ const { Layout } = Theme
 
 <template>
   <Layout>
-    <!-- <template #aside> test </template> -->
+    <!-- <template #aside><div>your ad here</div></template> -->
+    <!-- <template #sub-sidebar><div>your ad here</div></template> -->
     <template #nav-bar-content-before>
       <PageFindSearch>
         <NavSearchButton />

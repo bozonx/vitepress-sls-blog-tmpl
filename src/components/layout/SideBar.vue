@@ -177,7 +177,7 @@ watchEffect(async () => {
     </div>
 
     <!-- Проверяем наличие контента в слоте sub-sidebar -->
-    <div v-if="$slots['sub-sidebar']" class="max-lg:hidden mt-4 sub-sidebar">
+    <div v-if="$slots['sub-sidebar']" class="max-lg:hidden sub-sidebar">
       <slot name="sub-sidebar" />
     </div>
   </div>
@@ -250,5 +250,15 @@ watchEffect(async () => {
 .sidebar-site-title {
   font-weight: bold;
   padding: 0.35rem 0.25rem 0.75rem 0.65rem;
+}
+
+.sub-sidebar {
+  margin-top: 20rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--spacing) * 4);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 </style>

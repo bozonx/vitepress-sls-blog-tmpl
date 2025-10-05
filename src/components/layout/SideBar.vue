@@ -255,10 +255,9 @@ watchEffect(async () => {
 .sub-sidebar {
   margin-top: 20rem;
   display: flex;
+  width: 100%;
   flex-direction: column;
   row-gap: calc(var(--spacing) * 4);
   justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 </style>

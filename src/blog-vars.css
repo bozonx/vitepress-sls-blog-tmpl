@@ -72,6 +72,13 @@
   --switch-appearance-border-color-hover: #3451b2;
   --switch-appearance-check-bg: #ffffff;
   --switch-appearance-icon-color: rgba(60, 60, 67, 0.78);
+
+  /**** Styles of default vitepress template. It is used in search button */
+  --vp-c-divider: var(--gray-300);
+  --vp-c-bg-soft: var(--gray-100);
+  --vp-c-brand-1: var(--primary-btn-bg);
+  --vp-c-bg: var(--gray-50);
+  --vp-c-text-2: var(--gray-500);
 }
 
 .dark {
@@ -110,4 +117,11 @@
   --switch-appearance-bg-color: rgba(101, 117, 133, 0.16);
   --switch-appearance-border-color-hover: #a8b1ff;
   --switch-appearance-check-bg: #000000;
+
+  /**** Styles of default vitepress template. It is used in search button */
+  --vp-c-divider: var(--gray-700);
+  --vp-c-bg-soft: var(--gray-800);
+  --vp-c-brand-1: var(--primary-btn-bg);
+  --vp-c-bg: var(--gray-850);
+  --vp-c-text-2: var(--gray-400);
 }

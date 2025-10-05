@@ -1,54 +1,39 @@
 <template>
-  <div class="nav-search-button" @click="openSearchModal">
+  <div class="nav-search-button">
     <div class="search-input-wrapper">
-      <svg
-        class="search-icon"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.35-4.35"></path>
-      </svg>
-      <span class="search-placeholder">Search...</span>
-      <kbd class="search-shortcut">⌘K</kbd>
+      <Icon icon="fa6-solid:magnifying-glass" class="search-icon" />
+      <span class="search-placeholder">{{ theme.t.search }}...</span>
     </div>
   </div>
 </template>
 
 <script setup>
+import { Icon } from '@iconify/vue'
 import { useData } from 'vitepress'
 
 const { theme } = useData()
-
-// Функция для открытия модального окна поиска
-const openSearchModal = () => {
-  // Здесь будет логика открытия модального окна поиска
-  // Пока что просто выводим в консоль
-  console.log('Opening search modal...')
-
-  // В будущем здесь можно будет интегрировать с реальным поиском
-  // Например, открыть модальное окно или переключить состояние поиска
-}
 </script>
 
 <style scoped>
 .nav-search-button {
   cursor: pointer;
   user-select: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 160px;
 }
 
 .search-input-wrapper {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 5px 12px;
+  border-radius: 6px;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
   background-color: var(--vp-c-bg-soft);
   transition: all 0.2s ease;
-  min-width: 200px;
 }
 
 .search-input-wrapper:hover {
@@ -58,7 +43,6 @@ const openSearchModal = () => {
 
 .search-icon {
   width: 16px;
-  height: 16px;
   color: var(--vp-c-text-2);
   flex-shrink: 0;
 }
@@ -67,44 +51,5 @@ const openSearchModal = () => {
   color: var(--vp-c-text-2);
   font-size: 14px;
   flex: 1;
-}
-
-.search-shortcut {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 6px;
-  font-size: 12px;
-  font-family: var(--vp-font-family-mono);
-  color: var(--vp-c-text-3);
-  background-color: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 4px;
-  min-width: 20px;
-  height: 20px;
-}
-
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-  .search-input-wrapper {
-    min-width: 150px;
-  }
-
-  .search-shortcut {
-    display: none;
-  }
-}
-
-/* Темная тема */
-.dark .search-input-wrapper {
-  background-color: var(--vp-c-bg-soft);
-}
-
-.dark .search-input-wrapper:hover {
-  background-color: var(--vp-c-bg);
-}
-
-.dark .search-shortcut {
-  background-color: var(--vp-c-bg-soft);
 }
 </style>

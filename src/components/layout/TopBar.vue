@@ -34,7 +34,7 @@ const links = theme.value.topBar
       props.isMobile && 'topbar--mobile',
     ]"
   >
-    <div class="flex-1 flex">
+    <div class="flex-1 flex gap-x-3">
       <Btn
         @click="$emit('openDrawer')"
         icon="fa6-solid:bars"

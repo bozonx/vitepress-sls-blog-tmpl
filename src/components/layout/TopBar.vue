@@ -79,7 +79,7 @@ const links = theme.value.topBar
 
 <style scoped>
 .top-bar {
-  padding-left: 1.675rem;
+  padding-left: 0.675rem;
 }
 
 .topbar--mobile {

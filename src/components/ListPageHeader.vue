@@ -4,7 +4,10 @@
       <slot />
     </h1>
 
-    <div v-if="showPopularPostsSwitch" class="flex items-center gap-1">
+    <div
+      v-if="showPopularPostsSwitch"
+      class="flex flex-row items-center gap-1 gap-y-4 list-page-header-switcher"
+    >
       <Btn
         :text="theme.t.links.recent"
         :href="`${props.baseUrl}/1`"
@@ -39,3 +42,12 @@ const popularBaseUrl = computed(() => {
 const showPopularPostsSwitch =
   props.showPopularPostsSwitch && theme.value.popularPosts?.enabled
 </script>
+
+<style scoped>
+@media (max-width: 460px) {
+  .list-page-header-switcher {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>

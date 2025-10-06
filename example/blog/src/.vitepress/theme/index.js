@@ -1,3 +1,4 @@
+import 'vitepress-sls-blog-tmpl/blue-theme.css'
 import Layout from './Layout.vue'
 import { initLightbox } from 'vitepress-sls-blog-tmpl/lightbox.js'
 import Theme from 'vitepress-sls-blog-tmpl'

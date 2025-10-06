@@ -1,4 +1,5 @@
-:root {
+:root,
+.dark {
   --primary-hue: 115;
   --layout-hue: 115;
   --primary-btn-bg: hsl(var(--primary-hue), 70%, 37%);
@@ -9,14 +10,20 @@
   --gray-200: hsl(var(--layout-hue), 1.3%, 90.98%);
   --gray-270: hsl(var(--layout-hue), 1.2%, 88%);
   --gray-300: hsl(var(--layout-hue), 1.2%, 83.92%);
+  --gray-350: hsl(var(--layout-hue), 1.1%, 79.2%);
   --gray-400: hsl(var(--layout-hue), 1%, 64.9%);
   --gray-500: hsl(var(--layout-hue), 0.8%, 46.08%);
   --gray-600: hsl(var(--layout-hue), 1.3%, 34.12%);
   --gray-700: hsl(var(--layout-hue), 2%, 26.67%);
   --gray-770: hsl(var(--layout-hue), 2.6%, 22%);
+  --gray-790: hsl(var(--layout-hue), 3%, 18.4%);
   --gray-800: hsl(var(--layout-hue), 3%, 16.86%);
   --gray-850: hsl(var(--layout-hue), 3.5%, 13.4%);
   --gray-900: hsl(var(--layout-hue), 4%, 10.98%);
   --gray-900-trans: hsl(var(--layout-hue), 4%, 10.98%, 0%);
   --gray-950: hsl(var(--layout-hue), 4.3%, 10%);
+
+  /**** TagItem */
+  --tag-item-bg: var(--primary-btn-bg);
+  --tag-item-bg-active: var(--primary-btn-bg-active);
 }

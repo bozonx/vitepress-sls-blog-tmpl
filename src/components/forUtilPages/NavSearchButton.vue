@@ -43,7 +43,7 @@ const { theme } = useData()
   transition: all 0.2s ease;
 }
 
-.search-input-wrapper:hover {
+.search-input-btn:hover {
   border-color: var(--vp-c-brand-1);
   background-color: var(--vp-c-bg);
 }

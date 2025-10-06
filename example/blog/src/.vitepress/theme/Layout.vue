@@ -1,7 +1,7 @@
 <script setup>
-import Theme from 'vitepress-sls-blog-tmpl'
 import NavSearchButton from 'vitepress-sls-blog-tmpl/NavSearchButton.vue'
 import PageFindSearch from 'vitepress-sls-blog-tmpl/PageFindSearch.vue'
+import Theme from 'vitepress-sls-blog-tmpl'
 import { provide } from 'vue'
 import { data as enData } from '../../en/loadPosts.data.js'
 
@@ -14,8 +14,6 @@ const { Layout } = Theme
 
 <template>
   <Layout>
-    <!-- <template #aside><div>your ad here</div></template> -->
-    <!-- <template #sub-sidebar><div>your ad here</div></template> -->
     <template #nav-bar-content-before>
       <PageFindSearch>
         <NavSearchButton />

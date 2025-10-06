@@ -6,7 +6,6 @@ import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
 import FileDownload from './components/docComponents/FileDownload.vue'
 import AudioFile from './components/docComponents/AudioFile.vue'
 import VideoYoutube from './components/docComponents/VideoYoutube.vue'
-import { initLightbox } from './components/docComponents/lightbox.js'
 import { resolveTranslationsByFilePath } from './helpers/resolveTranslations.js'
 import './vp-common.css'
 import './vp-icons.css'
@@ -25,7 +24,5 @@ export default {
     ctx.app.component('FileDownload', FileDownload)
     ctx.app.component('AudioFile', AudioFile)
     ctx.app.component('VideoYoutube', VideoYoutube)
-    // Инициализация лайтбокса Tobii с доступом к контексту
-    initLightbox(ctx)
   },
 }

@@ -1,12 +1,15 @@
 <template>
   <div class="mb-14 md:mb-18 home-hero">
     <div class="flex w-full max-lg:flex-col-reverse gap-x-2 gap-y-6">
-      <div class="flex-1 max-lg:text-center">
+      <div class="flex-1 max-lg:text-center home-hero-captions">
         <h1
-          class="max-md:text-4xl md:text-6xl font-bold mb-4"
+          class="max-md:text-4xl md:text-6xl font-bold mb-4 home-hero-first-line"
           v-html="props.firstLine"
         ></h1>
-        <p class="max-md:text-2xl md:text-4xl" v-html="props.secondLine"></p>
+        <p
+          class="max-md:text-2xl md:text-4xl home-hero-second-line"
+          v-html="props.secondLine"
+        ></p>
       </div>
       <a
         v-if="props.img"

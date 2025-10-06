@@ -107,7 +107,7 @@ if (props.href && !props.disabled) {
 
 .btn-base:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
   filter: brightness(97%);
 }
 

@@ -270,16 +270,24 @@ export function sortSimilarPosts(
     .slice(0, limit)
 }
 
-export function resoveBodyMarker(theme, frontmatter) {
-  const bodyMarker = theme.value.search?.bodyMarker
+export function resolveBodyMarker(theme, frontmatter) {
+  const bodyMarker = theme.search?.bodyMarker
 
   if (!bodyMarker) return undefined
 
+  let allowed = true
+
   // by default util pages are excluded from search
-  if (frontmatter.layout === 'util') return frontmatter.searchIncluded
-  // all other pages are included in search by default
-  return typeof frontmatter.searchIncluded === 'undefined' ||
-    frontmatter.searchIncluded === null
-    ? true
-    : frontmatter.searchIncluded
+  if (frontmatter.layout === 'util') {
+    allowed = frontmatter.searchIncluded || false
+  } else {
+    // all other pages are included in search by default
+    allowed =
+      typeof frontmatter.searchIncluded === 'undefined' ||
+      frontmatter.searchIncluded === null
+        ? true
+        : frontmatter.searchIncluded || false
+  }
+
+  return allowed ? bodyMarker : undefined
 }

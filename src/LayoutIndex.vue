@@ -21,7 +21,7 @@ const touchInitialX = ref(null)
 const touchInitialY = ref(null)
 const sidebarRef = ref(null)
 const gestureProcessed = ref(false)
-const bodyMarker = resolveBodyMarker(theme, frontmatter)
+const bodyMarker = resolveBodyMarker(theme.value, frontmatter.value)
 let resizeListener
 let scrollListener
 let touchStartListener

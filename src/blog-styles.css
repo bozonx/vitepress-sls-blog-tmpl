@@ -13,6 +13,11 @@ button {
   outline: 0;
 }
 
+/* Предотвращение скролла body когда модальное окно открыто */
+body.modal-open {
+  overflow: hidden;
+}
+
 .muted {
   color: var(--gray-500);
 }
@@ -213,6 +218,11 @@ button {
   margin-bottom: 1.5rem;
   color: var(--util-page-header-color);
 }
+
+/**** Search input button */
+/* .dark .search-input-btn {
+  border-color: var(--gray-500);
+} */
 
 /******* Doc page overwrite */
 .vp-doc {

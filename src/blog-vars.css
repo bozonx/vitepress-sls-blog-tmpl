@@ -134,4 +134,6 @@
   --vp-c-bg: var(--gray-850);
   /**** Used in pagefind */
   --vp-c-divider: var(--gray-800);
+  /**** Search input button */
+  --search-input-btn-border-color: var(--gray-700);
 }

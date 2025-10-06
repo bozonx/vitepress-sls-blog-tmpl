@@ -32,6 +32,9 @@ const showSearchModal = () => {
     searchModal.classList.add('active', 'fade-in')
     isModalOpen.value = true
 
+    // Добавляем класс modal-open к body для блокировки скролла
+    document.body.classList.add('modal-open')
+
     // Добавляем запись в историю браузера для обработки кнопки "Назад"
     history.pushState({ modalOpen: true }, '', window.location.href)
 
@@ -67,6 +70,9 @@ const hideSearchModal = () => {
       searchModal.style.display = 'none'
       searchModal.classList.remove('active', 'fade-out')
       isModalOpen.value = false
+
+      // Удаляем класс modal-open с body для разблокировки скролла
+      document.body.classList.remove('modal-open')
     }, 300) // 300ms = длительность анимации
 
     // Удаляем запись из истории браузера, если модальное окно было открыто

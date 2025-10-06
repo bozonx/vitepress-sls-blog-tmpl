@@ -1,6 +1,6 @@
 <template>
   <div class="nav-search-button">
-    <button class="search-input-wrapper" :title="theme.t?.searchInBlog">
+    <button class="search-input-btn" :title="theme.t?.searchInBlog">
       <Icon icon="fa6-solid:magnifying-glass" class="search-icon" />
       <span class="search-placeholder">{{ theme.t?.search }}...</span>
     </button>
@@ -14,6 +14,13 @@ import { useData } from 'vitepress'
 const { theme } = useData()
 </script>
 
+<style>
+:root,
+.dark {
+  --search-input-btn-border-color: var(--vp-c-divider);
+}
+</style>
+
 <style scoped>
 .nav-search-button {
   display: flex;
@@ -22,7 +29,7 @@ const { theme } = useData()
   width: 160px;
 }
 
-.search-input-wrapper {
+.search-input-btn {
   text-align: left;
   cursor: pointer;
   width: 100%;
@@ -31,7 +38,7 @@ const { theme } = useData()
   gap: 8px;
   padding: 5px 12px;
   border-radius: 6px;
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--search-input-btn-border-color);
   background-color: var(--vp-c-bg-soft);
   transition: all 0.2s ease;
 }

@@ -147,11 +147,6 @@
   }
 }
 
-/* Предотвращение скролла body когда модальное окно открыто */
-/* body.modal-open {
-  overflow: hidden;
-} */
-
 /* Адаптивность для мобильных устройств */
 @media (max-width: 840px) {
   .search-modal-inner-wrapper {

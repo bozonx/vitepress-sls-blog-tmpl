@@ -21,7 +21,7 @@ const localePosts = props.localePosts || allPosts[localeIndex.value]
 
   <PostDonateLink class="mt-10" />
   <PostComments class="mt-10" />
-  <PostSocialShare class="mt-2" />
+  <PostSocialShare class="mt-10" />
 
   <div class="flex mt-10">
     <EditLink />

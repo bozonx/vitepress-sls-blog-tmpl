@@ -65,7 +65,13 @@ export const common = {
     paginationMaxItems: 5,
     // show author in post list
     showAuthorInPostList: true,
-    //search: { provider: 'pagefind' },
+
+    // bodyMarker is set on the element that contains the content of the page.
+    // For Pagefind use 'data-pagefind-body'
+    // Then all the pages excluding util pages will have this marker.
+    // To change this behavior, set in the frontmatter or the page
+    //   searchIncluded: false or true
+    // search: { bodyMarker: 'data-pagefind-body' },
 
     // use for popular posts
     googleAnalytics: {

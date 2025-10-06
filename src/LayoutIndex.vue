@@ -11,7 +11,7 @@ import SideBar from './components/layout/SideBar.vue'
 import ToTheTop from './components/layout/ToTheTop.vue'
 import TopBar from './components/layout/TopBar.vue'
 import { MOBILE_BREAKPOINT, SWIPE_OFFSET } from './constants.js'
-import { isHomePage } from './helpers/helpers.js'
+import { isHomePage, resolveBodyMarker } from './helpers/helpers.js'
 
 const { page, theme, frontmatter } = useData()
 const windowWidth = ref(0)
@@ -21,6 +21,7 @@ const touchInitialX = ref(null)
 const touchInitialY = ref(null)
 const sidebarRef = ref(null)
 const gestureProcessed = ref(false)
+const bodyMarker = resolveBodyMarker(theme, frontmatter)
 let resizeListener
 let scrollListener
 let touchStartListener
@@ -180,7 +181,7 @@ onUnmounted(() => {
         <main
           class="lg:ml-4 xl:ml-24 mt-20 lg:mt-4 px-4 sm:px-8 app-page flex flex-col"
         >
-          <div class="flex-1">
+          <div class="flex-1" v-bind="bodyMarker ? { [bodyMarker]: true } : {}">
             <PageContent />
           </div>
 

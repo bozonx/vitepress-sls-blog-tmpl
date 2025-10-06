@@ -269,3 +269,17 @@ export function sortSimilarPosts(
     })
     .slice(0, limit)
 }
+
+export function resoveBodyMarker(theme, frontmatter) {
+  const bodyMarker = theme.value.search?.bodyMarker
+
+  if (!bodyMarker) return undefined
+
+  // by default util pages are excluded from search
+  if (frontmatter.layout === 'util') return frontmatter.searchIncluded
+  // all other pages are included in search by default
+  return typeof frontmatter.searchIncluded === 'undefined' ||
+    frontmatter.searchIncluded === null
+    ? true
+    : frontmatter.searchIncluded
+}

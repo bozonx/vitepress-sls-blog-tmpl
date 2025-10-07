@@ -10,10 +10,10 @@ const { theme } = useData()
 
 const hero = computed(() => ({
   ...props.hero,
-  image: {
-    ...props.hero.image,
-    src: props.hero.image?.src || theme.value.mainHeroImg,
-  },
+  // image: {
+  //   ...props.hero.image,
+  //   src: props.hero.image?.src || theme.value.mainHeroImg,
+  // },
 }))
 </script>
 

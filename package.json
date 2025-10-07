@@ -51,10 +51,10 @@
   },
   "dependencies": {
     "@iconify/vue": "^5.0.0",
-    "@vueuse/components": "^13.6.0",
+    "@vueuse/components": "^13.9.0",
     "cheerio": "^1.1.2",
     "feed": "^5.1.0",
-    "googleapis": "^144.0.0",
+    "googleapis": "^161.0.0",
     "gray-matter": "^4.0.3",
     "image-size": "^2.0.2",
     "rehype-external-links": "^3.0.0",
@@ -62,11 +62,11 @@
     "remark": "^15.0.1",
     "remark-rehype": "^11.1.2",
     "slug": "^11.0.0",
-    "squidlet-lib": "^0.1.10",
+    "squidlet-lib": "link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squidlet-lib",
     "strip-markdown": "^6.0.0",
-    "tailwindcss": "^4.1.11",
+    "tailwindcss": "^4.1.14",
     "vitepress": "2.0.0-alpha.9",
-    "vue": "^3.5.18",
+    "vue": "^3.5.22",
     "yaml": "^2.8.1"
   },
   "devDependencies": {

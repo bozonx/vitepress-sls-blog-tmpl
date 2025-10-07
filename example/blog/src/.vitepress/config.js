@@ -14,7 +14,7 @@ export default async () => {
       perPage: PER_PAGE,
       sidebarLogoSrc: '/img/sidebar-logo.webp',
 
-      // search: { provider: 'pagefind' },
+      search: { bodyMarker: 'data-pagefind-body' },
 
       googleAnalytics: {
         propertyId: '123456789',
@@ -50,9 +50,6 @@ export default async () => {
 
   return mergeBlogConfig({
     ...config,
-    locales: {
-      en: await loadBlogLocale('en', config),
-      ru: await loadBlogLocale('ru', config),
-    },
+    locales: { en: await loadBlogLocale('en', config) },
   })
 }

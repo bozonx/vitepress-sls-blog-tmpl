@@ -9,6 +9,8 @@ const posts = { en: enData.posts }
 
 provide('posts', posts)
 
+provide('posts', posts)
+
 const { Layout } = Theme
 </script>
 

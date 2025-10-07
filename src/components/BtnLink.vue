@@ -10,10 +10,18 @@ const props = defineProps(['class'])
   </Btn>
 </template>
 
-<style scoped>
+<style>
 .btn-link {
+  display: inline-flex;
   padding: 0;
   background: transparent !important;
   box-shadow: none !important;
+}
+.btn-link.active {
+  border: 0 none;
+}
+
+.btn-link.active .btn-base-inner {
+  text-decoration: underline;
 }
 </style>

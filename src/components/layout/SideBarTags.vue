@@ -7,15 +7,21 @@
       class="mb-2 side-bar-tags-list"
       activeCompareMethod="softPagination"
     />
-    <SimpleLink v-if="showAllTags" :href="allTagsUrl" class="text-sm">{{
-      theme.t.allTagsCall
-    }}</SimpleLink>
+    <div class="mt-2">
+      <BtnLink
+        v-if="showAllTags"
+        :href="allTagsUrl"
+        :icon="theme.tagsIcon"
+        class="text-sm"
+        >{{ theme.t.allTagsCall }}</BtnLink
+      >
+    </div>
   </div>
 </template>
 
 <script setup>
 import { makeTagsList } from '../../list-helpers/listHelpers.js'
-import SimpleLink from '../SimpleLink.vue'
+import BtnLink from '../BtnLink.vue'
 import TagsList from '../TagsList.vue'
 import { useData } from 'vitepress'
 

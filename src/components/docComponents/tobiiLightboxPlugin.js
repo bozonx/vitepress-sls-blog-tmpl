@@ -1,8 +1,5 @@
-import Tobii from '@midzer/tobii/dist/tobii.modern.js'
-import '@midzer/tobii/dist/tobii.min.css'
-
 /** Инициализация и управление лайтбоксом Tobii */
-export function initLightbox(ctx) {
+export function tobiiLightboxPlugin(ctx, Tobii) {
   if (typeof window === 'undefined') return
 
   let tobiiInstance = null

@@ -30,7 +30,7 @@
     "./generateRssFeed.js": "./src/list-helpers/generateRssFeed.js",
     "./SiteHome.vue": "./src/SiteHome.vue",
     "./FileDownload.vue": "./src/components/docComponents/FileDownload.vue",
-    "./lightbox.js": "./src/components/docComponents/lightbox.js",
+    "./tobiiLightboxPlugin.js": "./src/components/docComponents/tobiiLightboxPlugin.js",
     "./NavSearchButton.vue": "./src/components/forUtilPages/NavSearchButton.vue",
     "./PageFindSearch.vue": "./src/components/forUtilPages/PageFindSearch.vue",
     "./UtilPageContent.vue": "./src/components/forUtilPages/UtilPageContent.vue",
@@ -51,7 +51,6 @@
   },
   "dependencies": {
     "@iconify/vue": "^5.0.0",
-    "@midzer/tobii": "^3.0.0",
     "@vueuse/components": "^13.6.0",
     "cheerio": "^1.1.2",
     "feed": "^5.1.0",

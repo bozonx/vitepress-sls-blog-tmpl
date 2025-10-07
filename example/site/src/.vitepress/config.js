@@ -17,6 +17,10 @@ export default async () => {
     head: [
       // do not recognize telephone numbers on the page
       ['meta', { name: 'format-detection', content: 'telephone=no' }],
+
+      // pagefind
+      ['link', { rel: 'stylesheet', href: '/pagefind/pagefind-ui.css' }],
+      ['script', { src: '/pagefind/pagefind-ui.js' }],
     ],
   })
 

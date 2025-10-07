@@ -17,7 +17,7 @@
         class="home-logo"
         :href="`/${localeIndex}/${theme.recentBaseUrl}/1`"
       >
-        <img :src="props.img" />
+        <img :src="props.img.src" :alt="props.img.alt" />
       </a>
     </div>
     <ul

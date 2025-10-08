@@ -193,14 +193,6 @@ collections:
           # - { label: "overcast", name: "overcast", widget: "string", required: false, i18n: true }
           # - { label: "zvuk", name: "zvuk", widget: "string", required: false, i18n: true }
           # - { label: "podcastaddiction", name: "podcastaddiction", widget: "string", required: false, i18n: true }
-      - label: 'Language of podcast (set only if not equal to the page lang)'
-        name: 'podcastLang'
-        widget: select
-        options: ['', 'RU', 'EN']
-        default: ''
-        required: false
-        preview: false
-        i18n: true
       - name: tags
         label: Tags
         widget: relation

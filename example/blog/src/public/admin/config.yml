@@ -46,6 +46,8 @@ collections:
     path: 'post/{{slug}}'
     slug: "{{date | date('YYYY')}}-{{slug}}"
     preview_path: '/{{locale}}/post/{{slug}}'
+    media_folder: /src/public/media
+    public_folder: /media
     create: true
     summary: '{{title}} | {{commit_date}} | {{commit_author}}'
     sortable_fields:
@@ -53,8 +55,6 @@ collections:
       default:
         field: date
         direction: descending # default: ascending
-    media_folder: /src/public/media
-    public_folder: /media
     view_groups:
       default: by-year
       groups:

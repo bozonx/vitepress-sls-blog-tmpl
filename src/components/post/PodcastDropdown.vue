@@ -6,9 +6,7 @@ import MenuItem from '../MenuItem.vue'
 import PodcastIcon from './PodcastIcon.vue'
 
 const { frontmatter, theme } = useData()
-const btnText =
-  theme.value.t.listenPodcast +
-  (frontmatter.value.podcastLang ? ` (${frontmatter.value.podcastLang})` : '')
+const btnText = theme.value.t.listenPodcast
 </script>
 
 <template>

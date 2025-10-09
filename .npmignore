@@ -1,3 +1,6 @@
 _old
-example
+docs/
+example/
 .gitignore
+.prettierrc.yml
+README.md

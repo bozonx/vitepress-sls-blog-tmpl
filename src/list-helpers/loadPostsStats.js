@@ -171,9 +171,14 @@ export async function loadGoogleAnalytics(gaCfg) {
 
     // Дополнительная информация об ошибке для отладки
     if (error.code === 'ENOENT') {
+      const credentialsSource = gaCfg.credentialsJson
+        ? 'credentialsJson'
+        : 'credentialsPath'
       console.error(
         '❌ Файл с учетными данными не найден:',
-        gaCfg.credentialsPath
+        credentialsSource === 'credentialsPath'
+          ? gaCfg.credentialsPath
+          : 'credentialsJson'
       )
     } else if (error.code === 403) {
       console.error(

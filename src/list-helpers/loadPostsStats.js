@@ -85,7 +85,7 @@ export async function loadGoogleAnalytics(gaCfg) {
 
     // Создаем клиент для GA4 Data API
     const auth = new google.auth.GoogleAuth({
-      credentials,
+      auth: { credentials },
       scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
     })
 

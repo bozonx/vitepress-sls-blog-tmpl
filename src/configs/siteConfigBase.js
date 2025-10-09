@@ -29,7 +29,7 @@ export const common = {
     ],
     ['link', { rel: 'manifest', href: '/site.webmanifest' }],
   ],
-  outDir: '../docs',
+  outDir: '../dist',
   cacheDir: '../.cache',
   srcExclude: ['/site'],
   metaChunk: true,

@@ -77,7 +77,8 @@ export const common = {
     googleAnalytics: {
       propertyId: null, // GA4 Property ID (например: "123456789")
       credentialsPath: null, // Путь к JSON файлу Service Account
-      credentialsJson: null, // JSON string Service Account
+      // JSON string Service Account. eg process.env.GA_CREDENTIALS_JSON
+      credentialsJson: null,
       // period for getting analytics data
       dataPeriodDays: 30,
       // limit for getting analytics data.

@@ -15,7 +15,7 @@ export async function mergeWithAnalytics(posts, config) {
   // Валидация конфигурации
   if (
     !gaCfg?.propertyId ||
-    !(gaCfg?.credentialsPath || gaCfg?.credentialsJson)
+    !(gaCfg?.credentialsJson || gaCfg?.credentialsPath)
   ) {
     console.warn('⚠️ Google Analytics не настроен')
     return posts
@@ -71,12 +71,14 @@ export async function loadGoogleAnalytics(gaCfg) {
     let credentials = null
 
     // Загружаем учетные данные из Service Account JSON файла
-    if (gaCfg.credentialsPath) {
+    if (gaCfg.credentialsJson) {
+      // Приоритет: сначала используем credentialsJson
+      credentials = JSON.parse(gaCfg.credentialsJson)
+    } else if (gaCfg.credentialsPath) {
+      // Если credentialsJson нет, используем credentialsPath
       credentials = JSON.parse(
         await fs.readFile(gaCfg.credentialsPath, 'utf-8')
       )
-    } else if (gaCfg.credentialsJson) {
-      credentials = JSON.parse(gaCfg.credentialsJson)
     } else {
       throw new Error('Не указаны учетные данные Service Account')
     }

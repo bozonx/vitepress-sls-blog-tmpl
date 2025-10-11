@@ -76,6 +76,7 @@ export const common = {
     // use for popular posts
     googleAnalytics: {
       propertyId: null, // GA4 Property ID (например: "123456789")
+      // You can use env variable GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
       credentialsPath: null, // Путь к JSON файлу Service Account
       // JSON string Service Account. eg process.env.GA_CREDENTIALS_JSON
       credentialsJson: null,

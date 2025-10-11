@@ -13,12 +13,20 @@ export async function mergeWithAnalytics(posts, config) {
   const gaCfg = config.site.themeConfig.googleAnalytics
 
   // Валидация конфигурации
-  if (
-    !gaCfg?.propertyId ||
-    !(gaCfg?.credentialsJson || gaCfg?.credentialsPath)
-  ) {
-    console.warn('⚠️ Google Analytics не настроен')
+  if (!gaCfg?.propertyId) {
+    console.warn('⚠️ Google Analytics не настроен: отсутствует propertyId')
     return posts
+  }
+
+  // Проверяем наличие учетных данных (поддерживаем ADC)
+  if (!gaCfg?.credentialsJson && !gaCfg?.credentialsPath) {
+    console.log(
+      'ℹ️ Учетные данные не указаны, будет использован Application Default Credentials'
+    )
+    console.log(
+      '   Убедитесь, что установлена переменная GOOGLE_APPLICATION_CREDENTIALS'
+    )
+    console.log('   или выполнен gcloud auth application-default login')
   }
 
   try {
@@ -68,28 +76,52 @@ export async function mergeWithAnalytics(posts, config) {
 
 export async function loadGoogleAnalytics(gaCfg) {
   try {
-    let credentials = null
+    // Современный подход к аутентификации с поддержкой ADC
+    let authClient = null
 
-    // Загружаем учетные данные из Service Account JSON файла
     if (gaCfg.credentialsJson) {
-      // Приоритет: сначала используем credentialsJson
-      credentials = JSON.parse(gaCfg.credentialsJson)
+      // Приоритет: сначала используем credentialsJson с JWT конструктором
+      const credentials = JSON.parse(gaCfg.credentialsJson)
+      authClient = new google.auth.JWT({
+        email: credentials.client_email,
+        key: credentials.private_key,
+        scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
+      })
+      console.log('🔑 Используем credentialsJson для аутентификации')
     } else if (gaCfg.credentialsPath) {
-      // Если credentialsJson нет, используем credentialsPath
-      credentials = JSON.parse(
+      // Читаем файл и используем JWT конструктор
+      const credentials = JSON.parse(
         await fs.readFile(gaCfg.credentialsPath, 'utf-8')
       )
+      authClient = new google.auth.JWT({
+        email: credentials.client_email,
+        key: credentials.private_key,
+        scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
+      })
+      console.log(
+        `🔑 Используем credentials из файла: ${gaCfg.credentialsPath}`
+      )
     } else {
-      throw new Error('Не указаны учетные данные Service Account')
+      // Если не указаны явные учетные данные, используем Application Default Credentials
+      console.log('🔑 Используем Application Default Credentials (ADC)')
+      console.log(
+        '   Убедитесь, что установлена переменная GOOGLE_APPLICATION_CREDENTIALS'
+      )
+      console.log('   или выполнен gcloud auth application-default login')
+
+      const auth = new google.auth.GoogleAuth({
+        scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
+      })
+      authClient = await auth.getClient()
     }
 
-    // Создаем клиент для GA4 Data API
-    const auth = new google.auth.GoogleAuth({
-      auth: { credentials },
-      scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
-    })
+    console.log('✅ Аутентификация успешно выполнена')
 
-    const analyticsdata = google.analyticsdata({ version: GA_VERSION, auth })
+    // Создаем клиент Analytics Data API
+    const analyticsdata = google.analyticsdata({
+      version: GA_VERSION,
+      auth: authClient,
+    })
     const endDate = new Date()
     const startDate = new Date()
 
@@ -99,9 +131,10 @@ export async function loadGoogleAnalytics(gaCfg) {
     console.log(
       `📅 Период: ${startDate.toISOString().split('T')[0]} - ${endDate.toISOString().split('T')[0]}`
     )
+    console.log(`🏷️ Property ID: ${gaCfg.propertyId}`)
 
-    // Попробуем сначала с более простым фильтром - CONTAINS
-    const response = await analyticsdata.properties.runReport({
+    // Подготавливаем параметры запроса
+    const requestParams = {
       property: `properties/${gaCfg.propertyId}`,
       requestBody: {
         dateRanges: [
@@ -129,15 +162,24 @@ export async function loadGoogleAnalytics(gaCfg) {
           },
         },
         orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
-        limit: gaCfg.dataLimit, // Ограничиваем количество результатов
+        limit: gaCfg.dataLimit || 1000, // Ограничиваем количество результатов
       },
-    })
+    }
+
+    console.log('📊 Отправляем запрос к Google Analytics Data API...')
+
+    // Выполняем запрос к Google Analytics Data API
+    const response = await analyticsdata.properties.runReport(requestParams)
 
     const stats = {}
 
     if (!response.data.rows || response.data.rows.length === 0) {
       console.warn('⚠️ Нет данных в ответе от Google Analytics 4')
-      return
+      console.warn('   Возможные причины:')
+      console.warn('   - Недостаточно данных за указанный период')
+      console.warn('   - Неправильный фильтр по pagePath')
+      console.warn('   - Property ID не содержит данных')
+      return {}
     }
 
     console.log(
@@ -181,13 +223,32 @@ export async function loadGoogleAnalytics(gaCfg) {
           : 'credentialsJson'
       )
     } else if (error.code === 403) {
-      console.error(
-        '❌ Нет доступа к Google Analytics. Проверьте права доступа и propertyId'
-      )
+      console.error('❌ Нет доступа к Google Analytics. Проверьте:')
+      console.error('   - Правильность propertyId')
+      console.error('   - Права доступа Service Account к Google Analytics')
+      console.error('   - Включен ли Google Analytics Data API в проекте')
     } else if (error.code === 400) {
       console.error('❌ Неверный запрос к Google Analytics API')
+      if (error.details) {
+        console.error('   Детали ошибки:', error.details)
+      }
+    } else if (error.code === 401) {
+      console.error(
+        '❌ Ошибка аутентификации. Проверьте учетные данные Service Account'
+      )
+    } else if (error.code === 429) {
+      console.error('❌ Превышен лимит запросов к Google Analytics API')
+    } else {
+      console.error('❌ Неизвестная ошибка:', error.code || 'N/A')
+      if (error.response?.data) {
+        console.error(
+          '   Ответ API:',
+          JSON.stringify(error.response.data, null, 2)
+        )
+      }
     }
 
-    return
+    // Возвращаем пустой объект вместо undefined для консистентности
+    return {}
   }
 }

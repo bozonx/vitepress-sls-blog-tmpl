@@ -76,46 +76,33 @@ export async function mergeWithAnalytics(posts, config) {
 
 export async function loadGoogleAnalytics(gaCfg) {
   try {
-    // Современный подход к аутентификации с поддержкой ADC
-    let authClient = null
+    // Упрощенный подход к аутентификации
+    const scopes = ['https://www.googleapis.com/auth/analytics.readonly']
+    let credentials = null
 
+    // Получаем учетные данные
     if (gaCfg.credentialsJson) {
-      // Приоритет: сначала используем credentialsJson с JWT конструктором
-      const credentials = JSON.parse(gaCfg.credentialsJson)
-      authClient = new google.auth.JWT({
-        email: credentials.client_email,
-        key: credentials.private_key,
-        scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
-      })
-      console.log('🔑 Используем credentialsJson для аутентификации')
+      credentials = JSON.parse(gaCfg.credentialsJson)
+      console.log('🔑 Используем credentialsJson')
     } else if (gaCfg.credentialsPath) {
-      // Читаем файл и используем JWT конструктор
-      const credentials = JSON.parse(
+      credentials = JSON.parse(
         await fs.readFile(gaCfg.credentialsPath, 'utf-8')
       )
-      authClient = new google.auth.JWT({
-        email: credentials.client_email,
-        key: credentials.private_key,
-        scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
-      })
-      console.log(
-        `🔑 Используем credentials из файла: ${gaCfg.credentialsPath}`
-      )
+      console.log(`🔑 Используем файл: ${gaCfg.credentialsPath}`)
     } else {
-      // Если не указаны явные учетные данные, используем Application Default Credentials
-      console.log('🔑 Используем Application Default Credentials (ADC)')
-      console.log(
-        '   Убедитесь, что установлена переменная GOOGLE_APPLICATION_CREDENTIALS'
-      )
-      console.log('   или выполнен gcloud auth application-default login')
-
-      const auth = new google.auth.GoogleAuth({
-        scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
-      })
-      authClient = await auth.getClient()
+      console.log('🔑 Используем Application Default Credentials')
     }
 
-    console.log('✅ Аутентификация успешно выполнена')
+    // Создаем аутентифицированный клиент
+    const authClient = credentials
+      ? new google.auth.JWT({
+          email: credentials.client_email,
+          key: credentials.private_key,
+          scopes,
+        })
+      : await new google.auth.GoogleAuth({ scopes }).getClient()
+
+    console.log('✅ Аутентификация выполнена')
 
     // Создаем клиент Analytics Data API
     const analyticsdata = google.analyticsdata({

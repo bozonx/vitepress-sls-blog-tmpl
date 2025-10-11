@@ -4,10 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  squildlet-lib: link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squildlet-lib
-  squidlet-lib: link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squidlet-lib
-
 importers:
 
   .:
@@ -49,8 +45,8 @@ importers:
         specifier: ^11.0.0
         version: 11.0.0
       squidlet-lib:
-        specifier: link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squidlet-lib
-        version: link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squidlet-lib
+        specifier: ^0.2.1
+        version: 0.2.1
       strip-markdown:
         specifier: ^6.0.0
         version: 6.0.0
@@ -1172,6 +1168,10 @@ packages:
 
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
+
+  squidlet-lib@0.2.1:
+    resolution: {integrity: sha512-CfieQqXdO4IMAyI+nOyI2TkFNJkKU78xDS7BVUDQ/fAJLqNHprRDMaWjv5eDJp7yJ5pK1FQeIsE4AKZQMsiJcA==}
+    engines: {node: '>=18.17.0'}
 
   stringify-entities@4.0.4:
     resolution: {integrity: sha512-IwfBptatlO+QCJUo19AqvrPNqlVMpW9YEL2LIVY+Rpv2qsjCGxaDLNRgeGsQWJhfItebuJhsGSLjaBbNSQ+ieg==}
@@ -2505,6 +2505,8 @@ snapshots:
   speakingurl@14.0.1: {}
 
   sprintf-js@1.0.3: {}
+
+  squidlet-lib@0.2.1: {}
 
   stringify-entities@4.0.4:
     dependencies:

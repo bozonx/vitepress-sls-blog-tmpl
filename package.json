@@ -1,6 +1,6 @@
 {
   "name": "vitepress-sls-blog-tmpl",
-  "version": "0.16.7",
+  "version": "0.16.8",
   "description": "Vitepress custom theme for blog SLS and others",
   "type": "module",
   "author": "(Ivan Kozyrin <ipkozyrin@gmail.com>)",
@@ -62,7 +62,7 @@
     "remark": "^15.0.1",
     "remark-rehype": "^11.1.2",
     "slug": "^11.0.0",
-    "squidlet-lib": "link:../../../../home/ivan/.local/share/pnpm/global/5/node_modules/squidlet-lib",
+    "squidlet-lib": "^0.2.1",
     "strip-markdown": "^6.0.0",
     "tailwindcss": "^4.1.14",
     "vitepress": "2.0.0-alpha.9",

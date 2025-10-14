@@ -2,8 +2,9 @@
 .cache
 */.vitepress/cache
 */.vitepress/dist
-/docs
+/dist
 
+credentials.json
 
 # Logs
 logs
